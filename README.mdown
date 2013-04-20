@@ -13,7 +13,7 @@ I borrowed the idea from [a blog post] [1] I found while setting up
 stored in a distinct place and accessed using a special alias for
 `git`:
 
-    alias home="git --work-tree=$HOME --git-dir=$HOME/.files.git"
+    alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
 Then I add a `.gitignore` file which ignores everything and forcefully
 add any files I want to use. No matter where I am on the command line,
@@ -25,9 +25,9 @@ symbolic links.
 Setup
 -----
 
-    alias home="git --work-tree=$HOME --git-dir=$HOME/.files.git"
-    home clone git@github.com:lilix/home.git .home.git
-    git submodule update --init
+    alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
+    home clone git@github.com:lilix/home.git
+    home submodule update --init
 
 
 Distribution via Fabric
