@@ -4,3 +4,108 @@
 [submodule ".autoenv"]
 	path = .autoenv
 	url = git://github.com/kennethreitz/autoenv.git
+[submodule ".vim/bundle/fugitive"]
+	path = .vim/bundle/fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule ".vim/bundle/abolish"]
+	path = .vim/bundle/abolish
+	url = git://github.com/tpope/vim-abolish
+[submodule ".vim/bundle/surround"]
+	path = .vim/bundle/surround
+	url = git://github.com/tpope/vim-surround
+[submodule ".vim/bundle/markdown"]
+	path = .vim/bundle/markdown
+	url = git://github.com/tpope/vim-markdown
+[submodule ".vim/bundle/gitv"]
+	path = .vim/bundle/gitv
+	url = git://github.com/gregsexton/gitv.git
+[submodule ".vim/bundle/easymotion"]
+	path = .vim/bundle/easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git
+[submodule ".vim/bundle/repeat"]
+	path = .vim/bundle/repeat
+	url = git://github.com/tpope/vim-repeat
+[submodule ".vim/bundle/visualstar"]
+	path = .vim/bundle/visualstar
+	url = git://github.com/thinca/vim-visualstar.git
+[submodule ".vim/bundle/css-color"]
+	path = .vim/bundle/css-color
+	url = git://github.com/ap/vim-css-color.git
+[submodule ".vim/bundle/ruby"]
+	path = .vim/bundle/ruby
+	url = git://github.com/vim-ruby/vim-ruby.git
+[submodule ".vim/bundle/supertab"]
+	path = .vim/bundle/supertab
+	url = git://github.com/tsaleh/vim-supertab.git
+[submodule ".vim/bundle/dbext.vim"]
+	path = .vim/bundle/dbext.vim
+	url = git://github.com/vim-scripts/dbext.vim.git
+[submodule ".vim/bundle/scriptease"]
+	path = .vim/bundle/scriptease
+	url = git://github.com/tpope/vim-scriptease.git
+[submodule ".vim/bundle/powerline"]
+	path = .vim/bundle/powerline
+	url = git://github.com/Lokaltog/vim-powerline.git
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule ".vim/bundle/tagbar"]
+	path = .vim/bundle/tagbar
+	url = git://github.com/majutsushi/tagbar
+[submodule ".vim/bundle/ctrlp"]
+	path = .vim/bundle/ctrlp
+	url = git://github.com/kien/ctrlp.vim.git
+[submodule ".vim/bundle/tabular"]
+	path = .vim/bundle/tabular
+	url = git://github.com/godlygeek/tabular.git
+[submodule ".vim/bundle/sensible"]
+	path = .vim/bundle/sensible
+	url = git://github.com/tpope/vim-sensible.git
+[submodule ".vim/bundle/pathogen"]
+	path = .vim/bundle/pathogen
+	url = git://github.com/tpope/vim-pathogen.git
+[submodule ".vim/bundle/git"]
+	path = .vim/bundle/git
+	url = git://github.com/tpope/vim-git.git
+[submodule ".vim/bundle/irblack"]
+	path = .vim/bundle/irblack
+	url = git://github.com/wgibbs/vim-irblack.git
+[submodule ".vim/bundle/colors-solarized"]
+	path = .vim/bundle/colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/bundle/characterize"]
+	path = .vim/bundle/characterize
+	url = git://github.com/tpope/vim-characterize.git
+[submodule ".vim/bundle/less"]
+	path = .vim/bundle/less
+	url = git://github.com/groenewege/vim-less.git
+[submodule ".vim/bundle/css3-syntax"]
+	path = .vim/bundle/css3-syntax
+	url = git://github.com/hail2u/vim-css3-syntax.git
+[submodule ".vim/bundle/ack"]
+	path = .vim/bundle/ack
+	url = git://github.com/mileszs/ack.vim.git
+[submodule ".vim/bundle/snipmate.vim"]
+	path = .vim/bundle/snipmate.vim
+	url = git://github.com/msanders/snipmate.vim.git
+[submodule ".vim/bundle/gundo.vim"]
+	path = .vim/bundle/gundo.vim
+	url = git://github.com/sjl/gundo.vim.git
+[submodule ".vim/bundle/nerdtree-tabs"]
+	path = .vim/bundle/nerdtree-tabs
+	url = git://github.com/jistr/vim-nerdtree-tabs.git
+[submodule ".vim/bundle/unimpaired"]
+	path = .vim/bundle/unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
+[submodule ".vim/bundle/commentary"]
+	path = .vim/bundle/commentary
+	url = git://github.com/tpope/vim-commentary.git
+[submodule ".vim/bundle/speeddating"]
+	path = .vim/bundle/speeddating
+	url = git://github.com/tpope/vim-speeddating.git
+[submodule ".vim/bundle/dispatch"]
+	path = .vim/bundle/dispatch
+	url = git://github.com/tpope/vim-dispatch.git

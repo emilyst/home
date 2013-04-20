@@ -1,0 +1,1 @@
+set formatoptions=tqron1

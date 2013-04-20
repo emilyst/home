@@ -1,0 +1,5 @@
+*
+!.gitignore
+!backup
+!swap
+!undo
