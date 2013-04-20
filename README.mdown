@@ -1,0 +1,5 @@
+Home
+====
+
+This README explains how I manage my configuration files (my "dot files"),
+namely how I distribute them to new machines.
