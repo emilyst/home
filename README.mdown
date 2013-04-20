@@ -22,10 +22,28 @@ keeps things relatively clean without needing a system for deploying
 symbolic links.
 
 
+Setup
+-----
+
+    alias home="git --work-tree=$HOME --git-dir=$HOME/.files.git"
+    home clone git@github.com:lilix/home.git .home.git
+    git submodule update --init
+
+
 Distribution via Fabric
 -----------------------
 
 TODO
+
+
+Submodules
+----------
+
+Submodules are a bit troublesome to add because of the custom `git`
+trickery. To add them, I need to do a normal clone into place using
+`git` and then `home submodule add -f <url> <path>`. After that, you
+can just `git submodule update --init` to register the submodule as
+normal and commit it.
 
 
 License
