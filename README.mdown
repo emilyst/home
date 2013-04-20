@@ -42,7 +42,7 @@ Submodules
 Submodules are a bit troublesome to add because of the custom `git`
 trickery. To add them, I need to do a normal clone into place using
 `git` and then `home submodule add -f <url> <path>`. After that, you
-can just `git submodule update --init` to register the submodule as
+can just `home submodule update --init` to register the submodule as
 normal and commit it.
 
 
