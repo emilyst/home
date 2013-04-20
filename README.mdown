@@ -25,9 +25,18 @@ symbolic links.
 Setup
 -----
 
+To set up in an existing home directory, a rather awkward workflow has
+to be used, due to the fact that `$GIT_DIR` and `$GIT_WORK_TREE` are
+set.
+
     alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
-    home clone git@github.com:lilix/home.git
+    home init
+    home remote add origin git@github.com:lilix/home.git
+    home pull origin master
     home submodule update --init
+
+Existing files that conflict with those in the repository will prevent a
+proper clone.
 
 
 Distribution via Fabric
