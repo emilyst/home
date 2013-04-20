@@ -1,0 +1,17 @@
+term "screen-256color"
+
+termcapinfo xterm "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+termcapinfo xterm-color "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+
+startup_message off
+
+# allow bold colors - necessary for some reason
+attrcolor b ".I"
+
+# erase background with current bg color
+defbce on
+
+# prefer audible bell in screen
+vbell off
+
+defutf8 on

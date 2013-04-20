@@ -1,0 +1,80 @@
+[user]
+    name = Emily Strickland
+    email = emily@zubon.org
+[giggle]
+    main-window-maximized = false
+    main-window-geometry = 1018x603+244+123
+    history-view-vpane-position = 211
+    main-window-view = HistoryView
+    file-view-vpane-position = 559
+[github]
+    token = cc5253a6e7bef4c95cf91fb230023d3a
+[core]
+    pager = less -FRXSM
+    editor = vim
+    preloadindex = true
+    excludesfile = ~/.gitignore_global
+[color]
+    ui = auto
+[log]
+    date = local
+[diff]
+    renameLimit = 0
+    renames = copy
+    color = auto
+        tool = vimdiff
+[rerere]
+    enabled = true
+[merge]
+    summary = true
+    log = true
+    tool = vimdiff
+[mergetool]
+    keepBackup = false
+    keepTemporaries = false
+    prompt = false
+[pager]
+    color = true
+[status]
+    color = auto
+    submodulesummary = true
+[alias]
+    st = status
+    ci = commit -a
+    co = checkout
+    lg = "log --pretty=format:'%C(yellow)%h%C(reset) %s %C(cyan)%cr%C(reset) %C(blue)%an%C(reset) %C(green)%d%C(reset)' --graph"
+    review = "log --stat=160,180 -p -w --patience --reverse -M -C -C -c"
+    upm = !sh -c 'git fetch --all && git rebase origin/master && git submodule update' -
+    plog = !git lg
+    d = difftool
+    ignored = ls-files --others -i --exclude-standard
+    ready = rebase -i @{u}
+    st = status -sb
+    purr = pull --rebase
+    standup = "!git log --since yesterday --author `git config user.email` --pretty=short"
+    switch = !legit switch \"$@\"
+    branches = !legit branches
+    sprout = !legit sprout \"$@\"
+    unpublish = !legit unpublish \"$@\"
+    harvest = !legit harvest \"$@\"
+    sync = !legit sync \"$@\"
+    publish = !legit publish \"$@\"
+    graft = !legit graft \"$@\"
+[push]
+    default = current
+[status]
+    submodulesummary = true
+[advice]
+    pushNonFastForward = false
+    statusHints = false
+    commitBeforeMerge = false
+    resolveConflict = false
+    implicitIdentity = false
+[commit]
+    template = ~/.gitcommittemplate
+[difftool]
+    prompt = false
+[http]
+    sslVerify = false
+[branch]
+	autosetuprebase = always

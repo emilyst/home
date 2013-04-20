@@ -1,0 +1,170 @@
+# useful aliases
+alias alert="echo -e '\a'"
+alias grrl='man'
+alias dt='date +%Y%m%d%H%M%S'
+alias move='rsync -avz --progress --stats'
+if [[ -e '/usr/bin/ack-grep' ]]; then alias ack='/usr/bin/ack-grep'; fi
+if [[ -e '/usr/bin/htop' ]]; then alias top='/usr/bin/htop'; fi
+
+alias vi='vim'
+
+# ls aliases
+if ls --version 2> /dev/null | grep -q 'coreutils'
+then
+  export GREP_OPTIONS='--color=auto'
+  alias ls="ls --color=auto --classify --block-size=\'1"
+fi
+alias lh='ls -Ad .*'
+alias l='ls -AlFht'
+alias ll='ls -AlF'
+alias la='ls -A'
+
+
+# rails stuff
+
+alias bo='bundle open'
+alias be='bundle exec'
+alias ber='bundle exec rspec --drb --format=doc'
+alias bec='bundle exec cucumber --drb'
+alias cuke='CUCUMBER_FORMAT=pretty bec'
+alias besr='bundle exec spork rspec'
+alias besc='bundle exec spork cucumber'
+alias rc='rails_command console'
+alias rs='rails_command server'
+
+alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# RENTRAK
+alias ick="ack -G '^(?!TEST|prototype)(.(?!TEST|prototype))*$' --type-set=img=.jpg,.gif,.svg,.png,.tif,.bmp --type-set=fo=.fo --noimg --nocss"
+alias uck="ack -G 'TEST'"
+
+# databases
+alias rentask='psql -h fmoviesdb.pdx -U rentask rentask_live'
+
+# promo databases
+alias promo_live='psql -h addb1.vw -p 5432 -U estrickland promo_live'
+alias promo_dev='psql promo_dev  -h mcdevdb1 -U promo -p 5433'
+#alias promo_dev='psql -h voddb7 -p 5432 -U estrickland promo_dev'
+
+# VOD databases
+alias vod_live='psql -h vodlivedb2 -p 5432 -U estrickland vod_live'
+alias vod_demo='psql -h vodlivedb2 -p 5432 -U estrickland vod_demo'
+alias vod_dev='psql -h voddevdb2 -p 5432 -U estrickland vod_dev'
+alias vod_test='rtk_database_login.pl -x -t $((RANDOM%8+1)) -s vod'
+
+# MC databases
+alias mc_live='psql -h mcdb1 -p 5432 -U estrickland mc_live'
+alias mc_dev='psql -h mcdevdb1 -p 5432 -U estrickland mc_dev'
+
+# ITV databases
+alias itv_live='psql -h mobiledb2.vw -p 5432 -U estrickland onlinevideo_live'
+alias itv_dev='psql -h mobiledevdb1 -p 5432 -U onlinevideo onlinevideo_dev'
+
+# mobile
+alias mobile_live='psql -h mobilelivedb1.vw -p 5432 -U estrickland mobile_live'
+
+# multi_screen
+alias multi_live='psql -h mobiledb2.vw -p 5432 -U estrickland multi_screen_live'
+
+# rentcorp
+alias rent_live='psql -h fmoviesdb.pdx -p 5432 -U estrickland rentcorp_live'
+
+# find a file with a pattern in name:
+function ff() { find . -type f -iname '*'$*'*' -ls ; }
+
+# find a directory with a pattern in name:
+function fd() { find . -type d -iname '*'$*'*' -ls ; }
+
+# find a file with pattern $1 in name and Execute $2 on it:
+function fe() { find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
+
+# find a pattern in a set of files and highlight them:
+# (needs a recent version of egrep, and somewhat slow/exhaustive)
+function fstr()
+{
+    OPTIND=1
+    local case=""
+    local usage="fstr: find string in files.
+Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
+    while getopts :it opt
+    do
+        case "$opt" in
+        i) case="-i " ;;
+        *) echo "$usage"; return;;
+        esac
+    done
+    shift $(( $OPTIND - 1 ))
+    if [ "$#" -lt 1 ]; then
+        echo "$usage"
+        return;
+    fi
+    find . -type f -name "${2:-*}" -print0 | \
+    xargs -0 zegrep --color=always -sn ${case} "$1" 2>&- | more
+
+}
+
+function cuttail() # cut last n lines in file, 10 by default
+{
+    nlines=${2:-10}
+    sed -n -e :a -e "1,${nlines}!{P;N;D;};N;ba" $1
+}
+
+function extract()
+{
+     if [ -f $1 ] ; then
+         case $1 in
+             *.tar.bz2)   tar xvjf $1     ;;
+             *.tar.gz)    tar xvzf $1     ;;
+             *.bz2)       bunzip2 $1      ;;
+             *.rar)       unrar x $1      ;;
+             *.gz)        gunzip $1       ;;
+             *.tar)       tar xvf $1      ;;
+             *.tbz2)      tar xvjf $1     ;;
+             *.tgz)       tar xvzf $1     ;;
+             *.zip)       unzip $1        ;;
+             *.Z)         uncompress $1   ;;
+             *.7z)        7z x $1         ;;
+             *)           echo "'$1' cannot be extracted via >extract<" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+alias x='extract'
+
+calc() { bc <<< "scale=4; $@"; } # quick bc frontend with 4 decimal precision
+title() { echo -ne "\e];$@\007"; } # change terminal/tab title
+manopt() { man $1 | sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;'; } # only show part of man page for specified option. Ex: manopt rm I
+
+# find 10 most common bash commands
+function cmds ()
+{
+	export IFS=$'\n'
+	export HISTORY_LENGTH=`history | wc -l`
+	export TOP_TEN_CMDS=`history | awk '{print $5}' | sort | uniq -c | sort -nr | head -n 10`
+	export START_DATE=`history | awk '{print $2}' | sort | uniq | sort -r | tail -n 1`
+	export END_DATE=`history | awk '{print $2}' | sort | uniq | sort | tail -n 1`
+	echo -e "\033[34mTop ten most used commands (Count, Command, % of history):\033[0m "
+	for CMD in $TOP_TEN_CMDS; do
+		export CMD_COUNT=`echo $CMD | awk '{print $1}'`
+		export CMD_PERCENT=`echo "scale=2; 100 * $CMD_COUNT / $HISTORY_LENGTH" | bc`
+		export SHORT_CMD=`echo $CMD | awk '{print $2}'`
+		if [ ${#SHORT_CMD} -ge 10 ]; then
+			echo -e "\033[31m * $CMD ($CMD_PERCENT%)\033[0m - Length ${#SHORT_CMD}, might want to form an alias for this."
+		else
+			echo " * $CMD ($CMD_PERCENT%)"
+		fi
+	done
+	echo -e "\033[34m$HISTORY_LENGTH lines in history from $START_DATE to $END_DATE.\033[0m"
+	unset IFS
+}
+
