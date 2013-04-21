@@ -78,3 +78,5 @@
     sslVerify = false
 [branch]
 	autosetuprebase = always
+[oh-my-zsh]
+	hide-status = 1
