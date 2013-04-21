@@ -34,6 +34,7 @@ set.
     git --work-tree=$HOME --git-dir=$HOME/.home.git remote add origin git@github.com:lilix/home.git
     git --work-tree=$HOME --git-dir=$HOME/.home.git pull origin master
     git --work-tree=$HOME --git-dir=$HOME/.home.git reset --hard
+    git --work-tree=$HOME --git-dir=$HOME/.home.git branch --track origin/master
     git --git-dir=$HOME/.home.git submodule update --init
 
 Afterwards, upon invoking a new shell, `home` can be used in place of
