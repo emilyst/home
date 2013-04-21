@@ -7,7 +7,7 @@ bindkey -e
 if [ -d $HOME/.oh-my-zsh ] ; then
     # Path to your oh-my-zsh configuration.
     export ZSH=$HOME/.oh-my-zsh
-    export ZSH_THEME="terminalparty"
+    export ZSH_THEME="ys"
     export DISABLE_AUTO_UPDATE="true"
     export COMPLETION_WAITING_DOTS="true"
 
