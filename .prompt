@@ -5,6 +5,7 @@
 # requires `git` plugin
 ########################################################################
 
+# adapted from fishy (not using currently)
 collapsed_pwd()
 {
     echo $(pwd | perl -pe "s|^$HOME|~|g; s|/([^/])[^/]*(?=/)|/\$1|g")
@@ -12,7 +13,7 @@ collapsed_pwd()
 
 # git_prompt_info()
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg_bold[white]%}[%{$fg_bold[magenta]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[white]%}]%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
 
 # parse_git_dirty()
 ZSH_THEME_GIT_PROMPT_DIRTY=""
@@ -35,8 +36,8 @@ ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE="⟵%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE="⇄%{$reset_color%}"
 
 # git_prompt_long_sha() and git_prompt_short_sha()
-ZSH_THEME_GIT_PROMPT_SHA_BEFORE=" %{$fg_bold[white]%}(%{$fg[yellow]%}"
-ZSH_THEME_GIT_PROMPT_SHA_AFTER="%{$fg_bold[white]%})%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_SHA_BEFORE="%{$fg[yellow]%}"
+ZSH_THEME_GIT_PROMPT_SHA_AFTER="%{$fg_bold[white]%}]%{$reset_color%}"
 
 ZSH_THEME_GIT_PROMPT_NOCACHE=1
 
@@ -46,4 +47,4 @@ ZSH_THEME_GIT_PROMPT_NOCACHE=1
 PROMPT='%{$FG[226]%}%(!.#.⚡)︎%{$reset_color%} '
 
 # right
-RPROMPT='%{$fg_bold[blue]%}%m%{$fg_bold[white]%}:%{$fg_bold[cyan]%}%30<...<%~%<<%u%{$reset_color%}$(git_prompt_info)$(git_prompt_status)$(git_prompt_short_sha)'
+RPROMPT='%{$fg_bold[blue]%}%m%{$fg_bold[white]%}:%{$fg_bold[cyan]%}%30<...<%~%<<%u%{$reset_color%}$(git_prompt_info)$(git_prompt_short_sha)$(git_prompt_status)'
