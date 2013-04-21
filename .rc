@@ -43,9 +43,9 @@ export HISTCONTROL=ignoredups:ignorespace
 [ -f $HOME/.aliases ] && source $HOME/.aliases
 
 # misc (if they exist)
-[ command -v git-helpers.sh >/dev/null 2>&1 ] && source git-helpers.sh
-[ command -v work.sh        >/dev/null 2>&1 ] && source work.sh
-[ command -v local.sh       >/dev/null 2>&1 ] && source local.sh
+command -v git-helpers.sh >/dev/null 2>&1 && source git-helpers.sh
+command -v work.sh        >/dev/null 2>&1 && source work.sh
+command -v local.sh       >/dev/null 2>&1 && source local.sh
 
 
 ########################################################################
