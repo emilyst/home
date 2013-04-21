@@ -29,14 +29,16 @@ To set up in an existing home directory, a rather awkward workflow has
 to be used, due to the fact that `$GIT_DIR` and `$GIT_WORK_TREE` are
 set.
 
-    alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
-    home init
-    home remote add origin git@github.com:lilix/home.git
-    home pull origin master
-    home submodule update --init
+    cd $HOME
+    git --work-tree=$HOME --git-dir=$HOME/.home.git init
+    git --work-tree=$HOME --git-dir=$HOME/.home.git remote add origin git@github.com:lilix/home.git
+    git --work-tree=$HOME --git-dir=$HOME/.home.git pull origin master
+    git --work-tree=$HOME --git-dir=$HOME/.home.git reset --hard
+    git --git-dir=$HOME/.home.git submodule update --init
 
-Existing files that conflict with those in the repository will prevent a
-proper clone.
+Afterwards, upon invoking a new shell, `home` can be used in place of
+that awkward `git` command above. This is very much a work in progress
+and may not actually work.
 
 
 Distribution via Fabric
