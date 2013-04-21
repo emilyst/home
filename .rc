@@ -1,0 +1,82 @@
+########################################################################
+# paths
+########################################################################
+
+[ -d /usr/local/sbin ]  && export PATH=/usr/local/sbin:"${PATH}"
+[ -d /usr/local/bin ]   && export PATH=/usr/local/bin:"${PATH}"
+[ -d $HOME/.local/bin ] && export PATH=$HOME/.local/bin:"${PATH}"
+[ -d $HOME/bin ]        && export PATH=$HOME/bin:"${PATH}"
+[ -d $HOME/.bin ]       && export PATH=$HOME/.bin:"${PATH}"
+
+
+########################################################################
+# environment
+########################################################################
+
+export LC_ALL="en_US.UTF-8"
+export TZ="America/Los_Angeles"
+export CLICOLOR=1
+export PAGER='less'
+export LESS='CMifSR'
+export LESSCHARSET='utf-8'
+export EDITOR=vim
+export GIT_PAGER=$PAGER
+
+
+########################################################################
+# history
+########################################################################
+
+export HISTFILE=$HOME/.histfile
+export HISTFILESIZE=50000000
+export HISTSIZE=500000
+export HISTIGNORE='l:ls:la:ll:cd:w'
+export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S - '
+export HISTCONTROL=ignoredups:ignorespace
+
+
+########################################################################
+# sources
+########################################################################
+
+# aliases
+[ -f $HOME/.aliases ] && source $HOME/.aliases
+
+# misc (if they exist)
+[ command -v git-helpers.sh >/dev/null 2>&1 ] && source git-helpers.sh
+[ command -v work.sh        >/dev/null 2>&1 ] && source work.sh
+[ command -v local.sh       >/dev/null 2>&1 ] && source local.sh
+
+
+########################################################################
+# Python
+########################################################################
+
+export PYTHONDONTWRITEBYTECODE=1
+[ command -v virtualenvwrapper.sh >/dev/null 2>&1 ] && source virtualenvwrapper.sh
+[ -d /usr/local/lib/python2.7/site-packages ] && export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
+
+########################################################################
+# Perlbrew
+########################################################################
+
+export PERLBREW_ROOT=/opt/perl
+
+
+########################################################################
+# Vim
+########################################################################
+
+[ -d ~/.cache/vim ] || mkdir -p ~/.cache/vim/{swap,backup,undo}
+
+
+########################################################################
+# SSH
+########################################################################
+
+umask 002
+if [ -d $HOME/.ssh ]; then
+    chmod 700 $HOME/.ssh 2> /dev/null
+    chmod 600 $HOME/.ssh/* 2> /dev/null
+fi
