@@ -19,18 +19,10 @@ alias l='ls -AlFht'
 alias ll='ls -AlF'
 alias la='ls -A'
 
-
-# rails stuff
-
-alias bo='bundle open'
-alias be='bundle exec'
-alias ber='bundle exec rspec --drb --format=doc'
-alias bec='bundle exec cucumber --drb'
-alias cuke='CUCUMBER_FORMAT=pretty bec'
-alias besr='bundle exec spork rspec'
-alias besc='bundle exec spork cucumber'
-alias rc='rails_command console'
-alias rs='rails_command server'
+# global aliases (zsh)
+alias -g L="| less" # Write L after a command to page through the output.
+alias -g TL='| tail -20'
+alias -g NUL="> /dev/null 2>&1"
 
 alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
 
@@ -109,7 +101,6 @@ Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
     fi
     find . -type f -name "${2:-*}" -print0 | \
     xargs -0 zegrep --color=always -sn ${case} "$1" 2>&- | more
-
 }
 
 function cuttail() # cut last n lines in file, 10 by default
@@ -118,53 +109,5 @@ function cuttail() # cut last n lines in file, 10 by default
     sed -n -e :a -e "1,${nlines}!{P;N;D;};N;ba" $1
 }
 
-function extract()
-{
-     if [ -f $1 ] ; then
-         case $1 in
-             *.tar.bz2)   tar xvjf $1     ;;
-             *.tar.gz)    tar xvzf $1     ;;
-             *.bz2)       bunzip2 $1      ;;
-             *.rar)       unrar x $1      ;;
-             *.gz)        gunzip $1       ;;
-             *.tar)       tar xvf $1      ;;
-             *.tbz2)      tar xvjf $1     ;;
-             *.tgz)       tar xvzf $1     ;;
-             *.zip)       unzip $1        ;;
-             *.Z)         uncompress $1   ;;
-             *.7z)        7z x $1         ;;
-             *)           echo "'$1' cannot be extracted via >extract<" ;;
-         esac
-     else
-         echo "'$1' is not a valid file"
-     fi
-}
-alias x='extract'
-
 calc() { bc <<< "scale=4; $@"; } # quick bc frontend with 4 decimal precision
 title() { echo -ne "\e];$@\007"; } # change terminal/tab title
-manopt() { man $1 | sed -n "/^\s\+-\+$2\b/,/^\s*$/p"|sed '$d;'; } # only show part of man page for specified option. Ex: manopt rm I
-
-# find 10 most common bash commands
-function cmds ()
-{
-	export IFS=$'\n'
-	export HISTORY_LENGTH=`history | wc -l`
-	export TOP_TEN_CMDS=`history | awk '{print $5}' | sort | uniq -c | sort -nr | head -n 10`
-	export START_DATE=`history | awk '{print $2}' | sort | uniq | sort -r | tail -n 1`
-	export END_DATE=`history | awk '{print $2}' | sort | uniq | sort | tail -n 1`
-	echo -e "\033[34mTop ten most used commands (Count, Command, % of history):\033[0m "
-	for CMD in $TOP_TEN_CMDS; do
-		export CMD_COUNT=`echo $CMD | awk '{print $1}'`
-		export CMD_PERCENT=`echo "scale=2; 100 * $CMD_COUNT / $HISTORY_LENGTH" | bc`
-		export SHORT_CMD=`echo $CMD | awk '{print $2}'`
-		if [ ${#SHORT_CMD} -ge 10 ]; then
-			echo -e "\033[31m * $CMD ($CMD_PERCENT%)\033[0m - Length ${#SHORT_CMD}, might want to form an alias for this."
-		else
-			echo " * $CMD ($CMD_PERCENT%)"
-		fi
-	done
-	echo -e "\033[34m$HISTORY_LENGTH lines in history from $START_DATE to $END_DATE.\033[0m"
-	unset IFS
-}
-
