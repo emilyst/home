@@ -10,8 +10,6 @@
 [github]
     token = cc5253a6e7bef4c95cf91fb230023d3a
 [core]
-    pager = less -FRXSM
-    editor = vim
     preloadindex = true
     excludesfile = ~/.gitignore_global
 [color]
@@ -22,7 +20,7 @@
     renameLimit = 0
     renames = copy
     color = auto
-        tool = vimdiff
+    tool = vimdiff
 [rerere]
     enabled = true
 [merge]
@@ -40,7 +38,8 @@
     submodulesummary = true
 [alias]
     st = status
-    ci = commit -a
+    ci = commit -av
+    c = commit -av
     co = checkout
     lg = "log --pretty=format:'%C(yellow)%h%C(reset) %s %C(cyan)%cr%C(reset) %C(blue)%an%C(reset) %C(green)%d%C(reset)' --graph"
     review = "log --stat=160,180 -p -w --patience --reverse -M -C -C -c"
@@ -77,4 +76,4 @@
 [http]
     sslVerify = false
 [branch]
-	autosetuprebase = always
+    autosetuprebase = always
