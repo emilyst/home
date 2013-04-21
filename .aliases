@@ -110,4 +110,4 @@ function cuttail() # cut last n lines in file, 10 by default
 }
 
 calc() { bc <<< "scale=4; $@"; } # quick bc frontend with 4 decimal precision
-title() { echo -ne "\e];$@\007"; } # change terminal/tab title
+#title() { echo -ne "\e];$@\007"; } # change terminal/tab title
