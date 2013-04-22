@@ -24,6 +24,7 @@ export GIT_PAGER=$PAGER
 
 export AUTO_CD=1
 export CD_ABLE_VARS=1
+export CORRECT=1
 
 ########################################################################
 # history
