@@ -22,6 +22,7 @@ export LESSCHARSET='utf-8'
 export EDITOR=vim
 export GIT_PAGER=$PAGER
 
+export AUTO_CD=1
 
 ########################################################################
 # history
