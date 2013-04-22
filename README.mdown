@@ -26,8 +26,20 @@ Setup
 -----
 
 To set up in an existing home directory, a rather awkward workflow has
-to be used, due to the fact that `$GIT_DIR` and `$GIT_WORK_TREE` are
-set.
+to be used. This is due to the fact that `git` is at best awkward
+about cloning into an occupied directory, and usually just won't do
+it. There are also issues with repositories under my home directory
+conflicting with this home one.
+
+Because of these issues, I employ a couple of strategies to work
+around them. First, I initialize a repo from scratch, pull from the
+GitHub remote, and reset hard on top of that state, also ensuring to
+track GitHub's `master` branch from that point. This addresses the
+problems with cloning. Second, all my commands set `$GIT_DIR` and
+`$GIT_WORK_TREE` on the command line, allowing me to manage things
+with a bare repo that's out of the way of the default, avoiding any
+conflict unless I specify that `$GIT_DIR`. Note that submodule
+commands have issues with setting `$GIT_WORK_TREE` when setting up.
 
     cd $HOME
     git --work-tree=$HOME --git-dir=$HOME/.home.git init
@@ -39,7 +51,7 @@ set.
 
 Afterwards, upon invoking a new shell, `home` can be used in place of
 that awkward `git` command above. This is very much a work in progress
-and may not actually work.
+and may not actually work smoothly.
 
 
 Distribution via Fabric
@@ -63,19 +75,19 @@ License
 
 Copyright (C) 2013 by Emily Strickland
 
-Permission is hereby granted, free of charge, to any person obtaining a
-copy of this software and associated documentation files (the
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including
 without limitation the rights to use, copy, modify, merge, publish,
 distribute, sublicense, and/or sell copies of the Software, and to
 permit persons to whom the Software is furnished to do so, subject to
 the following conditions:
 
-The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
