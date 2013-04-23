@@ -8,7 +8,7 @@
 [ -d ~/bin ]            && export PATH=~/bin:"${PATH}"
 [ -d ~/.bin ]           && export PATH=~/.bin:"${PATH}"
 
-[ -d ~/work ]           && cdpath=(. ~/work)
+cdpath=(. ~/work ~/scratch)
 
 
 ########################################################################
