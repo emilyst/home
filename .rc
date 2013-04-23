@@ -4,9 +4,11 @@
 
 [ -d /usr/local/sbin ]  && export PATH=/usr/local/sbin:"${PATH}"
 [ -d /usr/local/bin ]   && export PATH=/usr/local/bin:"${PATH}"
-[ -d $HOME/.local/bin ] && export PATH=$HOME/.local/bin:"${PATH}"
-[ -d $HOME/bin ]        && export PATH=$HOME/bin:"${PATH}"
-[ -d $HOME/.bin ]       && export PATH=$HOME/.bin:"${PATH}"
+[ -d ~/.local/bin ]     && export PATH=~/.local/bin:"${PATH}"
+[ -d ~/bin ]            && export PATH=~/bin:"${PATH}"
+[ -d ~/.bin ]           && export PATH=~/.bin:"${PATH}"
+
+[ -d ~/work ]           && export cdpath=(. ~/work)
 
 
 ########################################################################
@@ -22,17 +24,20 @@ export LESSCHARSET='utf-8'
 export EDITOR=vim
 export GIT_PAGER=$PAGER
 
+# zsh stuff
 export AUTO_CD=1
 export CD_ABLE_VARS=1
 export CORRECT=1
+
 
 ########################################################################
 # history
 ########################################################################
 
-export HISTFILE=$HOME/.histfile
+export HISTFILE=~/.history
 export HISTFILESIZE=50000000
-export HISTSIZE=500000
+export HISTSIZE=5000000
+export SAVEHIST=$HISTSIZE
 export HISTIGNORE='l:ls:la:ll:cd:w'
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S - '
 export HISTCONTROL=ignoredups:ignorespace
@@ -43,7 +48,7 @@ export HISTCONTROL=ignoredups:ignorespace
 ########################################################################
 
 # aliases
-[ -f $HOME/.aliases ] && source $HOME/.aliases
+[ -f ~/.aliases ] && source ~/.aliases
 
 # misc (if they exist)
 command -v git-helpers.sh >/dev/null 2>&1 && source git-helpers.sh
@@ -72,7 +77,7 @@ export PERLBREW_ROOT=/opt/perl
 ########################################################################
 
 umask 002
-if [ -d $HOME/.ssh ]; then
-    chmod 700 $HOME/.ssh 2> /dev/null
-    chmod 600 $HOME/.ssh/* 2> /dev/null
+if [ -d ~/.ssh ]; then
+    chmod 700 ~/.ssh 2> /dev/null
+    chmod 600 ~/.ssh/* 2> /dev/null
 fi
