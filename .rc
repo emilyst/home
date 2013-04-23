@@ -8,7 +8,7 @@
 [ -d ~/bin ]            && export PATH=~/bin:"${PATH}"
 [ -d ~/.bin ]           && export PATH=~/.bin:"${PATH}"
 
-[ -d ~/work ]           && export cdpath=(. ~/work)
+[ -d ~/work ]           && cdpath=(. ~/work)
 
 
 ########################################################################
@@ -28,6 +28,7 @@ export GIT_PAGER=$PAGER
 export AUTO_CD=1
 export CD_ABLE_VARS=1
 export CORRECT=1
+zstyle ':completion:*:descriptions' format %B%d%b # bold
 
 
 ########################################################################
