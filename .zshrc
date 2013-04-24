@@ -10,7 +10,7 @@ if [ -d $HOME/.oh-my-zsh ] ; then
     export DISABLE_AUTO_UPDATE="true"
     export COMPLETION_WAITING_DOTS="true"
 
-    plugins=(git autojump jira nyan pip osx ruby brew extract git-extras history perl rsync sublime ssh-agent pass python cpanm cp yum)
+    plugins=(git autojump jira nyan pip osx ruby brew extract git-extras history perl rsync sublime ssh-agent pass python cpanm cp yum virtualenv virtualenvwrapper)
 
     source $ZSH/oh-my-zsh.sh
 
