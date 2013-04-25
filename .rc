@@ -24,12 +24,6 @@ export LESSCHARSET='utf-8'
 export EDITOR=vim
 export GIT_PAGER=$PAGER
 
-# zsh stuff
-export AUTO_CD=1
-export CD_ABLE_VARS=1
-export CORRECT=1
-zstyle ':completion:*:descriptions' format %B%d%b # bold
-
 
 ########################################################################
 # history
