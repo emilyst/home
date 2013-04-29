@@ -1,0 +1,255 @@
+#! /usr/bin/env python2
+
+import argparse
+import datetime
+import errno
+import os
+import pwd
+import sys
+import textwrap
+
+
+STATUS_CLASSIFIERS = {
+    "planning" : "Development Status :: 1 - Planning",
+    "prealpha" : "Development Status :: 2 - Pre-Alpha",
+    "alpha" : "Development Status :: 3 - Alpha",
+    "beta" : "Development Status :: 4 - Beta",
+    "stable" : "Development Status :: 5 - Production/Stable",
+    "mature" : "Development Status :: 6 - Mature",
+    "inactive" : "Development Status :: 7 - Inactive",
+}
+VERSION_CLASSIFIERS = {
+    "py24" : "Programming Language :: Python :: 2.4",
+    "py25" : "Programming Language :: Python :: 2.5",
+    "py26" : "Programming Language :: Python :: 2.6",
+    "py27" : "Programming Language :: Python :: 2.7",
+    "py30" : "Programming Language :: Python :: 2.0",
+    "py31" : "Programming Language :: Python :: 3.1",
+    "py32" : "Programming Language :: Python :: 3.2",
+    "py33" : "Programming Language :: Python :: 3.3",
+    "py34" : "Programming Language :: Python :: 3.4",
+    "py35" : "Programming Language :: Python :: 3.5",
+}
+
+
+def dedented(*args, **kwargs):
+    return textwrap.dedent(*args, **kwargs).lstrip("\n")
+
+parser = argparse.ArgumentParser(
+    description="Oh how exciting! Create a new Python package.",
+)
+parser.add_argument("name", help="the package name")
+parser.add_argument(
+    "--single", "--no-package",
+    action="store_true",
+    dest="single_module",
+    help="create a single module rather than a package",
+)
+parser.add_argument(
+    "--author",
+    default=pwd.getpwuid(os.getuid()).pw_gecos,
+    help="the name of the package author",
+)
+parser.add_argument(
+    "--status",
+    choices=STATUS_CLASSIFIERS,
+    default="alpha",
+    help="the initial package development status",
+)
+parser.add_argument(
+    "--initial-version",
+    default="0.1.0-dev",
+    help="the initial package version",
+)
+parser.add_argument(
+    "--use-distutils",
+    action="store_true",
+    help="Use distutils instead of distribute.",
+)
+parser.add_argument(
+    "-s", "--supports",
+    action="append",
+    help="a version of Python supported by the package",
+    choices=sorted(VERSION_CLASSIFIERS) + ["jython", "pypy"],
+    default=["py26", "py27", "py32", "py33", "pypy"],
+)
+parser.add_argument(
+    "-t", "--test-runner",
+    help="the test runner to use",
+    choices=["pytest", "trial"],
+    default="trial",
+)
+
+arguments = parser.parse_args()
+name = arguments.name
+
+if arguments.use_distutils:
+    setup = "from distutils.core import setup"
+    packages = """["{0}", "{0}.tests"]""".format(name.lower())
+else:
+    setup = "from setuptools import find_packages, setup"
+    packages = "find_packages()"
+
+init_contents = """
+    __version__ = "{version}"
+""".format(version=arguments.initial_version)
+
+if arguments.single_module:
+    packages = "()"
+    modules = '["{name}"]'.format(name=name.lower())
+    tests = "tests.py"
+
+    additional_files = {
+        os.path.join(name, name.lower() + ".py") : init_contents,
+        os.path.join(name, "tests.py") : "",
+    }
+else:
+    modules = "()"
+    tests = name.lower()
+
+    additional_files = {
+        os.path.join(name, name.lower(), "__init__.py") : init_contents,
+        os.path.join(name, name.lower(), "tests", "__init__.py") : "",
+    }
+
+if arguments.test_runner == "pytest":
+    test_runner = "py.test"
+    test_deps = ["pytest"]
+elif arguments.test_runner == "trial":
+    test_runner = "trial"
+    test_deps = ["twisted"]
+
+
+def make_classifiers(supports=arguments.supports):
+    supports = sorted(supports)
+
+    yield STATUS_CLASSIFIERS[arguments.status]
+
+    for classifier in (
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+    ):
+        yield classifier
+
+    for version in supports:
+        if version in VERSION_CLASSIFIERS:
+            yield VERSION_CLASSIFIERS[version]
+
+    if any(
+        version.startswith("py2") or version in {"jython", "pypy"}
+        for version in supports
+    ):
+        yield "Programming Language :: Python :: 2"
+
+    if any(version.startswith("py3") for version in supports):
+        yield "Programming Language :: Python :: 3"
+
+    yield "Programming Language :: Python :: Implementation :: CPython"
+
+    if "pypy" in supports:
+        yield "Programming Language :: Python :: Implementation :: PyPy"
+
+    if "jython" in supports:
+        yield "Programming Language :: Python :: Implementation :: Jython"
+
+classifiers = "\n{0}\n        ".format(
+    ",\n".join('            "' + c + '"' for c in make_classifiers())
+)
+
+
+files = {
+    os.path.join(name, "README.mdown") : "",
+    os.path.join(name, "LICENSE") : """
+        Copyright (c) {now.year} {author}
+
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+
+        The above copyright notice and this permission notice shall be included in
+        all copies or substantial portions of the Software.
+
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+        THE SOFTWARE.
+        """.format(now=datetime.datetime.now(), author=arguments.author),
+
+    os.path.join(name, "setup.py") : """
+        import os
+
+        {setup_import}
+
+        from {name} import __version__
+
+
+        with open(os.path.join(os.path.dirname(__file__), "README.rst")) as readme:
+            long_description = readme.read()
+
+        classifiers = [{classifiers}]
+
+        setup(
+            name="{name}",
+            version=__version__,
+            packages={packages},
+            py_modules={modules},
+            author="{author}",
+            author_email="emily@zubon.org",
+            classifiers=classifiers,
+            description="",
+            license="MIT",
+            long_description=long_description,
+            url="",
+        )
+        """.format(
+            author=arguments.author,
+            name=name.lower(),
+            setup_import=setup,
+            classifiers=classifiers,
+            packages=packages,
+            modules=modules,
+        ),
+
+    os.path.join(name, "tox.ini") : """
+        [tox]
+        envlist = {supports}
+
+        [testenv]
+        commands =
+            {test_runner} {tests}
+            {{envpython}} -m doctest README.mdown
+
+        deps =
+            {test_deps}
+        """.format(
+            supports=", ".join(sorted(arguments.supports)),
+            test_runner=test_runner,
+            tests=tests,
+            test_deps="\n    ".join(test_deps),
+        ),
+}
+files.update(additional_files)
+
+
+try:
+    os.mkdir(name)
+except OSError as err:
+    if err.errno == errno.EEXIST:
+        sys.exit("{0} already exists!".format(name))
+
+for path, content in files.iteritems():
+    try:
+        os.makedirs(os.path.dirname(path))
+    except OSError as err:
+        if err.errno != errno.EEXIST:
+            raise
+
+    with open(path, "wb") as file:
+        file.write(dedented(content))
