@@ -12,6 +12,7 @@
 [core]
     preloadindex = true
     excludesfile = ~/.gitignore_global
+	editor = subl -n -w
 [color]
     ui = auto
 [log]

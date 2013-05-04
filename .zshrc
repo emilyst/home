@@ -51,7 +51,6 @@ if [ -d $HOME/.oh-my-zsh ] ; then
         ssh-agent         \
         sublime           \
         virtualenv        \
-        virtualenvwrapper \
         yum               \
     )
 
@@ -66,17 +65,16 @@ fi
 # vi-mode (based on oh-my-zsh plugin)
 ########################################################################
 
-# Ensures that $terminfo values are valid and updates editor information when
-# the keymap changes.
-function zle-keymap-select zle-line-init {
-  # change cursor shape in iTerm2
-  case $KEYMAP in
-    vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
-    viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
-  esac
+function zle-keymap-select zle-line-init
+{
+    # change cursor shape in iTerm2
+    case $KEYMAP in
+        vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
+        viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
+    esac
 
-  zle reset-prompt
-  zle -R
+    zle reset-prompt
+    zle -R
 }
 
 function zle-line-finish
