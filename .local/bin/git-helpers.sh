@@ -57,6 +57,12 @@ function glp()
   git $pager log --patch $reverse "$@" $default_range
 }
 
+function git_is_inside_work_tree()
+{
+    git rev-parse --is-inside-work-tree &> /dev/null
+    return $?
+}
+
 # git log file
 function glf()
 {
