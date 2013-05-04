@@ -68,24 +68,20 @@ fi
 
 # Ensures that $terminfo values are valid and updates editor information when
 # the keymap changes.
-function zle-keymap-select zle-line-init zle-line-finish {
-  # The terminal must be in application mode when ZLE is active for $terminfo
-  # values to be valid.
-  if (( ${+terminfo[smkx]} )); then
-    printf '%s' ${terminfo[smkx]}
-  fi
-  if (( ${+terminfo[rmkx]} )); then
-    printf '%s' ${terminfo[rmkx]}
-  fi
-
+function zle-keymap-select zle-line-init {
   # change cursor shape in iTerm2
   case $KEYMAP in
-    vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # bar cursor
+    vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
     viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
   esac
 
   zle reset-prompt
   zle -R
+}
+
+function zle-line-finish
+{
+    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
 }
 
 zle -N zle-line-init
