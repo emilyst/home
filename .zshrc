@@ -1,13 +1,12 @@
-# zsh-specific
+########################################################################
+# general
+########################################################################
 
 setopt appendhistory autocd beep extendedglob nomatch notify AUTO_PUSHD
-bindkey -e
 
 AUTO_CD=1
 CD_ABLE_VARS=1
 CORRECT=1
-
-bindkey "^N" insert-last-word
 
 # # Show contents of directory after cd-ing into it
 # chpwd() {
@@ -17,7 +16,9 @@ bindkey "^N" insert-last-word
 zstyle ':completion:*:descriptions' format %B%d%b # bold
 
 
+########################################################################
 # oh-my-zsh
+########################################################################
 
 if [ -d $HOME/.oh-my-zsh ] ; then
     # Path to your oh-my-zsh configuration.
@@ -61,11 +62,71 @@ if [ -d $HOME/.oh-my-zsh ] ; then
 fi
 
 
-# setup-specific
+########################################################################
+# vi-mode (based on oh-my-zsh plugin)
+########################################################################
+
+# Ensures that $terminfo values are valid and updates editor information when
+# the keymap changes.
+function zle-keymap-select zle-line-init zle-line-finish {
+  # The terminal must be in application mode when ZLE is active for $terminfo
+  # values to be valid.
+  if (( ${+terminfo[smkx]} )); then
+    printf '%s' ${terminfo[smkx]}
+  fi
+  if (( ${+terminfo[rmkx]} )); then
+    printf '%s' ${terminfo[rmkx]}
+  fi
+
+  # change cursor shape in iTerm2
+  case $KEYMAP in
+    vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # bar cursor
+    viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
+  esac
+
+  zle reset-prompt
+  zle -R
+}
+
+zle -N zle-line-init
+zle -N zle-line-finish
+zle -N zle-keymap-select
+
+bindkey -v
+
+# 10ms for key sequences
+KEYTIMEOUT=1
+
+# bindings
+
+# move through history
+bindkey -a 'gg' beginning-of-buffer-or-history
+bindkey -a 'g~' vi-oper-swap-case
+bindkey -a G end-of-buffer-or-history
+
+# search history ('f'ind)
+bindkey "^F" history-incremental-search-backward
+
+# undo/redo
+bindkey -a u undo
+bindkey -a '^R' redo
+bindkey '^?' backward-delete-char
+bindkey '^H' backward-delete-char
+
+# get cursor position (like vi)
+bindkey '^G' what-cursor-position
+
+
+########################################################################
+# home git setup
+#########################################################################
 
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
 
+#########################################################################
 # shell-agnostic
+#########################################################################
 
 [ -s $HOME/.rc ] && source $HOME/.rc
+

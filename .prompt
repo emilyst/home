@@ -1,15 +1,6 @@
 ########################################################################
-# lilix.zsh-theme
-#
-# borrows elements from sorin, juanghurtado, and fishy
-# requires `git` plugin
+# git (depends on oh-my-zsh git plugin)
 ########################################################################
-
-# adapted from fishy (not using currently)
-collapsed_pwd()
-{
-    echo $(pwd | perl -pe "s|^$HOME|~|g; s|/([^/])[^/]*(?=/)|/\$1|g")
-}
 
 # git_prompt_info()
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg_bold[white]%}[%{$fg_bold[magenta]%}"
@@ -43,8 +34,26 @@ ZSH_THEME_GIT_PROMPT_NOCACHE=1
 
 #local return_status="%{$fg[red]%}%(?..⏎)%{$reset_color%}"
 
+
+########################################################################
+# vi-mode (depends on vi-mode oh-my-zsh plugin)
+########################################################################
+
+# I just change the color of my prompt to indicate the mode
+MODE_INDICATOR="%{$fg_bold[cyan]%}"
+#MODE_INDICATOR="%{$fg_bold[red]%}<%{$fg[red]%}<<%{$reset_color%}"
+
+function vi_mode_prompt_info() {
+    echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
+}
+
+
+########################################################################
+# prompt
+########################################################################
+
 # left
-PROMPT='%{$FG[226]%}%(!.#.⚡)︎%{$reset_color%} '
+PROMPT='%{$FG[226]%}$(vi_mode_prompt_info)%(!.#.⚡)︎%{$reset_color%} '
 
 # right
 RPROMPT='%{$fg_bold[blue]%}%m%{$fg_bold[white]%}:%{$fg_bold[cyan]%}%30<...<%~%<<%u%{$reset_color%}$(git_prompt_info)$(git_prompt_short_sha)$(git_prompt_status)'
