@@ -109,3 +109,6 @@
 [submodule ".vim/bundle/dispatch"]
 	path = .vim/bundle/dispatch
 	url = git://github.com/tpope/vim-dispatch.git
+[submodule ".vim/bundle/learnvim"]
+	path = .vim/bundle/learnvim
+	url = git://github.com/dahu/LearnVim.git
