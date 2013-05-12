@@ -1,5 +1,5 @@
-# look for and use zsh if it's around and not already running
-if [ -z "$ZSH_VERSION" ];
+# Try to use zsh for interactive shells
+if [[ $- == *i* && -z "$ZSH_VERSION" ]]
 then
     [ -f $HOME/.local/bin/zsh ] && exec $HOME/.local/bin/zsh -l
     [ -f /usr/local/bin/zsh ] && exec /usr/local/bin/zsh -l
