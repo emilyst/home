@@ -65,50 +65,50 @@ fi
 # vi-mode (based on oh-my-zsh plugin)
 ########################################################################
 
-function zle-keymap-select zle-line-init
-{
-    # change cursor shape in iTerm2
-    case $KEYMAP in
-        vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
-        viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
-    esac
+# function zle-keymap-select zle-line-init
+# {
+#     # change cursor shape in iTerm2
+#     case $KEYMAP in
+#         vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
+#         viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
+#     esac
 
-    zle reset-prompt
-    zle -R
-}
+#     zle reset-prompt
+#     zle -R
+# }
 
-function zle-line-finish
-{
-    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
-}
+# function zle-line-finish
+# {
+#     print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
+# }
 
-zle -N zle-line-init
-zle -N zle-line-finish
-zle -N zle-keymap-select
+# zle -N zle-line-init
+# zle -N zle-line-finish
+# zle -N zle-keymap-select
 
-bindkey -v
+# bindkey -v
 
-# 10ms for key sequences
-KEYTIMEOUT=1
+# # 10ms for key sequences
+# KEYTIMEOUT=1
 
-# bindings
+# # bindings
 
-# move through history
-bindkey -a 'gg' beginning-of-buffer-or-history
-bindkey -a 'g~' vi-oper-swap-case
-bindkey -a G end-of-buffer-or-history
+# # move through history
+# bindkey -a 'gg' beginning-of-buffer-or-history
+# bindkey -a 'g~' vi-oper-swap-case
+# bindkey -a G end-of-buffer-or-history
 
-# search history ('f'ind)
-bindkey "^F" history-incremental-search-backward
+# # search history ('f'ind)
+# bindkey "^F" history-incremental-search-backward
 
-# undo/redo
-bindkey -a u undo
-bindkey -a '^R' redo
-bindkey '^?' backward-delete-char
-bindkey '^H' backward-delete-char
+# # undo/redo
+# bindkey -a u undo
+# bindkey -a '^R' redo
+# bindkey '^?' backward-delete-char
+# bindkey '^H' backward-delete-char
 
-# get cursor position (like vi)
-bindkey '^G' what-cursor-position
+# # get cursor position (like vi)
+# bindkey '^G' what-cursor-position
 
 
 ########################################################################
