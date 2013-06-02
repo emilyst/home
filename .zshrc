@@ -15,6 +15,8 @@ CORRECT=1
 
 zstyle ':completion:*:descriptions' format %B%d%b # bold
 
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+
 
 ########################################################################
 # oh-my-zsh
