@@ -61,9 +61,10 @@ export PYTHONDONTWRITEBYTECODE=1
 
 
 ########################################################################
-# Perlbrew
+# Perl
 ########################################################################
 
+export PERL5LIB=$HOME/.local/lib/perl5:$PERL5LIB
 export PERLBREW_ROOT=/opt/perl
 
 
