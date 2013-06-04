@@ -1,0 +1,256 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+# This script is adapted from Rentrak's table-ize.pl utility script
+# which incorporates its RTK::Util::Text::Tableize module. The core
+# functionality of that module needed has been integrated below. It is
+# mean to be used to align textual tables made out of, for example,
+# array refs. See included sample.txt for some examples.
+
+# I've stripped out object-oriented features and testing. While those
+# would be good practice, the leanness of this script allows me to
+# invoke it very quickly so that it can be used in real time while I
+# type.
+
+print tableize(<>);
+
+sub tableize
+{
+    my (@lines) = @_;
+    my ($pre, $text, $post) = separate_out_text_to_tableize(@lines);
+
+    my @column_widths;
+    my @column_sprintf_alignments;
+    my $is_first_line = 1;
+
+    my @table;
+    foreach my $line ($text =~ /^(.*)$/gm) {
+        if (is_blank($line)) {
+            push @table, [];
+            next;
+        }
+
+        if (is_comment($line)) {
+            push @table, [ $line ];
+            next;
+        }
+
+        my @columns = get_columns($line);
+        @columns = consolidate_columns(@columns);
+
+        foreach my $i (0 .. $#columns) {
+            $column_widths[$i] = max($column_widths[$i], length($columns[$i]));
+            $column_sprintf_alignments[$i] = '' if ! defined $column_sprintf_alignments[$i];
+            $column_sprintf_alignments[$i] = '-'
+                unless $is_first_line || (!$ENV{RTK_TABLEIZE_LEFT} && is_numeric($columns[$i]));
+        }
+        $is_first_line = 0;
+
+        push @table, \@columns;
+    }
+
+    my $table_ized = '';
+    foreach my $row (@table) {
+        my @columns = @$row;
+        for my $i (0..$#columns) {
+            my $column_text       = $columns[$i];
+            my $width             = $column_widths[$i];
+            my $sprintf_alignment = $column_sprintf_alignments[$i];
+
+            $table_ized .= sprintf("%${sprintf_alignment}${width}s", $column_text);
+            $table_ized .= ' '  unless is_blank($column_text);
+        }
+        $table_ized =~ s/\s*$// if @columns;
+        $table_ized .= "\n";
+    }
+
+    return "$pre$table_ized$post";
+}
+
+sub consolidate_columns
+{
+    my (@columns) = @_;
+
+    my $qw_delim = '';
+    my $curr_idx = 0;
+    while($curr_idx < $#columns) {
+        my $next_idx = $curr_idx + 1;
+        my $curr = $columns[$curr_idx];
+        my $next = $columns[$next_idx];
+
+        if($curr =~ /^qw(.)$/) {
+            $qw_delim = end_delimiter($1);
+        }
+
+        if($next eq $qw_delim) {
+            $qw_delim = '';
+            $columns[$curr_idx] .= splice(@columns, $next_idx, 1);
+        }
+        elsif(should_join_with_next_column(\@columns, $curr_idx)) {
+            $columns[$curr_idx] .= splice(@columns, $next_idx, 1);
+        }
+        else {
+            $curr_idx++
+        }
+    }
+
+    return @columns;
+}
+
+sub should_join_with_next_column
+{
+    my ($columns, $idx) = @_;
+
+    my $curr = $columns->[$idx];
+    my $next = $columns->[$idx+1];
+    return unless defined $next;
+
+    return 1 if $next =~ /^[)>\]}]? , $/x;
+    return 1 if $curr =~ /^qw.$/;
+    return 0;
+}
+
+sub get_columns
+{
+    my ($line) = @_;
+    my ($initial_whitespace) = ($line =~ /^(\s*)/);
+    return ($initial_whitespace, split_line($line));
+}
+
+sub split_line
+{
+    my ($line) = @_;
+
+    my $separators = qr{ qw\(| => | [,\[\]{}] }x;
+    my $arithmetic_chars = qr{ [- \d * / () + ] }x;
+
+    my @columns;
+    while (! is_blank($line)) {
+        $line = trim($line);
+        if(my $col = strip_quote_like($line)) {
+            push @columns, $col;
+        }
+        elsif ($line =~ s/^\\\(my\s*\$(\w+)\s*\)//) {
+            push @columns, "\\(my \$$1)";
+        }
+        elsif ($line =~ s/^((['"]).*?\2)//) {
+            push @columns, $1;
+        }
+        elsif ($line =~ s/^($separators)//) {
+            push @columns, $1;
+        }
+        elsif ($line =~ s/^($arithmetic_chars(?: |$arithmetic_chars)+?)($separators|$)/$2/) {
+            push @columns, $1;
+        }
+        elsif ($line =~ s/^\s*(\w+\([^\)]*\))//) {
+            push @columns, $1;
+        }
+        elsif ($line =~ s/^(\S+?)(,|\s+$separators|\s|$)/$2/) {
+            push @columns, $1;
+        }
+        else {
+            die "Don't know what to make of '$line'";
+        }
+    }
+    return map { trim($_) } @columns;
+}
+
+sub end_delimiter
+{
+    my ($delimiter) = @_;
+
+    my %braces = (
+        '['     => ']',
+        '{'     => '}',
+        '<'     => '>',
+        '('     => ')',
+    );
+
+    return $braces{$delimiter} || $delimiter;
+}
+
+sub strip_quote_like
+{
+    my $quote_likes = sprintf "(?:%s)", join('|', qw(qq qx qr q));
+    $quote_likes = qr/$quote_likes/;
+
+    return unless $_[0] =~ /^(${quote_likes})\s*(\W)/;
+    my $quote_like = $1;
+    my $delim = $2;
+
+    my $right_delim = end_delimiter($delim);
+    return unless $_[0] =~ s{^(
+                               \Q$quote_like\E
+                               \Q${delim}\E
+                               .*?
+                               \Q${right_delim}\E
+                              )
+                            }{}x;
+    return $1;
+}
+
+sub separate_out_text_to_tableize
+{
+    my (@lines) = @_;
+
+    @lines = split /(?<=\n)/m, join '', @lines; # handle multi-line "lines" in @lines
+
+    my(@initial_outdented_lines, @indented_lines, @final_outdented_lines);
+    my $prev_indent = 0;
+
+    while (defined(my $line = shift @lines)  ) {
+        $line =~ s/[^\S\n]+$//g;
+        my $indent = $line =~ m/^([^\S\n]+)/  ? length $1  : 0;
+
+        if (($line !~ m/\S/)  ||  ($indent == $prev_indent)  ) {
+            push @indented_lines, $line;
+        } elsif ($indent > $prev_indent) {
+            push @initial_outdented_lines, @indented_lines;
+            @indented_lines = $line;
+            $prev_indent = $indent;
+        } else {
+            push @final_outdented_lines, $line, @lines;
+            last;
+        }
+    }
+    return map { join('', @$_) } \@initial_outdented_lines, \@indented_lines, \@final_outdented_lines;
+}
+
+sub trim
+{
+    my ($string) = @_;
+    return '' unless defined $string;
+    $string =~ s/\s*$//;
+    $string =~ s/^\s*//;
+    return $string;
+}
+
+sub is_blank
+{
+    my ($string) = @_;
+    return 1 if ! defined($string);
+    return 1 if $string =~ /^\s*$/;
+    return 0;
+}
+
+sub is_numeric
+{
+    my ($string) = @_;
+    return $string =~ /^[-\d_.]*,?$/;
+}
+
+sub is_comment
+{
+    my ($string) = @_;
+    return 0 if ! defined($string);
+    return 1 if $string =~ /^\s*#.*$/;
+    return 0;
+}
+
+sub max
+{
+    my ($a, $b) = @_;
+    return ($a || 0) > ($b || 0) ? $a : $b;
+}
