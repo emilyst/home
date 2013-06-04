@@ -1,0 +1,56 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use Data::Dumper;
+
+# This script is adapted from Rentrak's transpose utility function.
+
+# The original function assumed input would be an array of array or hash
+# references. This creates difficulties in porting to a script. For the
+# meantime, this script assumes it will be operating line-by-line on a
+# very specific set of properly formatted lines of Perl code containing
+# either a set of hash references or a set of array references, one each
+# to a line.
+
+print transpose(<>);
+
+sub transpose
+{
+    my (@lines) = @_;
+    return () unless defined $lines[0];
+
+    my @arrayrefs = ();
+    eval { @arrayrefs = map { eval $_ } @lines; };
+    die qq/
+        Could not eval lines -- is the input actually an array of
+        Perl array (reference)s?
+    / if $@;
+
+    my $num_elements = scalar @{ $arrayrefs[0] };
+    foreach my $array (@arrayrefs) {
+        scalar @{ $array } == $num_elements or die "Different array sizes";
+    }
+
+    my @transposed;
+    foreach my $i (0 .. ($num_elements - 1)) {
+        push @transposed, [ map { $_->[$i] } @arrayrefs ];
+    }
+
+    return map { stringify_arrayref($_) } @transposed;
+}
+
+sub stringify_arrayref
+{
+    my ($arrayref) = @_;
+    my $num_elements = scalar @{ $arrayref };
+
+    my $string = "[ ";
+    for my $elem (@$arrayref) {
+        $string .= "'$elem', ";
+    }
+    $string .= " ],\n";
+
+    return $string;
+
+}
