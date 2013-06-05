@@ -48,7 +48,7 @@ sub tableize
         }
         $is_first_line = 0;
 
-        push @table, \@columns;
+        push @table, [ @columns ];
     }
 
     my $table_ized = '';

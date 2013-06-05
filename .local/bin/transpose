@@ -2,7 +2,8 @@
 
 use strict;
 use warnings;
-use Data::Dumper;
+use 5.8.0;
+use Data::Printer colored => 1;
 
 # This script is adapted from Rentrak's transpose utility function with
 # generous adaptations from tableize. It operates string-wise instead of
@@ -23,14 +24,16 @@ sub transpose
     my $num_columns_in_first_line;
 
     # break up and tokenize into a logical table
-    for my $line (@text_lines) {
+    for my $i (0 .. ((scalar @text_lines) - 1)) {
+        my $line = $text_lines[$i];
+
         if (is_blank($line)) {
-            push @table, [];
+            $table[$i] = [];
             next;
         }
 
         if (is_comment($line)) {
-            push @table, [ $line ];
+            $table[$i] = [ $line ];
             next;
         }
 
@@ -46,34 +49,34 @@ sub transpose
         }
 
         $is_first_line = 0;
-        push @table, \@columns;
+        $table[$i] = \@columns;
     }
+
+    p @table;
+    die;
 
     # reassemble logical table transposed
-    my $transposed = '';
+    # XXX move lines which we want to ignore first
+    my @transposed;
     for my $i (0 .. ($num_columns_in_first_line - 1)) {
-        # if (is_blank($line)) {
-        #     $transposed .= "$line\n";
-        #     next;
-        # }
 
-        # if (is_comment($line)) {
-        #     $transposed .= "$line\n";
-        #     next;
-        # }
+        # XXX first column is always initial whitespace
+        # XXX is_blank
+        # XXX is_comment
+        # XXX end_delimiter?
 
         my @columns = map { $_->[$i] } @table;
+        p @columns;
 
-        for my $column (@columns) {
-            $transposed .= $column;
-            $transposed .= ' '  unless is_blank($column);
-        }
+        # for my $column (@columns) {
+        #     $transposed .= $column;
+        #     $transposed .= ' '  unless is_blank($column);
+        # }
 
-        $transposed =~ s/\s*$// if @columns;
-        $transposed .= "\n";
+        # $transposed =~ s/\s*$// if @columns;
     }
 
-    return "$pre$transposed$post";
+    return "$pre" . join("\n", @transposed) . $post;
 }
 
 sub consolidate_columns
@@ -86,6 +89,17 @@ sub consolidate_columns
         my $next_idx = $curr_idx + 1;
         my $curr = $columns[$curr_idx];
         my $next = $columns[$next_idx];
+
+        # Fat commas (arrows) usually won't make sense when transposed;
+        # Perl treats commas and fat commas mostly identically, so I
+        # convert them here to commas and make sure the key is wrapped
+        # in quotes if it isn't (keys are implicitly strings in Perl).
+        if ($next =~ /^=>$/) {
+            $columns[$next_idx] =~ s/^=>$/,/;
+            if ($curr !~ /^("|'|$)(.+)/) {
+                $columns[$curr_idx] =~ s/(.+)/'$1'/;
+            }
+        }
 
         if($curr =~ /^qw(.)$/) {
             $qw_delim = end_delimiter($1);
