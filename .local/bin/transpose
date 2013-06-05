@@ -4,53 +4,260 @@ use strict;
 use warnings;
 use Data::Dumper;
 
-# This script is adapted from Rentrak's transpose utility function.
+# This script is adapted from Rentrak's transpose utility function with
+# generous adaptations from tableize. It operates string-wise instead of
+# array/hash-wise as the original did.
 
-# The original function assumed input would be an array of array or hash
-# references. This creates difficulties in porting to a script. For the
-# meantime, this script assumes it will be operating line-by-line on a
-# very specific set of properly formatted lines of Perl code containing
-# either a set of hash references or a set of array references, one each
-# to a line.
+# XXX: WIP
 
 print transpose(<>);
 
 sub transpose
 {
     my (@lines) = @_;
-    return () unless defined $lines[0];
+    my ($pre, $text, $post) = separate_out_text(@lines);
 
-    my @arrayrefs = ();
-    eval { @arrayrefs = map { eval $_ } @lines; };
-    die qq/
-        Could not eval lines -- is the input actually an array of
-        Perl array (reference)s?
-    / if $@;
+    my @table;
+    my @text_lines = ($text =~ /^(.*)$/gm);
+    my $is_first_line = 1;
+    my $num_columns_in_first_line;
 
-    my $num_elements = scalar @{ $arrayrefs[0] };
-    foreach my $array (@arrayrefs) {
-        scalar @{ $array } == $num_elements or die "Different array sizes";
+    # break up and tokenize into a logical table
+    for my $line (@text_lines) {
+        if (is_blank($line)) {
+            push @table, [];
+            next;
+        }
+
+        if (is_comment($line)) {
+            push @table, [ $line ];
+            next;
+        }
+
+        my @columns = get_columns($line);
+        @columns = consolidate_columns(@columns);
+
+        # verify number of columns is consistent throughout
+        if ($is_first_line) {
+            $num_columns_in_first_line = scalar @columns;
+        } else {
+            scalar @columns == $num_columns_in_first_line
+                or die "Different columns in line: $line";
+        }
+
+        $is_first_line = 0;
+        push @table, \@columns;
     }
 
-    my @transposed;
-    foreach my $i (0 .. ($num_elements - 1)) {
-        push @transposed, [ map { $_->[$i] } @arrayrefs ];
+    # reassemble logical table transposed
+    my $transposed = '';
+    for my $i (0 .. ($num_columns_in_first_line - 1)) {
+        # if (is_blank($line)) {
+        #     $transposed .= "$line\n";
+        #     next;
+        # }
+
+        # if (is_comment($line)) {
+        #     $transposed .= "$line\n";
+        #     next;
+        # }
+
+        my @columns = map { $_->[$i] } @table;
+
+        for my $column (@columns) {
+            $transposed .= $column;
+            $transposed .= ' '  unless is_blank($column);
+        }
+
+        $transposed =~ s/\s*$// if @columns;
+        $transposed .= "\n";
     }
 
-    return map { stringify_arrayref($_) } @transposed;
+    return "$pre$transposed$post";
 }
 
-sub stringify_arrayref
+sub consolidate_columns
 {
-    my ($arrayref) = @_;
-    my $num_elements = scalar @{ $arrayref };
+    my (@columns) = @_;
 
-    my $string = "[ ";
-    for my $elem (@$arrayref) {
-        $string .= "'$elem', ";
+    my $qw_delim = '';
+    my $curr_idx = 0;
+    while($curr_idx < $#columns) {
+        my $next_idx = $curr_idx + 1;
+        my $curr = $columns[$curr_idx];
+        my $next = $columns[$next_idx];
+
+        if($curr =~ /^qw(.)$/) {
+            $qw_delim = end_delimiter($1);
+        }
+
+        if($next eq $qw_delim) {
+            $qw_delim = '';
+            $columns[$curr_idx] .= splice(@columns, $next_idx, 1);
+        }
+        elsif(should_join_with_next_column(\@columns, $curr_idx)) {
+            $columns[$curr_idx] .= splice(@columns, $next_idx, 1);
+        }
+        else {
+            $curr_idx++
+        }
     }
-    $string .= " ],\n";
 
+    return @columns;
+}
+
+sub should_join_with_next_column
+{
+    my ($columns, $idx) = @_;
+
+    my $curr = $columns->[$idx];
+    my $next = $columns->[$idx+1];
+    return unless defined $next;
+
+    return 1 if $next =~ /^[)>\]}]? , $/x;
+    return 1 if $curr =~ /^qw.$/;
+    return 0;
+}
+
+sub get_columns
+{
+    my ($line) = @_;
+    my ($initial_whitespace) = ($line =~ /^(\s*)/);
+    return ($initial_whitespace, split_line($line));
+}
+
+sub split_line
+{
+    my ($line) = @_;
+
+    my $separators = qr{ qw\(| => | [,\[\]{}] }x;
+    my $arithmetic_chars = qr{ [- \d * / () + ] }x;
+
+    my @columns;
+    while (! is_blank($line)) {
+        $line = trim($line);
+        if(my $col = strip_quote_like($line)) {
+            push @columns, $col;
+        }
+        elsif ($line =~ s/^\\\(my\s*\$(\w+)\s*\)//) {
+            push @columns, "\\(my \$$1)";
+        }
+        elsif ($line =~ s/^((['"]).*?\2)//) {
+            push @columns, $1;
+        }
+        elsif ($line =~ s/^($separators)//) {
+            push @columns, $1;
+        }
+        elsif ($line =~ s/^($arithmetic_chars(?: |$arithmetic_chars)+?)($separators|$)/$2/) {
+            push @columns, $1;
+        }
+        elsif ($line =~ s/^\s*(\w+\([^\)]*\))//) {
+            push @columns, $1;
+        }
+        elsif ($line =~ s/^(\S+?)(,|\s+$separators|\s|$)/$2/) {
+            push @columns, $1;
+        }
+        else {
+            die "Don't know what to make of '$line'";
+        }
+    }
+    return map { trim($_) } @columns;
+}
+
+sub end_delimiter
+{
+    my ($delimiter) = @_;
+
+    my %braces = (
+        '['     => ']',
+        '{'     => '}',
+        '<'     => '>',
+        '('     => ')',
+    );
+
+    return $braces{$delimiter} || $delimiter;
+}
+
+sub strip_quote_like
+{
+    my $quote_likes = sprintf "(?:%s)", join('|', qw(qq qx qr q));
+    $quote_likes = qr/$quote_likes/;
+
+    return unless $_[0] =~ /^(${quote_likes})\s*(\W)/;
+    my $quote_like = $1;
+    my $delim = $2;
+
+    my $right_delim = end_delimiter($delim);
+    return unless $_[0] =~ s{^(
+                               \Q$quote_like\E
+                               \Q${delim}\E
+                               .*?
+                               \Q${right_delim}\E
+                              )
+                            }{}x;
+    return $1;
+}
+
+sub separate_out_text
+{
+    my (@lines) = @_;
+
+    @lines = split /(?<=\n)/m, join '', @lines; # handle multi-line "lines" in @lines
+
+    my(@initial_outdented_lines, @indented_lines, @final_outdented_lines);
+    my $prev_indent = 0;
+
+    while (defined(my $line = shift @lines)  ) {
+        $line =~ s/[^\S\n]+$//g;
+        my $indent = $line =~ m/^([^\S\n]+)/  ? length $1  : 0;
+
+        if (($line !~ m/\S/)  ||  ($indent == $prev_indent)  ) {
+            push @indented_lines, $line;
+        } elsif ($indent > $prev_indent) {
+            push @initial_outdented_lines, @indented_lines;
+            @indented_lines = $line;
+            $prev_indent = $indent;
+        } else {
+            push @final_outdented_lines, $line, @lines;
+            last;
+        }
+    }
+    return map { join('', @$_) } \@initial_outdented_lines, \@indented_lines, \@final_outdented_lines;
+}
+
+sub trim
+{
+    my ($string) = @_;
+    return '' unless defined $string;
+    $string =~ s/\s*$//;
+    $string =~ s/^\s*//;
     return $string;
+}
 
+sub is_blank
+{
+    my ($string) = @_;
+    return 1 if ! defined($string);
+    return 1 if $string =~ /^\s*$/;
+    return 0;
+}
+
+sub is_numeric
+{
+    my ($string) = @_;
+    return $string =~ /^[-\d_.]*,?$/;
+}
+
+sub is_comment
+{
+    my ($string) = @_;
+    return 0 if ! defined($string);
+    return 1 if $string =~ /^\s*#.*$/;
+    return 0;
+}
+
+sub max
+{
+    my ($a, $b) = @_;
+    return ($a || 0) > ($b || 0) ? $a : $b;
 }
