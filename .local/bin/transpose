@@ -3,80 +3,79 @@
 use strict;
 use warnings;
 use 5.8.0;
-use Data::Printer colored => 1;
 
 # This script is adapted from Rentrak's transpose utility function with
 # generous adaptations from tableize. It operates string-wise instead of
 # array/hash-wise as the original did.
-
-# XXX: WIP
 
 print transpose(<>);
 
 sub transpose
 {
     my (@lines) = @_;
-    my ($pre, $text, $post) = separate_out_text(@lines);
 
-    my @table;
-    my @text_lines = ($text =~ /^(.*)$/gm);
-    my $is_first_line = 1;
+    my @original_table;
     my $num_columns_in_first_line;
+    my $delimiter;
+    my $leading_whitespace_on_first_line;
 
-    # break up and tokenize into a logical table
-    for my $i (0 .. ((scalar @text_lines) - 1)) {
-        my $line = $text_lines[$i];
+    # Split and tokenize
+    for my $i (0 .. ((scalar @lines) - 1)) {
+        my $line = $lines[$i];
 
-        if (is_blank($line)) {
-            $table[$i] = [];
-            next;
-        }
-
-        if (is_comment($line)) {
-            $table[$i] = [ $line ];
-            next;
-        }
+        # YAGNI
+        die "Refusing to transpose a comment at $1!" if is_blank($line);
+        die "Refusing to transpose a blank line at $1!" if is_comment($line);
 
         my @columns = get_columns($line);
         @columns = consolidate_columns(@columns);
 
-        # verify number of columns is consistent throughout
-        if ($is_first_line) {
-            $num_columns_in_first_line = scalar @columns;
+        # Mixed up delimiters probably indicates bad input anyways; we
+        # expect a pretty rigidly well formed table.
+        if ($delimiter) {
+            die "Inconsistent table delimiter found on line $i!"
+                unless $delimiter eq $columns[1];
         } else {
-            scalar @columns == $num_columns_in_first_line
-                or die "Different columns in line: $line";
+            die "Unrecognized or non-existent delimiter begins line $i!"
+                unless $columns[1] =~ /^[[{(<]$/;
+            $delimiter = $columns[1];
+        }
+        my $expected_end_delimiter = end_delimiter($delimiter);
+        die "Unrecognized or non-existent table delimiter ends line $i!"
+            unless $columns[-1] =~ /^$expected_end_delimiter,$/;
+
+        # Ditto for indentation levels.
+        if ($leading_whitespace_on_first_line) {
+            die "Inconsistent indentation level found on line $i!"
+                unless ($columns[0] || '') eq $leading_whitespace_on_first_line;
+        } else {
+            $leading_whitespace_on_first_line = $columns[0] || '';
         }
 
-        $is_first_line = 0;
-        $table[$i] = \@columns;
+        # Ditto.
+        if ($num_columns_in_first_line) {
+            scalar @columns == $num_columns_in_first_line
+                or die "Cannot transpose: Different number of columns at line $i";
+        } else {
+            $num_columns_in_first_line = scalar @columns;
+        }
+
+        $original_table[$i] = [ @columns ];
     }
 
-    p @table;
-    die;
-
-    # reassemble logical table transposed
-    # XXX move lines which we want to ignore first
-    my @transposed;
-    for my $i (0 .. ($num_columns_in_first_line - 1)) {
-
-        # XXX first column is always initial whitespace
-        # XXX is_blank
-        # XXX is_comment
-        # XXX end_delimiter?
-
-        my @columns = map { $_->[$i] } @table;
-        p @columns;
-
-        # for my $column (@columns) {
-        #     $transposed .= $column;
-        #     $transposed .= ' '  unless is_blank($column);
-        # }
-
-        # $transposed =~ s/\s*$// if @columns;
+    # Reassemble logical transposed table
+    my @transposed_table;
+    for my $i (2 .. ($num_columns_in_first_line - 2)) {
+        push @transposed_table, [ map { $_->[$i] } @original_table ];
     }
 
-    return "$pre" . join("\n", @transposed) . $post;
+    my $string = '';
+    for my $row (@transposed_table) {
+        $string .= $leading_whitespace_on_first_line;
+        $string .= join(" ", $delimiter, @$row, end_delimiter($delimiter) . "," );
+        $string .= "\n";
+    }
+    return $string;
 }
 
 sub consolidate_columns
@@ -96,9 +95,7 @@ sub consolidate_columns
         # in quotes if it isn't (keys are implicitly strings in Perl).
         if ($next =~ /^=>$/) {
             $columns[$next_idx] =~ s/^=>$/,/;
-            if ($curr !~ /^("|'|$)(.+)/) {
-                $columns[$curr_idx] =~ s/(.+)/'$1'/;
-            }
+            $columns[$curr_idx] = "'" . (strip_quote_like($curr) || $curr) . "'";
         }
 
         if($curr =~ /^qw(.)$/) {
@@ -212,33 +209,6 @@ sub strip_quote_like
     return $1;
 }
 
-sub separate_out_text
-{
-    my (@lines) = @_;
-
-    @lines = split /(?<=\n)/m, join '', @lines; # handle multi-line "lines" in @lines
-
-    my(@initial_outdented_lines, @indented_lines, @final_outdented_lines);
-    my $prev_indent = 0;
-
-    while (defined(my $line = shift @lines)  ) {
-        $line =~ s/[^\S\n]+$//g;
-        my $indent = $line =~ m/^([^\S\n]+)/  ? length $1  : 0;
-
-        if (($line !~ m/\S/)  ||  ($indent == $prev_indent)  ) {
-            push @indented_lines, $line;
-        } elsif ($indent > $prev_indent) {
-            push @initial_outdented_lines, @indented_lines;
-            @indented_lines = $line;
-            $prev_indent = $indent;
-        } else {
-            push @final_outdented_lines, $line, @lines;
-            last;
-        }
-    }
-    return map { join('', @$_) } \@initial_outdented_lines, \@indented_lines, \@final_outdented_lines;
-}
-
 sub trim
 {
     my ($string) = @_;
@@ -256,22 +226,10 @@ sub is_blank
     return 0;
 }
 
-sub is_numeric
-{
-    my ($string) = @_;
-    return $string =~ /^[-\d_.]*,?$/;
-}
-
 sub is_comment
 {
     my ($string) = @_;
     return 0 if ! defined($string);
     return 1 if $string =~ /^\s*#.*$/;
     return 0;
-}
-
-sub max
-{
-    my ($a, $b) = @_;
-    return ($a || 0) > ($b || 0) ? $a : $b;
 }
