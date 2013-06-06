@@ -19,11 +19,9 @@ sub transpose
     my $delimiter;
     my $leading_whitespace_on_first_line;
 
-    # Split and tokenize
     for my $i (0 .. ((scalar @lines) - 1)) {
         my $line = $lines[$i];
 
-        # YAGNI
         die "Refusing to transpose a comment at $1!" if is_blank($line);
         die "Refusing to transpose a blank line at $1!" if is_comment($line);
 
@@ -31,7 +29,7 @@ sub transpose
         @columns = consolidate_columns(@columns);
 
         # Mixed up delimiters probably indicates bad input anyways; we
-        # expect a pretty rigidly well formed table.
+        # expect a pretty rigidly well formed table
         if ($delimiter) {
             die "Inconsistent table delimiter found on line $i!"
                 unless $delimiter eq $columns[1];
@@ -44,7 +42,7 @@ sub transpose
         die "Unrecognized or non-existent table delimiter ends line $i!"
             unless $columns[-1] =~ /^$expected_end_delimiter,$/;
 
-        # Ditto for indentation levels.
+        # Ditto for indentation levels
         if ($leading_whitespace_on_first_line) {
             die "Inconsistent indentation level found on line $i!"
                 unless ($columns[0] || '') eq $leading_whitespace_on_first_line;
@@ -52,7 +50,7 @@ sub transpose
             $leading_whitespace_on_first_line = $columns[0] || '';
         }
 
-        # Ditto.
+        # Ditto
         if ($num_columns_in_first_line) {
             scalar @columns == $num_columns_in_first_line
                 or die "Cannot transpose: Different number of columns at line $i";
@@ -63,12 +61,13 @@ sub transpose
         $original_table[$i] = [ @columns ];
     }
 
-    # Reassemble logical transposed table
+    # Skip leading whitespace and delimiters in transposed table for now
     my @transposed_table;
     for my $i (2 .. ($num_columns_in_first_line - 2)) {
         push @transposed_table, [ map { $_->[$i] } @original_table ];
     }
 
+    # Add back in leading whitespace, delimiters, and ending comma
     my $string = '';
     for my $row (@transposed_table) {
         $string .= $leading_whitespace_on_first_line;
