@@ -22,8 +22,8 @@ sub transpose
     for my $i (0 .. ((scalar @lines) - 1)) {
         my $line = $lines[$i];
 
-        die "Refusing to transpose a comment at $1!" if is_blank($line);
-        die "Refusing to transpose a blank line at $1!" if is_comment($line);
+        die "Refusing to transpose a blank line at $1!" if is_blank($line);
+        die "Refusing to transpose a comment at $1!" if is_comment($line);
 
         my @columns = get_columns($line);
         @columns = consolidate_columns(@columns);
