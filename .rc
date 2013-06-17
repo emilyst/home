@@ -66,6 +66,7 @@ export PYTHONDONTWRITEBYTECODE=1
 
 export PERL5LIB=$HOME/.local/lib/perl5:$PERL5LIB
 export PERLBREW_ROOT=/opt/perl
+[ -e /opt/perl/etc/bashrc ] && source /opt/perl/etc/bashrc
 
 
 ########################################################################
