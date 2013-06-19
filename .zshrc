@@ -19,6 +19,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 autoload -U zmv
 
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 
 ########################################################################
 # oh-my-zsh

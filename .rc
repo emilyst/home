@@ -64,9 +64,11 @@ export PYTHONDONTWRITEBYTECODE=1
 # Perl
 ########################################################################
 
+export PERL_MB_OPT="--install_base $HOME/.local"
+export PERL_MM_OPT="INSTALL_BASE=$HOME/.local"
 export PERL5LIB=$HOME/.local/lib/perl5:$PERL5LIB
-export PERLBREW_ROOT=/opt/perl
-[ -e /opt/perl/etc/bashrc ] && source /opt/perl/etc/bashrc
+#export PERLBREW_ROOT=/opt/perl
+#[ -e /opt/perl/etc/bashrc ] && source /opt/perl/etc/bashrc
 
 
 ########################################################################
