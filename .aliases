@@ -19,11 +19,6 @@ alias l='ls -AlFht'
 alias ll='ls -AlF'
 alias la='ls -A'
 
-# global aliases (zsh)
-alias -g L="| less" # Write L after a command to page through the output.
-alias -g TL='| tail -20'
-alias -g NUL="> /dev/null 2>&1"
-
 alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
 
 # enable color support of ls and also add handy aliases

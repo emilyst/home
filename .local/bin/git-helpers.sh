@@ -88,7 +88,7 @@ function up()
 }
 
 # git update
-function gup
+function gupdate
 {
   # subshell for `set -e` and `trap`
   (
