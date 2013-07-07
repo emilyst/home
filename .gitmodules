@@ -109,3 +109,6 @@
 [submodule ".vim/bundle/dispatch"]
 	path = .vim/bundle/dispatch
 	url = git://github.com/tpope/vim-dispatch.git
+[submodule ".vim/bundle/base16"]
+	path = .vim/bundle/base16
+	url = git@github.com:chriskempson/base16-vim.git
