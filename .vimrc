@@ -91,7 +91,7 @@ set updatetime=500
 syntax enable
 set t_Co=256
 set background=dark
-colorscheme base16-chalk
+colorscheme tomorrow-night-eighties
 set cursorline
 "set cursorcolumn
 "if exists('+colorcolumn') | set colorcolumn+=80,120 | endif
