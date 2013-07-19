@@ -81,6 +81,7 @@ set winminheight=0
 if exists('+relativenumber')
     set relativenumber
 endif
+set number
 set updatetime=500
 
 
@@ -532,10 +533,10 @@ if has('autocmd')
         endif
     endfunction
 
-    augroup SyncNERDTree
-        au!
-        au BufEnter * call rc:syncTree()
-    augroup END
+    " augroup SyncNERDTree
+    "     au!
+    "     au BufEnter * call rc:syncTree()
+    " augroup END
 endif
 
 
