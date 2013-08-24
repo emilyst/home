@@ -2,7 +2,7 @@
 \set AUTOCOMMIT off
 \set ON_ERROR_ROLLBACK on
 \set ON_ERROR_STOP on
-\set HISTFILE ~/.psql_history- :HOST - :DBNAME
+\set HISTFILE ~/.psql_history- :DBNAME
 \set HISTSIZE 500000
 \timing
 \encoding unicode
