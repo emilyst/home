@@ -43,7 +43,7 @@ commands have issues with setting `$GIT_WORK_TREE` when setting up.
 
     cd $HOME
     git --work-tree=$HOME --git-dir=$HOME/.home.git init
-    git --work-tree=$HOME --git-dir=$HOME/.home.git remote add origin git@github.com:lilix/home.git
+    git --work-tree=$HOME --git-dir=$HOME/.home.git remote add origin git@code.emily.st:emilyst/home.git
     git --work-tree=$HOME --git-dir=$HOME/.home.git pull origin master
     git --work-tree=$HOME --git-dir=$HOME/.home.git reset --hard
     git --work-tree=$HOME --git-dir=$HOME/.home.git branch --track origin/master
