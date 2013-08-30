@@ -49,7 +49,6 @@ if [ -d $HOME/.oh-my-zsh ] ; then
         nyan                    \
         osx                     \
         pass                    \
-        perl                    \
         pip                     \
         python                  \
         rsync                   \
