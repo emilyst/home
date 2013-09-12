@@ -75,13 +75,37 @@ function fd() { find . -type d -iname '*'$*'*' -ls ; }
 function fe() { find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
 
 # find a pattern in a set of files and highlight them:
-# (needs a recent version of egrep, and somewhat slow/exhaustive)
-function fstr()
+# (needs a recent version of egrep)
+function fs()
 {
     OPTIND=1
     local case=""
-    local usage="fstr: find string in files.
-Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
+    local usage="fs: find string in files.
+Usage: fs [-i] \"pattern\" [\"filename pattern\"] "
+    while getopts :it opt
+    do
+        case "$opt" in
+        i) case="-i " ;;
+        *) echo "$usage"; return;;
+        esac
+    done
+    shift $(( $OPTIND - 1 ))
+    if [ "$#" -lt 1 ]; then
+        echo "$usage"
+        return;
+    fi
+    find . -type f -name "${2:-*}" -print0 | \
+    xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more
+}
+
+# find a pattern in a set of files and highlight them:
+# (needs a recent version of zegrep)
+function zfs()
+{
+    OPTIND=1
+    local case=""
+    local usage="zfs: find string in files.
+Usage: zfs [-i] \"pattern\" [\"filename pattern\"] "
     while getopts :it opt
     do
         case "$opt" in
