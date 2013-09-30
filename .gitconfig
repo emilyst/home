@@ -1,6 +1,6 @@
 [user]
-    name = Emily Strickland
-    email = code@emily.st
+	name = Emily Strickland
+	email = code@emily.st
 [giggle]
     main-window-maximized = false
     main-window-geometry = 1018x603+244+123
@@ -28,7 +28,7 @@
     log = true
     tool = vimdiff
 [mergetool]
-    keepBackup = false
+	keepBackup = true
     keepTemporaries = false
     prompt = false
 [pager]
