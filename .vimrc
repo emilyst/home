@@ -492,7 +492,7 @@ noremap <F7>  :NERDTreeTabsToggle<CR>
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-let NERDTreeHijackNetrw=1
+let NERDTreeHijackNetrw=0
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 let NERDTreeChDirMode=0
