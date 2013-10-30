@@ -42,7 +42,7 @@
     c = commit -av
     co = checkout
     lg = "log --pretty=format:'%C(yellow)%h%C(reset) %s %C(cyan)%cr%C(reset) %C(blue)%an%C(reset) %C(green)%d%C(reset)' --graph"
-    review = "log --stat=80 --dirstat -p -w --patience --reverse --find-copies-harder -M -C -C -c"
+    review = "log --stat=80 --dirstat -p -w --patience --reverse --find-copies-harder --decorate -M -C -C -c"
     upm = !sh -c 'git fetch --all && git rebase origin/master && git submodule update' -
     plog = !git lg
     d = difftool
