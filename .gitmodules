@@ -112,3 +112,6 @@
 [submodule ".vim/bundle/base16"]
 	path = .vim/bundle/base16
 	url = git@github.com:chriskempson/base16-vim.git
+[submodule ".vim/bundle/golang"]
+	path = .vim/bundle/golang
+	url = git@github.com:jnwhiteh/vim-golang.git
