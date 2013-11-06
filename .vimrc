@@ -165,7 +165,9 @@ set virtualedit+=block,onemore
 " clipboard
 " ==============================================================================
 
-set clipboard=unnamed,unnamedplus
+if has('clipboard') || has('xterm_clipboard')
+    set clipboard+=unnamed,unnamedplus
+endif
 
 
 " ==============================================================================
