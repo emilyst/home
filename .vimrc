@@ -442,6 +442,11 @@ if has('autocmd')
             "\     silent! setl relativenumber   |
             "\ endif
     "augroup END
+
+    augroup EditCrontabOnOSX
+        au!
+        au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+    augroup END
 endif
 
 
