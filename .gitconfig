@@ -12,6 +12,7 @@
 [core]
     preloadindex = true
     excludesfile = ~/.gitignore_global
+	trustctime = false
 [color]
     ui = auto
 [log]
