@@ -677,6 +677,9 @@ let g:SuperTabDefaultCompletionType = "context"
 " Ack settings
 " ==============================================================================
 
-nnoremap <leader>a :Ack 
-nnoremap <leader>* :Ack! '\b<c-r><c-w>\b'<cr> " ack word under cursor
+if executable('ag')
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
+
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
+nnoremap <leader>* :Ack! '\b<c-r><c-w>\b'<cr> " ack word under cursor
