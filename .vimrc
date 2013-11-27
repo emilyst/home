@@ -92,7 +92,7 @@ set updatetime=500
 syntax enable
 set t_Co=256
 set background=dark
-colorscheme tomorrow-night-eighties
+colorscheme solarized
 set cursorline
 "set cursorcolumn
 "if exists('+colorcolumn') | set colorcolumn+=80,120 | endif
@@ -140,11 +140,11 @@ endif
 " custom highlights
 " ==============================================================================
 
-hi LineNr       ctermbg=234 guibg=#222222 cterm=bold gui=bold
-hi SignColumn   ctermbg=234 guibg=#222222 cterm=bold gui=bold
-hi CursorLineNr ctermbg=234 guibg=#222222 cterm=bold gui=bold
-hi CursorLine   ctermbg=234 guibg=#222222
-hi ColorColumn  ctermbg=234 guibg=#222222
+hi LineNr       cterm=bold gui=bold " ctermbg=234 guibg=#222222
+hi SignColumn   cterm=bold gui=bold " ctermbg=234 guibg=#222222
+hi CursorLineNr cterm=bold gui=bold " ctermbg=234 guibg=#222222
+" hi CursorLine   ctermbg=234 guibg=#222222
+" hi ColorColumn  ctermbg=234 guibg=#222222
 
 
 " ==============================================================================
