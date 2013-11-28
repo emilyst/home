@@ -91,7 +91,7 @@ set updatetime=500
 
 syntax enable
 set t_Co=256
-set background=dark
+set background=light
 colorscheme solarized
 set cursorline
 "set cursorcolumn
@@ -140,9 +140,9 @@ endif
 " custom highlights
 " ==============================================================================
 
-hi LineNr       cterm=bold gui=bold " ctermbg=234 guibg=#222222
-hi SignColumn   cterm=bold gui=bold " ctermbg=234 guibg=#222222
-hi CursorLineNr cterm=bold gui=bold " ctermbg=234 guibg=#222222
+" hi LineNr       cterm=bold gui=bold " ctermbg=234 guibg=#222222
+" hi SignColumn   cterm=bold gui=bold " ctermbg=234 guibg=#222222
+" hi CursorLineNr cterm=bold gui=bold " ctermbg=234 guibg=#222222
 " hi CursorLine   ctermbg=234 guibg=#222222
 " hi ColorColumn  ctermbg=234 guibg=#222222
 
@@ -683,3 +683,31 @@ endif
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 nnoremap <leader>* :Ack! '\b<c-r><c-w>\b'<cr> " ack word under cursor
+
+
+" ==============================================================================
+" Airline settings
+" ==============================================================================
+
+" let g:airline_left_sep='|'
+" let g:airline_right_sep='|'
+
+let g:airline_theme='solarized'
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = ''
+" let g:airline_left_sep = '▶'
+let g:airline_right_sep = ''
+" let g:airline_right_sep = '◀'
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+" let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
