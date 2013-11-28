@@ -658,7 +658,7 @@ let syntastic_python_flake8_args='--ignore=E501'
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 
-let g:syntastic_mode_map = { 'mode': 'active',
+let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': ['perl'] }
 
@@ -718,6 +718,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 " ==============================================================================
 
 hi clear SignColumn
+hi link SignColumn Normal
 let g:gitgutter_sign_column_always = 1
-let g:gitgutter_highlight_lines = 1
-let g:gitgutter_enabled = 0
+" let g:gitgutter_highlight_lines = 1
+let g:gitgutter_enabled = 1
