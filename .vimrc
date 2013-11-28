@@ -711,3 +711,13 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'Þ'
 " let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+
+
+" ==============================================================================
+" Gitgutter settings
+" ==============================================================================
+
+hi clear SignColumn
+let g:gitgutter_sign_column_always = 1
+let g:gitgutter_highlight_lines = 1
+let g:gitgutter_enabled = 0
