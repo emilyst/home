@@ -46,9 +46,6 @@
 [submodule ".vim/bundle/scriptease"]
 	path = .vim/bundle/scriptease
 	url = git://github.com/tpope/vim-scriptease.git
-[submodule ".vim/bundle/powerline"]
-	path = .vim/bundle/powerline
-	url = git://github.com/Lokaltog/vim-powerline.git
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
