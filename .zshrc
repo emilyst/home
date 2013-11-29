@@ -45,6 +45,7 @@ if [ -d $HOME/.oh-my-zsh ] ; then
         git-flow                \
         github                  \
         history                 \
+        history-substring-search\
         jira                    \
         nyan                    \
         osx                     \
@@ -71,8 +72,8 @@ fi
 # keyboard
 ########################################################################
 
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
+# bindkey "^[[A" history-beginning-search-backward
+# bindkey "^[[B" history-beginning-search-forward
 
 
 ########################################################################
