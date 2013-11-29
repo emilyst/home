@@ -119,7 +119,7 @@ set fillchars+=vert:\
 " gui
 if has('gui_running')
     set linespace=1
-    set guifont=Inconsolata:h13
+    set guifont=Inconsolata:h11
     if has('transparency')
         set transparency=0
     endif
@@ -540,10 +540,10 @@ if has('autocmd')
         endif
     endfunction
 
-    " augroup SyncNERDTree
-    "     au!
-    "     au BufEnter * call rc:syncTree()
-    " augroup END
+    augroup SyncNERDTree
+        au!
+        au BufEnter * call rc:syncTree()
+    augroup END
 endif
 
 
@@ -559,7 +559,7 @@ noremap <leader>T :CtrlPTag<CR>
 noremap <leader>t :CtrlPBufTagAll<CR>
 noremap <leader>m :CtrlPMRUFiles<CR>
 
-let g:ctrlp_regexp = 1
+" let g:ctrlp_regexp = 1
 let g:ctrlp_max_files = 50000
 
 if executable('ag')
