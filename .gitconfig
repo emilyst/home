@@ -1,18 +1,16 @@
 [user]
-	name = Emily Strickland
-	email = code@emily.st
+    name = Emily Strickland
+    email = code@emily.st
 [giggle]
     main-window-maximized = false
     main-window-geometry = 1018x603+244+123
     history-view-vpane-position = 211
     main-window-view = HistoryView
     file-view-vpane-position = 559
-[github]
-    token = cc5253a6e7bef4c95cf91fb230023d3a
 [core]
     preloadindex = true
     excludesfile = ~/.gitignore_global
-	trustctime = false
+    trustctime = false
 [color]
     ui = auto
 [log]
@@ -29,7 +27,7 @@
     log = true
     tool = vimdiff
 [mergetool]
-	keepBackup = true
+    keepBackup = true
     keepTemporaries = false
     prompt = false
 [pager]
