@@ -91,7 +91,7 @@ set updatetime=500
 
 syntax enable
 set t_Co=256
-set background=light
+set background=dark
 colorscheme solarized
 set cursorline
 "set cursorcolumn
@@ -482,7 +482,7 @@ function! s:SwitchToFromTest() " {{{
     endif
 
     silent! execute "e " . filename
-    echo "Switched to " . filename
+    " echo "Switched to " . filename
 endfunction " }}}
 command! SwitchToFromTest call s:SwitchToFromTest()
 nnoremap <leader>gt :SwitchToFromTest<CR>
@@ -690,7 +690,7 @@ if executable('ag')
 endif
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
-nnoremap <leader>* :Ack! '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 
 
 " ==============================================================================
@@ -726,7 +726,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 " ==============================================================================
 
 hi clear SignColumn
-hi link SignColumn Normal
+hi link SignColumn LineNr
 let g:gitgutter_sign_column_always = 1
 " let g:gitgutter_highlight_lines = 1
 let g:gitgutter_enabled = 1
