@@ -12,7 +12,7 @@ set nocompatible
 
 " settings
 
-let g:pathogen_disabled = ['bufexplorer', 'neocomplcache',]
+let g:pathogen_disabled = ['bufexplorer', 'neocomplcache', 'nerdtree-tabs']
 if v:version < 702
     let g:pathogen_disabled += ['tagbar', 'neocomplcache',]
 endif
@@ -492,22 +492,24 @@ nnoremap <leader>gt :SwitchToFromTest<CR>
 " NERDTree settings
 " ==============================================================================
 
-noremap <C-e> :NERDTreeTabsToggle<CR>
-noremap <F7>  :NERDTreeTabsToggle<CR>
+noremap <C-e> :NERDTreeToggle<CR>
+noremap <F7>  :NERDTreeToggle<CR>
 "noremap <leader>e :NERDTreeFind<CR>
 "noremap <leader>nt :NERDTreeFind<CR>
 
-let NERDTreeMinimalUI = 1
+" let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-let NERDTreeHijackNetrw=0
+" let NERDTreeHijackNetrw=0
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 let NERDTreeChDirMode=0
 let NERDTreeQuitOnOpen=0
-let NERDTreeMouseMode=3
-let NERDTreeShowHidden=1
+" let NERDTreeMouseMode=3
+" let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
+let NERDChristmasTree=1
+let NERDTreeAutoCenter=1
 
 if has('autocmd')
     augroup CloseNERDTreeIfLastWindow
@@ -523,12 +525,12 @@ if has('autocmd')
     augroup END
 
     " returns true iff is NERDTree open/active
-    function! rc:isNTOpen()        
+    function! rc:isNTOpen()
         return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
     endfunction
 
     " returns true iff focused window is NERDTree window
-    function! rc:isNTFocused()     
+    function! rc:isNTFocused()
         return -1 != match(expand('%'), 'NERD_Tree') 
     endfunction 
 
@@ -536,6 +538,7 @@ if has('autocmd')
     function! rc:syncTree()
         if &modifiable && rc:isNTOpen() && !rc:isNTFocused() && strlen(expand('%')) > 0 && !&diff
             NERDTreeFind
+            silent! execute "normal zz"
             wincmd p
         endif
     endfunction
