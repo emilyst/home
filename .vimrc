@@ -119,7 +119,7 @@ set fillchars+=vert:\
 " gui
 if has('gui_running')
     set linespace=1
-    set guifont=Inconsolata:h11
+    set guifont=Inconsolata:h13
     if has('transparency')
         set transparency=0
     endif
@@ -690,7 +690,9 @@ if executable('ag')
 endif
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
+
 nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 
 
 " ==============================================================================
@@ -700,7 +702,7 @@ nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 " let g:airline_left_sep='|'
 " let g:airline_right_sep='|'
 
-let g:airline_theme='solarized'
+let g:airline_theme='luna'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
