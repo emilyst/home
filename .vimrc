@@ -588,7 +588,7 @@ if filereadable(expand('~/.local/bin/ctags'))
     let g:tagbar_ctags_bin = expand('~/.local/bin/ctags')
 endif
 let g:tagbar_autoclose = 0
-let g:tagbar_singleclick = 1
+" let g:tagbar_singleclick = 1
 let g:tagbar_iconchars = ['▸','▾']
 let g:tagbar_type_perl = {
     \ 'kinds' : [
@@ -600,6 +600,7 @@ let g:tagbar_type_perl = {
         \ 'a:attribute',
         \ 'r:role',
         \ 'm:method',
+        \ 's:function',
         \ 'c:class'
     \ ]
 \ }
