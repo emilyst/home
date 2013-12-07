@@ -8,7 +8,7 @@
 [ -d ~/bin ]            && export PATH=~/bin:"${PATH}"
 [ -d ~/.bin ]           && export PATH=~/.bin:"${PATH}"
 
-cdpath=(. ~/work ~/scratch)
+cdpath=(. ~/work ~/scratch ~/Development)
 
 
 ########################################################################
@@ -69,6 +69,7 @@ export PERL_CPANM_OPT='-L ~/.local --self-contained'
 
 export PERLBREW_ROOT=/opt/perl
 #[ -e /opt/perl/etc/bashrc ] && source /opt/perl/etc/bashrc
+
 
 ########################################################################
 # SSH

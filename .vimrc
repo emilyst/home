@@ -320,8 +320,8 @@ vnoremap < <gv
 vnoremap > >gv
 
 " easier to enter ex commands
-nnoremap ; :
-vnoremap ; :
+" nnoremap ; :
+" vnoremap ; :
 
 " folding (if enabled)
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
@@ -563,7 +563,11 @@ noremap <leader>t :CtrlPBufTagAll<CR>
 noremap <leader>m :CtrlPMRUFiles<CR>
 
 " let g:ctrlp_regexp = 1
-let g:ctrlp_max_files = 50000
+let g:ctrlp_cmd = 'CtrlPMixed'
+" let g:ctrlp_max_files = 50000
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:16'
+let g:ctrlp_lazy_update = 1
+let g:ctrlp_mruf_relative = 1
 
 if executable('ag')
     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
@@ -585,8 +589,20 @@ if filereadable(expand('~/.local/bin/ctags'))
 endif
 let g:tagbar_autoclose = 0
 let g:tagbar_singleclick = 1
-let g:tagbar_iconchars = ['+','-']
-
+let g:tagbar_iconchars = ['▸','▾']
+let g:tagbar_type_perl = {
+    \ 'kinds' : [
+        \ 'u:use',
+        \ 'b:base',
+        \ 't:test',
+        \ 'd:describe',
+        \ 'e:extends',
+        \ 'a:attribute',
+        \ 'r:role',
+        \ 'm:method',
+        \ 'c:class'
+    \ ]
+\ }
 
 " ==============================================================================
 " Jedi-vim settings
@@ -702,10 +718,8 @@ nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 " Airline settings
 " ==============================================================================
 
-" let g:airline_left_sep='|'
-" let g:airline_right_sep='|'
-
-let g:airline_theme='luna'
+let g:airline_solarized_bg = 'light'
+let g:airline_theme='solarized'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -713,18 +727,11 @@ endif
 
 " unicode symbols
 let g:airline_left_sep = ''
-" let g:airline_left_sep = '▶'
 let g:airline_right_sep = ''
-" let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-
+let g:airline_symbols.paste = 'π'
+let g:airline_symbols.whitespace = '¶'
 
 " ==============================================================================
 " Gitgutter settings
