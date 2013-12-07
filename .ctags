@@ -1,0 +1,9 @@
+--regex-perl=/^[[:blank:]]*(class)[[:blank:]]+([^\ \t;]+)\s*[[:blank:]]*[{;]/\2/c,class,classes/
+--regex-perl=/^[[:blank:]]*extends[[:blank:]]+'([[:alnum:]:]+)'/\1/b,base,bases/
+--regex-perl=/^[[:blank:]]*extends[[:blank:]]+qw\/[[:blank:]\n]*([[:alnum:]:]+)/\1/b,base,bases/
+--regex-perl=/^[[:blank:]]*has[[:blank:]]+'([^\ \t;\(]+)'/\1/a,attribute,attributes/
+--regex-perl=/^[[:blank:]]*method[[:blank:]]+([^\ \t;\(]+)/\1/m,method,methods/
+--regex-perl=/^[[:blank:]]*test[[:blank:]]+["'](.+)["']/\1/t,test,tests/
+--regex-perl=/^[[:blank:]]*test[[:blank:]]+([[:alnum:]_]+)/\1/t,test,tests/
+--regex-perl=/^[[:blank:]]*describe[[:blank:]]+["'](.+)["']/\1/d,describe/
+--regex-perl=/^[[:blank:]]*describe[[:blank:]]+([[:alnum:]_]+)/\1/d,describe/
