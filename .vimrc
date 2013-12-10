@@ -458,34 +458,16 @@ if filereadable('/usr/local/etc/vimrc_files/reasonably_stable_mappings.vim')
     source /usr/local/etc/vimrc_files/reasonably_stable_mappings.vim
 endif
 
-if has('autocmd') && filereadable(expand("$HOME/bin/touch_handler_cgis"))
+if has('autocmd') && executable("touch_handler_cgis")
     augroup TouchHandlerScript
         au!
-        au BufWritePost *
-                \ let output = system(expand("$HOME/bin/touch_handler_cgis"))
+        au BufWritePost *.* let output = system("touch_handler_cgis")
     augroup END
 endif
 
 " workarounds
 au! BufEnter *
 let $TEST_DB=1
-
-function! s:SwitchToFromTest() " {{{
-    let currentfilename = expand("%:t")
-    let pathtocurrentfile = expand("%:p:h")
-    let endofpath = fnamemodify(pathtocurrentfile, ":t")
-
-    if endofpath == "TEST"
-        let filename = fnamemodify(pathtocurrentfile, ":h") . "/" . currentfilename
-    else
-        let filename = pathtocurrentfile . "/TEST/" . currentfilename
-    endif
-
-    silent! execute "e " . filename
-    " echo "Switched to " . filename
-endfunction " }}}
-command! SwitchToFromTest call s:SwitchToFromTest()
-nnoremap <leader>gt :SwitchToFromTest<CR>
 
 
 " ==============================================================================
