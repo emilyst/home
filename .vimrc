@@ -61,7 +61,7 @@ set showmatch
 set history=5000
 set notitle
 set ttyfast
-set titlestring=%f title
+set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 "set ttyscroll=0
 set scrolloff=3
 set sidescrolloff=5
@@ -190,7 +190,7 @@ endif
 
 set foldenable
 set foldmethod=manual
-set foldlevel=100 " Don't autofold anything
+set foldlevelstart=99 " Don't autofold anything
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
@@ -214,8 +214,8 @@ set foldtext=MyFoldText()
 " searching
 " ==============================================================================
 
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
 set ignorecase
 set smartcase
 set gdefault
@@ -435,13 +435,16 @@ if has('autocmd')
         au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
     augroup END
 
-    "augroup AlwaysRelative
-        "au!
-        "au BufEnter * 
-            "\ if exists('+relativenumber')      |
-            "\     silent! setl relativenumber   |
-            "\ endif
-    "augroup END
+    augroup AlwaysRelative
+        au!
+        au BufEnter * 
+            \ if &number                            |
+            \     if exists('+relativenumber')      |
+            \         silent! setl relativenumber   |
+            \     endif                             |
+            \     silent! setl number               |
+            \ endif
+    augroup END
 
     augroup EditCrontabOnOSX
         au!
