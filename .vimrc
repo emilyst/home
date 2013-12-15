@@ -92,6 +92,9 @@ set updatetime=500
 syntax enable
 set t_Co=256
 set background=dark
+let g:solarized_style    = "dark"
+let g:solarized_italic   = 0
+let g:solarized_diffmode = "high"
 colorscheme solarized
 set cursorline
 "set cursorcolumn
@@ -191,6 +194,7 @@ endif
 set foldenable
 set foldmethod=manual
 set foldlevelstart=99 " Don't autofold anything
+set foldlevel=99      " Don't autofold anything
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
@@ -208,6 +212,10 @@ function! MyFoldText() " {{{
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
+
+" folding (if enabled)
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
+vnoremap <Space> zf
 
 
 " ==============================================================================
@@ -323,10 +331,6 @@ vnoremap > >gv
 " nnoremap ; :
 " vnoremap ; :
 
-" folding (if enabled)
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
-vnoremap <Space> zf
-
 " clean trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
@@ -437,12 +441,12 @@ if has('autocmd')
 
     augroup AlwaysRelative
         au!
-        au BufEnter * 
+        au BufEnter *
             \ if &number                            |
             \     if exists('+relativenumber')      |
             \         silent! setl relativenumber   |
+            \         silent! setl number           |
             \     endif                             |
-            \     silent! setl number               |
             \ endif
     augroup END
 
@@ -656,8 +660,6 @@ vnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
 " Solarized settings
 " ==============================================================================
 
-"let g:solarized_termcolors = 256
-let g:solarized_style      = "dark"
 
 
 " ==============================================================================
