@@ -46,7 +46,7 @@ endif
 
 set encoding=utf-8 fileencoding=utf-8 termencoding=utf-8
 set shortmess+=I
-set completeopt+=preview,menu
+set completeopt+=preview,menuone
 if exists('+cryptmethod')
     set cryptmethod=blowfish
 endif
