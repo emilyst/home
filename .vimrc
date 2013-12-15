@@ -556,7 +556,7 @@ noremap <leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_cmd = 'CtrlPMixed'
 " let g:ctrlp_max_files = 50000
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:16'
-let g:ctrlp_lazy_update = 1
+" let g:ctrlp_lazy_update = 1
 let g:ctrlp_mruf_relative = 1
 
 if executable('ag')
