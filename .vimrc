@@ -57,6 +57,7 @@ set modeline
 set magic
 set showmode
 set showcmd
+set showfulltag
 set showmatch
 set history=5000
 set notitle
