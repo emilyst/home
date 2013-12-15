@@ -53,7 +53,7 @@ endif
 let mapleader = ","
 "set digraph
 set modeline
-set gdefault
+" set gdefault
 set magic
 set showmode
 set showcmd
