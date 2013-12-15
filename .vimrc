@@ -104,7 +104,7 @@ if exists('+colorcolumn')
 endif
 
 set list
-set listchars+=tab:▸\ "
+set listchars+=tab:›\ "
 set listchars+=trail:·
 set listchars+=nbsp:␣
 set listchars+=extends:›
