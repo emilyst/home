@@ -60,10 +60,10 @@ set showcmd
 set showfulltag
 set showmatch
 set history=5000
-set notitle
-set ttyfast
+" set notitle
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 "set ttyscroll=0
+set ttyfast
 set scrolloff=3
 set sidescrolloff=5
 set nostartofline
