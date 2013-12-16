@@ -2,15 +2,15 @@
 " clear all inherited settings
 " ==============================================================================
 
-set all&
-set nocompatible
+set all&          " blank slate
+set nocompatible  " we're using Vim, not vi (implied by having a vimrc)
 
 
 " ==============================================================================
 " Pathogen (initial setup)
 " ==============================================================================
 
-" settings
+" exclude modules by version/preference
 
 let g:pathogen_disabled = ['bufexplorer', 'neocomplcache', 'nerdtree-tabs']
 if v:version < 702
@@ -44,46 +44,49 @@ endif
 " general settings
 " ==============================================================================
 
-set encoding=utf-8 fileencoding=utf-8 termencoding=utf-8
-set shortmess+=I
-set completeopt+=preview,menuone
+set encoding=utf-8
+set fileencoding=utf-8
+set termencoding=utf-8                   " utf-8 all the way
+set shortmess+=I                         " no intro message
+set completeopt+=preview,menuone         " nicer completions menu
 if exists('+cryptmethod')
-    set cryptmethod=blowfish
+    set cryptmethod=blowfish             " use encryption
 endif
-let mapleader = ","
-"set digraph
-set modeline
+let mapleader = ","                      " use comma for commands
+"set digraph                             " i don't really need digraphs?
+set modeline                             " allow using modelines in files
 " set gdefault
-set magic
-set showmode
-set showcmd
-set showfulltag
-set showmatch
-set history=5000
+set magic                                " magic in patterns (default)
+set noshowmode                           " ruler has my mode in it
+set showcmd                              " show commands as I type them,
+                                         " and selections
+set showfulltag                          " completions have even more detail
+set showmatch                            " highlight matching brackets
+set history=5000                         " lots of history
 " set notitle
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
-"set ttyscroll=0
-set ttyfast
-set scrolloff=3
-set sidescrolloff=5
-set nostartofline
-set backup
+"set ttyscroll=0                         " weird terminal thing
+set ttyfast                              " fast terminal connections
+set scrolloff=3                          " keep lines above and below
+" set sidescroll
+" set sidescrolloff=5
+set nostartofline                        " stay in same column
+set backup                               " keep backups
 set writebackup
-set backupdir=~/.vim/local/backup//
-set directory=~/.vim/local/swap//
-set backspace=indent,eol,start
-set splitbelow
-set splitright
-set switchbuf=useopen,usetab
-set viminfo^=%
-"filetype plugin indent on
-"set spell
-set winminheight=0
+set backupdir=~/.vim/local/backup//      " keep them safe
+set directory=~/.vim/local/swap//        " and out of the way
+set backspace=indent,eol,start           " backspace works as you'd expect
+set splitbelow                           " new splits go below
+" set splitright
+set switchbuf=useopen,usetab             " use open buffers when opening file
+set viminfo^=%,h                         " remember buffers, not searches
+set winminheight=0                       " I can collapse windows
 if exists('+relativenumber')
-    set relativenumber
+    set relativenumber                   " use relative line numbering...
 endif
-set number
-set updatetime=500
+set number                               " ...and show the current line
+set updatetime=500                       " update swap file this often
+                                         " and trigger CursorHold events
 
 
 " ==============================================================================
