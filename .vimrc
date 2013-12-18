@@ -558,12 +558,15 @@ noremap <leader>T :CtrlPTag<CR>
 noremap <leader>t :CtrlPBufTagAll<CR>
 noremap <leader>m :CtrlPMRUFiles<CR>
 
-" let g:ctrlp_regexp = 1
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_cmd = 'CtrlPMixed'
-" let g:ctrlp_max_files = 50000
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:16'
-" let g:ctrlp_lazy_update = 1
 let g:ctrlp_mruf_relative = 1
+
+if filereadable(expand('~/.local/bin/ctags'))
+    let g:ctrlp_buftag_ctags_bin = expand('~/.local/bin/ctags')
+endif
 
 if executable('ag')
     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore

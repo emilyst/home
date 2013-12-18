@@ -21,6 +21,12 @@ autoload -U zmv
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+# nifty timings for all commands
+setopt no_bare_glob_qual
+function print_dt { echo $fg_bold[magenta]$(date '+%Y-%m-%d %H:%M:%S.%N')$reset_color }
+preexec_functions=( print_dt $preexec_functions )
+precmd_functions=( print_dt $precmd_functions )
+unsetopt no_bare_glob_qual
 
 ########################################################################
 # oh-my-zsh
