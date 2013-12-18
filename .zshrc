@@ -21,11 +21,26 @@ autoload -U zmv
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+
+########################################################################
 # nifty timings for all commands
+########################################################################
+
 setopt no_bare_glob_qual
-function print_dt { echo $fg_bold[magenta]$(date '+%Y-%m-%d %H:%M:%S.%N')$reset_color }
-preexec_functions=( print_dt $preexec_functions )
-precmd_functions=( print_dt $precmd_functions )
+
+if [[ $(uname) == "Darwin" ]]; then
+    function print_dt {
+        echo $fg_bold[magenta]$(gdate '+%Y-%m-%d %H:%M:%S.%N')$reset_color
+    }
+else
+    function print_dt {
+        echo $fg_bold[magenta]$(date '+%Y-%m-%d %H:%M:%S.%N')$reset_color
+    }
+fi
+
+preexec_functions=( $preexec_functions print_dt )
+precmd_functions=( $precmd_functions print_dt )
+
 unsetopt no_bare_glob_qual
 
 ########################################################################
