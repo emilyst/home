@@ -23,25 +23,34 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 
 ########################################################################
+# help
+########################################################################
+
+unalias run-help
+autoload run-help
+HELPDIR=/usr/local/share/zsh/helpfiles
+
+########################################################################
 # nifty timings for all commands
 ########################################################################
 
-setopt no_bare_glob_qual
+function print_dt
+{
+    if [[ $(uname) == "Darwin" ]]; then
+        date_command="gdate"
+    else
+        date_command="date"
+    fi
 
-if [[ $(uname) == "Darwin" ]]; then
-    function print_dt {
-        echo $fg_bold[magenta]$(gdate '+%Y-%m-%d %H:%M:%S.%N')$reset_color
-    }
-else
-    function print_dt {
-        echo $fg_bold[magenta]$(date '+%Y-%m-%d %H:%M:%S.%N')$reset_color
-    }
-fi
+    date_output=$($date_command '+%Y-%m-%d %H:%M:%S.%N')
+    date_output=${date_output:0:23}
+    printf "%$(( $COLUMNS - ${#date_output} - 1 ))s" " "  # padding
+    printf "${fg_bold[magenta]}%s${reset_color}\n" ${date_output}
+}
 
 preexec_functions=( $preexec_functions print_dt )
 precmd_functions=( $precmd_functions print_dt )
 
-unsetopt no_bare_glob_qual
 
 ########################################################################
 # oh-my-zsh
