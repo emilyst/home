@@ -165,7 +165,7 @@ set formatoptions=qrn1
 set lbr
 set smartindent
 filetype indent on
-set virtualedit=all
+set virtualedit+=block,onemore
 
 
 " ==============================================================================
