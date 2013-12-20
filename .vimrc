@@ -708,8 +708,8 @@ endif
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 
-nnoremap <leader>* :AckAdd! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
-nnoremap <leader>8 :AckAdd! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 
 
 " ==============================================================================
