@@ -261,32 +261,6 @@ set wildignore+=*.pyc,*.DS_Store,*.db
 
 
 " ==============================================================================
-" status bar
-" ==============================================================================
-
-if has('statusline')
-    set laststatus=2
-    set statusline=%<%f\ " Filename
-    set statusline+=%w%h%m%r " Options
-    set statusline+=%{fugitive#statusline()} " Git Hotness
-    set statusline+=\ [%{&ff}/%Y] " filetype
-    set statusline+=\ [%{getcwd()}] " current dir
-    set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
-endif
-
-
-" ==============================================================================
-" ruler
-" ==============================================================================
-
-if has('cmdline_info')
-    set ruler " show the ruler
-    set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
-    set showcmd " show partial commands in status line and selected characters/lines in visual mode
-endif
-
-
-" ==============================================================================
 " mouse
 " ==============================================================================
 
@@ -294,28 +268,6 @@ if has('mouse')
     set mouse=a
     set mousemodel=popup_setpos
 endif
-
-
-" ==============================================================================
-" Shell
-" ==============================================================================
-
-function! s:ExecuteInShell(command) " {{{
-    let command = join(map(split(a:command), 'expand(v:val)'))
-    let winnr = bufwinnr('^' . command . '$')
-    silent! execute  winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
-    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
-    echo 'Execute ' . command . '...'
-    silent! execute 'silent %!'. command
-    silent! redraw
-    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
-    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
-    silent! execute 'AnsiEsc'
-    echo 'Shell command ' . command . ' executed.'
-endfunction " }}}
-command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-nnoremap <leader>! :Shell 
 
 
 " ==============================================================================
@@ -334,10 +286,6 @@ inoremap <Up> <C-o>gk
 vnoremap < <gv
 vnoremap > >gv
 
-" easier to enter ex commands
-" nnoremap ; :
-" vnoremap ; :
-
 " clean trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
@@ -349,14 +297,7 @@ nnoremap Q gqap
 nnoremap <leader>v V`]
 
 " quickly open .vimrc as split window
-nnoremap <leader>ev :exec 'vsplit ' . resolve(expand($MYVIMRC))<CR>
-
-" toggle special characters
-nmap <leader>l :set invlist!<CR>
-
-" Prev/Next Buffer
-nmap <C-n> :bn<CR>
-nmap <C-p> :bp<CR>
+nnoremap <leader>ev :exec 'edit ' . resolve(expand($MYVIMRC))<CR>
 
 " switch splits more easily
 nnoremap <C-h> <C-w>h
@@ -394,25 +335,6 @@ nnoremap <F4> :set spell!<CR>
 nnoremap <F5> :set invpaste!<CR>
 set pastetoggle=<F5>
 
-" Locally (local to block) rename a variable
-function! Refactor()
-    call inputsave()
-    let @z=input("What do you want to rename '" . @z . "' to? ")
-    call inputrestore()
-endfunction
-nnoremap <Leader>rf "zyiw:call Refactor()<cr>mx:silent! norm gd<cr>[{V%:s/<C-R>//<c-r>z/g<cr>`x
-
-" Increment a visual selection (like a column of numbers)
-function! Incr()
-    let a = line('.') - line("'<")
-    let c = virtcol("'<")
-    if a > 0
-        execute 'normal! '.c.'|'.a."\<C-a>"
-    endif
-    normal `<
-endfunction
-vnoremap <C-a> :call Incr()<CR>
-
 " sort CSS
 nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
@@ -448,12 +370,10 @@ if has('autocmd')
 
     augroup AlwaysRelative
         au!
-        au BufEnter *
-            \ if &number                            |
-            \     if exists('+relativenumber')      |
-            \         silent! setl relativenumber   |
-            \         silent! setl number           |
-            \     endif                             |
+        au BufReadPost *
+            \ if &number && exists('+relativenumber') |
+            \     silent! setl relativenumber         |
+            \     silent! setl number                 |
             \ endif
     augroup END
 
