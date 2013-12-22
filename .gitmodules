@@ -40,9 +40,6 @@
 [submodule ".vim/bundle/supertab"]
 	path = .vim/bundle/supertab
 	url = git://github.com/tsaleh/vim-supertab.git
-[submodule ".vim/bundle/dbext.vim"]
-	path = .vim/bundle/dbext.vim
-	url = git://github.com/vim-scripts/dbext.vim.git
 [submodule ".vim/bundle/scriptease"]
 	path = .vim/bundle/scriptease
 	url = git://github.com/tpope/vim-scriptease.git
@@ -88,9 +85,6 @@
 [submodule ".vim/bundle/snipmate.vim"]
 	path = .vim/bundle/snipmate.vim
 	url = git://github.com/msanders/snipmate.vim.git
-[submodule ".vim/bundle/gundo.vim"]
-	path = .vim/bundle/gundo.vim
-	url = git://github.com/sjl/gundo.vim.git
 [submodule ".vim/bundle/nerdtree-tabs"]
 	path = .vim/bundle/nerdtree-tabs
 	url = git://github.com/jistr/vim-nerdtree-tabs.git
@@ -106,9 +100,6 @@
 [submodule ".vim/bundle/dispatch"]
 	path = .vim/bundle/dispatch
 	url = git://github.com/tpope/vim-dispatch.git
-[submodule ".vim/bundle/base16"]
-	path = .vim/bundle/base16
-	url = git@github.com:chriskempson/base16-vim.git
 [submodule ".vim/bundle/golang"]
 	path = .vim/bundle/golang
 	url = git@github.com:jnwhiteh/vim-golang.git
