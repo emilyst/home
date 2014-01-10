@@ -104,7 +104,7 @@ set cursorline
 "set cursorcolumn
 "if exists('+colorcolumn') | set colorcolumn+=80,120 | endif
 if exists('+colorcolumn')
-    let &colorcolumn=join(range(81,999), ',')
+    let &colorcolumn=join(range(81,9999), ',')
 endif
 
 set list
@@ -589,12 +589,6 @@ vnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
 
 
 " ==============================================================================
-" Solarized settings
-" ==============================================================================
-
-
-
-" ==============================================================================
 " Syntastic settings
 " ==============================================================================
 
@@ -638,7 +632,6 @@ nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 " Airline settings
 " ==============================================================================
 
-let g:airline_solarized_bg = 'light'
 let g:airline_theme='solarized'
 
 if !exists('g:airline_symbols')
@@ -661,4 +654,4 @@ hi clear SignColumn
 hi link SignColumn LineNr
 let g:gitgutter_sign_column_always = 1
 " let g:gitgutter_highlight_lines = 1
-let g:gitgutter_enabled = 1
+let g:gitgutter_enabled = 0
