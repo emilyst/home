@@ -48,7 +48,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8                   " utf-8 all the way
 set shortmess+=I                         " no intro message
-set completeopt=longest,menuone,preview
+set completeopt+=preview,menuone,longest " nicer completions menu
 if exists('+cryptmethod')
     set cryptmethod=blowfish             " use encryption
 endif
@@ -96,7 +96,7 @@ set updatetime=500                       " update swap file this often
 syntax enable
 set t_Co=256
 set background=dark
-let g:solarized_style    = "dark"
+" let g:solarized_style    = "dark"
 let g:solarized_italic   = 0
 let g:solarized_diffmode = "high"
 colorscheme solarized

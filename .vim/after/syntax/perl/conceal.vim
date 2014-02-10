@@ -1,3 +1,5 @@
+finish
+
 if !has('conceal')
         finish
 endif
@@ -28,5 +30,5 @@ hi  link perlNiceOperator  Operator
 hi  link perlNiceStatement Statement
 hi! link Conceal           Operator
 
-setl conceallevel=2
+setl conceallevel=3
 
