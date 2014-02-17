@@ -48,7 +48,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8                   " utf-8 all the way
 set shortmess+=I                         " no intro message
-set completeopt+=preview,menuone         " nicer completions menu
+set completeopt=longest,menuone,preview
 if exists('+cryptmethod')
     set cryptmethod=blowfish             " use encryption
 endif

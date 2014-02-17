@@ -76,3 +76,5 @@
     sslVerify = false
 [branch]
     autosetuprebase = always
+[help]
+	autocorrect = 1
