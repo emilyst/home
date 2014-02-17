@@ -383,6 +383,11 @@ if has('autocmd')
         au!
         au BufEnter /private/tmp/crontab.* setl backupcopy=yes
     augroup END
+
+    augroup Stdin
+        au!
+        au StdinReadPost * :set buftype=nofile
+    augroup END
 endif
 
 
