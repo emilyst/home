@@ -637,6 +637,7 @@ nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 " Airline settings
 " ==============================================================================
 
+let g:airline_solarized_bg = 'dark'
 let g:airline_theme='solarized'
 
 if !exists('g:airline_symbols')
