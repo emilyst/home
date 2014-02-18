@@ -166,7 +166,9 @@ set lbr
 set smartindent
 filetype indent on
 set virtualedit+=block,onemore
-
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 " ==============================================================================
 " clipboard
