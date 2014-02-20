@@ -100,9 +100,6 @@
 [submodule ".vim/bundle/dispatch"]
 	path = .vim/bundle/dispatch
 	url = git://github.com/tpope/vim-dispatch.git
-[submodule ".vim/bundle/golang"]
-	path = .vim/bundle/golang
-	url = git@github.com:jnwhiteh/vim-golang.git
 [submodule ".vim/bundle/airline"]
 	path = .vim/bundle/airline
 	url = git@github.com:bling/vim-airline.git
@@ -112,3 +109,6 @@
 [submodule ".vim/bundle/sneak"]
 	path = .vim/bundle/sneak
 	url = git://github.com/justinmk/vim-sneak.git
+[submodule ".vim/bundle/jdaddy"]
+	path = .vim/bundle/jdaddy
+	url = git://github.com/tpope/vim-jdaddy.git
