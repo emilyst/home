@@ -30,40 +30,40 @@ unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/helpfiles
 
-########################################################################
-# nifty timings for all commands
-########################################################################
+# ########################################################################
+# # nifty timings for all commands
+# ########################################################################
 
-function print_dt_before
-{
-    if [[ $(uname) == "Darwin" ]]; then
-        date_command="gdate"
-    else
-        date_command="date"
-    fi
+# function print_dt_before
+# {
+#     if [[ $(uname) == "Darwin" ]]; then
+#         date_command="gdate"
+#     else
+#         date_command="date"
+#     fi
 
-    date_output=$($date_command '+%Y-%m-%d %H:%M:%S.%N')
-    date_output=${date_output:0:23}
-    printf "%$(( $COLUMNS - ${#date_output} - 1 ))s" " "  # padding
-    printf "${fg_bold[magenta]}%s${reset_color}\n" ${date_output}
-}
+#     date_output=$($date_command '+%Y-%m-%d %H:%M:%S.%N')
+#     date_output=${date_output:0:23}
+#     printf "%$(( $COLUMNS - ${#date_output} - 1 ))s" " "  # padding
+#     printf "${fg_bold[magenta]}%s${reset_color}\n" ${date_output}
+# }
 
-function print_dt_after
-{
-    if [[ $(uname) == "Darwin" ]]; then
-        date_command="gdate"
-    else
-        date_command="date"
-    fi
+# function print_dt_after
+# {
+#     if [[ $(uname) == "Darwin" ]]; then
+#         date_command="gdate"
+#     else
+#         date_command="date"
+#     fi
 
-    date_output=$($date_command '+%Y-%m-%d %H:%M:%S.%N')
-    date_output=${date_output:0:23}
-    printf "%$(( $COLUMNS - ${#date_output} - 1 ))s" " "  # padding
-    printf "${fg_bold[cyan]}%s${reset_color}\n" ${date_output}
-}
+#     date_output=$($date_command '+%Y-%m-%d %H:%M:%S.%N')
+#     date_output=${date_output:0:23}
+#     printf "%$(( $COLUMNS - ${#date_output} - 1 ))s" " "  # padding
+#     printf "${fg_bold[cyan]}%s${reset_color}\n" ${date_output}
+# }
 
-preexec_functions=( $preexec_functions print_dt_before )
-precmd_functions=( $precmd_functions print_dt_after )
+# preexec_functions=( $preexec_functions print_dt_before )
+# precmd_functions=( $precmd_functions print_dt_after )
 
 
 ########################################################################
