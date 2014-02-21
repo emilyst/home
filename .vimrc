@@ -271,8 +271,12 @@ set wildignore+=*.pyc,*.DS_Store,*.db
 " ==============================================================================
 
 if has('mouse')
-    set mouse=a
+    set mouse+=a
     set mousemodel=popup_setpos
+    set ttymouse=xterm2 " tmux knows the extended mouse mode
+    " if &term =~ '^screen'
+    "     set ttymouse=xterm2 " tmux knows the extended mouse mode
+    " endif
 endif
 
 
@@ -641,8 +645,8 @@ nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 " Airline settings
 " ==============================================================================
 
-let g:airline_solarized_bg = 'dark'
-let g:airline_theme='solarized'
+" let g:airline_solarized_bg = 'light'
+let g:airline_theme='luna'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
