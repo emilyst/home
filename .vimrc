@@ -111,8 +111,8 @@ set list
 set listchars+=tab:›\ "
 set listchars+=trail:·
 set listchars+=nbsp:␣
-set listchars+=extends:›
-set listchars+=precedes:‹
+" set listchars+=extends:›
+" set listchars+=precedes:‹
 set listchars+=eol:\ "
 
 set fillchars+=stl:\ 
@@ -169,6 +169,7 @@ set virtualedit+=block,onemore
 set tabstop=4
 set shiftwidth=4
 set expandtab
+
 
 " ==============================================================================
 " clipboard
@@ -244,6 +245,7 @@ nnoremap <tab> %
 vnoremap <tab> %
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+set isk-=:
 
 
 " ==============================================================================
@@ -410,7 +412,7 @@ endif
 
 " workarounds
 au! BufEnter *
-let $TEST_DB=1
+" let $TEST_DB=1
 
 
 " ==============================================================================
