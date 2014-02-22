@@ -73,8 +73,9 @@ set scrolloff=3                          " keep lines above and below
 set nostartofline                        " stay in same column
 set backup                               " keep backups
 set writebackup
-set backupdir=~/.vim/local/backup//      " keep them safe
-set directory=~/.vim/local/swap//        " and out of the way
+set backupdir=~/.vim/local/backup//
+set directory=~/.vim/local/swap//
+set viewdir=~/.vim/local/view//
 set backspace=indent,eol,start           " backspace works as you'd expect
 set splitbelow                           " new splits go below
 " set splitright
