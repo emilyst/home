@@ -362,12 +362,6 @@ noremap <C-LeftDrag>  <LeftDrag>
 " ==============================================================================
 
 if has('autocmd')
-    " settings immediately take effect
-    "augroup InstantSettings
-    "    au!
-    "    au BufWritePost ~/.vimrc :exec 'source ' . resolve(expand($MYVIMRC))
-    "augroup END
-
     augroup RedrawOnResize
         au!
         au VimResized * silent! redraw!
@@ -396,6 +390,11 @@ if has('autocmd')
     augroup Stdin
         au!
         au StdinReadPost * :set buftype=nofile
+    augroup END
+
+    augroup QuickFix
+        au!
+        au BufReadPost quickfix setlocal nolist
     augroup END
 endif
 
@@ -464,7 +463,7 @@ if has('autocmd')
     " returns true iff focused window is NERDTree window
     function! rc:isNTFocused()
         return -1 != match(expand('%'), 'NERD_Tree') 
-    endfunction 
+    endfunction
 
     " calls NERDTreeFind iff NERDTree is active, current window contains a modifiable file, and we're not in vimdiff
     function! rc:syncTree()
@@ -478,11 +477,6 @@ if has('autocmd')
     augroup SyncNERDTree
         au!
         au BufEnter * call rc:syncTree()
-    augroup END
-
-    augroup QuickFix
-        au!
-        au BufReadPost quickfix setlocal nolist
     augroup END
 endif
 
