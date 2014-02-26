@@ -479,6 +479,11 @@ if has('autocmd')
         au!
         au BufEnter * call rc:syncTree()
     augroup END
+
+    augroup QuickFix
+        au!
+        au BufReadPost quickfix setlocal nolist
+    augroup END
 endif
 
 
