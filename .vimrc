@@ -99,7 +99,7 @@ if has('autocmd')
     augroup AlwaysRelative
         au!
         au BufReadPost *
-            \ if &number && exists('+relativenumber') |
+            \ if &number && exists('&relativenumber') |
             \     silent! setl relativenumber         |
             \     silent! setl number                 |
             \ endif
@@ -119,7 +119,7 @@ colorscheme solarized
 set cursorline
 "set cursorcolumn
 "if exists('+colorcolumn') | set colorcolumn+=80,120 | endif
-if exists('+colorcolumn')
+if exists('&colorcolumn')
     let &colorcolumn=join(range(81,9999), ',')
 endif
 set spelllang=en_us
@@ -576,7 +576,13 @@ set termencoding=utf-8
 
 set virtualedit+=block,onemore
 " set gdefault
-set viewdir=~/.vim/local/view//
+if exists('&viewdir')
+    set viewdir=~/.vim/local/view//
+    if !isdirectory(expand(&viewdir))
+        call mkdir(expand(&viewdir), "p")
+    endif
+endif
+
 set viminfo^=%,h
 
 
