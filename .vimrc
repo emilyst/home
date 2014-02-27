@@ -1,17 +1,31 @@
-" ==============================================================================
-" clear all inherited settings
-" ==============================================================================
+" 0 preamble ============================================================== {{{
+"
+" There is a great organization scheme in place here. If you run the
+" :options command in Vim, you see a list of all the options that you
+" can set, along with their current settings and a brief description of
+" them. The great thing about this scheme is that--for better or
+" worse--it sets up a system which can organize all my settings. I've
+" decided to organize everything below thus, throwing ancillary things
+" (my own mappings, plugin settings, and so on) where it makes sense.
+"
+" A lot of plugin settings end up going into the various section, and
+" that seems fine. I'll probably collect lots of utility functions there
+" as well as I go along.
+"
+" The great part about all this is that I have a sensible way now to
+" extend this giant settings file so that I don't get so anxious about
+" it.
+"
+" ========================================================================= }}}
+" 1 important ============================================================= {{{
 
-set all&          " blank slate
-set nocompatible  " we're using Vim, not vi (implied by having a vimrc)
+set all&
+set nocompatible
+if has('autocmd')
+    au! BufEnter *
+endif
 
-
-" ==============================================================================
-" Pathogen (initial setup)
-" ==============================================================================
-
-" exclude modules by version/preference
-
+" bring in Pathogen
 let g:pathogen_disabled = ['bufexplorer', 'neocomplcache', 'nerdtree-tabs']
 if v:version < 702
     let g:pathogen_disabled += ['tagbar', 'neocomplcache',]
@@ -19,9 +33,6 @@ endif
 if v:version < 703 || !has('python')
     let g:pathogen_disabled += ['jedi-vim', 'gundo']
 endif
-
-" bring in Pathogen
-
 runtime bundle/pathogen/autoload/pathogen.vim
 if exists("g:loaded_pathogen")
     execute pathogen#infect()
@@ -29,7 +40,6 @@ if exists("g:loaded_pathogen")
 endif
 
 " fix up rtp a bit to exclude rusty old default scripts if they exist
-
 if exists("g:loaded_pathogen")
     let list = []
     for dir in pathogen#split(&rtp)
@@ -40,64 +50,69 @@ if exists("g:loaded_pathogen")
     let &rtp = pathogen#join(list)
 endif
 
-" ==============================================================================
-" general settings
-" ==============================================================================
+" ========================================================================= }}}
+" 2 moving around, searching and patterns ================================= {{{
 
-set encoding=utf-8
-set fileencoding=utf-8
-set termencoding=utf-8                   " utf-8 all the way
-set shortmess+=I                         " no intro message
-set completeopt+=preview,menuone,longest " nicer completions menu
-if exists('+cryptmethod')
-    set cryptmethod=blowfish             " use encryption
+set nostartofline
+
+set magic
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+
+" ========================================================================= }}}
+" 3 tags ================================================================== {{{
+
+set showfulltag
+
+" ========================================================================= }}}
+" 4 displaying text ======================================================= {{{
+
+set scroll=7
+set scrolloff=3
+set nowrap
+set fillchars+=stl:\ 
+set fillchars+=stlnc:\ 
+set fillchars+=fold:\ 
+set fillchars+=diff:\ 
+set fillchars+=vert:\ 
+set linebreak
+set lazyredraw
+
+set list
+set listchars+=tab:›\ "
+set listchars+=trail:·
+set listchars+=nbsp:␣
+set listchars+=extends:›
+set listchars+=precedes:‹
+set listchars+=eol:\ "
+"set showbreak=→
+if exists('&relativenumber')
+    set relativenumber
 endif
-let mapleader = ","                      " use comma for commands
-"set digraph                             " i don't really need digraphs?
-set modeline                             " allow using modelines in files
-" set gdefault
-set magic                                " magic in patterns (default)
-set noshowmode                           " ruler has my mode in it
-set showcmd                              " show commands as I type them,
-                                         " and selections
-set showfulltag                          " completions have even more detail
-set showmatch                            " highlight matching brackets
-set history=5000                         " lots of history
-" set notitle
-set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
-"set ttyscroll=0                         " weird terminal thing
-set ttyfast                              " fast terminal connections
-set scrolloff=3                          " keep lines above and below
-" set sidescroll
-" set sidescrolloff=5
-set nostartofline                        " stay in same column
-set backup                               " keep backups
-set writebackup
-set backupdir=~/.vim/local/backup//
-set directory=~/.vim/local/swap//
-set viewdir=~/.vim/local/view//
-set backspace=indent,eol,start           " backspace works as you'd expect
-set splitbelow                           " new splits go below
-" set splitright
-set switchbuf=useopen,usetab             " use open buffers when opening file
-set viminfo^=%,h                         " remember buffers, not searches
-set winminheight=0                       " I can collapse windows
-if exists('+relativenumber')
-    set relativenumber                   " use relative line numbering...
+set number
+
+if has('autocmd')
+    augroup AlwaysRelative
+        au!
+        au BufReadPost *
+            \ if &number && exists('+relativenumber') |
+            \     silent! setl relativenumber         |
+            \     silent! setl number                 |
+            \ endif
+    augroup END
 endif
-set number                               " ...and show the current line
-set updatetime=500                       " update swap file this often
-                                         " and trigger CursorHold events
 
+" ========================================================================= }}}
+" 5 syntax, highlighting and spelling ===================================== {{{
 
-" ==============================================================================
-" appearance
-" ==============================================================================
-
+set background=dark
 syntax enable
 set t_Co=256
 set background=dark
-" let g:solarized_style    = "dark"
 let g:solarized_italic   = 0
 let g:solarized_diffmode = "high"
 colorscheme solarized
@@ -107,33 +122,37 @@ set cursorline
 if exists('+colorcolumn')
     let &colorcolumn=join(range(81,9999), ',')
 endif
+set spelllang=en_us
 
-set list
-set listchars+=tab:›\ "
-set listchars+=trail:·
-set listchars+=nbsp:␣
-" set listchars+=extends:›
-" set listchars+=precedes:‹
-set listchars+=eol:\ "
+" custom highlights
 
-set fillchars+=stl:\ 
-set fillchars+=stlnc:\ 
-set fillchars+=fold:\ 
-set fillchars+=diff:\ 
-set fillchars+=vert:\ 
+" hi LineNr       cterm=bold gui=bold " ctermbg=234 guibg=#222222
+" hi SignColumn   cterm=bold gui=bold " ctermbg=234 guibg=#222222
+" hi CursorLineNr cterm=bold gui=bold " ctermbg=234 guibg=#222222
+" hi CursorLine   ctermbg=234 guibg=#222222
+" hi ColorColumn  ctermbg=234 guibg=#222222
 
-"set showbreak=→
+" ========================================================================= }}}
+" 6 multiple windows ====================================================== {{{
 
-" gui
-if has('gui_running')
-    set linespace=1
-    set guifont=Inconsolata:h13
-    if has('transparency')
-        set transparency=0
-    endif
-endif
+set winminheight=0
+set winminwidth=0
+set hidden
+set switchbuf=useopen,usetab
+set splitbelow
+set scrollopt=ver,hor,jump
 
-" Use a bar-shaped cursor for insert mode, even through tmux.
+" ========================================================================= }}}
+" 7 multiple tab pages ==================================================== {{{
+
+" ========================================================================= }}}
+" 8 terminal ============================================================== {{{
+
+"set ttyscroll=0
+set ttyfast
+set title
+set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
+set titlelen=85
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -144,37 +163,47 @@ else
 endif
 
 
-" ==============================================================================
-" custom highlights
-" ==============================================================================
+" ========================================================================= }}}
+" 9 using the mouse ======================================================= {{{
 
-" hi LineNr       cterm=bold gui=bold " ctermbg=234 guibg=#222222
-" hi SignColumn   cterm=bold gui=bold " ctermbg=234 guibg=#222222
-" hi CursorLineNr cterm=bold gui=bold " ctermbg=234 guibg=#222222
-" hi CursorLine   ctermbg=234 guibg=#222222
-" hi ColorColumn  ctermbg=234 guibg=#222222
+if has('mouse')
+    set mouse+=a
+    set mousemodel=popup_setpos
+    set ttymouse=xterm2 " tmux knows the extended mouse mode
+    " if &term =~ '^screen'
+    "     set ttymouse=xterm2 " tmux knows the extended mouse mode
+    " endif
+endif
+
+" block select with control-click-and-drag
+noremap <C-LeftMouse> <LeftMouse><Esc><C-V>
+noremap <C-LeftDrag>  <LeftDrag>
+
+" ========================================================================= }}}
+" 10 GUI ================================================================== {{{
+
+if has('gui_running')
+    set linespace=1
+    set guifont=Inconsolata:h13
+    if has('transparency')
+        set transparency=0
+    endif
+endif
+
+" ========================================================================= }}}
+" 11 printing ============================================================= {{{
 
 
-" ==============================================================================
-" formatting
-" ==============================================================================
 
-set nowrap
-set whichwrap+=<>[]
-set textwidth=80
-set formatoptions=qrn1
-set lbr
-set smartindent
-filetype indent on
-set virtualedit+=block,onemore
-set tabstop=4
-set shiftwidth=4
-set expandtab
+" ========================================================================= }}}
+" 12 messages and info ==================================================== {{{
 
+set noshowmode
+set showcmd
+set shortmess+=I
 
-" ==============================================================================
-" clipboard
-" ==============================================================================
+" ========================================================================= }}}
+" 13 selecting text ======================================================= {{{
 
 if has('clipboard')
     set clipboard=unnamed
@@ -183,24 +212,37 @@ if has('clipboard')
     endif
 endif
 
+"set selectmode+=mouse,key,cmd
 
-" ==============================================================================
-" undo
-" ==============================================================================
+" ========================================================================= }}}
+" 14 editing text ========================================================= {{{
 
 if has('persistent_undo')
-    set undodir=~/.vim/local/undo/
-    set undofile
     set undolevels=1000
-    if exists('+undoreload')
+    if exists('&undoreload')
         set undoreload=10000
     endif
 endif
 
+set completeopt+=preview,menuone,longest
+set backspace=indent,eol,start
+set whichwrap+=<>[]
+set textwidth=72
+set formatoptions=qrn1
+set showmatch
 
-" ==============================================================================
-" folding
-" ==============================================================================
+" ========================================================================= }}}
+" 15 tabs and indenting =================================================== {{{
+
+filetype indent on
+set smartindent
+set smarttab
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" ========================================================================= }}}
+" 16 folding ============================================================== {{{
 
 set foldenable
 set foldmethod=manual
@@ -224,66 +266,23 @@ function! MyFoldText() " {{{
 endfunction " }}}
 set foldtext=MyFoldText()
 
-" folding (if enabled)
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
-vnoremap <Space> zf
+" ========================================================================= }}}
+" 17 diff mode ============================================================ {{{
 
 
-" ==============================================================================
-" searching
-" ==============================================================================
+" ========================================================================= }}}
+" 18 mapping ============================================================== {{{
 
-" nnoremap / /\v
-" vnoremap / /\v
-set ignorecase
-set smartcase
-set gdefault
-set incsearch
-set showmatch
-set hlsearch
+let mapleader = ","
+
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
-nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
-vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
-set isk-=:
+" nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+" vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+" nnoremap / /\v
+" vnoremap / /\v
 
-
-" ==============================================================================
-" spelling
-" ==============================================================================
-
-"set spell
-set spelllang=en_us
-
-
-" ==============================================================================
-" menu (for command tab-complete)
-" ==============================================================================
-
-set wildmenu
-set wildmode=list:longest
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*.bak,*.exe
-set wildignore+=*.pyc,*.DS_Store,*.db
-
-
-" ==============================================================================
-" mouse
-" ==============================================================================
-
-if has('mouse')
-    set mouse+=a
-    set mousemodel=popup_setpos
-    set ttymouse=xterm2 " tmux knows the extended mouse mode
-    " if &term =~ '^screen'
-    "     set ttymouse=xterm2 " tmux knows the extended mouse mode
-    " endif
-endif
-
-
-" ==============================================================================
-" keyboard mappings
-" ==============================================================================
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap <Up> gk
@@ -293,16 +292,16 @@ noremap j gj
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
-" retain selection when changing indent level
-vnoremap < <gv
-vnoremap > >gv
-
 " clean trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " wrap a paragraph
 vnoremap Q gq
 nnoremap Q gqap
+
+" retain selection when changing indent level
+vnoremap < <gv
+vnoremap > >gv
 
 " reselect what was just pasted
 nnoremap <leader>v V`]
@@ -342,24 +341,132 @@ nnoremap <F2> :set list!<CR>
 " toggle spellcheck
 nnoremap <F4> :set spell!<CR>
 
-" toggle paste mode
-nnoremap <F5> :set invpaste!<CR>
-set pastetoggle=<F5>
-
 " sort CSS
 nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
-" fold HTML tag
-noremap <leader>ft Vatzf
+noremap <F7>  :NERDTreeToggle<CR>
 
-" block select with control-click-and-drag
-noremap <C-LeftMouse> <LeftMouse><Esc><C-V>
-noremap <C-LeftDrag>  <LeftDrag>
+noremap <leader>o :CtrlPMixed<CR>
+noremap <leader>p :CtrlP<CR>
+noremap <leader>b :CtrlPBuffer<CR>
+noremap <leader>u :CtrlPUndo<CR>
+noremap <leader>T :CtrlPTag<CR>
+noremap <leader>t :CtrlPBufTagAll<CR>
+noremap <leader>m :CtrlPMRUFiles<CR>
+
+noremap <F8> :TagbarToggle<CR>
+
+nnoremap  <Leader>aa        :Tabularize  argument_list<CR>
+vnoremap  <Leader>aa        :Tabularize  argument_list<CR>
+
+nnoremap  <Leader>a<Space> :Tabularize  / /<CR>
+vnoremap  <Leader>a<Space> :Tabularize  / /<CR>
+
+nnoremap  <Leader>a&       :Tabularize  /&<CR>
+vnoremap  <Leader>a&       :Tabularize  /&<CR>
+
+nnoremap  <Leader>a=       :Tabularize  /=<CR>
+vnoremap  <Leader>a=       :Tabularize  /=<CR>
+
+nnoremap  <Leader>a:       :Tabularize  /:<CR>
+vnoremap  <Leader>a:       :Tabularize  /:<CR>
+
+nnoremap  <Leader>a::      :Tabularize  /:\zs<CR>
+vnoremap  <Leader>a::      :Tabularize  /:\zs<CR>
+
+nnoremap  <Leader>a,       :Tabularize  /,<CR>
+vnoremap  <Leader>a,       :Tabularize  /,<CR>
+
+nnoremap  <Leader>a,,      :Tabularize  /,\zs<CR>
+vnoremap  <Leader>a,,      :Tabularize  /,\zs<CR>
+
+nnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
+vnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
+
+nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+
+" folding (if enabled)
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
+vnoremap <Space> zf
 
 
-" ==============================================================================
-" auto commands
-" ==============================================================================
+" ========================================================================= }}}
+" 19 reading and writing files ============================================ {{{
+
+set modeline
+set backup
+set writebackup
+set backupdir=~/.vim/local/backup//
+set autowriteall
+set autoread
+
+if exists('&cryptmethod')
+    set cryptmethod=blowfish
+endif
+
+if has('autocmd')
+    augroup EditCrontabOnOSX
+        au!
+        au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+    augroup END
+endif
+
+" ========================================================================= }}}
+" 20 the swap file ======================================================== {{{
+
+set directory=~/.vim/local/swap//
+set updatetime=500
+
+" ========================================================================= }}}
+" 21 command line editing ================================================= {{{
+
+set wildmenu
+set wildmode=list:longest
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*.bak,*.exe
+set wildignore+=*.pyc,*.DS_Store,*.db
+set history=5000
+
+if has('persistent_undo')
+    set undodir=~/.vim/local/undo//
+    set undofile
+endif
+
+" ========================================================================= }}}
+" 22 executing external commands ========================================== {{{
+
+"set nowarn
+
+" ========================================================================= }}}
+" 23 running make and jumping to errors =================================== {{{
+
+if has('autocmd')
+    augroup QuickFix
+        au!
+        au BufReadPost quickfix setlocal nolist
+    augroup END
+endif
+
+" ========================================================================= }}}
+" 24 language specific ==================================================== {{{
+
+set iskeyword-=:
+
+" ========================================================================= }}}
+" 25 multi-byte characters ================================================ {{{
+
+set encoding=utf-8
+set fileencoding=utf-8
+set termencoding=utf-8
+
+" ========================================================================= }}}
+" 26 various ============================================================== {{{
+
+set virtualedit+=block,onemore
+" set gdefault
+set viewdir=~/.vim/local/view//
+set viminfo^=%,h
+
 
 if has('autocmd')
     augroup RedrawOnResize
@@ -372,62 +479,13 @@ if has('autocmd')
         au BufWinLeave * silent! mkview "make vim save view (state) (folds, cursor, etc)
         au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
     augroup END
-
-    augroup AlwaysRelative
-        au!
-        au BufReadPost *
-            \ if &number && exists('+relativenumber') |
-            \     silent! setl relativenumber         |
-            \     silent! setl number                 |
-            \ endif
-    augroup END
-
-    augroup EditCrontabOnOSX
-        au!
-        au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-    augroup END
-
     augroup Stdin
         au!
         au StdinReadPost * :set buftype=nofile
     augroup END
-
-    augroup QuickFix
-        au!
-        au BufReadPost quickfix setlocal nolist
-    augroup END
 endif
 
-
-" ==============================================================================
-" RTK
-" ==============================================================================
-
-if filereadable('/usr/local/etc/vimrc_files/reasonably_stable_mappings.vim')
-    source /usr/local/etc/vimrc_files/reasonably_stable_mappings.vim
-endif
-
-if has('autocmd') && executable("touch_handler_cgis")
-    augroup TouchHandlerScript
-        au!
-        au BufWritePost *.* let output = system("touch_handler_cgis")
-    augroup END
-endif
-
-" workarounds
-au! BufEnter *
-" let $TEST_DB=1
-
-
-" ==============================================================================
 " NERDTree settings
-" ==============================================================================
-
-noremap <C-e> :NERDTreeToggle<CR>
-noremap <F7>  :NERDTreeToggle<CR>
-"noremap <leader>e :NERDTreeFind<CR>
-"noremap <leader>nt :NERDTreeFind<CR>
-
 " let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 " let NERDTreeHijackNetrw=0
@@ -480,19 +538,7 @@ if has('autocmd')
     augroup END
 endif
 
-
-" ==============================================================================
 " CtrlP settings
-" ==============================================================================
-
-noremap <leader>o :CtrlPMixed<CR>
-noremap <leader>p :CtrlP<CR>
-noremap <leader>b :CtrlPBuffer<CR>
-noremap <leader>u :CtrlPUndo<CR>
-noremap <leader>T :CtrlPTag<CR>
-noremap <leader>t :CtrlPBufTagAll<CR>
-noremap <leader>m :CtrlPMRUFiles<CR>
-
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_cmd = 'CtrlPMixed'
@@ -511,13 +557,7 @@ if executable('ag')
     let g:ctrlp_use_caching = 0
 endif
 
-" ==============================================================================
 " TagBar settings
-" ==============================================================================
-
-noremap <F8> :TagbarToggle<CR>
-noremap <C-t> :TagbarToggle<CR>
-
 if filereadable(expand('~/.local/bin/ctags'))
     let g:tagbar_ctags_bin = expand('~/.local/bin/ctags')
 endif
@@ -539,72 +579,10 @@ let g:tagbar_type_perl = {
     \ ]
 \ }
 
-" ==============================================================================
 " Jedi-vim settings
-" ==============================================================================
-
 let g:jedi#squelch_py_warning = 1
 
-
-" ==============================================================================
-" Tabular
-" ==============================================================================
-
-nnoremap  <Leader>aa        :Tabularize  argument_list<CR>
-vnoremap  <Leader>aa        :Tabularize  argument_list<CR>
-
-nnoremap  <Leader>a<Space> :Tabularize  / /<CR>
-vnoremap  <Leader>a<Space> :Tabularize  / /<CR>
-
-nnoremap  <Leader>a&       :Tabularize  /&<CR>
-vnoremap  <Leader>a&       :Tabularize  /&<CR>
-
-nnoremap  <Leader>a=       :Tabularize  /=<CR>
-vnoremap  <Leader>a=       :Tabularize  /=<CR>
-
-nnoremap  <Leader>a:       :Tabularize  /:<CR>
-vnoremap  <Leader>a:       :Tabularize  /:<CR>
-
-nnoremap  <Leader>a::      :Tabularize  /:\zs<CR>
-vnoremap  <Leader>a::      :Tabularize  /:\zs<CR>
-
-nnoremap  <Leader>a,       :Tabularize  /,<CR>
-vnoremap  <Leader>a,       :Tabularize  /,<CR>
-
-nnoremap  <Leader>a,,      :Tabularize  /,\zs<CR>
-vnoremap  <Leader>a,,      :Tabularize  /,\zs<CR>
-
-nnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
-vnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
-
-
-" ==============================================================================
-" NeoComplCache settings
-" ==============================================================================
-
-"let g:neocomplcache_enable_at_startup = 0
-" Use smartcase.
-"let g:neocomplcache_enable_smart_case = 1
-"" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-"" Use underscore completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-"" Sets minimum char length of syntax keyword.
-"let g:neocomplcache_min_syntax_length = 3
-
-"" Enable omni completion
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType perl setlocal omnifunc=perlcomplete#Complete
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-
-" ==============================================================================
 " Syntastic settings
-" ==============================================================================
-
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 "let g:syntastic_python_checker_args='--ignore=E501'
@@ -616,35 +594,21 @@ let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': ['perl'] }
 
-" ==============================================================================
 " SuperTab settings
-" ==============================================================================
-
 let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
 let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 let g:SuperTabContextDiscoverDiscovery =
     \ ["&omnifunc:<c-x><c-o>", "&completefunc:<c-x><c-u>",]
 let g:SuperTabDefaultCompletionType = "context"
 
-
-" ==============================================================================
 " Ack settings
-" ==============================================================================
-
 if executable('ag')
     let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 
-nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
-nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
-
-
-" ==============================================================================
 " Airline settings
-" ==============================================================================
-
 " let g:airline_solarized_bg = 'light'
 let g:airline_theme='luna'
 
@@ -660,12 +624,5 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'π'
 let g:airline_symbols.whitespace = '¶'
 
-" ==============================================================================
-" Gitgutter settings
-" ==============================================================================
+" ========================================================================= }}}
 
-hi clear SignColumn
-hi link SignColumn LineNr
-let g:gitgutter_sign_column_always = 1
-" let g:gitgutter_highlight_lines = 1
-let g:gitgutter_enabled = 0
