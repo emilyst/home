@@ -132,6 +132,52 @@ set spelllang=en_us
 " hi CursorLine   ctermbg=234 guibg=#222222
 " hi ColorColumn  ctermbg=234 guibg=#222222
 
+" Highlight VCS conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" Highlight Word {{{
+"
+" This mini-plugin provides a few mappings for highlighting words temporarily.
+"
+" Sometimes you're looking at a hairy piece of code and would like a certain
+" word or two to stand out temporarily.  You can search for it, but that only
+" gives you one color of highlighting.  Now you can use <leader>N where N is
+" a number from 1-6 to highlight the current word in a specific color.
+
+function! HiInterestingWord(n) " {{{
+    " Save our location.
+    normal! mz
+
+    " Yank the current word into the z register.
+    normal! "zyiw
+
+    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+    let mid = 86750 + a:n
+
+    " Clear existing matches, but don't worry if they don't exist.
+    silent! call matchdelete(mid)
+
+    " Construct a literal pattern that has to match at boundaries.
+    let pat = '\V\<' . escape(@z, '\') . '\>'
+
+    " Actually match the words.
+    call matchadd("InterestingWord" . a:n, pat, 1, mid)
+
+    " Move back to our original location.
+    normal! `z
+endfunction " }}}
+
+" Default Highlights {{{
+
+hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
+hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
+hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
+hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
+hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
+hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
+
+" }}}
+
 " ========================================================================= }}}
 " 6 multiple windows ====================================================== {{{
 
@@ -224,6 +270,7 @@ if has('persistent_undo')
     endif
 endif
 
+" set complete=.,w,b,u,t
 set completeopt+=preview,menuone,longest
 set backspace=indent,eol,start
 set whichwrap+=<>[]
@@ -274,15 +321,68 @@ set foldtext=MyFoldText()
 " 18 mapping ============================================================== {{{
 
 let mapleader = ","
+let maplocalleader = "\\"
+
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+nnoremap <c-o> <c-o>zz
 
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
-" nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
-" vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 " nnoremap / /\v
 " vnoremap / /\v
 
+" Visual Mode */# from Scrooloose {{{
+
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
+
+" Split line (sister to [J]oin lines)
+" The normal use of S is covered by cc, so don't worry about shadowing it.
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+
+" Sudo to write
+cnoremap w!! w !sudo tee % >/dev/null
+
+" Typos
+command! -bang E e<bang>
+command! -bang Q q<bang>
+command! -bang W w<bang>
+command! -bang QA qa<bang>
+command! -bang Qa qa<bang>
+command! -bang Wa wa<bang>
+command! -bang WA wa<bang>
+command! -bang Wq wq<bang>
+command! -bang WQ wq<bang>
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap <Up> gk
@@ -291,6 +391,12 @@ noremap k gk
 noremap j gj
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
+
+" I suck at typing.
+vnoremap - =
+
+" Unfuck my screen
+nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 
 " clean trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -390,6 +496,9 @@ nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
 vnoremap <Space> zf
 
+nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
+
+cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 
 " ========================================================================= }}}
 " 19 reading and writing files ============================================ {{{
@@ -398,6 +507,10 @@ set modeline
 set backup
 set writebackup
 set backupdir=~/.vim/local/backup//
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+set backupskip=/tmp/*,/private/tmp/*"
 set autowriteall
 set autoread
 
@@ -405,17 +518,13 @@ if exists('&cryptmethod')
     set cryptmethod=blowfish
 endif
 
-if has('autocmd')
-    augroup EditCrontabOnOSX
-        au!
-        au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-    augroup END
-endif
-
 " ========================================================================= }}}
 " 20 the swap file ======================================================== {{{
 
 set directory=~/.vim/local/swap//
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
 set updatetime=500
 
 " ========================================================================= }}}
@@ -428,8 +537,11 @@ set wildignore+=*.pyc,*.DS_Store,*.db
 set history=5000
 
 if has('persistent_undo')
-    set undodir=~/.vim/local/undo//
     set undofile
+    set undodir=~/.vim/local/undo//
+    if !isdirectory(expand(&undodir))
+        call mkdir(expand(&undodir), "p")
+    endif
 endif
 
 " ========================================================================= }}}
@@ -484,6 +596,36 @@ if has('autocmd')
         au StdinReadPost * :set buftype=nofile
     augroup END
 endif
+
+" Pulse Line {{{
+
+function! s:Pulse() " {{{
+    redir => old_hi
+        silent execute 'hi CursorLine'
+    redir END
+    let old_hi = split(old_hi, '\n')[0]
+    let old_hi = substitute(old_hi, 'xxx', '', '')
+
+    let steps = 8
+    let width = 1
+    let start = width
+    let end = steps * width
+    let color = 233
+
+    for i in range(start, end, width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
+    for i in range(end, start, -1 * width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
+
+    execute 'hi ' . old_hi
+endfunction " }}}
+command! -nargs=0 Pulse call s:Pulse()
 
 " NERDTree settings
 " let NERDTreeMinimalUI = 1
@@ -603,10 +745,8 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " Ack settings
 if executable('ag')
-    let g:ackprg = 'ag --nogroup --nocolor --column'
+    let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 endif
-
-cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 
 " Airline settings
 " let g:airline_solarized_bg = 'light'
