@@ -327,6 +327,9 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
+noremap  <F1> :checktime<cr>
+inoremap <F1> <esc>:checktime<cr>
+
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
 nnoremap N Nzzzv
