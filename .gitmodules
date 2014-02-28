@@ -112,6 +112,3 @@
 [submodule ".vim/bundle/jdaddy"]
 	path = .vim/bundle/jdaddy
 	url = git://github.com/tpope/vim-jdaddy.git
-[submodule ".vim/bundle/golang"]
-	path = .vim/bundle/golang
-	url = git@github.com:jnwhiteh/vim-golang.git
