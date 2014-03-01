@@ -118,3 +118,15 @@
 [submodule ".vim/bundle/inkpot"]
 	path = .vim/bundle/inkpot
 	url = git@github.com:ciaranm/inkpot.git
+[submodule ".vim/bundle/lucius"]
+	path = .vim/bundle/lucius
+	url = git@github.com:jonathanfilip/vim-lucius.git
+[submodule ".vim/bundle/molokai"]
+	path = .vim/bundle/molokai
+	url = git@github.com:tomasr/molokai.git
+[submodule ".vim/bundle/monokai"]
+	path = .vim/bundle/monokai
+	url = git@github.com:sickill/vim-monokai.git
+[submodule ".vim/bundle/hybrid"]
+	path = .vim/bundle/hybrid
+	url = git@github.com:w0ng/vim-hybrid.git
