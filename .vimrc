@@ -492,6 +492,8 @@ vnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
 
 nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>g* :Ack! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
+nnoremap <leader>g8 :Ack! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
 
 " folding (if enabled)
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
