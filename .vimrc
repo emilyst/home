@@ -135,7 +135,7 @@ set spelllang=en_us
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
-" Highlight Word {{{
+" Highlight Word
 "
 " This mini-plugin provides a few mappings for highlighting words temporarily.
 "
@@ -144,7 +144,7 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " gives you one color of highlighting.  Now you can use <leader>N where N is
 " a number from 1-6 to highlight the current word in a specific color.
 
-function! HiInterestingWord(n) " {{{
+function! HiInterestingWord(n)
     " Save our location.
     normal! mz
 
@@ -165,9 +165,9 @@ function! HiInterestingWord(n) " {{{
 
     " Move back to our original location.
     normal! `z
-endfunction " }}}
+endfunction
 
-" Default Highlights {{{
+" Default Highlights
 
 hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
 hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
@@ -175,8 +175,6 @@ hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
 hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
 hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
 hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
-
-" }}}
 
 " ========================================================================= }}}
 " 6 multiple windows ====================================================== {{{
@@ -296,7 +294,7 @@ set foldmethod=manual
 set foldlevelstart=99 " Don't autofold anything
 set foldlevel=99      " Don't autofold anything
 
-function! MyFoldText() " {{{
+function! MyFoldText()
     let line = getline(v:foldstart)
 
     let nucolwidth = &fdc + &number * &numberwidth
@@ -310,7 +308,7 @@ function! MyFoldText() " {{{
     let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
     let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction " }}}
+endfunction
 set foldtext=MyFoldText()
 
 " ========================================================================= }}}
@@ -347,7 +345,7 @@ vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 " nnoremap / /\v
 " vnoremap / /\v
 
-" Visual Mode */# from Scrooloose {{{
+" Visual Mode */# from Scrooloose
 
 function! s:VSetSearch()
   let temp = @@
@@ -606,9 +604,7 @@ if has('autocmd')
     augroup END
 endif
 
-" Pulse Line {{{
-
-function! s:Pulse() " {{{
+function! s:Pulse()
     redir => old_hi
         silent execute 'hi CursorLine'
     redir END
@@ -633,7 +629,7 @@ function! s:Pulse() " {{{
     endfor
 
     execute 'hi ' . old_hi
-endfunction " }}}
+endfunction
 command! -nargs=0 Pulse call s:Pulse()
 
 " NERDTree settings
@@ -773,5 +769,5 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'π'
 let g:airline_symbols.whitespace = '¶'
 
+" vim: set fdm=marker fdl=0 tw=72 :
 " ========================================================================= }}}
-
