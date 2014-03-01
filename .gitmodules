@@ -115,3 +115,6 @@
 [submodule ".vim/bundle/go"]
 	path = .vim/bundle/go
 	url = git@github.com:jnwhiteh/vim-golang.git
+[submodule ".vim/bundle/inkpot"]
+	path = .vim/bundle/inkpot
+	url = git@github.com:ciaranm/inkpot.git
