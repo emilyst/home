@@ -130,3 +130,6 @@
 [submodule ".vim/bundle/hybrid"]
 	path = .vim/bundle/hybrid
 	url = git@github.com:w0ng/vim-hybrid.git
+[submodule ".vim/bundle/perl"]
+	path = .vim/bundle/perl
+	url = git@github.com:vim-perl/vim-perl.git
