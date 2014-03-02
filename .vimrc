@@ -113,8 +113,12 @@ set background=dark
 syntax enable
 set t_Co=256
 set background=dark
-let g:solarized_italic   = 0
-let g:solarized_diffmode = "high"
+let g:solarized_italic     = 1
+let g:solarized_diffmode   = "high"
+let g:solarized_visibility = "low"
+let g:solarized_underline  = 0
+let g:solarized_hitrail = 1
+let g:solarized_contrast = "normal"
 colorscheme solarized
 set cursorline
 "set cursorcolumn
@@ -502,6 +506,9 @@ vnoremap <Space> zf
 nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
+
+" toggle solarized background
+call togglebg#map("<F12>")
 
 " ========================================================================= }}}
 " 19 reading and writing files ============================================ {{{
