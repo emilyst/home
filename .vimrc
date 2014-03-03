@@ -775,7 +775,7 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'π'
+let g:airline_symbols.paste = '✹'
 let g:airline_symbols.whitespace = '¶'
 
 " vim: set fdm=marker fdl=0 tw=72 :
