@@ -113,7 +113,7 @@ set background=dark
 syntax enable
 set t_Co=256
 set background=dark
-let g:solarized_italic     = 1
+let g:solarized_italic     = 0
 let g:solarized_diffmode   = "high"
 let g:solarized_visibility = "low"
 let g:solarized_underline  = 0
