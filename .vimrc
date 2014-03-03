@@ -739,8 +739,8 @@ let g:tagbar_type_perl = {
 let g:jedi#squelch_py_warning = 1
 
 " Syntastic settings
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
+let g:syntastic_error_symbol='✖'
+let g:syntastic_warning_symbol='✹'
 "let g:syntastic_python_checker_args='--ignore=E501'
 let syntastic_python_flake8_args='--ignore=E501'
 let g:syntastic_auto_loc_list=1
