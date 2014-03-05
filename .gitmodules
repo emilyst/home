@@ -133,3 +133,6 @@
 [submodule ".vim/bundle/perl"]
 	path = .vim/bundle/perl
 	url = git@github.com:vim-perl/vim-perl.git
+[submodule ".vim/bundle/vitality"]
+	path = .vim/bundle/vitality
+	url = git@github.com:sjl/vitality.vim.git
