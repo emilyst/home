@@ -136,3 +136,6 @@
 [submodule ".vim/bundle/vitality"]
 	path = .vim/bundle/vitality
 	url = git@github.com:sjl/vitality.vim.git
+[submodule ".vim/bundle/emmet"]
+	path = .vim/bundle/emmet
+	url = git@github.com:mattn/emmet-vim.git
