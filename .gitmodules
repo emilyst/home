@@ -139,3 +139,6 @@
 [submodule ".vim/bundle/emmet"]
 	path = .vim/bundle/emmet
 	url = git@github.com:mattn/emmet-vim.git
+[submodule ".vim/bundle/scala"]
+	path = .vim/bundle/scala
+	url = git@github.com:derekwyatt/vim-scala.git
