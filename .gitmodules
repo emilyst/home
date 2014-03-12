@@ -142,3 +142,6 @@
 [submodule ".vim/bundle/scala"]
 	path = .vim/bundle/scala
 	url = git@github.com:derekwyatt/vim-scala.git
+[submodule ".vim/bundle/signature"]
+	path = .vim/bundle/signature
+	url = git@github.com:kshenoy/vim-signature.git
