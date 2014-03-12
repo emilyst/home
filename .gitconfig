@@ -58,6 +58,7 @@
     sync = !legit sync \"$@\"
     publish = !legit publish \"$@\"
     graft = !legit graft \"$@\"
+	up = pull --ff-only --all -p
 [push]
     default = current
 [status]
