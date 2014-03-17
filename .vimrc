@@ -232,7 +232,7 @@ noremap <C-LeftDrag>  <LeftDrag>
 
 if has('gui_running')
     set linespace=1
-    set guifont=Inconsolata:h13
+    set guifont=Inconsolata\ Regular\ for\ Powerline:h13
     if has('transparency')
         set transparency=0
     endif
