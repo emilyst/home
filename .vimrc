@@ -590,6 +590,8 @@ set termencoding=utf-8
 " 26 various ============================================================== {{{
 
 set virtualedit+=block,onemore
+set viewoptions-=folds
+
 " set gdefault
 if exists('&viewdir')
     set viewdir=~/.vim/local/view//
@@ -790,9 +792,13 @@ let g:airline_symbols.linenr   = ''
 " let g:airline_symbols.paste = '✹'
 " let g:airline_symbols.whitespace = '¶'
 
-" let g:airline_solarized_bg = 'light'
+" let g:airline_solarized_bg                   = 'light'
 let g:airline#extensions#tabline#enabled       = 1
 let g:airline#extensions#tabline#show_buffers  = 0
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#close_symbol  = '✖'
+let g:airline#extensions#tabline#formatter     = 'unique_tail_improved'
+let g:airline#extensions#tabline#tab_nr_type   = 1
 
 let g:airline#extensions#tabline#left_sep      = ''
 let g:airline#extensions#tabline#left_alt_sep  = ''
@@ -802,5 +808,5 @@ let g:airline#extensions#tabline#right_alt_sep = ''
 " vim signature
 let g:SignatureEnabledAtStartup=0
 
-" vim: set fdm=marker fdl=0 tw=72 :
+" vim: set fdm=marker fdl=1 tw=72 :
 " ========================================================================= }}}
