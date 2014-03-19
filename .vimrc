@@ -193,6 +193,8 @@ set scrollopt=ver,hor,jump
 " ========================================================================= }}}
 " 7 multiple tab pages ==================================================== {{{
 
+set showtabline=2
+
 " ========================================================================= }}}
 " 8 terminal ============================================================== {{{
 
@@ -766,7 +768,6 @@ if executable('ag')
 endif
 
 " Airline settings
-" let g:airline_solarized_bg = 'light'
 let g:airline_theme='luna'
 
 if !exists('g:airline_symbols')
@@ -788,6 +789,18 @@ let g:airline_symbols.linenr   = ''
 " let g:airline_symbols.branch = '⎇'
 " let g:airline_symbols.paste = '✹'
 " let g:airline_symbols.whitespace = '¶'
+
+" let g:airline_solarized_bg = 'light'
+let g:airline#extensions#tabline#enabled       = 1
+let g:airline#extensions#tabline#show_buffers  = 0
+
+let g:airline#extensions#tabline#left_sep      = ''
+let g:airline#extensions#tabline#left_alt_sep  = ''
+let g:airline#extensions#tabline#right_sep     = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+
+" vim signature
+let g:SignatureEnabledAtStartup=0
 
 " vim: set fdm=marker fdl=0 tw=72 :
 " ========================================================================= }}}
