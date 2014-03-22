@@ -371,7 +371,7 @@ nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
 nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 
 " Keep the cursor in place while joining lines
-nnoremap J mzJ`z
+nnoremap J mzJ`z:delm z<cr>
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
