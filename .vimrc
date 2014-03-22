@@ -794,7 +794,7 @@ let g:airline_symbols.linenr   = ''
 
 " let g:airline_solarized_bg                   = 'light'
 let g:airline#extensions#tabline#enabled       = 1
-let g:airline#extensions#tabline#show_buffers  = 0
+let g:airline#extensions#tabline#show_buffers  = 1
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#close_symbol  = '✖'
 let g:airline#extensions#tabline#formatter     = 'unique_tail_improved'
