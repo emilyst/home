@@ -505,7 +505,7 @@ nnoremap <leader>g8 :Ack! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
 vnoremap <Space> zf
 
-nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
+nnoremap <c-c> :Pulse<cr>
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 
@@ -627,7 +627,7 @@ function! s:Pulse()
     let old_hi = split(old_hi, '\n')[0]
     let old_hi = substitute(old_hi, 'xxx', '', '')
 
-    let steps = 8
+    let steps = 12
     let width = 1
     let start = width
     let end = steps * width
@@ -636,12 +636,12 @@ function! s:Pulse()
     for i in range(start, end, width)
         execute "hi CursorLine ctermbg=" . (color + i)
         redraw
-        sleep 6m
+        sleep 5m
     endfor
     for i in range(end, start, -1 * width)
         execute "hi CursorLine ctermbg=" . (color + i)
         redraw
-        sleep 6m
+        sleep 5m
     endfor
 
     execute 'hi ' . old_hi
