@@ -663,44 +663,6 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 let NERDChristmasTree=1
 let NERDTreeAutoCenter=1
 
-if has('autocmd')
-    augroup CloseNERDTreeIfLastWindow
-        autocmd!
-        autocmd BufEnter *
-            \ if winnr("$") == 1                      |
-            \     if exists("b:NERDTreeType")         |
-            \         if b:NERDTreeType == "primary"  |
-            \             quit                        |
-            \         endif                           |
-            \     endif                               |
-            \ endif                                   |
-    augroup END
-
-    " returns true iff is NERDTree open/active
-    function! rc:isNTOpen()
-        return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-    endfunction
-
-    " returns true iff focused window is NERDTree window
-    function! rc:isNTFocused()
-        return -1 != match(expand('%'), 'NERD_Tree') 
-    endfunction
-
-    " calls NERDTreeFind iff NERDTree is active, current window contains a modifiable file, and we're not in vimdiff
-    function! rc:syncTree()
-        if &modifiable && rc:isNTOpen() && !rc:isNTFocused() && strlen(expand('%')) > 0 && !&diff
-            NERDTreeFind
-            silent! execute "normal zz"
-            wincmd p
-        endif
-    endfunction
-
-    augroup SyncNERDTree
-        au!
-        au BufEnter * call rc:syncTree()
-    augroup END
-endif
-
 " CtrlP settings
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
@@ -753,8 +715,10 @@ let syntastic_python_flake8_args='--ignore=E501'
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 
+let g:syntastic_scala_checkers = ['fsc']
+
 let g:syntastic_mode_map = { 'mode': 'passive',
-                           \ 'active_filetypes': [],
+                           \ 'active_filetypes': ['scala'],
                            \ 'passive_filetypes': ['perl'] }
 
 " SuperTab settings
@@ -770,7 +734,7 @@ if executable('ag')
 endif
 
 " Airline settings
-let g:airline_theme='luna'
+let g:airline_theme='kolor'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}

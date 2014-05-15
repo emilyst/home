@@ -1,6 +1,8 @@
 [user]
-	name = Emily Strickland
+	name = Emily St.
 	email = hello@emily.st
+[include]
+    path = ~/.gitconfig.local
 [giggle]
     main-window-maximized = false
     main-window-geometry = 1018x603+244+123
@@ -79,3 +81,6 @@
     autosetuprebase = always
 [help]
 	autocorrect = 1
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
