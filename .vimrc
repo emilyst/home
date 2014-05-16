@@ -109,23 +109,26 @@ endif
 " ========================================================================= }}}
 " 5 syntax, highlighting and spelling ===================================== {{{
 
-set background=dark
 syntax enable
-set t_Co=256
-set background=dark
+
 let g:solarized_italic     = 0
 let g:solarized_diffmode   = "high"
 let g:solarized_visibility = "low"
 let g:solarized_underline  = 0
-let g:solarized_hitrail = 1
-let g:solarized_contrast = "normal"
+let g:solarized_hitrail    = 1
+let g:solarized_contrast   = "normal"
+
+set background=dark
+set t_Co=256
 colorscheme solarized
-set cursorline
+
 "set cursorcolumn
 "if exists('+colorcolumn') | set colorcolumn+=80,120 | endif
 if exists('&colorcolumn')
     let &colorcolumn=join(range(81,9999), ',')
 endif
+set cursorline
+
 set spelllang=en_us
 
 " custom highlights
@@ -734,7 +737,7 @@ if executable('ag')
 endif
 
 " Airline settings
-let g:airline_theme='kolor'
+let g:airline_theme='luna'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
