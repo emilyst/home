@@ -148,3 +148,6 @@
 [submodule ".vim/bundle/niji"]
 	path = .vim/bundle/niji
 	url = git://github.com/amdt/vim-niji.git
+[submodule ".vim/bundle/YouCompleteMe"]
+	path = .vim/bundle/YouCompleteMe
+	url = git@github.com:Valloric/YouCompleteMe.git

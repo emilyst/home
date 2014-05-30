@@ -26,7 +26,7 @@ if has('autocmd')
 endif
 
 " bring in Pathogen
-let g:pathogen_disabled = ['bufexplorer', 'neocomplcache', 'nerdtree-tabs']
+let g:pathogen_disabled = ['bufexplorer', 'neocomplcache', 'nerdtree-tabs', 'supertab' ]
 if v:version < 702
     let g:pathogen_disabled += ['tagbar', 'neocomplcache',]
 endif
@@ -223,6 +223,7 @@ if has('mouse')
     set mouse+=a
     set mousemodel=popup_setpos
     set ttymouse=xterm2 " tmux knows the extended mouse mode
+    if has('mouse_sgr') | set ttymouse=sgr | endif
     " if &term =~ '^screen'
     "     set ttymouse=xterm2 " tmux knows the extended mouse mode
     " endif

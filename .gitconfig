@@ -17,21 +17,8 @@
     ui = auto
 [log]
     date = local
-[diff]
-    renameLimit = 0
-    renames = copy
-    color = auto
-    tool = vimdiff
 [rerere]
     enabled = true
-[merge]
-    summary = true
-    log = true
-    tool = vimdiff
-[mergetool]
-	keepBackup = true
-    keepTemporaries = false
-    prompt = false
 [pager]
     color = true
 [status]
@@ -84,3 +71,18 @@
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+
+[difftool "Kaleidoscope"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+  tool = Kaleidoscope
+[difftool]
+  prompt = false
+
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustExitCode = true
+[mergetool]
+  prompt = false
+[merge]
+  tool = Kaleidoscope
