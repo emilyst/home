@@ -145,3 +145,6 @@
 [submodule ".vim/bundle/signature"]
 	path = .vim/bundle/signature
 	url = git@github.com:kshenoy/vim-signature.git
+[submodule ".vim/bundle/niji"]
+	path = .vim/bundle/niji
+	url = git://github.com/amdt/vim-niji.git
