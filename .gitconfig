@@ -73,7 +73,27 @@
 	smudge = git-media-smudge %f
 [remote "backend"]
     fetch = +refs/pull/*/head:refs/pull/origin/*
-
+[url "git@github.banksimple.com:"]
+    insteadOf = bh:
+    pushInsteadOf = https://github.banksimple.com/
+[url "git@github.banksimple.com:BankSimple/"]
+    insteadOf = bs:
+[url "git@github.banksimple.com:backend/"]
+    insteadOf = backend:
+[url "git@github.banksimple.com:projects/"]
+    insteadOf = projects:
+[url "git@github.banksimple.com:internal/"]
+    insteadOf = internal:
+[url "git@github.banksimple.com:sec/"]
+    insteadOf = sec:
+[url "git@github.banksimple.com:ops/"]
+    insteadOf = ops:
+[url "git@github.banksimple.com:partners/"]
+    insteadOf = partners:
+[url "git@github.banksimple.com:ops/chef-"]
+    insteadOf = chef:
+[url "git@github.banksimple.com:cookbooks/"]
+    insteadOf = cook:
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [diff]
