@@ -26,7 +26,7 @@ if has('autocmd')
 endif
 
 " bring in Pathogen
-let g:pathogen_disabled = ['bufexplorer', 'neocomplcache', 'nerdtree-tabs', 'supertab' ]
+let g:pathogen_disabled = ['niji', 'bufexplorer', 'neocomplcache', 'nerdtree-tabs', 'supertab' ]
 if v:version < 702
     let g:pathogen_disabled += ['tagbar', 'neocomplcache',]
 endif
@@ -473,11 +473,11 @@ noremap <leader>m :CtrlPMRUFiles<CR>
 
 noremap <F8> :TagbarToggle<CR>
 
-nnoremap  <Leader>aa        :Tabularize  argument_list<CR>
-vnoremap  <Leader>aa        :Tabularize  argument_list<CR>
+nnoremap  <Leader>aa       :Tabularize  argument_list<CR>
+vnoremap  <Leader>aa       :Tabularize  argument_list<CR>
 
-nnoremap  <Leader>a<Space> :Tabularize  / /<CR>
-vnoremap  <Leader>a<Space> :Tabularize  / /<CR>
+nnoremap  <Leader>a<Space> :Tabularize  multiple_spaces<CR>
+vnoremap  <Leader>a<Space> :Tabularize  multiple_spaces<CR>
 
 nnoremap  <Leader>a&       :Tabularize  /&<CR>
 vnoremap  <Leader>a&       :Tabularize  /&<CR>
