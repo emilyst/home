@@ -31,6 +31,9 @@
     co = checkout
     lg = "log --pretty=format:'%C(yellow)%h%C(reset) %s %C(cyan)%cr%C(reset) %C(blue)%an%C(reset) %C(green)%d%C(reset)' --graph"
     review = "log --stat=80 --dirstat -p -w --patience --reverse --find-copies-harder --decorate -M -C -C -c"
+
+    scope = "!sh -c 'git fetch backend && git ksreviewfor `echo $1 | sed -Ee \"s_.*pull/([0-9]+)_refs/pull/origin/\\1_\"` backend/master' -"
+    
     upm = !sh -c 'git fetch --all && git rebase origin/master && git submodule update' -
     plog = !git lg
     d = difftool
@@ -48,6 +51,29 @@
     publish = !legit publish \"$@\"
     graft = !legit graft \"$@\"
 	up = pull --ff-only --all -p
+    
+    ; Find all commits in the given ref that aren't also in master
+    ; TODO: Make this take a second optional argument
+    find-unmerged-commits = "!sh -c 'git log $1 --format='''%H''' --not master --' -"
+    find-unmerged-commits-for = "!sh -c 'git log $1 --format='''%H''' --not $2 --' -"
+
+    ; ksdiff is the bare kaleidoscope difftool alias
+    ; ksdiffid is the one that expects $KSID to be set
+    ksdiff = difftool -y -t Kaleidoscope
+    ksdiffid = difftool -y -t KaleidoscopeWithId
+
+    ; ksdiffwith opens a diff of (current revision)->(given revision)
+    ksdiffwith = "!sh -c 'git ksdiff HEAD..$1' -"
+
+    ; ksshow will open a single specific commit in kaleidoscope
+    ; it includes the commit log info as a separate file
+    ksshow = "!sh -c 'export KSID=`uuidgen`; git log -n1 $1 > .git/LOG_MESSAGE; ksdiff --partial-changeset --UUID $KSID -- /dev/null .git/LOG_MESSAGE; git ksdiffid $1^..$1; ksdiff --mark-changeset-as-closed $KSID' -"
+
+    ; ksreview takes a branch, finds all commits in that branch that aren't
+    ; merged into master, and opens them one-by-one with ksshow.  It's good for
+    ; reviewing pull requests.
+    ksreview = "!sh -c 'git find-unmerged-commits $1 | xargs -n1 git ksshow' -"
+    ksreviewfor = "!sh -c 'git find-unmerged-commits-for $1 $2 | xargs -n1 git ksshow' -"
 [push]
     default = current
 [status]
@@ -71,8 +97,8 @@
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
-[remote "backend"]
-    fetch = +refs/pull/*/head:refs/pull/origin/*
+; [remote "backend"]
+;     fetch = +refs/pull/*/head:refs/pull/origin/*
 [url "git@github.banksimple.com:"]
     insteadOf = bh:
     pushInsteadOf = https://github.banksimple.com/
@@ -96,6 +122,8 @@
     insteadOf = cook:
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool "KaleidoscopeWithId"]
+	cmd = ksdiff --partial-changeset --UUID \"$KSID\" --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [diff]
   tool = Kaleidoscope
 [difftool]

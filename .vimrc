@@ -377,6 +377,9 @@ nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z:delm z<cr>
 
+" " Ctrl-J to add a new line where the cursor is
+" nnoremap <C-J> ciW<CR><Esc>:if match( @", "^\\s*$") < 0<Bar>exec "norm P-$diw+"<Bar>endif<CR>
+
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
@@ -485,19 +488,13 @@ vnoremap  <Leader>a&       :Tabularize  /&<CR>
 nnoremap  <Leader>a=       :Tabularize  /=<CR>
 vnoremap  <Leader>a=       :Tabularize  /=<CR>
 
-nnoremap  <Leader>a:       :Tabularize  /:<CR>
-vnoremap  <Leader>a:       :Tabularize  /:<CR>
+nnoremap  <Leader>a:       :Tabularize  /:\zs/l0r1<CR>
+vnoremap  <Leader>a:       :Tabularize  /:\zs/l0r1<CR>
 
-nnoremap  <Leader>a::      :Tabularize  /:\zs<CR>
-vnoremap  <Leader>a::      :Tabularize  /:\zs<CR>
+nnoremap  <Leader>a,       :Tabularize  /,\zs/l0r1<CR>
+vnoremap  <Leader>a,       :Tabularize  /,\zs/l0r1<CR>
 
-nnoremap  <Leader>a,       :Tabularize  /,<CR>
-vnoremap  <Leader>a,       :Tabularize  /,<CR>
-
-nnoremap  <Leader>a,,      :Tabularize  /,\zs<CR>
-vnoremap  <Leader>a,,      :Tabularize  /,\zs<CR>
-
-nnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
+nnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR> " bar is pipe
 vnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
 
 nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
@@ -512,6 +509,7 @@ vnoremap <Space> zf
 nnoremap <c-c> :Pulse<cr>
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
+cnoreabbrev <expr> git ((getcmdtype() is# ':' && getcmdline() is# 'git')?('Git'):('git'))
 
 " toggle solarized background
 call togglebg#map("<F12>")
@@ -604,7 +602,7 @@ if exists('&viewdir')
     endif
 endif
 
-set viminfo^=%,h
+set viminfo^=h
 
 
 if has('autocmd')
