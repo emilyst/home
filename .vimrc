@@ -120,7 +120,7 @@ let g:solarized_contrast   = "normal"
 
 set background=dark
 set t_Co=256
-colorscheme solarized
+colorscheme lucius
 
 "set cursorcolumn
 "if exists('+colorcolumn') | set colorcolumn+=80,120 | endif
@@ -736,7 +736,7 @@ if executable('ag')
 endif
 
 " Airline settings
-let g:airline_theme='luna'
+let g:airline_theme='bubblegum'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
