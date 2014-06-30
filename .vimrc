@@ -26,7 +26,7 @@ if has('autocmd')
 endif
 
 " bring in Pathogen
-let g:pathogen_disabled = ['niji', 'bufexplorer', 'neocomplcache', 'nerdtree-tabs', 'supertab' ]
+let g:pathogen_disabled = [ 'niji', 'bufexplorer', 'neocomplcache', 'nerdtree-tabs', 'supertab' ]
 if v:version < 702
     let g:pathogen_disabled += ['tagbar', 'neocomplcache',]
 endif
@@ -736,7 +736,7 @@ if executable('ag')
 endif
 
 " Airline settings
-let g:airline_theme='bubblegum'
+let g:airline_theme='kolor'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}

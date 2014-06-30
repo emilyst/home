@@ -7,7 +7,7 @@
 \timing
 \encoding unicode
 \pset linestyle unicode
---\set ECHO_HIDDEN 1
+\set ECHO_HIDDEN 1
 -- red prompt for live
 \set PROMPT1 '%[%`(ps ho "args" $PPID | grep -q _live) && echo -e "\\e[0;41m"`%]%/%R%#%[%033[m%] '
 \set PROMPT2 '%[%`(ps ho "args" $PPID | grep -q _live) && echo -e "\\e[0;41m"`%]%/%R%#%[%033[m%] '
