@@ -191,6 +191,7 @@ set winminwidth=0
 set hidden
 set switchbuf=useopen,usetab
 set splitbelow
+set splitright
 set scrollopt=ver,hor,jump
 
 " ========================================================================= }}}
