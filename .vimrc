@@ -127,7 +127,7 @@ colorscheme lucius
 if exists('&colorcolumn')
     let &colorcolumn=join(range(81,9999), ',')
 endif
-set cursorline
+set nocursorline
 
 set spelllang=en_us
 
@@ -498,10 +498,10 @@ vnoremap  <Leader>a,       :Tabularize  /,\zs/l0r1<CR>
 nnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR> " bar is pipe
 vnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
 
-nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
-nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
-nnoremap <leader>g* :Ack! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
-nnoremap <leader>g8 :Ack! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
+nnoremap <leader>* :LAck! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>8 :LAck! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>g* :LAck! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
+nnoremap <leader>g8 :LAck! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
 
 " folding (if enabled)
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
@@ -761,7 +761,7 @@ let g:airline_symbols.linenr   = ''
 
 " let g:airline_solarized_bg                   = 'light'
 let g:airline#extensions#tabline#enabled       = 1
-let g:airline#extensions#tabline#show_buffers  = 1
+let g:airline#extensions#tabline#show_buffers  = 0
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#close_symbol  = '✖'
 let g:airline#extensions#tabline#formatter     = 'unique_tail_improved'
