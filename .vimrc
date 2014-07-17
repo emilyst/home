@@ -124,9 +124,9 @@ colorscheme lucius
 
 "set cursorcolumn
 "if exists('+colorcolumn') | set colorcolumn+=80,120 | endif
-if exists('&colorcolumn')
-    let &colorcolumn=join(range(81,9999), ',')
-endif
+" if exists('&colorcolumn')
+"     let &colorcolumn=join(range(81,9999), ',')
+" endif
 set nocursorline
 
 set spelllang=en_us
@@ -498,10 +498,10 @@ vnoremap  <Leader>a,       :Tabularize  /,\zs/l0r1<CR>
 nnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR> " bar is pipe
 vnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
 
-nnoremap <leader>* :LAck! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
-nnoremap <leader>8 :LAck! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
-nnoremap <leader>g* :LAck! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
-nnoremap <leader>g8 :LAck! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
+nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
+nnoremap <leader>g* :Ack! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
+nnoremap <leader>g8 :Ack! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
 
 " folding (if enabled)
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
