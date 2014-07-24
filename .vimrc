@@ -26,7 +26,7 @@ if has('autocmd')
 endif
 
 " bring in Pathogen
-let g:pathogen_disabled = [ 'niji', 'bufexplorer', 'neocomplcache', 'nerdtree-tabs', 'supertab' ]
+let g:pathogen_disabled = [ 'niji', 'bufexplorer', 'neocomplcache', 'nerdtree-tabs', 'supertab', 'YouCompleteMe' ]
 if v:version < 702
     let g:pathogen_disabled += ['tagbar', 'neocomplcache',]
 endif
@@ -617,9 +617,15 @@ if has('autocmd')
         au BufWinLeave * silent! mkview "make vim save view (state) (folds, cursor, etc)
         au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
     augroup END
+
     augroup Stdin
         au!
         au StdinReadPost * :set buftype=nofile
+    augroup END
+
+    augroup TagScala
+        au!
+        au BufWritePost *.scala silent! !ctags -R &
     augroup END
 endif
 
