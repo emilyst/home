@@ -76,8 +76,8 @@ export PERLBREW_ROOT=/opt/perl
 # ruby
 ########################################################################
 
-export RBENV_ROOT=/usr/local/var/rbenv
-[ -d "${HOME}/.rvm/bin" ] && export PATH="${HOME}/.rvm/bin":"${PATH}"
+#export RBENV_ROOT=/usr/local/var/rbenv
+#[ -d "${HOME}/.rvm/bin" ] && export PATH="${HOME}/.rvm/bin":"${PATH}"
 
 
 ########################################################################
