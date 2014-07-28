@@ -805,5 +805,16 @@ let g:niji_dark_colours = [
     \ [160, 'red'      ],
     \ [166, 'brred'    ]]
 
+
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_refresh_always = 1
+let g:neocomplete#enable_insert_char_pre = 1
+
+
+
 " vim: set fdm=marker fdl=1 tw=72 :
 " ========================================================================= }}}
