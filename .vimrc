@@ -808,12 +808,35 @@ let g:niji_dark_colours = [
 
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
 let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_auto_select = 0
 let g:neocomplete#enable_refresh_always = 1
-let g:neocomplete#enable_insert_char_pre = 1
+let g:neocomplete#enable_insert_char_pre = 0
 
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+" let g:neocomplete#sources#omni#functions.scala = 'scala#OmniCompletion'
+let g:neocomplete#sources#omni#input_patterns.php =
+\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.c =
+\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.cpp =
+\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl =
+\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
+
+call neocomplete#initialize()
 
 
 " vim: set fdm=marker fdl=1 tw=72 :
