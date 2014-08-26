@@ -809,7 +809,7 @@ let g:niji_dark_colours = [
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#enable_auto_select = 1
 let g:neocomplete#enable_refresh_always = 1
 let g:neocomplete#enable_insert_char_pre = 0
 
@@ -837,6 +837,18 @@ inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 
 call neocomplete#initialize()
+
+
+" startify
+let g:startify_list_order = [ 'sessions', 'bookmarks', 'dir', 'files' ]
+let g:startify_bookmarks = [ '~/.vimrc' ]
+let g:startify_files_number = 25
+let g:startify_change_to_dir = 0
+let g:startify_change_to_vcs_root = 1
+let g:startify_custom_header =
+      \ map(split(system('figlet -f isometric3 vim'), '\n'), '"   ". v:val') + ['','']
+let g:startify_relative_path = 1
+
 
 
 " vim: set fdm=marker fdl=1 tw=72 :
