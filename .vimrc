@@ -238,8 +238,8 @@ noremap <C-LeftDrag>  <LeftDrag>
 " 10 GUI ================================================================== {{{
 
 if has('gui_running')
-    set linespace=1
-    set guifont=Envy\ Code\ R\ for\ Powerline:h11
+    set linespace=2
+    set guifont=Inconsolata\ Regular\ for\ Powerline:h13
     if has('transparency')
         set transparency=0
     endif
