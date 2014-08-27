@@ -842,7 +842,7 @@ call neocomplete#initialize()
 " startify
 let g:startify_list_order = [ 'sessions', 'bookmarks', 'dir', 'files' ]
 let g:startify_bookmarks = [ '~/.vimrc' ]
-let g:startify_files_number = 25
+let g:startify_files_number = 10
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_header =
