@@ -154,3 +154,6 @@
 [submodule "/Users/emilyst/.vim/bundle/startify"]
 	path = .vim/bundle/startify
 	url = git@github.com:mhinz/vim-startify.git
+[submodule ".vim/bundle/base16"]
+	path = .vim/bundle/base16
+	url = git@github.com:chriskempson/base16-vim.git
