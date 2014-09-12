@@ -21,6 +21,8 @@ alias la='ls -A'
 
 alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
 
+alias ag='ag -S'
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -29,41 +31,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# RENTRAK
-alias ick="ack -G '^(?!TEST|prototype)(.(?!TEST|prototype))*$' --type-set=img=.jpg,.gif,.svg,.png,.tif,.bmp --type-set=fo=.fo --noimg --nocss"
-alias uck="ack -G 'TEST'"
-
-# databases
-alias rentask='psql -h fmoviesdb.pdx -U rentask rentask_live'
-
-# promo databases
-alias promo_live='psql -h addb1.vw -p 5432 -U estrickland promo_live'
-alias promo_dev='psql promo_dev  -h mcdevdb1 -U promo -p 5433'
-#alias promo_dev='psql -h voddb7 -p 5432 -U estrickland promo_dev'
-
-# VOD databases
-alias vod_live='psql -h vodlivedb2 -p 5432 -U estrickland vod_live'
-alias vod_demo='psql -h vodlivedb2 -p 5432 -U estrickland vod_demo'
-alias vod_dev='psql -h voddevdb2 -p 5432 -U estrickland vod_dev'
-alias vod_test='rtk_database_login.pl -x -t $((RANDOM%8+1)) -s vod'
-
-# MC databases
-alias mc_live='psql -h mcdb1 -p 5432 -U estrickland mc_live'
-alias mc_dev='psql -h mcdevdb1 -p 5432 -U estrickland mc_dev'
-
-# ITV databases
-alias itv_live='psql -h mobiledb2.vw -p 5432 -U estrickland onlinevideo_live'
-alias itv_dev='psql -h mobiledevdb1 -p 5432 -U onlinevideo onlinevideo_dev'
-
-# mobile
-alias mobile_live='psql -h mobilelivedb1.vw -p 5432 -U estrickland mobile_live'
-
-# multi_screen
-alias multi_live='psql -h mobiledb2.vw -p 5432 -U estrickland multi_screen_live'
-
-# rentcorp
-alias rent_live='psql -h fmoviesdb.pdx -p 5432 -U estrickland rentcorp_live'
 
 # find a file with a pattern in name:
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
