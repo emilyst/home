@@ -86,6 +86,7 @@ export PERLBREW_ROOT=/opt/perl
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 export PATH=$JAVA_HOME/bin:$PATH
+export MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx1024m"
 
 
 ########################################################################
