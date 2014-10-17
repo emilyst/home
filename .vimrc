@@ -665,7 +665,7 @@ let NERDTreeShowBookmarks=0
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '.DS_Store', '\.git', '\.hg', '\.svn', '\.bzr', 'target', 'tags']
 let NERDTreeChDirMode=0
 let NERDTreeQuitOnOpen=0
-let NERDTreeMouseMode=2
+let NERDTreeMouseMode=1
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
@@ -847,7 +847,7 @@ let g:startify_files_number = 10
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_header =
-      \ map(split(system('figlet -f isometric3 vim'), '\n'), '"   ". v:val') + ['','']
+      \ map(split(system('figlet -f roman vim'), '\n'), '"   ". v:val') + ['','']
 let g:startify_relative_path = 1
 
 
