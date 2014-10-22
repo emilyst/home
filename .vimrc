@@ -90,21 +90,21 @@ set listchars+=extends:›
 set listchars+=precedes:‹
 set listchars+=eol:\ "
 "set showbreak=→
-if exists('&relativenumber')
-    set relativenumber
-endif
+" if exists('&relativenumber')
+"     set relativenumber
+" endif
 set number
 
-if has('autocmd')
-    augroup AlwaysRelative
-        au!
-        au BufReadPost *
-            \ if &number && exists('&relativenumber') |
-            \     silent! setl relativenumber         |
-            \     silent! setl number                 |
-            \ endif
-    augroup END
-endif
+" if has('autocmd')
+"     augroup AlwaysRelative
+"         au!
+"         au BufReadPost *
+"             \ if &number && exists('&relativenumber') |
+"             \     silent! setl relativenumber         |
+"             \     silent! setl number                 |
+"             \ endif
+"     augroup END
+" endif
 
 " ========================================================================= }}}
 " 5 syntax, highlighting and spelling ===================================== {{{
