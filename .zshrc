@@ -21,6 +21,8 @@ autoload -U zmv
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && \
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ########################################################################
 # help
