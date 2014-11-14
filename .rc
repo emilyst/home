@@ -47,9 +47,9 @@ export HISTCONTROL=ignoredups:ignorespace
 [ -f ~/.aliases ] && source ~/.aliases
 
 # misc (if they exist)
-command -v git-helpers.sh >/dev/null 2>&1 && source git-helpers.sh
-command -v work.sh        >/dev/null 2>&1 && source work.sh
-command -v local.sh       >/dev/null 2>&1 && source local.sh
+hash git-helpers.sh >/dev/null 2>&1 && source git-helpers.sh
+hash work.sh        >/dev/null 2>&1 && source work.sh
+hash local.sh       >/dev/null 2>&1 && source local.sh
 
 
 ########################################################################
@@ -57,7 +57,7 @@ command -v local.sh       >/dev/null 2>&1 && source local.sh
 ########################################################################
 
 export PYTHONDONTWRITEBYTECODE=1
-[ command -v virtualenvwrapper.sh >/dev/null 2>&1 ] && source virtualenvwrapper.sh
+[ hash virtualenvwrapper.sh >/dev/null 2>&1 ] && source virtualenvwrapper.sh
 # [ -d /usr/local/lib/python2.7/site-packages ] && export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 
