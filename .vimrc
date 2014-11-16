@@ -540,11 +540,11 @@ endif
 " ========================================================================= }}}
 " 20 the swap file ======================================================== {{{
 
-set directory=~/.vim/local/swap//"{{{
+set directory=~/.vim/local/swap//
 if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
-set updatetime=500"}}}
+set updatetime=500
 
 " ========================================================================= }}}
 " 21 command line editing ================================================= {{{
