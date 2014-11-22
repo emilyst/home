@@ -389,6 +389,9 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 " Sudo to write
 cnoremap w!! w !sudo tee % >/dev/null
 
+" Y behaves more like I'd expect
+nnoremap Y y$
+
 " Typos
 command! -bang E e<bang>
 command! -bang Q q<bang>
