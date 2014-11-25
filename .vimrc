@@ -94,7 +94,7 @@ set listchars+=eol:\ "
 "     set relativenumber
 " endif
 set number
-set numberwidth=4
+set numberwidth=5
 
 " if has('autocmd')
 "     augroup AlwaysRelative
