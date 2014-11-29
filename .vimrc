@@ -239,7 +239,7 @@ noremap <C-LeftDrag>  <LeftDrag>
 " 10 GUI ================================================================== {{{
 
 if has('gui_running')
-    set linespace=3
+    set linespace=2
     set guifont=InputMono\ ExLight:h11
     if has('transparency')
         set transparency=0
@@ -747,28 +747,8 @@ if executable('ag')
 endif
 
 " Airline settings
-let g:airline_theme='kolor'
-
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-" let g:airline_powerline_fonts = 1
-let g:airline_left_sep         = ''
-let g:airline_left_alt_sep     = ''
-let g:airline_right_sep        = ''
-let g:airline_right_alt_sep    = ''
-let g:airline_symbols.branch   = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr   = ''
-
-" unicode symbols
-" let g:airline_left_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = '✹'
-" let g:airline_symbols.whitespace = '¶'
-
+let g:airline_theme                            = 'kolor'
+let g:airline_powerline_fonts                  = 1
 " let g:airline_solarized_bg                   = 'light'
 let g:airline#extensions#tabline#enabled       = 1
 let g:airline#extensions#tabline#show_buffers  = 0
@@ -776,11 +756,6 @@ let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#close_symbol  = '✖'
 let g:airline#extensions#tabline#formatter     = 'unique_tail_improved'
 let g:airline#extensions#tabline#tab_nr_type   = 1
-
-let g:airline#extensions#tabline#left_sep      = ''
-let g:airline#extensions#tabline#left_alt_sep  = ''
-let g:airline#extensions#tabline#right_sep     = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
 
 " vim signature
 let g:SignatureEnabledAtStartup=0
