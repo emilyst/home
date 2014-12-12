@@ -112,6 +112,12 @@ set numberwidth=5
 
 syntax enable
 
+if has('guicolors')
+    let &t_8f="\e[38;2;%ld;%ld;%ldm"
+    let &t_8b="\e[48;2;%ld;%ld;%ldm"
+    set guicolors
+endif
+
 let g:solarized_italic     = 0
 let g:solarized_diffmode   = "high"
 let g:solarized_visibility = "low"
