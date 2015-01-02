@@ -844,11 +844,11 @@ let g:startify_relative_path = 1
 
 " easily write changes to new file in iCloud Drive
 function! s:Writing()
-    let basename  = strftime("%Y%m%d%H%M%S")
-    let filename  = basename . ".mdown"
-    let directory = expand("~/Library/Mobile\ Documents/com~apple~CloudDocs/Writing/")
+    let l:basename  = strftime("%Y%m%d%H%M%S")
+    let l:filename  = l:basename . ".mdown"
+    let l:directory = expand("~/Library/Mobile\ Documents/com~apple~CloudDocs/Writing/")
 
-    execute 'saveas ' directory . filename
+    execute 'saveas ' l:directory . l:filename
 endfunction
 command! -nargs=0 Writing call s:Writing()
 
