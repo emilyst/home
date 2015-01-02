@@ -134,7 +134,7 @@ colorscheme lucius
 " if exists('&colorcolumn')
 "     let &colorcolumn=join(range(81,9999), ',')
 " endif
-set nocursorline
+set cursorline
 
 set spelllang=en_us
 
@@ -842,6 +842,15 @@ let g:startify_custom_header =
       \ map(split(system('figlet -f roman vim'), '\n'), '"   ". v:val') + ['','']
 let g:startify_relative_path = 1
 
+" easily write changes to new file in iCloud Drive
+function! s:Writing()
+    let basename  = strftime("%Y%m%d%H%M%S")
+    let filename  = basename . ".mdown"
+    let directory = expand("~/Library/Mobile\ Documents/com~apple~CloudDocs/Writing/")
+
+    execute 'saveas ' directory . filename
+endfunction
+command! -nargs=0 Writing call s:Writing()
 
 
 " vim: set fdm=marker fdl=1 tw=72 :
