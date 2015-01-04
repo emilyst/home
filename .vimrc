@@ -842,16 +842,5 @@ let g:startify_custom_header =
       \ map(split(system('figlet -f roman vim'), '\n'), '"   ". v:val') + ['','']
 let g:startify_relative_path = 1
 
-" easily write changes to new file in iCloud Drive
-function! s:Writing()
-    let l:basename  = strftime("%Y%m%d%H%M%S")
-    let l:filename  = l:basename . ".mdown"
-    let l:directory = expand("~/Library/Mobile\ Documents/com~apple~CloudDocs/Writing/")
-
-    execute 'saveas ' l:directory . l:filename
-endfunction
-command! -nargs=0 Writing call s:Writing()
-
-
 " vim: set fdm=marker fdl=1 tw=72 :
 " ========================================================================= }}}
