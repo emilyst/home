@@ -292,6 +292,7 @@ set backspace=indent,eol,start
 set whichwrap+=<>[]
 set textwidth=72
 set formatoptions=qrn1
+set formatlistpat=^\\s*[0-9*-]\\+[\\]:.)}\\t\ ]\\s*
 set showmatch
 
 " ========================================================================= }}}
@@ -799,12 +800,10 @@ let g:niji_dark_colours = [
 
 
 " neocomplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_at_startup = 0
 let g:neocomplete#enable_auto_select = 1
-let g:neocomplete#enable_refresh_always = 1
-let g:neocomplete#enable_insert_char_pre = 1
-let g:neocomplete#enable_cursor_hold_i = 1
+" let g:neocomplete#enable_insert_char_pre = 1
+" let g:neocomplete#enable_cursor_hold_i = 1
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -829,7 +828,7 @@ let g:neocomplete#sources#omni#input_patterns.perl =
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 
-call neocomplete#initialize()
+" call neocomplete#initialize()
 
 
 " startify
