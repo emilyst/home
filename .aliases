@@ -1,7 +1,7 @@
 # useful aliases
 alias alert="echo -e '\a'"
 alias explain='man'
-alias dt='date +%Y%m%d%H%M%S'
+alias dt='date +%Y-%m-%d-%H%M%S'
 alias move='rsync -avz --progress --stats'
 if [[ -e '/usr/bin/ack-grep' ]]; then alias ack='/usr/bin/ack-grep'; fi
 if [[ -e '/usr/bin/htop' ]]; then alias top='/usr/bin/htop'; fi

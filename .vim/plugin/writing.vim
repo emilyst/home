@@ -8,7 +8,7 @@ function! s:Writing(...)
         let l:slug = '-' . tolower(join(a:000, '-'))
     endif
 
-    let l:basename  = strftime('%Y%m%d%H%M%S') . l:slug
+    let l:basename  = strftime('%Y-%m-%d-%H%M%S') . l:slug
     let l:filename  = l:basename . '.mdown'
     let l:directory = expand('~/Library/Mobile\ Documents/com~apple~CloudDocs/Writing/')
 
