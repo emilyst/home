@@ -157,3 +157,6 @@
 [submodule ".vim/bundle/base16"]
 	path = .vim/bundle/base16
 	url = git@github.com:chriskempson/base16-vim.git
+[submodule ".vim/bundle/wildfire"]
+	path = .vim/bundle/wildfire
+	url = git@github.com:gcmt/wildfire.vim.git
