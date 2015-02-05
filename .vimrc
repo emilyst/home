@@ -694,6 +694,16 @@ if filereadable(expand('~/.local/bin/ctags'))
     let g:ctrlp_buftag_ctags_bin = expand('~/.local/bin/ctags')
 endif
 
+" match with vim-haystack
+function! CtrlPMatch(items, str, limit, mmode, ispath, crfile, regex) abort
+  let items = copy(a:items)
+  if a:ispath
+    call filter(items, 'v:val !=# a:crfile')
+  endif
+  return haystack#filter(items, a:str)
+endfunction
+let g:ctrlp_match_func = {'match': function('CtrlPMatch')}
+
 if executable('ag')
     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
     let g:ctrlp_user_command =

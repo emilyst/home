@@ -160,3 +160,6 @@
 [submodule ".vim/bundle/wildfire"]
 	path = .vim/bundle/wildfire
 	url = git@github.com:gcmt/wildfire.vim.git
+[submodule ".vim/bundle/haystack"]
+	path = .vim/bundle/haystack
+	url = git@github.com:tpope/vim-haystack.git
