@@ -844,12 +844,14 @@ inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 " startify
 let g:startify_list_order = [ 'sessions', 'bookmarks', 'dir', 'files' ]
 let g:startify_bookmarks = [ '~/.vimrc' ]
-let g:startify_files_number = 10
+let g:startify_files_number = 5
 let g:startify_change_to_dir = 0
-let g:startify_change_to_vcs_root = 1
+let g:startify_change_to_vcs_root = 0
 let g:startify_custom_header =
       \ map(split(system('figlet -f roman vim'), '\n'), '"   ". v:val') + ['','']
 let g:startify_relative_path = 1
+let g:startify_custom_indices = map(range(0,9), 'string(v:val)') + [ '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' ]
+
 
 " vim: set fdm=marker fdl=1 tw=72 :
 " ========================================================================= }}}
