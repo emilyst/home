@@ -245,7 +245,7 @@ noremap <C-LeftDrag>  <LeftDrag>
 " 10 GUI ================================================================== {{{
 
 if has('gui_running')
-    set linespace=2
+    set linespace=1
     set guifont=InputMono\ ExLight:h11
     if has('transparency')
         set transparency=0
