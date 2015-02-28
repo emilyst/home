@@ -246,7 +246,7 @@ noremap <C-LeftDrag>  <LeftDrag>
 
 if has('gui_running')
     set linespace=1
-    set guifont=InputMono\ ExLight:h11
+    set guifont=InputMono\ ExLight:h10.5
     if has('transparency')
         set transparency=0
     endif
@@ -853,5 +853,5 @@ let g:startify_relative_path = 1
 let g:startify_custom_indices = map(range(0,9), 'string(v:val)') + [ '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' ]
 
 
-" vim: set fdm=marker fdl=1 tw=72 :
+" vim: set fdm=marker fdl=0 tw=72 :
 " ========================================================================= }}}
