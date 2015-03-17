@@ -178,20 +178,20 @@ fi
 
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
-function setup_for_home_git
-{
-    if [[ $HOME == $PWD ]]
-    then
-        export GIT_DIR=$HOME/.home.git
-        export GIT_WORK_TREE=$HOME
-    else
-        unset GIT_DIR
-        unset GIT_WORK_TREE
-    fi
-}
+# function setup_for_home_git
+# {
+#     if [[ $HOME == $PWD ]]
+#     then
+#         export GIT_DIR=$HOME/.home.git
+#         export GIT_WORK_TREE=$HOME
+#     else
+#         unset GIT_DIR
+#         unset GIT_WORK_TREE
+#     fi
+# }
 
-setup_for_home_git
-chpwd_functions=( $chpwd_functions setup_for_home_git )
+# setup_for_home_git
+# chpwd_functions=( $chpwd_functions setup_for_home_git )
 
 
 #########################################################################
