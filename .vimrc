@@ -67,6 +67,7 @@ set hlsearch
 " 3 tags ================================================================== {{{
 
 set showfulltag
+set tags=tags;/
 
 " ========================================================================= }}}
 " 4 displaying text ======================================================= {{{
@@ -636,7 +637,7 @@ if has('autocmd')
 
     augroup TagScala
         au!
-        au BufWritePost *.scala silent! !ctags -R &
+        au BufWritePost *.scala silent! !ctags -R --exclude=target --exclude=vendor &
     augroup END
 endif
 
@@ -851,6 +852,10 @@ if executable('figlet')
 endif
 let g:startify_relative_path = 1
 let g:startify_custom_indices = map(range(0,9), 'string(v:val)') + [ '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' ]
+
+" vim scala
+let g:scala_sort_across_groups=1
+let g:scala_first_party_namespaces='simple'
 
 
 " vim: set fdm=marker fdl=0 tw=72 :
