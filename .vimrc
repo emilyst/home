@@ -26,12 +26,15 @@ if has('autocmd')
 endif
 
 " bring in Pathogen
-let g:pathogen_disabled = [ 'niji', 'bufexplorer', 'neocomplcache', 'nerdtree-tabs', 'supertab', 'YouCompleteMe' ]
+let g:pathogen_disabled = [ 'bufexplorer', 'nerdtree-tabs' ]
 if v:version < 702
-    let g:pathogen_disabled += ['tagbar', 'neocomplcache',]
+    let g:pathogen_disabled += ['tagbar' ]
 endif
 if v:version < 703 || !has('python')
     let g:pathogen_disabled += ['jedi-vim', 'gundo']
+endif
+if v:version < 704 || !has('lua')
+    let g:pathogen_disabled += ['neocomplete']
 endif
 runtime bundle/pathogen/autoload/pathogen.vim
 if exists("g:loaded_pathogen")
