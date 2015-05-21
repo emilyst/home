@@ -110,3 +110,7 @@ if [ -d ~/.ssh ]; then
     chmod 700 ~/.ssh 2> /dev/null
     chmod 600 ~/.ssh/* 2> /dev/null
 fi
+
+
+
+# [ -e /usr/local/bin/figlet ] && id -P | cut -d: -f8 | figlet -f roman -w 100
