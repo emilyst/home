@@ -129,9 +129,10 @@ let g:solarized_underline  = 0
 let g:solarized_hitrail    = 1
 let g:solarized_contrast   = "normal"
 
+let base16colorspace=256
 set background=dark
 set t_Co=256
-colorscheme lucius
+colorscheme base16-ocean
 
 "set cursorcolumn
 "if exists('+colorcolumn') | set colorcolumn+=80,120 | endif
@@ -775,7 +776,7 @@ if executable('ag')
 endif
 
 " Airline settings
-let g:airline_theme                            = 'luna'
+let g:airline_theme                            = 'base16'
 let g:airline_powerline_fonts                  = 1
 " if !exists('g:airline_symbols')
 "   let g:airline_symbols = {}
