@@ -252,7 +252,7 @@ noremap <C-LeftDrag>  <LeftDrag>
 
 if has('gui_running')
     set linespace=1
-    set guifont=InputMono\ ExLight:h11
+    set guifont=InputMono\ ExLight:h10.5
     if has('transparency')
         set transparency=0
     endif
