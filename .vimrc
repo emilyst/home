@@ -130,6 +130,7 @@ let g:solarized_hitrail    = 1
 let g:solarized_contrast   = "normal"
 
 let base16colorspace=256
+
 set background=dark
 set t_Co=256
 colorscheme base16-ocean
@@ -251,7 +252,7 @@ noremap <C-LeftDrag>  <LeftDrag>
 
 if has('gui_running')
     set linespace=1
-    set guifont=InputMono\ ExLight:h10.5
+    set guifont=InputMono\ ExLight:h11
     if has('transparency')
         set transparency=0
     endif
@@ -722,7 +723,7 @@ if executable('ag')
         \ -g ""'
 
     " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
+    " let g:ctrlp_use_caching = 0
 endif
 
 " TagBar settings
@@ -846,20 +847,6 @@ inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 
 " call neocomplete#initialize()
-
-
-" startify
-let g:startify_list_order = [ 'sessions', 'bookmarks', 'dir', 'files' ]
-let g:startify_bookmarks = [ '~/.vimrc' ]
-let g:startify_files_number = 5
-let g:startify_change_to_dir = 0
-let g:startify_change_to_vcs_root = 0
-if executable('figlet')
-    let g:startify_custom_header =
-          \ map(split(system('figlet -f roman vim'), '\n'), '"   ". v:val') + ['','']
-endif
-let g:startify_relative_path = 1
-let g:startify_custom_indices = map(range(0,9), 'string(v:val)') + [ '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' ]
 
 " vim scala
 let g:scala_sort_across_groups=1
