@@ -45,7 +45,7 @@
 	url = git://github.com/scrooloose/syntastic.git
 [submodule ".vim/bundle/ctrlp"]
 	path = .vim/bundle/ctrlp
-	url = git://github.com/kien/ctrlp.vim.git
+	url = git@github.com:ctrlpvim/ctrlp.vim.git
 [submodule ".vim/bundle/tabular"]
 	path = .vim/bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
