@@ -137,9 +137,7 @@ colorscheme base16-ocean
 
 "set cursorcolumn
 "if exists('+colorcolumn') | set colorcolumn+=80,120 | endif
-" if exists('&colorcolumn')
-"     let &colorcolumn=join(range(81,9999), ',')
-" endif
+if exists('&colorcolumn') | let &colorcolumn=join([73] + range(81,9999), ',') | endif
 set cursorline
 
 set spelllang=en_us
