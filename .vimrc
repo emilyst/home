@@ -762,8 +762,7 @@ let syntastic_python_flake8_args='--ignore=E501'
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 
-let g:syntastic_scala_checkers = [ 'fsc_smart' ]
-let g:syntastic_scala_fsc_improved_args='-J-XX:MaxPermSize=2048M -J-XX:PermSize=512M -J-Xms512M -J-Xmx2048M -J-Xss512M -Xfatal-warnings:false -Xfuture -Xlint -Xlint:adapted-args -Xlint:by-name-right-associative -Xlint:delayedinit-select -Xlint:doc-detached -Xlint:inaccessible -Xlint:infer-any -Xlint:missing-interpolator -Xlint:nullary-override -Xlint:nullary-unit -Xlint:option-implicit -Xlint:package-object-classes -Xlint:poly-implicit-overload -Xlint:private-shadow -Xlint:stars-align -Xlint:type-parameter-shadow -Xlint:unsound-match -Yno-adapted-args -Ywarn-adapted-args -Ywarn-dead-code -Ywarn-inaccessible -Ywarn-infer-any -Ywarn-nullary-override -Ywarn-nullary-unit -Ywarn-numeric-widen -Ywarn-unused-import -Ywarn-value-discard -d /private/var/tmp/ -deprecation -encoding UTF-8 -feature -language:existentials -language:higherKinds -language:implicitConversions -unchecked'
+let g:syntastic_scala_checkers = [ 'fsc_improved' ]
 
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['scala'] }
 
