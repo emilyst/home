@@ -580,6 +580,12 @@ endif
 " ========================================================================= }}}
 " 22 executing external commands ========================================== {{{
 
+if executable('ag')
+    set grepprg=ag\ --vimgrep
+    set grepformat=%f:%l:%c:%m
+    cnoreabbrev <expr> ag grep
+endif
+
 "set nowarn
 
 " ========================================================================= }}}
