@@ -216,7 +216,7 @@ set showtabline=2
 " 8 terminal ============================================================== {{{
 
 "set ttyscroll=0
-set ttyfast
+if exists('&ttyfast') | set ttyfast | endif
 set title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 set titlelen=85
@@ -236,11 +236,8 @@ endif
 if has('mouse')
     set mouse+=a
     set mousemodel=popup_setpos
-    set ttymouse=xterm2 " tmux knows the extended mouse mode
+    if has('mouse_xterm') | set ttymouse=xterm2 | endif
     if has('mouse_sgr') | set ttymouse=sgr | endif
-    " if &term =~ '^screen'
-    "     set ttymouse=xterm2 " tmux knows the extended mouse mode
-    " endif
 endif
 
 " block select with control-click-and-drag
