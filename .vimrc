@@ -799,31 +799,6 @@ let g:airline#extensions#tabline#tab_nr_type   = 1
 " vim signature
 let g:SignatureEnabledAtStartup=0
 
-
-" niji
-let g:niji_matching_filetypes = [
-\     'lisp',
-\     'ruby',
-\     'python',
-\     'scala',
-\     'perl',
-\     'clojure',
-\     'scheme',
-\     'java',
-\     'vim'
-\ ]
-
-"let g:niji_use_legacy_colours = 1
-let g:niji_dark_colours = [
-    \ [33, 'blue'      ],
-    \ [37, 'cyan'      ],
-    \ [61, 'brmagenta' ],
-    \ [125, 'magenta'  ],
-    \ [136, 'yellow'   ],
-    \ [160, 'red'      ],
-    \ [166, 'brred'    ]]
-
-
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_auto_select = 0
