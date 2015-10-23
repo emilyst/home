@@ -641,11 +641,6 @@ if has('autocmd')
         au!
         au StdinReadPost * :set buftype=nofile
     augroup END
-
-    augroup TagScala
-        au!
-        au BufWritePost *.scala silent! !ctags -R --exclude=target --exclude=vendor &
-    augroup END
 endif
 
 function! s:Pulse()
