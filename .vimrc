@@ -247,7 +247,7 @@ noremap <C-LeftDrag>  <LeftDrag>
 
 if has('gui_running')
     set linespace=1
-    set guifont=Source\ Code\ Pro:h11
+    set guifont=InputMonoNarrow\ ExLight:h11
     if has('transparency')
         set transparency=0
     endif
@@ -824,5 +824,16 @@ let g:scala_sort_across_groups=1
 let g:scala_first_party_namespaces='simple'
 
 
-" vim: set fdm=marker fdl=0 tw=72 :
 " ========================================================================= }}}
+" 27 neovim ============================================================== {{{
+
+if has('nvim')
+    " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    tnoremap <Esc> <C-\><C-n>
+    " let g:terminal_color_256=1
+    let g:terminal_scrollback_buffer_size=100000
+endif
+
+" ========================================================================= }}}
+" vim: set fdm=marker fdl=0 tw=72 :

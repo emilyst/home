@@ -22,9 +22,13 @@ export CLICOLOR=1
 export PAGER='less'
 export LESS='CMifSR'
 export LESSCHARSET='utf-8'
-export EDITOR=vim
+if hash nvim >/dev/null 2>&1; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
 export GIT_PAGER=$PAGER
-export NVIM_TUI_ENABLE_TRUE_COLOR=1
+# export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
