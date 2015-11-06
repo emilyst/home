@@ -74,6 +74,8 @@
     ; reviewing pull requests.
     ksreview = "!sh -c 'git find-unmerged-commits $1 | xargs -n1 git ksshow' -"
     ksreviewfor = "!sh -c 'git find-unmerged-commits-for $1 $2 | xargs -n1 git ksshow' -"
+	praise = blame
+	who = blame
 [push]
     default = current
 [status]
