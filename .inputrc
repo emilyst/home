@@ -16,14 +16,24 @@
 #"\e[2~":	quoted-insert # Insert
 #"\e[5~":	beginning-of-history # PageUp
 #"\e[6~":	end-of-history # PageDown
+
 "\e[1;5D": backward-word
 "\e[1;5C": forward-word
+
+"\eOd": backward-word
+"\e[5D": backward-word  # for OS X
+
+"\eOc": forward-word
+"\e[5C": forward-word   # for OS X
 
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
 
 # List all matches in case multiple possible completions are possible
 set show-all-if-ambiguous on
+
+set completion-prefix-display-length 2
+set show-all-if-unmodified on
 
 # Immediately add a trailing slash when autocompleting symlinks to directories
 set mark-symlinked-directories on
