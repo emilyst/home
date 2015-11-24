@@ -155,12 +155,14 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Highlight Word
 "
-" This mini-plugin provides a few mappings for highlighting words temporarily.
+" This mini-plugin provides a few mappings for highlighting words
+" temporarily.
 "
-" Sometimes you're looking at a hairy piece of code and would like a certain
-" word or two to stand out temporarily.  You can search for it, but that only
-" gives you one color of highlighting.  Now you can use <leader>N where N is
-" a number from 1-6 to highlight the current word in a specific color.
+" Sometimes you're looking at a hairy piece of code and would like
+" a certain word or two to stand out temporarily.  You can search for
+" it, but that only gives you one color of highlighting.  Now you can
+" use <leader>N where N is a number from 1-6 to highlight the current
+" word in a specific color.
 
 function! HiInterestingWord(n)
     " Save our location.
@@ -672,9 +674,9 @@ endfunction
 command! -nargs=0 Pulse call s:Pulse()
 
 " NERDTree settings
-" let NERDTreeMinimalUI = 1
+let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-" let NERDTreeHijackNetrw=0
+let NERDTreeHijackNetrw=1
 let NERDTreeShowBookmarks=0
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '.DS_Store', '\.git', '\.hg', '\.svn', '\.bzr', 'target', 'tags']
 let NERDTreeChDirMode=0
