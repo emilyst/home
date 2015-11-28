@@ -151,3 +151,6 @@
 [submodule ".config/base16-shell"]
 	path = .config/base16-shell
 	url = git@github.com:chriskempson/base16-shell.git
+[submodule ".vim/bundle/targets"]
+	path = .vim/bundle/targets
+	url = https://github.com/wellle/targets.vim.git
