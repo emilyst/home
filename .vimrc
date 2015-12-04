@@ -757,7 +757,7 @@ let g:syntastic_warning_symbol='✹'
 "let g:syntastic_python_checker_args='--ignore=E501'
 let syntastic_python_flake8_args='--ignore=E501'
 let g:syntastic_auto_loc_list=1
-let g:syntastic_loc_list_height=5
+let g:syntastic_loc_list_height=2
 
 let g:syntastic_scala_checkers = [ 'fsc_improved' ]
 
