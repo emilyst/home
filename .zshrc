@@ -21,15 +21,17 @@ autoload -U zmv
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && \
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+then
+    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 ########################################################################
 # help
 ########################################################################
 
-unalias run-help
-autoload run-help
+autoload -U run-help
+autoload run-help-git
 HELPDIR=/usr/local/share/zsh/helpfiles
 
 # ########################################################################
