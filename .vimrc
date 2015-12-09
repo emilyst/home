@@ -794,7 +794,7 @@ let g:SignatureEnabledAtStartup=0
 
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#enable_auto_select = 1
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -819,7 +819,6 @@ let g:neocomplete#sources#omni#input_patterns.perl =
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 
-" call neocomplete#initialize()
 
 " vim scala
 let g:scala_sort_across_groups=1
