@@ -819,7 +819,6 @@ let g:neocomplete#sources#omni#input_patterns.perl =
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 
-
 " vim scala
 let g:scala_sort_across_groups=1
 let g:scala_first_party_namespaces='simple'
