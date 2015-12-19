@@ -9,14 +9,14 @@ if [[ -e '/usr/bin/htop' ]]; then alias top='/usr/bin/htop'; fi
 alias got=git
 alias gut=git
 
-if hash nvim >/dev/null 2>&1; then
-    alias vim='nvim'
-    alias vi='nvim'
-    alias v='nvim'
-else
+# if hash nvim >/dev/null 2>&1; then
+#     alias vim='nvim'
+#     alias vi='nvim'
+#     alias v='nvim'
+# else
     alias vi='vim'
     alias v='vim'
-fi
+# fi
 
 # ls aliases
 if ls --version 2> /dev/null | grep -q 'coreutils'

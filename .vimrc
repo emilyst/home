@@ -752,8 +752,8 @@ let g:tagbar_type_perl = {
 let g:jedi#squelch_py_warning = 1
 
 " Syntastic settings
-let g:syntastic_error_symbol='✖'
-let g:syntastic_warning_symbol='✹'
+let g:syntastic_error_symbol='×'
+let g:syntastic_warning_symbol='⋅'
 "let g:syntastic_python_checker_args='--ignore=E501'
 let syntastic_python_flake8_args='--ignore=E501'
 let g:syntastic_auto_loc_list=1
@@ -825,7 +825,7 @@ let g:scala_first_party_namespaces='simple'
 
 
 " ========================================================================= }}}
-" 27 neovim ============================================================== {{{
+" 27 neovim =============================================================== {{{
 
 if has('nvim')
     " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
