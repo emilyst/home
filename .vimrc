@@ -763,13 +763,6 @@ let g:syntastic_scala_checkers = [ 'fsc_improved' ]
 
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['scala'] }
 
-" SuperTab settings
-let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-let g:SuperTabContextDiscoverDiscovery =
-    \ ["&omnifunc:<c-x><c-o>", "&completefunc:<c-x><c-u>",]
-let g:SuperTabDefaultCompletionType = "context"
-
 " Ack settings
 if executable('ag')
     let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
@@ -796,25 +789,16 @@ let g:SignatureEnabledAtStartup=0
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_auto_select = 1
 
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-" let g:neocomplete#sources#omni#functions.scala = 'scala#OmniCompletion'
-let g:neocomplete#sources#omni#input_patterns.php =
-\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.c =
-\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.cpp =
-\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:lexima_no_default_rules = 1
+call lexima#set_default_rules()
+call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
 
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl =
-\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+inoremap <expr><CR> pumvisible()? "\<C-y>" : "\<CR>"
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
@@ -836,4 +820,4 @@ if has('nvim')
 endif
 
 " ========================================================================= }}}
-" vim: set fdm=marker fdl=0 tw=72 :
+" vim: set fdm=marker fdl=1 tw=72 :
