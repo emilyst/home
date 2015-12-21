@@ -480,7 +480,7 @@ nnoremap <F4> :set spell!<CR>
 " sort CSS
 nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
-noremap <F7>  :NERDTreeToggle<CR>
+noremap <F7>  :NERDTreeFind<CR>
 
 noremap <leader>o :CtrlPMixed<CR>
 noremap <leader>p :CtrlP<CR>
@@ -692,7 +692,7 @@ let NERDTreeAutoCenter=0
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:16'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10'
 let g:ctrlp_mruf_relative = 1
 
 if filereadable(expand('~/.local/bin/ctags'))
