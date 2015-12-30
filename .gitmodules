@@ -157,3 +157,6 @@
 [submodule ".vim/bundle/lexima"]
 	path = .vim/bundle/lexima
 	url = https://github.com/cohama/lexima.vim.git
+[submodule ".vim/bundle/rhubarb"]
+	path = .vim/bundle/rhubarb
+	url = https://github.com/tpope/vim-rhubarb

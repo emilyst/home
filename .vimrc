@@ -807,6 +807,8 @@ inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 let g:scala_sort_across_groups=1
 let g:scala_first_party_namespaces='simple'
 
+let g:fugitive_github_domains = ['https://github.banksimple.com']
+let g:github_enterprise_urls = ['https://github.banksimple.com']
 
 " ========================================================================= }}}
 " 27 neovim =============================================================== {{{
