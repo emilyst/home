@@ -248,8 +248,8 @@ noremap <C-LeftDrag>  <LeftDrag>
 " 10 GUI ================================================================== {{{
 
 if has('gui_running')
-    set linespace=1
-    set guifont=Source\ Code\ Pro:h11
+    set linespace=0
+    set guifont=InputMono\ ExLight:h10
     if has('transparency')
         set transparency=0
     endif
@@ -778,12 +778,12 @@ let g:airline_solarized_bg                   = 'light'
 let g:airline#extensions#tabline#enabled       = 1
 let g:airline#extensions#tabline#show_buffers  = 1
 let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline#extensions#tabline#close_symbol  = '✖'
+let g:airline#extensions#tabline#close_symbol  = '×'
 let g:airline#extensions#tabline#formatter     = 'unique_tail_improved'
 let g:airline#extensions#tabline#tab_nr_type   = 1
 
 " vim signature
-let g:SignatureEnabledAtStartup=0
+" let g:SignatureEnabledAtStartup=0
 
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
