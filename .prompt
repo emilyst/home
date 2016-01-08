@@ -53,7 +53,7 @@ ZSH_THEME_GIT_PROMPT_NOCACHE=1
 ########################################################################
 
 # left
-PROMPT="%B%{$FG[227]%}%(!.#.▶)%{$reset_color%} "
+PROMPT="%B%{$FG[227]%}%(!.#.⚡)%{$reset_color%} "
 
 # right
 RPROMPT='%{$fg_bold[blue]%}%m%{$fg_bold[white]%}:%{$fg_bold[cyan]%}%30<...<%~%<<%u%{$reset_color%}$(git_prompt_info)$(git_prompt_short_sha)$(git_prompt_status)'
