@@ -387,16 +387,6 @@ nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
 nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
 nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 
-" Keep the cursor in place while joining lines
-nnoremap J mzJ`z:delm z<cr>
-
-" " Ctrl-J to add a new line where the cursor is
-" nnoremap <C-J> ciW<CR><Esc>:if match( @", "^\\s*$") < 0<Bar>exec "norm P-$diw+"<Bar>endif<CR>
-
-" Split line (sister to [J]oin lines)
-" The normal use of S is covered by cc, so don't worry about shadowing it.
-nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
-
 " Sudo to write
 cnoremap w!! w !sudo tee % >/dev/null
 
