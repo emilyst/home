@@ -9,7 +9,7 @@ function! s:SplitLine()
     " input the linebreak itself
     exe "keepjumps norm! i\<cr>\<esc>"
 
-    " hop back up a line and trim trailing whitespace
+    " hop back up a (visual) line and trim trailing whitespace
     exe "keepjumps norm! gk"
     silent! s/\v +$//
 
