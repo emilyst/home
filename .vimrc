@@ -461,11 +461,14 @@ nnoremap <c-c> :Pulse<cr>
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 cnoreabbrev <expr> git ((getcmdtype() is# ':' && getcmdline() is# 'git')?('Git'):('git'))
 
-" toggle solarized background
-call togglebg#map("<F12>")
-
 " Column scroll-binding on <leader>sb
 noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
+
+" I don't use 's' anyways, so let's use it for vim-surround
+nmap s ys
+nmap S yS
+vmap s S
+vmap gs gS
 
 " ========================================================================= }}}
 " 19 reading and writing files ============================================ {{{
