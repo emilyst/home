@@ -22,8 +22,8 @@ export CLICOLOR=1
 export PAGER='less'
 export LESS='CMifSR'
 export LESSCHARSET='utf-8'
-if hash nvim >/dev/null 2>&1; then
-    export EDITOR=nvim
+if hash mvim >/dev/null 2>&1; then
+    export EDITOR="mvim -f"
 else
     export EDITOR=vim
 fi
