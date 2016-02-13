@@ -122,13 +122,6 @@ if has('guicolors')
     set guicolors
 endif
 
-let g:solarized_italic     = 0
-let g:solarized_diffmode   = "high"
-let g:solarized_visibility = "low"
-let g:solarized_underline  = 0
-let g:solarized_hitrail    = 1
-let g:solarized_contrast   = "normal"
-
 let base16colorspace=256
 
 set background=dark
@@ -718,7 +711,6 @@ endif
 let g:airline_theme                            = 'base16'
 let g:airline_powerline_fonts                  = 1
 
-let g:airline_solarized_bg                     = 'light'
 let g:airline#extensions#tabline#enabled       = 1
 let g:airline#extensions#tabline#show_buffers  = 1
 let g:airline#extensions#tabline#show_tab_type = 1
