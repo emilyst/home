@@ -149,6 +149,7 @@ set spelllang=en_us
 " hi CursorLineNr cterm=bold gui=bold " ctermbg=234 guibg=#222222
 " hi CursorLine   ctermbg=234 guibg=#222222
 " hi ColorColumn  ctermbg=234 guibg=#222222
+hi Comment cterm=italic gui=italic
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -248,8 +249,8 @@ noremap <C-LeftDrag>  <LeftDrag>
 " 10 GUI ================================================================== {{{
 
 if has('gui_running')
-    set linespace=1
-    set guifont=Source\ Code\ Pro\ Medium:h11
+    set linespace=0
+    set guifont=PFDINMonoPro-Light:h11
     if has('transparency')
         set transparency=0
     endif
