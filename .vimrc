@@ -506,7 +506,7 @@ set updatetime=500
 
 set wildmenu
 set wildmode=list:longest
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*.bak,*.exe,target
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*.bak,*.exe,target,tags,.tags
 set wildignore+=*.pyc,*.DS_Store,*.db
 set history=5000
 
@@ -616,19 +616,19 @@ endfunction
 command! -nargs=0 Pulse call s:Pulse()
 
 " NERDTree settings
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeHijackNetrw=1
-let NERDTreeShowBookmarks=0
-let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '.DS_Store', '\.git', '\.hg', '\.svn', '\.bzr', 'target', 'tags']
-let NERDTreeChDirMode=0
-let NERDTreeQuitOnOpen=0
-let NERDTreeMouseMode=1
-let NERDTreeShowHidden=1
-let NERDTreeKeepTreeInNewTab=1
-let g:nerdtree_tabs_open_on_gui_startup=0
-let NERDChristmasTree=1
-let NERDTreeAutoCenter=0
+let NERDTreeMinimalUI                   = 1
+let NERDTreeDirArrows                   = 1
+let NERDTreeHijackNetrw                 = 0
+let NERDTreeShowBookmarks               = 0
+let NERDTreeIgnore                      = ['\.pyc', '\~$', '\.swo$', '\.swp$', '.DS_Store', '\.git', '\.hg', '\.svn', '\.bzr', 'target', 'tags', '.tags']
+let NERDTreeChDirMode                   = 0
+let NERDTreeQuitOnOpen                  = 0
+let NERDTreeMouseMode                   = 1
+let NERDTreeShowHidden                  = 1
+let NERDTreeKeepTreeInNewTab            = 1
+let g:nerdtree_tabs_open_on_gui_startup = 0
+let NERDChristmasTree                   = 1
+let NERDTreeAutoCenter                  = 0
 
 " CtrlP settings
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
@@ -657,6 +657,8 @@ if executable('ag')
         \ 'ag %s -i --nocolor --nogroup --hidden
         \ --ignore .git
         \ --ignore target
+        \ --ignore tags
+        \ --ignore .tags
         \ --ignore .m2
         \ --ignore .svn
         \ --ignore .hg
