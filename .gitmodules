@@ -166,3 +166,6 @@
 [submodule ".vim/bundle/eunuch"]
 	path = .vim/bundle/eunuch
 	url = https://github.com/tpope/vim-eunuch.git
+[submodule ".vim/bundle/dirvish"]
+	path = .vim/bundle/dirvish
+	url = https://github.com/justinmk/vim-dirvish.git
