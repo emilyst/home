@@ -6,6 +6,8 @@ alias move='rsync -avz --progress --stats'
 if [[ -e '/usr/bin/ack-grep' ]]; then alias ack='/usr/bin/ack-grep'; fi
 if [[ -e '/usr/bin/htop' ]]; then alias top='/usr/bin/htop'; fi
 
+alias ssh="TERM=xterm-256color ssh"
+
 alias got=git
 alias gut=git
 
