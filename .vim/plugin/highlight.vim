@@ -29,7 +29,7 @@ function! HiInterestingWord(n)
     call matchadd("InterestingWord" . a:n, pat, 1, mid)
 
     " restore view
-    winrestview(view)
+    call winrestview(view)
 endfunction
 
 " Default Highlights
