@@ -130,8 +130,8 @@ set t_Co=256
 colorscheme base16-ocean
 
 "set cursorcolumn
-if exists('+colorcolumn') | set colorcolumn+=73,81 | endif
-" if exists('&colorcolumn') | let &colorcolumn=join([73] + range(81,9999), ',') | endif
+" if exists('+colorcolumn') | set colorcolumn+=73,81 | endif
+if exists('&colorcolumn') | let &colorcolumn=join([73,81] + range(101,9999), ',') | endif
 set cursorline
 
 set spelllang=en_us
