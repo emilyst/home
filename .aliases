@@ -11,6 +11,8 @@ alias ssh="TERM=xterm-256color ssh"
 alias got=git
 alias gut=git
 
+alias gist="gist -p"
+
 # if hash nvim >/dev/null 2>&1; then
 #     alias vim='nvim'
 #     alias vi='nvim'
