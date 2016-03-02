@@ -1,6 +1,7 @@
 # vim docs from bundles and whatnots
 doc/tags
 tags
+.tags
 
 # Compiled source #
 ###################
