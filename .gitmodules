@@ -151,9 +151,6 @@
 [submodule ".config/base16-shell"]
 	path = .config/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
-[submodule ".vim/bundle/targets"]
-	path = .vim/bundle/targets
-	url = https://github.com/wellle/targets.vim.git
 [submodule ".vim/bundle/lexima"]
 	path = .vim/bundle/lexima
 	url = https://github.com/cohama/lexima.vim.git
@@ -169,3 +166,6 @@
 [submodule ".vim/bundle/dirvish"]
 	path = .vim/bundle/dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
+[submodule ".vim/bundle/argumentative"]
+	path = .vim/bundle/argumentative
+	url = https://github.com/PeterRincker/vim-argumentative.git
