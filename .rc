@@ -20,10 +20,11 @@ export LC_ALL="en_US.UTF-8"
 export TZ="America/Los_Angeles"
 export CLICOLOR=1
 export PAGER='less'
-export LESS='CMifSR'
+export LESS='CMifSR --tabs=4'
 export LESSCHARSET='utf-8'
 export EDITOR=vim
 export GIT_PAGER=$PAGER
+hash diff-so-fancy > /dev/null 2>&1 && export GIT_PAGER="diff-so-fancy | less"
 # export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 

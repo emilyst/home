@@ -1,6 +1,6 @@
 [user]
-	name = Emily St.
-	email = hello@emily.st
+    name = Emily St.
+    email = hello@emily.st
 [include]
     path = ~/.gitconfig.local
 [giggle]
@@ -14,15 +14,37 @@
     excludesfile = ~/.gitignore_global
     trustctime = false
 [color]
-    ui = auto
+    ui = always
+[color "diff"]
+    meta = yellow bold
+    commit = green bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = "red bold 52"
+    newNormal = "green bold"
+    newHighlight = "green bold 22"
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
 [log]
     date = local
 [rerere]
     enabled = true
 [pager]
     color = true
+    diff = diff-so-fancy | less --tabs=4 --pattern='^(added|deleted|modified): '
+    show = diff-so-fancy | less --tabs=4 --pattern='^(added|deleted|modified): '
 [status]
-    color = auto
+    color = true
     submodulesummary = true
 [alias]
     st = status
@@ -33,7 +55,7 @@
     review = "log --stat=80 --dirstat -p -w --patience --reverse --find-copies-harder --decorate -M -C -C -c"
 
     scope = "!sh -c 'git fetch backend && git ksreviewfor `echo $1 | sed -Ee \"s_.*pull/([0-9]+)_refs/pull/origin/\\1_\"` backend/master' -"
-    
+
     upm = !sh -c 'git fetch --all && git rebase origin/master && git submodule update' -
     plog = !git lg
     d = difftool
@@ -50,8 +72,8 @@
     sync = !legit sync \"$@\"
     publish = !legit publish \"$@\"
     graft = !legit graft \"$@\"
-	up = pull --ff-only --all -p
-    
+    up = pull --ff-only --all -p
+
     ; Find all commits in the given ref that aren't also in master
     ; TODO: Make this take a second optional argument
     find-unmerged-commits = "!sh -c 'git log $1 --format='''%H''' --not master --' -"
@@ -74,8 +96,10 @@
     ; reviewing pull requests.
     ksreview = "!sh -c 'git find-unmerged-commits $1 | xargs -n1 git ksshow' -"
     ksreviewfor = "!sh -c 'git find-unmerged-commits-for $1 $2 | xargs -n1 git ksshow' -"
-	praise = blame
-	who = blame
+    praise = blame
+    who = blame
+
+    diff = "!sh -c 'git diff | diff-so-fancy | less --tabs=4 --pattern=^(added|deleted|modified):'"
 [push]
     default = current
 [status]
@@ -95,10 +119,10 @@
 [branch]
     autosetuprebase = always
 [help]
-	autocorrect = 1
+    autocorrect = 1
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+    clean = git-media-clean %f
+    smudge = git-media-smudge %f
 ; [remote "backend"]
 ;     fetch = +refs/pull/*/head:refs/pull/origin/*
 [url "git@github.banksimple.com:"]
@@ -125,7 +149,7 @@
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [difftool "KaleidoscopeWithId"]
-	cmd = ksdiff --partial-changeset --UUID \"$KSID\" --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+    cmd = ksdiff --partial-changeset --UUID \"$KSID\" --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [diff]
   tool = Kaleidoscope
 [difftool]
