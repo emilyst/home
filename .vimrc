@@ -143,7 +143,15 @@ set spelllang=en_us
 " hi CursorLineNr cterm=bold gui=bold " ctermbg=234 guibg=#222222
 " hi CursorLine   ctermbg=234 guibg=#222222
 " hi ColorColumn  ctermbg=234 guibg=#222222
-hi Comment cterm=italic gui=italic
+hi Comment term=italic cterm=italic gui=italic
+
+hi link Keyword  Bold
+hi link Conditional Bold
+hi link Define Bold
+
+hi Keyword term=bold cterm=bold gui=bold
+hi Conditional term=bold cterm=bold gui=bold
+hi Define term=bold cterm=bold gui=bold
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
