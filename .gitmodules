@@ -169,3 +169,6 @@
 [submodule ".vim/bundle/argumentative"]
 	path = .vim/bundle/argumentative
 	url = https://github.com/PeterRincker/vim-argumentative.git
+[submodule ".vim/bundle/targets"]
+	path = .vim/bundle/targets
+	url = https://github.com/wellle/targets.vim.git

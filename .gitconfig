@@ -162,3 +162,5 @@
   prompt = false
 [merge]
   tool = Kaleidoscope
+[receive]
+	fsckObjects = true
