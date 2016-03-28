@@ -24,7 +24,7 @@
 	url = https://github.com/gregsexton/gitv.git
 [submodule ".vim/bundle/easymotion"]
 	path = .vim/bundle/easymotion
-	url = https://github.com/Lokaltog/vim-easymotion.git
+	url = https://github.com/easymotion/vim-easymotion.git
 [submodule ".vim/bundle/repeat"]
 	path = .vim/bundle/repeat
 	url = https://github.com/tpope/vim-repeat
