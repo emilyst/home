@@ -735,11 +735,16 @@ let g:airline#extensions#tabline#tab_nr_type   = 1
 " vim signature
 " let g:SignatureEnabledAtStartup=0
 
+let g:lexima_no_default_rules = 1
+call lexima#set_default_rules()
+inoremap <expr> <CR> pumvisible() ? neocomplete#close_popup() : lexima#expand('<LT>CR>', 'i')
+" call lexima#insmode#map_hook('before', '<cr>', "\<C-r>=neocomplete#close_popup()\<cr>")
+
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_auto_select = 1
 
-inoremap <expr><CR> pumvisible()? "\<C-y>" : "\<CR>"
+" inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " <C-h>, <BS>: close popup and delete backword char.
