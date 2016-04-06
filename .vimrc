@@ -250,7 +250,7 @@ if has('persistent_undo')
 endif
 
 " set complete=.,w,b,u,t
-set completeopt+=preview,menuone,longest
+set completeopt+=menuone,longest
 set backspace=indent,eol,start
 set whichwrap+=<>[]
 set textwidth=72
