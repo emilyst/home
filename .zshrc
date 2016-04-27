@@ -92,6 +92,7 @@ if [ -d $HOME/.oh-my-zsh ] ; then
         git-extras              \
         git-flow                \
         github                  \
+        gpg-agent               \
         history                 \
         history-substring-search\
         jira                    \
