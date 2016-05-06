@@ -26,7 +26,7 @@ if has('autocmd')
 endif
 
 " bring in Pathogen
-let g:pathogen_disabled = [ 'bufexplorer', 'nerdtree-tabs' ]
+let g:pathogen_disabled = [ 'bufexplorer', 'nerdtree-tabs']
 if v:version < 702
     let g:pathogen_disabled += ['tagbar' ]
 endif
