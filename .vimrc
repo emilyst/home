@@ -155,6 +155,7 @@ hi Define term=bold cterm=bold gui=bold
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+match ErrorMsg 'd41d8cd9-8f00-3204-a980-0998ecf8427e'
 
 " ========================================================================= }}}
 " 6 multiple windows ====================================================== {{{
