@@ -126,7 +126,8 @@ endif
 let base16colorspace=256
 
 set background=dark
-colorscheme base16-ashes
+set t_Co=256
+colorscheme base16-ocean
 
 "set cursorcolumn
 " if exists('+colorcolumn') | set colorcolumn+=73,81 | endif
