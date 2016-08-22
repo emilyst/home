@@ -369,8 +369,7 @@ inoremap <Up> <C-o>gk
 " I suck at typing.
 vnoremap - =
 
-" Unfuck my screen
-nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
+nnoremap U <c-r>
 
 " clean trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -598,6 +597,9 @@ if has('autocmd')
 endif
 
 function! s:Pulse()
+    execute 'syntax sync fromstart'
+    execute 'redraw!'
+
     redir => old_hi
         silent execute 'hi CursorLine'
     redir END
@@ -767,6 +769,10 @@ endif
 " Airline settings
 let g:airline_theme                            = 'base16'
 let g:airline_powerline_fonts                  = 1
+" let g:airline_left_sep = ''
+" let g:airline_left_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_sep = ''
 
 let g:airline#extensions#tabline#enabled       = 1
 let g:airline#extensions#tabline#show_buffers  = 1
