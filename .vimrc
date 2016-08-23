@@ -265,8 +265,8 @@ set showmatch
 filetype indent on
 set smartindent
 set smarttab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set cinoptions+=(0
 
