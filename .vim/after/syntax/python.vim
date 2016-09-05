@@ -7,6 +7,8 @@ if !has('conceal')
     finish
 endif
 
+finish
+
 " remove the keywords. we'll re-add them below
 syntax clear pythonOperator
 
