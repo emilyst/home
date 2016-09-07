@@ -103,6 +103,7 @@ if [ -d $HOME/.oh-my-zsh ] ; then
         python                  \
         rsync                   \
         ruby                    \
+        safe-paste              \
         ssh-agent               \
         sublime                 \
         virtualenv              \
