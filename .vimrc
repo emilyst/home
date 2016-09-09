@@ -182,24 +182,24 @@ set title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 set titlelen=85
 
-" bar cursor in insert mode
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
+" " bar cursor in insert mode
+" if exists('$TMUX')
+"     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"     let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+" else
+"     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" endif
 
 " ========================================================================= }}}
 " 9 using the mouse ======================================================= {{{
 
-if has('mouse')
-    set mouse+=a
-    set mousemodel=popup_setpos
-    if has('mouse_xterm') | set ttymouse=xterm2 | endif
-    if has('mouse_sgr') | set ttymouse=sgr | endif
-endif
+" if has('mouse')
+"     set mouse+=a
+"     set mousemodel=popup_setpos
+"     if has('mouse_xterm') | set ttymouse=xterm2 | endif
+"     if has('mouse_sgr') | set ttymouse=sgr | endif
+" endif
 
 " block select with control-click-and-drag
 noremap <C-LeftMouse> <LeftMouse><Esc><C-V>
