@@ -22,35 +22,35 @@
 set all&
 set nocompatible
 if has('autocmd')
-    au! BufEnter *
+  au! BufEnter *
 endif
 
 " bring in Pathogen
 let g:pathogen_disabled = [ 'bufexplorer', 'nerdtree-tabs']
 if v:version < 702
-    let g:pathogen_disabled += ['tagbar' ]
+  let g:pathogen_disabled += ['tagbar' ]
 endif
 if v:version < 703 || !has('python')
-    let g:pathogen_disabled += ['jedi-vim', 'gundo']
+  let g:pathogen_disabled += ['jedi-vim', 'gundo']
 endif
 if v:version < 704 || !has('lua')
-    let g:pathogen_disabled += ['neocomplete']
+  let g:pathogen_disabled += ['neocomplete']
 endif
 runtime bundle/pathogen/autoload/pathogen.vim
 if exists("g:loaded_pathogen")
-    execute pathogen#infect()
-    execute pathogen#helptags()
+  execute pathogen#infect()
+  execute pathogen#helptags()
 endif
 
 " fix up rtp a bit to exclude rusty old default scripts if they exist
 if exists("g:loaded_pathogen")
-    let list = []
-    for dir in pathogen#split(&rtp)
-        if dir !~# '/usr/share/vim/vimfiles'
-            call add(list, dir)
-        endif
-    endfor
-    let &rtp = pathogen#join(list)
+  let list = []
+  for dir in pathogen#split(&rtp)
+  if dir !~# '/usr/share/vim/vimfiles'
+    call add(list, dir)
+  endif
+  endfor
+  let &rtp = pathogen#join(list)
 endif
 
 " ========================================================================= }}}
@@ -96,20 +96,20 @@ set listchars+=precedes:‹
 set listchars+=eol:\ "
 "set showbreak=→
 " if exists('&relativenumber')
-"     set relativenumber
+"   set relativenumber
 " endif
 set number
 set numberwidth=5
 
 " if has('autocmd')
-"     augroup AlwaysRelative
-"         au!
-"         au BufReadPost *
-"             \ if &number && exists('&relativenumber') |
-"             \     silent! setl relativenumber         |
-"             \     silent! setl number                 |
-"             \ endif
-"     augroup END
+"   augroup AlwaysRelative
+"   au!
+"   au BufReadPost *
+"     \ if &number && exists('&relativenumber') |
+"     \   silent! setl relativenumber           |
+"     \   silent! setl number                   |
+"     \ endif
+"   augroup END
 " endif
 
 " ========================================================================= }}}
@@ -186,21 +186,21 @@ set titlelen=85
 
 " " bar cursor in insert mode
 " if exists('$TMUX')
-"     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-"     let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 " else
-"     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " endif
 
 " ========================================================================= }}}
 " 9 using the mouse ======================================================= {{{
 
 " if has('mouse')
-"     set mouse+=a
-"     set mousemodel=popup_setpos
-"     if has('mouse_xterm') | set ttymouse=xterm2 | endif
-"     if has('mouse_sgr') | set ttymouse=sgr | endif
+"   set mouse+=a
+"   set mousemodel=popup_setpos
+"   if has('mouse_xterm') | set ttymouse=xterm2 | endif
+"   if has('mouse_sgr') | set ttymouse=sgr | endif
 " endif
 
 " block select with control-click-and-drag
@@ -211,11 +211,11 @@ noremap <C-LeftDrag>  <LeftDrag>
 " 10 GUI ================================================================== {{{
 
 if has('gui_running')
-    set linespace=0
-    set guifont=SF\ Mono\ Light:h11
-    if has('transparency')
-        set transparency=0
-    endif
+  set linespace=0
+  set guifont=SF\ Mono\ Light:h11
+  if has('transparency')
+    set transparency=0
+  endif
 endif
 
 " ========================================================================= }}}
@@ -234,10 +234,10 @@ set shortmess+=I
 " 13 selecting text ======================================================= {{{
 
 if has('clipboard')
-    set clipboard=unnamed
-    if has('xterm_clipboard')
-        set clipboard+=unnamedplus
-    endif
+  set clipboard=unnamed
+  if has('xterm_clipboard')
+    set clipboard+=unnamedplus
+  endif
 endif
 
 "set selectmode+=mouse,key,cmd
@@ -246,10 +246,10 @@ endif
 " 14 editing text ========================================================= {{{
 
 if has('persistent_undo')
-    set undolevels=1000
-    if exists('&undoreload')
-        set undoreload=10000
-    endif
+  set undolevels=1000
+  if exists('&undoreload')
+    set undoreload=10000
+  endif
 endif
 
 " set complete=.,w,b,u,t
@@ -278,22 +278,22 @@ set cinoptions+=(0
 set foldenable
 set foldmethod=manual
 set foldlevelstart=99 " Don't autofold anything
-set foldlevel=99      " Don't autofold anything
+set foldlevel=99    " Don't autofold anything
 
 function! MyFoldText()
-    let line = getline(v:foldstart)
+  let line = getline(v:foldstart)
 
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
+  let nucolwidth = &fdc + &number * &numberwidth
+  let windowwidth = winwidth(0) - nucolwidth - 3
+  let foldedlinecount = v:foldend - v:foldstart
 
-    " expand tabs into spaces
-    let onetab = strpart(' ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
+  " expand tabs into spaces
+  let onetab = strpart(' ', 0, &tabstop)
+  let line = substitute(line, '\t', onetab, 'g')
 
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+  let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+  let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+  return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
 set foldtext=MyFoldText()
 
@@ -437,26 +437,26 @@ noremap <leader>m :CtrlPMRUFiles<CR>
 
 noremap <F8> :TagbarToggle<CR>
 
-nnoremap  <Leader>aa       :Tabularize  argument_list<CR>
-vnoremap  <Leader>aa       :Tabularize  argument_list<CR>
+nnoremap <Leader>aa       :Tabularize argument_list<CR>
+vnoremap <Leader>aa       :Tabularize argument_list<CR>
 
-nnoremap  <Leader>a<Space> :Tabularize  multiple_spaces<CR>
-vnoremap  <Leader>a<Space> :Tabularize  multiple_spaces<CR>
+nnoremap <Leader>a<Space> :Tabularize multiple_spaces<CR>
+vnoremap <Leader>a<Space> :Tabularize multiple_spaces<CR>
 
-nnoremap  <Leader>a&       :Tabularize  /&<CR>
-vnoremap  <Leader>a&       :Tabularize  /&<CR>
+nnoremap <Leader>a&       :Tabularize /&<CR>
+vnoremap <Leader>a&       :Tabularize /&<CR>
 
-nnoremap  <Leader>a=       :Tabularize  /=<CR>
-vnoremap  <Leader>a=       :Tabularize  /=<CR>
+nnoremap <Leader>a=       :Tabularize /=<CR>
+vnoremap <Leader>a=       :Tabularize /=<CR>
 
-nnoremap  <Leader>a:       :Tabularize  /:\zs/l0r1<CR>
-vnoremap  <Leader>a:       :Tabularize  /:\zs/l0r1<CR>
+nnoremap <Leader>a:       :Tabularize /:\zs/l0r1<CR>
+vnoremap <Leader>a:       :Tabularize /:\zs/l0r1<CR>
 
-nnoremap  <Leader>a,       :Tabularize  /,\zs/l0r1<CR>
-vnoremap  <Leader>a,       :Tabularize  /,\zs/l0r1<CR>
+nnoremap <Leader>a,       :Tabularize /,\zs/l0r1<CR>
+vnoremap <Leader>a,       :Tabularize /,\zs/l0r1<CR>
 
-nnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR> " bar is pipe
-vnoremap  <Leader>a<Bar>   :Tabularize  /<Bar><CR>
+nnoremap <Leader>a<Bar>   :Tabularize /<Bar><CR>  " bar is pipe
+vnoremap <Leader>a<Bar>   :Tabularize /<Bar><CR>
 
 nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
 nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
@@ -489,7 +489,7 @@ set backup
 set writebackup
 set backupdir=~/.vim/local/backup//
 if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
+  call mkdir(expand(&backupdir), "p")
 endif
 set backupskip=/tmp/*,/private/tmp/*"
 set fsync
@@ -499,7 +499,7 @@ set autoread
 set writeany
 
 if exists('&cryptmethod')
-    set cryptmethod=blowfish
+  set cryptmethod=blowfish
 endif
 
 " ========================================================================= }}}
@@ -507,7 +507,7 @@ endif
 
 set directory=~/.vim/local/swap//
 if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
+  call mkdir(expand(&directory), "p")
 endif
 set updatecount=10
 set updatetime=500
@@ -522,21 +522,21 @@ set wildignore+=*.pyc,*.DS_Store,*.db
 set history=5000
 
 if has('persistent_undo')
-    set undofile
-    set undodir=~/.vim/local/undo//
-    if !isdirectory(expand(&undodir))
-        call mkdir(expand(&undodir), "p")
-    endif
-    set undolevels=10000
+  set undofile
+  set undodir=~/.vim/local/undo//
+  if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+  endif
+  set undolevels=10000
 endif
 
 " ========================================================================= }}}
 " 22 executing external commands ========================================== {{{
 
 if executable('ag')
-    set grepprg=ag\ --vimgrep
-    set grepformat=%f:%l:%c:%m
-    cnoreabbrev <expr> ag grep
+  set grepprg=ag\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+  cnoreabbrev <expr> ag grep
 endif
 
 "set nowarn
@@ -545,10 +545,10 @@ endif
 " 23 running make and jumping to errors =================================== {{{
 
 if has('autocmd')
-    augroup QuickFix
-        au!
-        au BufReadPost quickfix setlocal nolist
-    augroup END
+  augroup QuickFix
+    au!
+    au BufReadPost quickfix setlocal nolist
+  augroup END
 endif
 
 " ========================================================================= }}}
@@ -571,61 +571,61 @@ set viewoptions-=folds
 
 " set gdefault
 if exists('&viewdir')
-    set viewdir=~/.vim/local/view//
-    if !isdirectory(expand(&viewdir))
-        call mkdir(expand(&viewdir), "p")
-    endif
+  set viewdir=~/.vim/local/view//
+  if !isdirectory(expand(&viewdir))
+    call mkdir(expand(&viewdir), "p")
+  endif
 endif
 
 set viminfo^=h
 
 
 if has('autocmd')
-    augroup RedrawOnResize
-        au!
-        au VimResized * silent! redraw!
-    augroup END
+  augroup RedrawOnResize
+    au!
+    au VimResized * silent! redraw!
+  augroup END
 
-    augroup RememberLastView
-        au!
-        au BufWinLeave * silent! mkview "make vim save view (state) (folds, cursor, etc)
-        au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
-    augroup END
+  augroup RememberLastView
+    au!
+    au BufWinLeave * silent! mkview "make vim save view (state) (folds, cursor, etc)
+    au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
+  augroup END
 
-    augroup Stdin
-        au!
-        au StdinReadPost * :set buftype=nofile
-    augroup END
+  augroup Stdin
+    au!
+    au StdinReadPost * :set buftype=nofile
+  augroup END
 endif
 
 function! s:Pulse()
-    execute 'syntax sync fromstart'
-    execute 'redraw!'
+  execute 'syntax sync fromstart'
+  execute 'redraw!'
 
-    redir => old_hi
-        silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
+  redir => old_hi
+    silent execute 'hi CursorLine'
+  redir END
+  let old_hi = split(old_hi, '\n')[0]
+  let old_hi = substitute(old_hi, 'xxx', '', '')
 
-    let steps = 12
-    let width = 1
-    let start = width
-    let end = steps * width
-    let color = 233
+  let steps = 12
+  let width = 1
+  let start = width
+  let end = steps * width
+  let color = 233
 
-    for i in range(start, end, width)
-        execute "hi CursorLine ctermbg=" . (color + i)
-        redraw
-        sleep 5m
-    endfor
-    for i in range(end, start, -1 * width)
-        execute "hi CursorLine ctermbg=" . (color + i)
-        redraw
-        sleep 5m
-    endfor
+  for i in range(start, end, width)
+    execute "hi CursorLine ctermbg=" . (color + i)
+    redraw
+    sleep 5m
+  endfor
+  for i in range(end, start, -1 * width)
+    execute "hi CursorLine ctermbg=" . (color + i)
+    redraw
+    sleep 5m
+  endfor
 
-    execute 'hi ' . old_hi
+  execute 'hi ' . old_hi
 endfunction
 command! -nargs=0 Pulse call s:Pulse()
 
@@ -646,135 +646,134 @@ let NERDTreeAutoCenter                  = 0
 
 " CtrlP settings
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
-                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+                        \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10'
 let g:ctrlp_mruf_relative = 1
 
 if filereadable(expand('~/.local/bin/ctags'))
-    let g:ctrlp_buftag_ctags_bin = expand('~/.local/bin/ctags')
+  let g:ctrlp_buftag_ctags_bin = expand('~/.local/bin/ctags')
 endif
 
 " match with vim-haystack
 " function! CtrlPMatch(items, str, limit, mmode, ispath, crfile, regex) abort
 "   let items = copy(a:items)
 "   if a:ispath
-"     call filter(items, 'v:val !=# a:crfile')
+"   call filter(items, 'v:val !=# a:crfile')
 "   endif
 "   return haystack#filter(items, a:str)
 " endfunction
 " let g:ctrlp_match_func = {'match': function('CtrlPMatch')}
 
 if executable('ag')
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command =
-        \ 'ag %s -i --nocolor --nogroup --hidden
-        \ --ignore .git
-        \ --ignore target
-        \ --ignore tags
-        \ --ignore .tags
-        \ --ignore .m2
-        \ --ignore .svn
-        \ --ignore .hg
-        \ --ignore .DS_Store
-        \ --ignore "**/*.pyc"
-        \ -g ""'
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command =
+    \ 'ag %s -i --nocolor --nogroup --hidden
+    \ --ignore .git
+    \ --ignore target
+    \ --ignore tags
+    \ --ignore .tags
+    \ --ignore .m2
+    \ --ignore .svn
+    \ --ignore .hg
+    \ --ignore .DS_Store
+    \ --ignore "**/*.pyc"
+    \ -g ""'
 
-    " ag is fast enough that CtrlP doesn't need to cache
-    " let g:ctrlp_use_caching = 0
+  " ag is fast enough that CtrlP doesn't need to cache
+  " let g:ctrlp_use_caching = 0
 endif
 
 " TagBar settings
 if filereadable(expand('~/.local/bin/ctags'))
-    let g:tagbar_ctags_bin = expand('~/.local/bin/ctags')
+  let g:tagbar_ctags_bin = expand('~/.local/bin/ctags')
 endif
 let g:tagbar_autoclose = 0
 " let g:tagbar_singleclick = 1
 let g:tagbar_iconchars = ['▸','▾']
 let g:tagbar_type_perl = {
-    \ 'kinds' : [
-        \ 'u:use',
-        \ 'b:base',
-        \ 't:test',
-        \ 'd:describe',
-        \ 'e:extends',
-        \ 'a:attribute',
-        \ 'r:role',
-        \ 'm:method',
-        \ 's:function',
-        \ 'c:class'
-    \ ]
+  \ 'kinds' : [
+    \ 'u:use',
+    \ 'b:base',
+    \ 't:test',
+    \ 'd:describe',
+    \ 'e:extends',
+    \ 'a:attribute',
+    \ 'r:role',
+    \ 'm:method',
+    \ 's:function',
+    \ 'c:class'
+  \ ]
 \ }
 
 " Jedi-vim settings
 let g:jedi#squelch_py_warning = 1
 
 " Syntastic settings
-let g:syntastic_error_symbol='→'
-let g:syntastic_warning_symbol='→'
-"let g:syntastic_python_checker_args='--ignore=E501'
-let syntastic_python_flake8_args='--ignore=E501'
-let g:syntastic_auto_loc_list=1
-let g:syntastic_loc_list_height=3
+let g:syntastic_error_symbol         = '→'
+let g:syntastic_warning_symbol       = '→'
+"let g:syntastic_python_checker_args = '--ignore=E501'
+let syntastic_python_flake8_args     = '--ignore=E501'
+let g:syntastic_auto_loc_list        = 1
+let g:syntastic_loc_list_height      = 3
 
-let g:syntastic_scala_checkers = [ 'fsc' ]
-
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['scala'] }
-" let g:syntastic_debug = 63
+let g:syntastic_scala_checkers       = [ 'fsc' ]
+let g:syntastic_mode_map             = { 'mode': 'passive', 'active_filetypes': ['scala'] }
+" let g:syntastic_debug              = 63
 
 if has('autocmd')
-    function! FindClasspath(where)
-        let cpf = findfile('.classpath', escape(a:where, ' ') . ';')
-        let sep = syntastic#util#isRunningWindows() || has('win32unix') ? ';' : ':'
-        try
-            return cpf !=# '' ? [ '-classpath', join(readfile(cpf), sep) ] : []
-        catch
-            return []
-        endtry
-    endfunction
+  function! FindClasspath(where)
+    let cpf = findfile('.classpath', escape(a:where, ' ') . ';')
+    let sep = syntastic#util#isRunningWindows() || has('win32unix') ? ';' : ':'
+    try
+      return cpf !=# '' ? [ '-classpath', join(readfile(cpf), sep) ] : []
+    catch
+      return []
+    endtry
+  endfunction
 
-    let g:syntastic_scala_fsc_args = [
-        \ '-Xfatal-warnings:false',
-        \ '-Xfuture',
-        \ '-Xlint',
-        \ '-Ywarn-adapted-args',
-        \ '-Ywarn-dead-code', 
-        \ '-Ywarn-inaccessible',
-        \ '-Ywarn-infer-any',
-        \ '-Ywarn-nullary-override',
-        \ '-Ywarn-nullary-unit',
-        \ '-Ywarn-numeric-widen',
-        \ '-Ywarn-unused-import',
-        \ '-Ywarn-value-discard',
-        \ '-deprecation',
-        \ '-encoding', 'UTF-8',
-        \ '-feature',
-        \ '-language:existentials',
-        \ '-language:higherKinds', 
-        \ '-language:implicitConversions',
-        \ '-unchecked',
-        \ '-d', ($TMPDIR !=# '' ? $TMPDIR : '/tmp') ]
+  let g:syntastic_scala_fsc_args = [
+    \ '-Xfatal-warnings:false',
+    \ '-Xfuture',
+    \ '-Xlint',
+    \ '-Ywarn-adapted-args',
+    \ '-Ywarn-dead-code', 
+    \ '-Ywarn-inaccessible',
+    \ '-Ywarn-infer-any',
+    \ '-Ywarn-nullary-override',
+    \ '-Ywarn-nullary-unit',
+    \ '-Ywarn-numeric-widen',
+    \ '-Ywarn-unused-import',
+    \ '-Ywarn-value-discard',
+    \ '-deprecation',
+    \ '-encoding', 'UTF-8',
+    \ '-feature',
+    \ '-language:existentials',
+    \ '-language:higherKinds', 
+    \ '-language:implicitConversions',
+    \ '-unchecked',
+    \ '-d', ($TMPDIR !=# '' ? $TMPDIR : '/tmp') ]
 
-    augroup syntastic_fsc
-        autocmd!
-        autocmd FileType scala let b:syntastic_scala_fsc_args =
-            \ get(g:, 'syntastic_scala_fsc_args', []) +
-            \ FindClasspath(expand('<afile>:p:h', 1))
-    augroup END
+  augroup syntastic_fsc
+    autocmd!
+    autocmd FileType scala let b:syntastic_scala_fsc_args =
+      \ get(g:, 'syntastic_scala_fsc_args', []) +
+      \ FindClasspath(expand('<afile>:p:h', 1))
+  augroup END
 endif
 
 " Ack settings
 if executable('ag')
-    let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
+  let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 endif
 
 " Airline settings
-let g:airline_theme                            = 'base16'
-let g:airline_powerline_fonts                  = 1
-" let g:airline_left_sep = ''
-" let g:airline_left_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_sep = ''
+let g:airline_theme           = 'base16'
+let g:airline_powerline_fonts = 1
+" let g:airline_left_sep      = ''
+" let g:airline_left_sep      = ''
+" let g:airline_right_sep     = ''
+" let g:airline_right_sep     = ''
 
 let g:airline#extensions#tabline#enabled       = 1
 let g:airline#extensions#tabline#show_buffers  = 1
@@ -792,7 +791,7 @@ inoremap <expr> <CR> pumvisible() ? neocomplete#close_popup() : lexima#expand('<
 " call lexima#insmode#map_hook('before', '<cr>', "\<C-r>=neocomplete#close_popup()\<cr>")
 
 " neocomplete
-let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_at_startup  = 1
 let g:neocomplete#enable_auto_select = 1
 
 " inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -806,21 +805,22 @@ inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 
 " vim scala
-let g:scala_sort_across_groups=1
-let g:scala_first_party_namespaces='simple'
+let g:scala_sort_across_groups     = 1
+let g:scala_first_party_namespaces = 'simple'
 
-let g:fugitive_github_domains = ['https://github.banksimple.com']
-let g:github_enterprise_urls = ['https://github.banksimple.com']
+
+let g:fugitive_github_domains      = ['https://github.banksimple.com']
+let g:github_enterprise_urls       = ['https://github.banksimple.com']
 
 " ========================================================================= }}}
 " 27 neovim =============================================================== {{{
 
 if has('nvim')
-    " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    tnoremap <Esc> <C-\><C-n>
-    " let g:terminal_color_256=1
-    let g:terminal_scrollback_buffer_size=100000
+  " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  tnoremap <Esc> <C-\><C-n>
+  " let g:terminal_color_256=1
+  let g:terminal_scrollback_buffer_size=100000
 endif
 
 " ========================================================================= }}}
