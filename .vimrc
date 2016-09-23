@@ -118,15 +118,16 @@ set numberwidth=5
 syntax enable
 
 if has('guicolors')
-    let &t_8f="\e[38;2;%ld;%ld;%ldm"
-    let &t_8b="\e[48;2;%ld;%ld;%ldm"
-    set guicolors
+  set guicolors
 endif
 
-let base16colorspace=256
+if has('termguicolors')
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
 set background=dark
-set t_Co=256
 colorscheme base16-ocean
 
 "set cursorcolumn
@@ -145,9 +146,10 @@ set spelllang=en_us
 " hi ColorColumn  ctermbg=234 guibg=#222222
 hi Comment term=italic cterm=italic gui=italic
 
-hi link Keyword  Bold
-hi link Conditional Bold
-hi link Define Bold
+hi SyntasticErrorSign   term=standout ctermfg=1 ctermbg=10 guifg=#bf616a guibg=#343d46
+hi SyntasticWarningSign term=standout ctermfg=3 ctermbg=10 guifg=#ebcb8b guibg=#343d46
+" hi SyntasticErrorLine   term=standout ctermfg=1 ctermbg=10 guifg=#bf616a guibg=#343d46
+" hi SyntasticWarningLine term=standout ctermfg=3 ctermbg=10 guifg=#ebcb8b guibg=#343d46
 
 hi Keyword term=bold cterm=bold gui=bold
 hi Conditional term=bold cterm=bold gui=bold
