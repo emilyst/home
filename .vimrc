@@ -631,7 +631,8 @@ command! -nargs=0 Pulse call s:Pulse()
 
 " NERDTree settings
 let NERDTreeMinimalUI                   = 1
-let NERDTreeDirArrows                   = 1
+let g:NERDTreeDirArrowExpandable        = '▸'
+let g:NERDTreeDirArrowCollapsible       = '▾'
 let NERDTreeHijackNetrw                 = 0
 let NERDTreeShowBookmarks               = 0
 let NERDTreeIgnore                      = ['\.pyc', '\~$', '\.swo$', '\.swp$', '.DS_Store', '\.git', '\.hg', '\.svn', '\.bzr', 'target', 'tags', '.tags']
@@ -645,11 +646,10 @@ let NERDChristmasTree                   = 1
 let NERDTreeAutoCenter                  = 0
 
 " CtrlP settings
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
-                        \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10'
-let g:ctrlp_mruf_relative = 1
+let g:ctrlp_extensions         = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript', 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+let g:ctrlp_cmd                = 'CtrlPMixed'
+let g:ctrlp_match_window       = 'bottom,order:btt,min:1,max:10'
+let g:ctrlp_mruf_relative      = 1
 
 if filereadable(expand('~/.local/bin/ctags'))
   let g:ctrlp_buftag_ctags_bin = expand('~/.local/bin/ctags')
