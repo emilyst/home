@@ -2,6 +2,8 @@
 doc/tags
 tags
 .tags
+.env
+.classpath
 
 # Compiled source #
 ###################
