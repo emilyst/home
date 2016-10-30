@@ -21,10 +21,12 @@
 "\e[1;5C": forward-word
 
 "\eOd": backward-word
-"\e[5D": backward-word  # for OS X
+# for OS X
+"\e[5D": backward-word
 
 "\eOc": forward-word
-"\e[5C": forward-word   # for OS X
+# for OS X
+"\e[5C": forward-word
 
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
