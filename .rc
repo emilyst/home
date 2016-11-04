@@ -64,8 +64,8 @@ hash local.sh       >/dev/null 2>&1 && source local.sh
 # Python
 ########################################################################
 
-export PYTHONDONTWRITEBYTECODE=1
-[ hash virtualenvwrapper.sh >/dev/null 2>&1 ] && source virtualenvwrapper.sh
+# export PYTHONDONTWRITEBYTECODE=1
+# [ hash virtualenvwrapper.sh >/dev/null 2>&1 ] && source virtualenvwrapper.sh
 # [ -d /usr/local/lib/python2.7/site-packages ] && export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 
@@ -93,7 +93,7 @@ export PERLBREW_ROOT=/opt/perl
 ########################################################################
 
 if [ -x /usr/libexec/java_home ]; then
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
     export PATH=$JAVA_HOME/bin:$PATH
 fi
 export MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=128m"
@@ -117,6 +117,4 @@ if [ -d ~/.ssh ]; then
     chmod 600 ~/.ssh/* 2> /dev/null
 fi
 
-
-
-# [ -e /usr/local/bin/figlet ] && id -P | cut -d: -f8 | figlet -f roman -w 100
+# vim: set ft=zsh tw=100 :
