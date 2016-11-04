@@ -93,10 +93,10 @@ export PERLBREW_ROOT=/opt/perl
 ########################################################################
 
 if [ -x /usr/libexec/java_home ]; then
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
     export PATH=$JAVA_HOME/bin:$PATH
 fi
-export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=2048m -XX:ReservedCodeCacheSize=128m"
+export MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=128m"
 # export _JAVA_OPTIONS=-Djava.awt.headless=true
 
 
