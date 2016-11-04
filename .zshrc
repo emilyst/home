@@ -80,35 +80,28 @@ if [ -d $HOME/.oh-my-zsh ] ; then
     export DISABLE_AUTO_UPDATE="true"
     export COMPLETION_WAITING_DOTS="true"
 
-    plugins=(                   \
-        autojump                \
-        brew                    \
-        cp                      \
-        cpanm                   \
-        encode64                \
-        extract                 \
-        fasd                    \
-        git                     \
-        git-extras              \
-        git-flow                \
-        github                  \
-        gpg-agent               \
-        history                 \
-        history-substring-search\
-        jira                    \
-        nyan                    \
-        osx                     \
-        pass                    \
-        pip                     \
-        python                  \
-        rsync                   \
-        ruby                    \
-        safe-paste              \
-        ssh-agent               \
-        sublime                 \
-        virtualenv              \
-        yum                     \
-        zsh-syntax-highlighting \
+    plugins=(                    \
+        autojump                 \
+        brew                     \
+        cp                       \
+        cpanm                    \
+        encode64                 \
+        extract                  \
+        gpg-agent                \
+        history                  \
+        history-substring-search \
+        nyan                     \
+        osx                      \
+        pass                     \
+        pip                      \
+        python                   \
+        rsync                    \
+        ruby                     \
+        safe-paste               \
+        ssh-agent                \
+        virtualenv               \
+        yum                      \
+        zsh-syntax-highlighting  \
     )
 
     source $ZSH/oh-my-zsh.sh
