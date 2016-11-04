@@ -1,3 +1,14 @@
+--exclude=.cache
+--exclude=.egg-info
+--exclude=.ensime_cache
+--exclude=.git
+--exclude=.m2
+--exclude=.ropeproject
+--exclude=.tox
+--exclude=.venv
+--exclude=target
+--exclude=vendor
+
 --regex-perl=/^[[:blank:]]*(class)[[:blank:]]+([^\ \t;]+)\s*[[:blank:]]*[{;]/\2/c,class,classes/
 --regex-perl=/^[[:blank:]]*extends[[:blank:]]+'([[:alnum:]:]+)'/\1/b,base,bases/
 --regex-perl=/^[[:blank:]]*extends[[:blank:]]+qw\/[[:blank:]\n]*([[:alnum:]:]+)/\1/b,base,bases/
