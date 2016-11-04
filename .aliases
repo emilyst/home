@@ -23,11 +23,11 @@ alias gist="gist -p"
 # fi
 
 # ls aliases
-if ls --version 2> /dev/null | grep -q 'coreutils'
-then
-  export GREP_OPTIONS='--color=auto'
-  alias ls="ls --color=auto --classify --block-size=\'1"
-fi
+# if ls --version 2> /dev/null | grep -q 'coreutils'
+# then
+#   export GREP_OPTIONS='--color=auto'
+#   alias ls="ls --color=auto --classify"
+# fi
 alias lh='ls -Ad .*'
 alias l='ls -AlFht'
 alias ll='ls -AlF'
