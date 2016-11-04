@@ -718,8 +718,9 @@ let g:syntastic_auto_loc_list        = 1
 let g:syntastic_loc_list_height      = 3
 
 let g:syntastic_scala_checkers       = [ 'fsc' ]
-let g:syntastic_mode_map             = { 'mode': 'passive', 'active_filetypes': ['scala'] }
+let g:syntastic_mode_map             = { 'mode': 'passive', 'active_filetypes': ['scala', 'java'] }
 " let g:syntastic_debug              = 63
+" let g:syntastic_java_javac_autoload_maven_classpath = 0
 
 if has('autocmd')
   function! FindClasspath(where)
