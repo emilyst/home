@@ -69,17 +69,17 @@ function glf()
   git log --format=%H --follow -- "$@" | xargs --no-run-if-empty git show --stat
 }
 
-# git log search
-function gls()
-{
-  local phrase="$1"
-  shift
-  if [[ $# == 0 ]]
-  then
-	local default_range=HEAD
-  fi
-  glp --pickaxe-all -S"$phrase" "$@" $default_range
-}
+# # git log search
+# function gls()
+# {
+#   local phrase="$1"
+#   shift
+#   if [[ $# == 0 ]]
+#   then
+# 	local default_range=HEAD
+#   fi
+#   glp --pickaxe-all -S"$phrase" "$@" $default_range
+# }
 
 function up()
 {
@@ -157,5 +157,3 @@ function gupdate
 
   )
 }
-
-
