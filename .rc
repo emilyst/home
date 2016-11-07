@@ -17,7 +17,7 @@ cdpath=(. ~/work ~/scratch ~/Development)
 ########################################################################
 
 export LC_ALL="en_US.UTF-8"
-export TZ="America/Los_Angeles"
+export TZ="UTC"
 export CLICOLOR=1
 export PAGER='less'
 export LESS='CMifSR --tabs=4'
