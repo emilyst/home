@@ -31,11 +31,12 @@ if v:version < 702
   let g:pathogen_disabled += ['tagbar' ]
 endif
 if v:version < 703 || !has('python')
-  let g:pathogen_disabled += ['jedi-vim', 'gundo']
+  let g:pathogen_disabled += ['gundo']
 endif
 if v:version < 704 || !has('lua')
   let g:pathogen_disabled += ['neocomplete']
 endif
+
 runtime bundle/pathogen/autoload/pathogen.vim
 if exists("g:loaded_pathogen")
   execute pathogen#infect()
@@ -705,9 +706,6 @@ let g:tagbar_type_perl = {
     \ 'c:class'
   \ ]
 \ }
-
-" Jedi-vim settings
-let g:jedi#squelch_py_warning = 1
 
 " Syntastic settings
 let g:syntastic_error_symbol         = '→'
