@@ -30,6 +30,8 @@
     added = yellow
     changed = green
     untracked = cyan
+[diff]
+    indentHeuristic = true
 [log]
     date = local
 [rerere]
