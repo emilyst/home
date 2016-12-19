@@ -55,9 +55,6 @@
 [submodule ".vim/bundle/git"]
 	path = .vim/bundle/git
 	url = https://github.com/tpope/vim-git.git
-[submodule ".vim/bundle/irblack"]
-	path = .vim/bundle/irblack
-	url = https://github.com/wgibbs/vim-irblack.git
 [submodule ".vim/bundle/colors-solarized"]
 	path = .vim/bundle/colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
@@ -103,21 +100,9 @@
 [submodule ".vim/bundle/go"]
 	path = .vim/bundle/go
 	url = https://github.com/jnwhiteh/vim-golang.git
-[submodule ".vim/bundle/inkpot"]
-	path = .vim/bundle/inkpot
-	url = https://github.com/ciaranm/inkpot.git
-[submodule ".vim/bundle/lucius"]
-	path = .vim/bundle/lucius
-	url = https://github.com/jonathanfilip/vim-lucius.git
-[submodule ".vim/bundle/molokai"]
-	path = .vim/bundle/molokai
-	url = https://github.com/tomasr/molokai.git
 [submodule ".vim/bundle/monokai"]
 	path = .vim/bundle/monokai
 	url = https://github.com/sickill/vim-monokai.git
-[submodule ".vim/bundle/hybrid"]
-	path = .vim/bundle/hybrid
-	url = https://github.com/w0ng/vim-hybrid.git
 [submodule ".vim/bundle/perl"]
 	path = .vim/bundle/perl
 	url = https://github.com/vim-perl/vim-perl.git
@@ -151,9 +136,6 @@
 [submodule ".vim/bundle/lexima"]
 	path = .vim/bundle/lexima
 	url = https://github.com/cohama/lexima.vim.git
-[submodule ".vim/bundle/rhubarb"]
-	path = .vim/bundle/rhubarb
-	url = https://github.com/tpope/vim-rhubarb
 [submodule ".vim/bundle/airline-themes"]
 	path = .vim/bundle/airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
