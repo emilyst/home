@@ -26,6 +26,15 @@ then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
+# quote pasted URLs
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+
+# fun
+autoload -U tetris
+zle -N tetris
+bindkey ^T tetris
+
 ########################################################################
 # help
 ########################################################################
