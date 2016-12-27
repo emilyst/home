@@ -25,18 +25,6 @@ if has('autocmd')
   au! BufEnter *
 endif
 
-" bring in Pathogen
-let g:pathogen_disabled = [ 'bufexplorer', 'nerdtree-tabs']
-if v:version < 702
-  let g:pathogen_disabled += ['tagbar' ]
-endif
-if v:version < 703 || !has('python')
-  let g:pathogen_disabled += ['gundo']
-endif
-if v:version < 704 || !has('lua')
-  let g:pathogen_disabled += ['neocomplete']
-endif
-
 runtime bundle/pathogen/autoload/pathogen.vim
 if exists("g:loaded_pathogen")
   execute pathogen#infect()
