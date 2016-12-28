@@ -677,28 +677,6 @@ if executable('ag')
   " let g:ctrlp_use_caching = 0
 endif
 
-" TagBar settings
-if filereadable(expand('~/.local/bin/ctags'))
-  let g:tagbar_ctags_bin = expand('~/.local/bin/ctags')
-endif
-let g:tagbar_autoclose = 0
-" let g:tagbar_singleclick = 1
-let g:tagbar_iconchars = ['▸','▾']
-let g:tagbar_type_perl = {
-  \ 'kinds' : [
-    \ 'u:use',
-    \ 'b:base',
-    \ 't:test',
-    \ 'd:describe',
-    \ 'e:extends',
-    \ 'a:attribute',
-    \ 'r:role',
-    \ 'm:method',
-    \ 's:function',
-    \ 'c:class'
-  \ ]
-\ }
-
 " Syntastic settings
 let g:syntastic_error_symbol         = '→'
 let g:syntastic_warning_symbol       = '→'
