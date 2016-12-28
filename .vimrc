@@ -644,6 +644,10 @@ if filereadable(expand('~/.local/bin/ctags'))
   let g:ctrlp_buftag_ctags_bin = expand('~/.local/bin/ctags')
 endif
 
+let g:ctrlp_tjump_only_silent = 1
+nnoremap <c-]> :CtrlPtjump<cr>
+vnoremap <c-]> :CtrlPtjumpVisual<cr>
+
 " match with vim-haystack
 " function! CtrlPMatch(items, str, limit, mmode, ispath, crfile, regex) abort
 "   let items = copy(a:items)
