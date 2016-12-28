@@ -148,3 +148,6 @@
 [submodule ".vim/bundle/terminus"]
 	path = .vim/bundle/terminus
 	url = https://github.com/wincent/terminus.git
+[submodule ".vim/bundle/ctrlp-tjump"]
+	path = .vim/bundle/ctrlp-tjump
+	url = https://github.com/ivalkeen/vim-ctrlp-tjump.git
