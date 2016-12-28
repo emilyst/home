@@ -100,15 +100,9 @@
 [submodule ".vim/bundle/go"]
 	path = .vim/bundle/go
 	url = https://github.com/jnwhiteh/vim-golang.git
-[submodule ".vim/bundle/monokai"]
-	path = .vim/bundle/monokai
-	url = https://github.com/sickill/vim-monokai.git
 [submodule ".vim/bundle/perl"]
 	path = .vim/bundle/perl
 	url = https://github.com/vim-perl/vim-perl.git
-[submodule ".vim/bundle/vitality"]
-	path = .vim/bundle/vitality
-	url = https://github.com/sjl/vitality.vim.git
 [submodule ".vim/bundle/emmet"]
 	path = .vim/bundle/emmet
 	url = https://github.com/mattn/emmet-vim.git
