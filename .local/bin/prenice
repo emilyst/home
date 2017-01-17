@@ -1,0 +1,48 @@
+#!/bin/bash
+
+
+usage () {
+  cat << EOF
+  Reprioritize all processes whose process name matches a pattern,
+  case-insensitively. Priority is a numeric value between -20 and 20
+  (see renice(8)). Pattern is one suitable for pgrep(1). For negative
+  priorities (higher ones), superuser permission will be required.
+
+  Usage: ${0##*/} <priority> <pattern>
+EOF
+
+  exit 0
+}
+
+[[ "$1" == "-h"     ]] && usage
+[[ "$1" == "-help"  ]] && usage
+[[ "$1" == "--help" ]] && usage
+[[ "$#" == "0"      ]] && usage
+
+die () {
+    echo >&2 "$@"
+    exit 1
+}
+
+[ "$#" -eq 2 ] || die "At least two arguments required, but got: $#"
+
+priority=$1
+
+echo $priority | grep -E -q '^-?[0-9]+$' || die "Numeric first argument required, but got: $priority"
+
+shift && read -a pids <<< $(pgrep -i "$@")
+
+if [ "${#pids[@]}" -gt "0" ]; then
+  echo "Reprioritizing ${#pids[@]} PIDs..."
+
+  for pid in "${pids[@]}"
+  do
+    if renice "$priority" "$pid" > /dev/null 2>&1; then
+      echo "Reprioritized PID $pid to $priority"
+    else
+      die "Could not reprioritize $pid to $priority"
+    fi
+  done
+else
+  die "Found no processes to reprioritize for pattern: $@"
+fi
