@@ -24,7 +24,7 @@ die () {
     exit 1
 }
 
-[ "$#" -eq 2 ] || die "At least two arguments required, but got: $#"
+[ "$#" -ge 2 ] || die "At least two arguments required, but got: $#"
 
 priority=$1
 
