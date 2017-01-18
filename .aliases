@@ -1,17 +1,14 @@
 # useful aliases
 alias alert="echo -e '\a'"
-alias explain='man'
 alias dt='date +%Y-%m-%d-%H%M%S'
-alias move='rsync -avz --progress --stats'
-if [[ -e '/usr/bin/ack-grep' ]]; then alias ack='/usr/bin/ack-grep'; fi
-if [[ -e '/usr/bin/htop' ]]; then alias top='/usr/bin/htop'; fi
+
+[[ -e '/usr/bin/ack-grep' ]] && alias ack='/usr/bin/ack-grep'
+[[ -e '/usr/bin/htop' ]] && alias top='/usr/bin/htop'
 
 alias override='sudo $SHELL -c "$(fc -ln -1)"'
 
 alias lockscreen='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
-
-alias ssh="TERM=xterm-256color ssh"
 
 alias got=git
 alias gut=git
@@ -27,20 +24,12 @@ alias gist="gist -p"
     alias v='vim'
 # fi
 
-# ls aliases
-# if ls --version 2> /dev/null | grep -q 'coreutils'
-# then
-#   export GREP_OPTIONS='--color=auto'
-#   alias ls="ls --color=auto --classify"
-# fi
 alias lh='ls -Ad .*'
 alias l='ls -AlFht'
 alias ll='ls -AlF'
 alias la='ls -A'
 
 alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
-
-alias ag='ag -S'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -59,60 +48,6 @@ function fd() { find . -type d -iname '*'$*'*' -ls ; }
 
 # find a file with pattern $1 in name and Execute $2 on it:
 function fe() { find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
-
-# find a pattern in a set of files and highlight them:
-# (needs a recent version of egrep)
-function fs()
-{
-    OPTIND=1
-    local case=""
-    local usage="fs: find string in files.
-Usage: fs [-i] \"pattern\" [\"filename pattern\"] "
-    while getopts :it opt
-    do
-        case "$opt" in
-        i) case="-i " ;;
-        *) echo "$usage"; return;;
-        esac
-    done
-    shift $(( $OPTIND - 1 ))
-    if [ "$#" -lt 1 ]; then
-        echo "$usage"
-        return;
-    fi
-    find . -type f -name "${2:-*}" -print0 | \
-    xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more
-}
-
-# find a pattern in a set of files and highlight them:
-# (needs a recent version of zegrep)
-function zfs()
-{
-    OPTIND=1
-    local case=""
-    local usage="zfs: find string in files.
-Usage: zfs [-i] \"pattern\" [\"filename pattern\"] "
-    while getopts :it opt
-    do
-        case "$opt" in
-        i) case="-i " ;;
-        *) echo "$usage"; return;;
-        esac
-    done
-    shift $(( $OPTIND - 1 ))
-    if [ "$#" -lt 1 ]; then
-        echo "$usage"
-        return;
-    fi
-    find . -type f -name "${2:-*}" -print0 | \
-    xargs -0 zegrep --color=always -sn ${case} "$1" 2>&- | more
-}
-
-function cuttail() # cut last n lines in file, 10 by default
-{
-    nlines=${2:-10}
-    sed -n -e :a -e "1,${nlines}!{P;N;D;};N;ba" $1
-}
 
 calc() { bc <<< "scale=4; $@"; } # quick bc frontend with 4 decimal precision
 #title() { echo -ne "\e];$@\007"; } # change terminal/tab title
