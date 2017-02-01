@@ -151,3 +151,6 @@
 [submodule ".vim/bundle/ctrlp-tjump"]
 	path = .vim/bundle/ctrlp-tjump
 	url = https://github.com/ivalkeen/vim-ctrlp-tjump.git
+[submodule ".vim/bundle/rainbow_parentheses"]
+	path = .vim/bundle/rainbow_parentheses
+	url = https://github.com/junegunn/rainbow_parentheses.vim.git
