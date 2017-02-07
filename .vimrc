@@ -784,7 +784,7 @@ let g:github_enterprise_urls       = ['https://github.banksimple.com']
 " Activation based on file type
 augroup rainbow_lisp
   autocmd!
-  autocmd FileType lisp,clojure,scheme,scala RainbowParentheses
+  autocmd FileType lisp,clojure,scheme,scala,java RainbowParentheses
 augroup END
 
 " let g:rainbow#max_level = 16
@@ -795,7 +795,14 @@ let g:rainbow#pairs = [
                     \ ]
 
 " List of colors that you do not want. ANSI code or #RRGGBB
-let g:rainbow#blacklist = [15, 7, '#c0c5ce', '#4f5b66']
+let g:rainbow#blacklist = [
+                            \  15,
+                            \  7,
+                            \  '#c0c5ce',
+                            \  '#4f5b66',
+                            \  '#d08770',
+                            \  '#ab7967'
+                        \ ]
 
 " ========================================================================= }}}
 " 27 neovim =============================================================== {{{
