@@ -685,10 +685,13 @@ let syntastic_python_flake8_args     = '--ignore=E501'
 let g:syntastic_auto_loc_list        = 1
 let g:syntastic_loc_list_height      = 3
 
-let g:syntastic_scala_checkers       = [ 'fsc' ]
+let g:syntastic_scala_checkers       = [ 'fsc', 'scalastyle' ]
 let g:syntastic_mode_map             = { 'mode': 'passive', 'active_filetypes': ['scala', 'java'] }
 " let g:syntastic_debug              = 63
 " let g:syntastic_java_javac_autoload_maven_classpath = 0
+
+let g:syntastic_scala_scalastyle_jar = '/usr/local/Cellar/scalastyle/0.8.0/libexec/scalastyle_2.11-0.8.0-batch.jar'
+let g:syntastic_scala_scalastyle_config_file = '~/.vim/local/etc/scalastyle_config.xml'
 
 if has('autocmd')
   function! FindClasspath(where)
