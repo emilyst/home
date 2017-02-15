@@ -30,6 +30,10 @@ fi
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
+# skip consecutive runs of duplicate commands when searching back
+# through history
+setopt HIST_FIND_NO_DUPS
+
 
 ########################################################################
 # help
