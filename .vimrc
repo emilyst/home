@@ -790,12 +790,62 @@ augroup rainbow_lisp
   autocmd FileType lisp,clojure,scheme,scala,java RainbowParentheses
 augroup END
 
-" let g:rainbow#max_level = 16
-let g:rainbow#pairs = [
-                        \ ['{', '}'],
-                        \ ['(', ')'],
-                        \ ['[', ']']
-                    \ ]
+let g:rainbow#pairs = [ ['{', '}'], ['(', ')'], ['[', ']'] ]
+let g:rainbow#max_level = 24
+let g:rainbow#colors = {
+    \ 'light': [
+        \ [  93, '#8700ff' ],
+        \ [  99, '#875fff' ],
+        \ [ 105, '#8787ff' ],
+        \ [ 111, '#87afff' ],
+        \ [ 117, '#87dfff' ],
+        \ [ 123, '#87ffff' ],
+        \ [ 129, '#af00ff' ],
+        \ [ 135, '#af5fff' ],
+        \ [ 141, '#af87ff' ],
+        \ [ 147, '#afafff' ],
+        \ [ 153, '#afdfff' ],
+        \ [ 159, '#afffff' ],
+        \ [ 165, '#df00ff' ],
+        \ [ 171, '#df5fff' ],
+        \ [ 177, '#df87ff' ],
+        \ [ 183, '#dfafff' ],
+        \ [ 189, '#dfdfff' ],
+        \ [ 195, '#dfffff' ],
+        \ [ 201, '#ff00ff' ],
+        \ [ 207, '#ff5fff' ],
+        \ [ 213, '#ff87ff' ],
+        \ [ 219, '#ffafff' ],
+        \ [ 225, '#ffdfff' ],
+        \ [ 231, '#ffffff' ]
+    \ ],
+    \ 'dark': [
+        \ [  93, '#8700ff' ],
+        \ [  99, '#875fff' ],
+        \ [ 105, '#8787ff' ],
+        \ [ 111, '#87afff' ],
+        \ [ 117, '#87dfff' ],
+        \ [ 123, '#87ffff' ],
+        \ [ 129, '#af00ff' ],
+        \ [ 135, '#af5fff' ],
+        \ [ 141, '#af87ff' ],
+        \ [ 147, '#afafff' ],
+        \ [ 153, '#afdfff' ],
+        \ [ 159, '#afffff' ],
+        \ [ 165, '#df00ff' ],
+        \ [ 171, '#df5fff' ],
+        \ [ 177, '#df87ff' ],
+        \ [ 183, '#dfafff' ],
+        \ [ 189, '#dfdfff' ],
+        \ [ 195, '#dfffff' ],
+        \ [ 201, '#ff00ff' ],
+        \ [ 207, '#ff5fff' ],
+        \ [ 213, '#ff87ff' ],
+        \ [ 219, '#ffafff' ],
+        \ [ 225, '#ffdfff' ],
+        \ [ 231, '#ffffff' ]
+    \ ]
+\ }
 
 " List of colors that you do not want. ANSI code or #RRGGBB
 let g:rainbow#blacklist = [
