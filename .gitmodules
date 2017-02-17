@@ -154,3 +154,6 @@
 [submodule ".vim/bundle/rainbow_parentheses"]
 	path = .vim/bundle/rainbow_parentheses
 	url = https://github.com/junegunn/rainbow_parentheses.vim.git
+[submodule ".vim/bundle/xterm-color-table"]
+	path = .vim/bundle/xterm-color-table
+	url = https://github.com/guns/xterm-color-table.vim.git
