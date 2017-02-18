@@ -8,4 +8,6 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set tw=0
-RainbowParentheses
+if exists(':RainbowParentheses')
+  RainbowParentheses
+endif
