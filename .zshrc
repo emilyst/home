@@ -1,11 +1,7 @@
 ########################################################################
-# general
+# shell
 ########################################################################
 
-setopt HIST_FIND_NO_DUPS
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt EXTENDED_HISTORY
-setopt INC_APPEND_HISTORY
 setopt CORRECT AUTOCD BEEP EXTENDEDGLOB NOMATCH NOTIFY AUTO_PUSHD
 
 AUTO_CD=1
@@ -42,41 +38,6 @@ zle -N self-insert url-quote-magic
 autoload -U run-help
 autoload run-help-git
 HELPDIR=/usr/local/share/zsh/helpfiles
-
-# ########################################################################
-# # nifty timings for all commands
-# ########################################################################
-
-# function print_dt_before
-# {
-#     if [[ $(uname) == "Darwin" ]]; then
-#         date_command="gdate"
-#     else
-#         date_command="date"
-#     fi
-
-#     date_output=$($date_command '+%Y-%m-%d %H:%M:%S.%N')
-#     date_output=${date_output:0:23}
-#     printf "%$(( $COLUMNS - ${#date_output} - 1 ))s" " "  # padding
-#     printf "${fg_bold[magenta]}%s${reset_color}\n" ${date_output}
-# }
-
-# function print_dt_after
-# {
-#     if [[ $(uname) == "Darwin" ]]; then
-#         date_command="gdate"
-#     else
-#         date_command="date"
-#     fi
-
-#     date_output=$($date_command '+%Y-%m-%d %H:%M:%S.%N')
-#     date_output=${date_output:0:23}
-#     printf "%$(( $COLUMNS - ${#date_output} - 1 ))s" " "  # padding
-#     printf "${fg_bold[cyan]}%s${reset_color}\n" ${date_output}
-# }
-
-# preexec_functions=( $preexec_functions print_dt_before )
-# precmd_functions=( $precmd_functions print_dt_after )
 
 
 ########################################################################
@@ -243,20 +204,28 @@ export LESSCHARSET='utf-8'
 export EDITOR=vim
 export GIT_PAGER=$PAGER
 hash diff-so-fancy > /dev/null 2>&1 && export GIT_PAGER="diff-so-fancy | less"
-# export NVIM_TUI_ENABLE_TRUE_COLOR=1
-export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export MLR_CSV_DEFAULT_RS='lf'
 
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# for neovim
+# export NVIM_TUI_ENABLE_TRUE_COLOR=1
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 # useful for work
 export GITHUB_URL="https://github.banksimple.com/"
+
+# color scheme
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
 
 ########################################################################
 # history
 ########################################################################
 
+setopt HIST_FIND_NO_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
 export HISTFILE=~/.history
 export HISTFILESIZE=50000000
 export HISTSIZE=5000000
