@@ -12,3 +12,5 @@ let NERDTreeKeepTreeInNewTab            = 1
 let g:nerdtree_tabs_open_on_gui_startup = 0
 let NERDChristmasTree                   = 1
 let NERDTreeAutoCenter                  = 0
+
+noremap <F7>  :NERDTreeFind<CR>

@@ -27,4 +27,7 @@ function! s:Pulse()
 
   execute 'hi ' . old_hi
 endfunction
+
 command! -nargs=0 Pulse call s:Pulse()
+
+nnoremap <c-c> :Pulse<cr>

@@ -1,20 +1,11 @@
 " 0 preamble ============================================================== {{{
 "
-" There is a great organization scheme in place here. If you run the
-" :options command in Vim, you see a list of all the options that you
-" can set, along with their current settings and a brief description of
-" them. The great thing about this scheme is that--for better or
-" worse--it sets up a system which can organize all my settings. I've
-" decided to organize everything below thus, throwing ancillary things
-" (my own mappings, plugin settings, and so on) where it makes sense.
-"
-" A lot of plugin settings end up going into the various section, and
-" that seems fine. I'll probably collect lots of utility functions there
-" as well as I go along.
-"
-" The great part about all this is that I have a sensible way now to
-" extend this giant settings file so that I don't get so anxious about
-" it.
+" My .vimrc contains the core configurations of those settings which
+" come with Vim and are enumerated by the :options command. The .vim
+" directory contains everything else, either as individual Vimscript
+" files or as packages included under 'bundle' or under 'pack'. Anything
+" pertaining to the behavior of a specific filetype, or the behavior of
+" a specific plugin, will (aspirationally) not be found here.
 "
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
@@ -29,17 +20,6 @@ runtime bundle/pathogen/autoload/pathogen.vim
 if exists("g:loaded_pathogen")
   execute pathogen#infect()
   execute pathogen#helptags()
-endif
-
-" fix up rtp a bit to exclude rusty old default scripts if they exist
-if exists("g:loaded_pathogen")
-  let list = []
-  for dir in pathogen#split(&rtp)
-  if dir !~# '/usr/share/vim/vimfiles'
-    call add(list, dir)
-  endif
-  endfor
-  let &rtp = pathogen#join(list)
 endif
 
 " ========================================================================= }}}
@@ -144,9 +124,9 @@ hi Keyword term=bold cterm=bold gui=bold
 hi Conditional term=bold cterm=bold gui=bold
 hi Define term=bold cterm=bold gui=bold
 
-" Highlight VCS conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-match ErrorMsg 'd41d8cd9-8f00-3204-a980-0998ecf8427e'
+
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'  " highlight VCS conflict markers
+match ErrorMsg 'd41d8cd9-8f00-3204-a980-0998ecf8427e'  " highlight empty UUID
 
 " ========================================================================= }}}
 " 6 multiple windows ====================================================== {{{
@@ -173,24 +153,8 @@ set title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 set titlelen=85
 
-" " bar cursor in insert mode
-" if exists('$TMUX')
-"   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-"   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-" else
-"   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-" endif
-
 " ========================================================================= }}}
 " 9 using the mouse ======================================================= {{{
-
-" if has('mouse')
-"   set mouse+=a
-"   set mousemodel=popup_setpos
-"   if has('mouse_xterm') | set ttymouse=xterm2 | endif
-"   if has('mouse_sgr') | set ttymouse=sgr | endif
-" endif
 
 " block select with control-click-and-drag
 noremap <C-LeftMouse> <LeftMouse><Esc><C-V>
@@ -300,9 +264,6 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
-noremap  <F1> :checktime<cr>
-inoremap <F1> <esc>:checktime<cr>
-
 " Keep search matches in the middle of the window
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -312,25 +273,15 @@ nnoremap g; g;zz
 nnoremap g, g,zz
 nnoremap <c-o> <c-o>zz
 
-nnoremap <leader><space> :let @/ = ""<cr>
 nnoremap <tab> %
 vnoremap <tab> %
+
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
-" nnoremap / /\v
-" vnoremap / /\v
 
-" Visual Mode */# from Scrooloose
-
-function! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  let @@ = temp
-endfunction
-
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+" make search a little easier right away (less escaping)
+nnoremap / /\v
+vnoremap / /\v
 
 " Sudo to write
 cnoremap w!! w !sudo tee % >/dev/null
@@ -367,7 +318,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " wrap a paragraph
 vnoremap Q gq
-nnoremap Q gqap
+nnoremap Q gqip
 
 " retain selection when changing indent level
 vnoremap < <gv
@@ -376,7 +327,7 @@ vnoremap > >gv
 " reselect what was just pasted
 nnoremap <leader>v V`]
 
-" quickly open .vimrc as split window
+" quickly open .vimrc
 nnoremap <leader>ev :exec 'edit ' . resolve(expand($MYVIMRC))<CR>
 
 " switch splits more easily
@@ -403,72 +354,17 @@ vnoremap <leader>h <gv
 vnoremap <leader>l >gv
 
 " clear old search
-nnoremap <leader>/ :let @/ = ""<CR>
+nnoremap <leader>/       :silent let @/ = ''<CR>
+nnoremap <leader><space> :silent let @/ = ''<cr>
 
-" display unprintable characters
-nnoremap <F2> :set list!<CR>
-
-" toggle spellcheck
-nnoremap <F4> :set spell!<CR>
-
-" sort CSS
-nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
-noremap <F7>  :NERDTreeFind<CR>
-
-noremap <leader>o :CtrlPMixed<CR>
-noremap <leader>p :CtrlP<CR>
-noremap <leader>b :CtrlPBuffer<CR>
-noremap <leader>u :CtrlPUndo<CR>
-noremap <leader>T :CtrlPTag<CR>
-noremap <leader>t :CtrlPBufTagAll<CR>
-noremap <leader>m :CtrlPMRUFiles<CR>
-
-noremap <F8> :TagbarToggle<CR>
-
-nnoremap <Leader>aa       :Tabularize argument_list<CR>
-vnoremap <Leader>aa       :Tabularize argument_list<CR>
-
-nnoremap <Leader>a<Space> :Tabularize multiple_spaces<CR>
-vnoremap <Leader>a<Space> :Tabularize multiple_spaces<CR>
-
-nnoremap <Leader>a&       :Tabularize /&<CR>
-vnoremap <Leader>a&       :Tabularize /&<CR>
-
-nnoremap <Leader>a=       :Tabularize /=<CR>
-vnoremap <Leader>a=       :Tabularize /=<CR>
-
-nnoremap <Leader>a:       :Tabularize /:\zs/l0r1<CR>
-vnoremap <Leader>a:       :Tabularize /:\zs/l0r1<CR>
-
-nnoremap <Leader>a,       :Tabularize /,\zs/l0r1<CR>
-vnoremap <Leader>a,       :Tabularize /,\zs/l0r1<CR>
-
-nnoremap <Leader>a<Bar>   :Tabularize /<Bar><CR>  " bar is pipe
-vnoremap <Leader>a<Bar>   :Tabularize /<Bar><CR>
-
-nnoremap <leader>* :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
-nnoremap <leader>8 :Ack! -i '\b<c-r><c-w>\b'<cr> " ack word under cursor
-nnoremap <leader>g* :Ack! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
-nnoremap <leader>g8 :Ack! -i '<c-r><c-w>'<cr> " fuzzy ack word under cursor
-
-" folding (if enabled)
+" quickly create or toggle folds with the spacebar
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
 vnoremap <Space> zf
 
-nnoremap <c-c> :Pulse<cr>
-
-cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 cnoreabbrev <expr> git ((getcmdtype() is# ':' && getcmdline() is# 'git')?('Git'):('git'))
 
 " Column scroll-binding on <leader>sb
 noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
-
-" I don't use 's' anyways, so let's use it for vim-surround
-nmap s ys
-nmap S yS
-vmap s S
-vmap gs gS
 
 " ========================================================================= }}}
 " 19 reading and writing files ============================================ {{{
@@ -532,13 +428,6 @@ endif
 
 " ========================================================================= }}}
 " 23 running make and jumping to errors =================================== {{{
-
-if has('autocmd')
-  augroup QuickFix
-    au!
-    au BufReadPost quickfix setlocal nolist
-  augroup END
-endif
 
 " ========================================================================= }}}
 " 24 language specific ==================================================== {{{

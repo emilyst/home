@@ -39,3 +39,11 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   " let g:ctrlp_use_caching = 0
 endif
+
+noremap <leader>o :CtrlPMixed<CR>
+noremap <leader>p :CtrlP<CR>
+noremap <leader>b :CtrlPBuffer<CR>
+noremap <leader>u :CtrlPUndo<CR>
+noremap <leader>T :CtrlPTag<CR>
+noremap <leader>t :CtrlPBufTagAll<CR>
+noremap <leader>m :CtrlPMRUFiles<CR>
