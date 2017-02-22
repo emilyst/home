@@ -196,7 +196,12 @@ cdpath=(. ~/work ~/scratch ~/Development)
 ########################################################################
 
 export LC_ALL="en_US.UTF-8"
-export TZ="UTC"
+if [ -e /usr/share/zoneinfo/UTC ]
+then
+  export TZ=":/usr/share/zoneinfo/UTC"
+else
+  export TZ="UTC"
+fi
 export CLICOLOR=1
 export PAGER='less'
 export LESS='CMifSR --tabs=4'
