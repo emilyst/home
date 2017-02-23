@@ -22,4 +22,4 @@ command! -nargs=0 BreakLineHere call s:BreakLineHere()
 
 " I never use B to skip back a word because lol
 " I used to use S but now I want that for surround
-nnoremap B :BreakLineHere<cr>
+nnoremap <cr> :BreakLineHere<cr>
