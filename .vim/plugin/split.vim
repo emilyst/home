@@ -1,7 +1,7 @@
 " Split line at cursor, carefully avoiding moving the cursor or
 " disturbing search, marks, jumps, etc.
 
-function! s:BreakLineHere()
+function! s:SplitLine()
     " remember how we left things
     let view = winsaveview()
     let search = @/
@@ -18,8 +18,6 @@ function! s:BreakLineHere()
     let @/ = search
 endfunction
 
-command! -nargs=0 BreakLineHere call s:BreakLineHere()
+command! -nargs=0 SplitLine call s:SplitLine()
 
-" I never use B to skip back a word because lol
-" I used to use S but now I want that for surround
-nnoremap <cr> :BreakLineHere<cr>
+nmap <cr> :SplitLine<cr>
