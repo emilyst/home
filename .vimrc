@@ -261,8 +261,9 @@ let mapleader = ","
 let maplocalleader = "\\"
 
 set notimeout
+set timeoutlen=100
 set ttimeout
-set ttimeoutlen=10
+set ttimeoutlen=100
 
 " Keep search matches in the middle of the window
 nnoremap n nzzzv
