@@ -419,8 +419,12 @@ endif
 " ========================================================================= }}}
 " 22 executing external commands ========================================== {{{
 
-if executable('ag')
-  set grepprg=ag\ --vimgrep
+if executable('rg')
+  set grepprg=rg\ --smart-case\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+  cnoreabbrev <expr> rg grep
+elseif executable('ag')
+  set grepprg=ag\ --smart-case\ --vimgrep
   set grepformat=%f:%l:%c:%m
   cnoreabbrev <expr> ag grep
 endif

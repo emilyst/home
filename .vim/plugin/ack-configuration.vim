@@ -1,6 +1,7 @@
-" Ack settings
-if executable('ag')
-  let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
+if executable('rg')
+  let g:ackprg = 'rg --smart-case --vimgrep'
+elseif executable('ag')
+  let g:ackprg = 'ag --smart-case --vimgrep'
 endif
 
 " easier to type 'Ack' without using shift
