@@ -51,25 +51,11 @@ if [ -d $HOME/.oh-my-zsh ] ; then
     export COMPLETION_WAITING_DOTS="true"
 
     plugins=(                    \
-        autojump                 \
-        brew                     \
-        cp                       \
-        cpanm                    \
-        encode64                 \
         extract                  \
         gpg-agent                \
-        history                  \
         history-substring-search \
-        nyan                     \
-        osx                      \
-        pass                     \
-        pip                      \
-        python                   \
-        rsync                    \
-        ruby                     \
         safe-paste               \
         ssh-agent                \
-        virtualenv               \
         yum                      \
         zsh-syntax-highlighting  \
     )
