@@ -196,8 +196,8 @@ export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export GITHUB_URL="https://github.banksimple.com/"
 
 # color scheme
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
+# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 
 ########################################################################
