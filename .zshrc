@@ -231,6 +231,19 @@ hash local.sh       >/dev/null 2>&1 && source local.sh
 
 
 ########################################################################
+# PostgreSQL
+########################################################################
+
+# for systems using Homebrew
+POSTGRESQLPATH="/usr/local/opt/postgresql@9.5/bin"
+
+if [ -d "$POSTGRESQLPATH" ]
+then
+  export PATH="$POSTGRESQLPATH:$PATH"
+fi
+
+
+########################################################################
 # Python
 ########################################################################
 
