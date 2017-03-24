@@ -199,6 +199,8 @@ export GITHUB_URL="https://github.banksimple.com/"
 # BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
 # [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
+export HOMEBREW_INSTALL_BADGE='🔮 ✨'
+
 
 ########################################################################
 # history
