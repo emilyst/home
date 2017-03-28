@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -eu
+set -o pipefail
+
 
 usage () {
   cat << EOF
@@ -14,17 +17,17 @@ EOF
   exit 0
 }
 
+[[ "$#" == "0"      ]] && usage
 [[ "$1" == "-h"     ]] && usage
 [[ "$1" == "-help"  ]] && usage
 [[ "$1" == "--help" ]] && usage
-[[ "$#" == "0"      ]] && usage
 
 die () {
     echo >&2 "$@"
     exit 1
 }
 
-[ "$#" -ge 2 ] || die "At least two arguments required, but got: $#"
+[[ "$#" -ge 2 ]] || die "At least two arguments required, but got: $#"
 
 priority=$1
 
@@ -32,7 +35,7 @@ echo $priority | grep -E -q '^-?[0-9]+$' || die "Numeric first argument required
 
 shift && read -a pids <<< $(pgrep -i "$@")
 
-if [ "${#pids[@]}" -gt "0" ]; then
+if [[ "${#pids[@]}" -gt "0" ]]; then
   echo "Reprioritizing ${#pids[@]} PIDs..."
 
   for pid in "${pids[@]}"
