@@ -48,5 +48,5 @@ function fd() { find . -type d -iname '*'$*'*' -ls ; }
 # find a file with pattern $1 in name and Execute $2 on it:
 function fe() { find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
 
-calc() { bc <<< "scale=4; $*"; } # quick bc frontend with 4 decimal precision
-#title() { echo -ne "\e];$@\007"; } # change terminal/tab title
+function calc() { bc -l <<< "scale=4; $*;" } # quick bc frontend with 4 decimal precision
+alias calc='noglob calc' # allows using '*' in zsh
