@@ -19,7 +19,7 @@ export MLR_CSV_DEFAULT_RS='lf'
 # useful for work
 export GITHUB_URL="https://github.banksimple.com/"
 
-export skip_global_compinit=1
+skip_global_compinit=1
 
 
 ########################################################################
