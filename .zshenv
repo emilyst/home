@@ -1,10 +1,13 @@
+########################################################################
+# non-interactive shell environment
+########################################################################
+
 export LC_ALL="en_US.UTF-8"
 if [[ -e /usr/share/zoneinfo/UTC ]]; then
   export TZ=":/usr/share/zoneinfo/UTC"
 else
   export TZ="UTC"
 fi
-export CLICOLOR=1
 export PAGER='less'
 export LESS='CMifSR --tabs=4'
 export LESSCHARSET='utf-8'
@@ -13,18 +16,9 @@ export GIT_PAGER=$PAGER
 hash diff-so-fancy > /dev/null 2>&1 && export GIT_PAGER="diff-so-fancy | less"
 export MLR_CSV_DEFAULT_RS='lf'
 
-# for neovim
-# export NVIM_TUI_ENABLE_TRUE_COLOR=1
-export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
 # useful for work
 export GITHUB_URL="https://github.banksimple.com/"
 
-# color scheme
-# BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
-# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-
-export HOMEBREW_INSTALL_BADGE='🔮 ✨'
 export skip_global_compinit=1
 
 
@@ -42,7 +36,7 @@ cdpath=(. ~/work ~/scratch ~/Development)
 
 
 ########################################################################
-# PostgreSQL
+# PostgreSQL-specific
 ########################################################################
 
 # for systems using Homebrew
@@ -54,7 +48,7 @@ fi
 
 
 ########################################################################
-# Python
+# Python-specific
 ########################################################################
 
 # export PYTHONDONTWRITEBYTECODE=1
@@ -63,7 +57,7 @@ fi
 
 
 ########################################################################
-# Perl
+# Perl-specific
 ########################################################################
 
 export PERL5LIB=$HOME/.local/lib/perl5:$PERL5LIB
@@ -74,7 +68,7 @@ export PERLBREW_ROOT=/opt/perl
 
 
 ########################################################################
-# ruby
+# Ruby-specific
 ########################################################################
 
 #export RBENV_ROOT=/usr/local/var/rbenv
@@ -82,7 +76,7 @@ export PERLBREW_ROOT=/opt/perl
 
 
 ########################################################################
-# java
+# Java-specific
 ########################################################################
 
 if [[ -x /usr/libexec/java_home ]]; then
@@ -94,7 +88,9 @@ export MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=128m"
 
 
 ########################################################################
-# Node
+# Node-specific
 ########################################################################
 
 [[ -d /usr/local/share/npm/bin ]] && export PATH="${PATH}:/usr/local/share/npm/bin"
+
+# vim: set ft=zsh tw=100 :

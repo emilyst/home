@@ -1,5 +1,5 @@
 ########################################################################
-# shell
+# interactive shell configuration
 ########################################################################
 
 setopt CORRECT AUTOCD BEEP EXTENDEDGLOB NOMATCH NOTIFY AUTO_PUSHD
@@ -28,6 +28,18 @@ fi
 # quote pasted URLs
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
+
+export CLICOLOR=1
+
+# color scheme
+# BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
+# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+export HOMEBREW_INSTALL_BADGE='🔮 ✨'
+
+# for neovim
+# export NVIM_TUI_ENABLE_TRUE_COLOR=1
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 
 ########################################################################
