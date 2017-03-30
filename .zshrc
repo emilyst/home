@@ -21,8 +21,7 @@ autoload -U zmv
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-if [ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
-then
+if [[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
@@ -35,7 +34,7 @@ zle -N self-insert url-quote-magic
 # oh-my-zsh
 ########################################################################
 
-if [ -d $HOME/.oh-my-zsh ] ; then
+if [[ -d $HOME/.oh-my-zsh ]]; then
     # Path to your oh-my-zsh configuration.
     export ZSH=$HOME/.oh-my-zsh
     export DISABLE_AUTO_UPDATE="true"
@@ -159,11 +158,11 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 # paths
 ########################################################################
 
-[ -d /usr/local/sbin ]  && export PATH=/usr/local/sbin:"${PATH}"
-[ -d /usr/local/bin ]   && export PATH=/usr/local/bin:"${PATH}"
-[ -d ~/.local/bin ]     && export PATH=~/.local/bin:"${PATH}"
-[ -d ~/bin ]            && export PATH=~/bin:"${PATH}"
-[ -d ~/.bin ]           && export PATH=~/.bin:"${PATH}"
+[[ -d /usr/local/sbin ]]  && export PATH=/usr/local/sbin:"${PATH}"
+[[ -d /usr/local/bin ]]   && export PATH=/usr/local/bin:"${PATH}"
+[[ -d ~/.local/bin ]]     && export PATH=~/.local/bin:"${PATH}"
+[[ -d ~/bin ]]            && export PATH=~/bin:"${PATH}"
+[[ -d ~/.bin ]]           && export PATH=~/.bin:"${PATH}"
 
 cdpath=(. ~/work ~/scratch ~/Development)
 
@@ -173,7 +172,7 @@ cdpath=(. ~/work ~/scratch ~/Development)
 ########################################################################
 
 export LC_ALL="en_US.UTF-8"
-if [ -e /usr/share/zoneinfo/UTC ]
+if [[ -e /usr/share/zoneinfo/UTC ]]
 then
   export TZ=":/usr/share/zoneinfo/UTC"
 else
@@ -224,7 +223,7 @@ export HISTCONTROL=ignoredups:ignorespace
 ########################################################################
 
 # aliases
-[ -f ~/.aliases ] && source ~/.aliases
+[[ -f ~/.aliases ]] && source ~/.aliases
 
 # misc (if they exist)
 hash git-helpers.sh >/dev/null 2>&1 && source git-helpers.sh
@@ -239,7 +238,7 @@ hash local.sh       >/dev/null 2>&1 && source local.sh
 # for systems using Homebrew
 POSTGRESQLPATH="/usr/local/opt/postgresql@9.5/bin"
 
-if [ -d "$POSTGRESQLPATH" ]
+if [[ -d "$POSTGRESQLPATH" ]]
 then
   export PATH="$POSTGRESQLPATH:$PATH"
 fi
@@ -250,8 +249,8 @@ fi
 ########################################################################
 
 # export PYTHONDONTWRITEBYTECODE=1
-# [ hash virtualenvwrapper.sh >/dev/null 2>&1 ] && source virtualenvwrapper.sh
-# [ -d /usr/local/lib/python2.7/site-packages ] && export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+# [[ hash virtualenvwrapper.sh >/dev/null 2>&1 ]] && source virtualenvwrapper.sh
+# [[ -d /usr/local/lib/python2.7/site-packages ]] && export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 
 ########################################################################
@@ -262,7 +261,7 @@ export PERL5LIB=$HOME/.local/lib/perl5:$PERL5LIB
 export PERL_CPANM_OPT='-L ~/.local --self-contained'
 
 export PERLBREW_ROOT=/opt/perl
-#[ -e /opt/perl/etc/bashrc ] && source /opt/perl/etc/bashrc
+#[[ -e /opt/perl/etc/bashrc ]] && source /opt/perl/etc/bashrc
 
 
 ########################################################################
@@ -270,14 +269,14 @@ export PERLBREW_ROOT=/opt/perl
 ########################################################################
 
 #export RBENV_ROOT=/usr/local/var/rbenv
-#[ -d "${HOME}/.rvm/bin" ] && export PATH="${HOME}/.rvm/bin":"${PATH}"
+#[[ -d "${HOME}/.rvm/bin" ]] && export PATH="${HOME}/.rvm/bin":"${PATH}"
 
 
 ########################################################################
 # java
 ########################################################################
 
-if [ -x /usr/libexec/java_home ]; then
+if [[ -x /usr/libexec/java_home ]]; then
     export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
     export PATH=$JAVA_HOME/bin:$PATH
 fi
@@ -289,7 +288,7 @@ export MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=128m"
 # Node
 ########################################################################
 
-[ -d /usr/local/share/npm/bin ] && export PATH="${PATH}:/usr/local/share/npm/bin"
+[[ -d /usr/local/share/npm/bin ]] && export PATH="${PATH}:/usr/local/share/npm/bin"
 
 
 ########################################################################
@@ -297,7 +296,7 @@ export MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=128m"
 ########################################################################
 
 umask 002
-if [ -d ~/.ssh ]; then
+if [[ -d ~/.ssh ]]; then
     chmod 700 ~/.ssh 2> /dev/null
     chmod 600 ~/.ssh/* 2> /dev/null
 fi
