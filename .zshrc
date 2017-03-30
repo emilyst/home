@@ -172,8 +172,7 @@ cdpath=(. ~/work ~/scratch ~/Development)
 ########################################################################
 
 export LC_ALL="en_US.UTF-8"
-if [[ -e /usr/share/zoneinfo/UTC ]]
-then
+if [[ -e /usr/share/zoneinfo/UTC ]]; then
   export TZ=":/usr/share/zoneinfo/UTC"
 else
   export TZ="UTC"
@@ -238,8 +237,7 @@ hash local.sh       >/dev/null 2>&1 && source local.sh
 # for systems using Homebrew
 POSTGRESQLPATH="/usr/local/opt/postgresql@9.5/bin"
 
-if [[ -d "$POSTGRESQLPATH" ]]
-then
+if [[ -d "$POSTGRESQLPATH" ]]; then
   export PATH="$POSTGRESQLPATH:$PATH"
 fi
 
