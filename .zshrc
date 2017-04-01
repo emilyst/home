@@ -32,8 +32,8 @@ zle -N self-insert url-quote-magic
 export CLICOLOR=1
 
 # color scheme
-# BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
-# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 export HOMEBREW_INSTALL_BADGE='🔮 ✨'
 
