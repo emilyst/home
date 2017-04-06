@@ -26,11 +26,11 @@ skip_global_compinit=1
 # paths
 ########################################################################
 
-[[ -d /usr/local/sbin ]]  && export PATH=/usr/local/sbin:"${PATH}"
-[[ -d /usr/local/bin ]]   && export PATH=/usr/local/bin:"${PATH}"
-[[ -d ~/.local/bin ]]     && export PATH=~/.local/bin:"${PATH}"
-[[ -d ~/bin ]]            && export PATH=~/bin:"${PATH}"
-[[ -d ~/.bin ]]           && export PATH=~/.bin:"${PATH}"
+[[ -d "/usr/local/sbin" ]]  && export PATH="/usr/local/sbin:${PATH}"
+[[ -d "/usr/local/bin" ]]   && export PATH="/usr/local/bin:${PATH}"
+[[ -d "~/.local/bin" ]]     && export PATH="~/.local/bin:${PATH}"
+[[ -d "~/bin" ]]            && export PATH="~/bin:${PATH}"
+[[ -d "~/.bin" ]]           && export PATH="~/.bin:${PATH}"
 
 cdpath=(. ~/work ~/scratch ~/Development)
 
