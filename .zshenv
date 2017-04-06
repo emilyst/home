@@ -3,18 +3,18 @@
 ########################################################################
 
 export LC_ALL="en_US.UTF-8"
-if [[ -e /usr/share/zoneinfo/UTC ]]; then
+if [[ -e "/usr/share/zoneinfo/UTC" ]]; then
   export TZ=":/usr/share/zoneinfo/UTC"
 else
   export TZ="UTC"
 fi
-export PAGER='less'
-export LESS='CMifSR --tabs=4'
-export LESSCHARSET='utf-8'
-export EDITOR=vim
-export GIT_PAGER=$PAGER
+export PAGER="less"
+export LESS="CMifSR --tabs=4"
+export LESSCHARSET="utf-8"
+export EDITOR="vim"
+export GIT_PAGER="$PAGER"
 hash diff-so-fancy > /dev/null 2>&1 && export GIT_PAGER="diff-so-fancy | less"
-export MLR_CSV_DEFAULT_RS='lf'
+export MLR_CSV_DEFAULT_RS="lf"
 
 # useful for work
 export GITHUB_URL="https://github.banksimple.com/"
@@ -32,7 +32,7 @@ skip_global_compinit=1
 [[ -d "~/bin" ]]            && export PATH="~/bin:${PATH}"
 [[ -d "~/.bin" ]]           && export PATH="~/.bin:${PATH}"
 
-cdpath=(. ~/work ~/scratch ~/Development)
+cdpath=("." "~/work" "~/scratch" "~/Development")
 
 # add homebrew bc if it's there
 [[ -d "/usr/local/opt/bc/bin" ]] && export PATH="/usr/local/opt/bc/bin:${PATH}"
@@ -63,8 +63,8 @@ fi
 # Perl-specific
 ########################################################################
 
-export PERL5LIB=$HOME/.local/lib/perl5:$PERL5LIB
-export PERL_CPANM_OPT='-L ~/.local --self-contained'
+export PERL5LIB="$HOME/.local/lib/perl5:$PERL5LIB"
+export PERL_CPANM_OPT="-L ~/.local --self-contained"
 
 export PERLBREW_ROOT=/opt/perl
 #[[ -e /opt/perl/etc/bashrc ]] && source /opt/perl/etc/bashrc
@@ -82,9 +82,9 @@ export PERLBREW_ROOT=/opt/perl
 # Java-specific
 ########################################################################
 
-if [[ -x /usr/libexec/java_home ]]; then
+if [[ -x "/usr/libexec/java_home" ]]; then
     export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
-    export PATH=$JAVA_HOME/bin:$PATH
+    export PATH="$JAVA_HOME/bin:$PATH"
 fi
 export MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=128m"
 # export _JAVA_OPTIONS=-Djava.awt.headless=true
@@ -94,6 +94,6 @@ export MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=128m"
 # Node-specific
 ########################################################################
 
-[[ -d /usr/local/share/npm/bin ]] && export PATH="${PATH}:/usr/local/share/npm/bin"
+[[ -d "/usr/local/share/npm/bin" ]] && export PATH="${PATH}:/usr/local/share/npm/bin"
 
 # vim: set ft=zsh tw=100 :

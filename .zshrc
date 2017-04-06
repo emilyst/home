@@ -21,8 +21,8 @@ autoload -U zmv
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-if [[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -s "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+    source "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
 # quote pasted URLs
@@ -33,9 +33,9 @@ export CLICOLOR=1
 
 # color scheme
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+[[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
 
-export HOMEBREW_INSTALL_BADGE='🔮 ✨'
+export HOMEBREW_INSTALL_BADGE="🔮 ✨"
 
 # for neovim
 # export NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -46,9 +46,9 @@ export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 # oh-my-zsh
 ########################################################################
 
-if [[ -d $HOME/.oh-my-zsh ]]; then
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
     # Path to your oh-my-zsh configuration.
-    export ZSH=$HOME/.oh-my-zsh
+    export ZSH="$HOME/.oh-my-zsh"
     export DISABLE_AUTO_UPDATE="true"
     export COMPLETION_WAITING_DOTS="true"
     unset ZSH_THEME
@@ -63,10 +63,10 @@ if [[ -d $HOME/.oh-my-zsh ]]; then
         zsh-syntax-highlighting  \
     )
 
-    source $ZSH/oh-my-zsh.sh
+    source "$ZSH/oh-my-zsh.sh"
 
     # prompt
-    [ -s $HOME/.prompt ] && source $HOME/.prompt
+    [[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
 fi
 
 
@@ -180,9 +180,9 @@ export HISTFILE=~/.history
 export HISTFILESIZE=50000000
 export HISTSIZE=5000000
 export SAVEHIST=$HISTSIZE
-export HISTIGNORE='l:ls:la:ll:cd:w'
-export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S - '
-export HISTCONTROL=ignoredups:ignorespace
+export HISTIGNORE="l:ls:la:ll:cd:w"
+export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S - "
+export HISTCONTROL="ignoredups:ignorespace"
 
 
 ########################################################################
@@ -190,12 +190,12 @@ export HISTCONTROL=ignoredups:ignorespace
 ########################################################################
 
 # aliases
-[[ -f ~/.aliases ]] && source ~/.aliases
+[[ -f "~/.aliases" ]] && source "~/.aliases"
 
 # misc (if they exist)
-hash git-helpers.sh >/dev/null 2>&1 && source git-helpers.sh
-hash work.sh        >/dev/null 2>&1 && source work.sh
-hash local.sh       >/dev/null 2>&1 && source local.sh
+hash "git-helpers.sh" >/dev/null 2>&1 && source "git-helpers.sh"
+hash "work.sh"        >/dev/null 2>&1 && source "work.sh"
+hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 
 
 ########################################################################
@@ -203,9 +203,9 @@ hash local.sh       >/dev/null 2>&1 && source local.sh
 ########################################################################
 
 umask 002
-if [[ -d ~/.ssh ]]; then
-    chmod 700 ~/.ssh 2> /dev/null
-    chmod 600 ~/.ssh/* 2> /dev/null
+if [[ -d "~/.ssh" ]]; then
+    chmod 700 "~/.ssh" 2> /dev/null
+    chmod 600 "~/.ssh/*" 2> /dev/null
 fi
 
 # vim: set ft=zsh tw=100 :
