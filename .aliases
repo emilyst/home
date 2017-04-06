@@ -1,42 +1,42 @@
 # useful aliases
 alias alert="echo -e '\a'"
-alias dt='date +%Y-%m-%d-%H%M%S'
+alias dt="date +%Y-%m-%d-%H%M%S"
 
-[[ -e '/usr/bin/htop' ]] && alias top='/usr/bin/htop'
+[[ -e "/usr/bin/htop" ]] && alias top="/usr/bin/htop"
 
 alias override='sudo $SHELL -c "$(fc -ln -1)"'
 
 alias lockscreen='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 
-alias got=git
-alias gut=git
+alias got="git"
+alias gut="git"
 
 alias gist="gist -p"
 
 # if hash nvim >/dev/null 2>&1; then
-#     alias vim='nvim'
-#     alias vi='nvim'
-#     alias v='nvim'
+#     alias vim="nvim"
+#     alias vi="nvim"
+#     alias v="nvim"
 # else
-    alias vi='vim'
-    alias v='vim'
+    alias vi="vim"
+    alias v="vim"
 # fi
 
-alias lh='ls -Ad .*'
-alias l='ls -AlFht'
-alias ll='ls -AlF'
-alias la='ls -A'
+alias lh="ls -Ad .*"
+alias l="ls -AlFht"
+alias ll="ls -AlF"
+alias la="ls -A"
 
 alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+if [[ -x "/usr/bin/dircolors" ]]; then
+    test -r "$HOME/.dircolors" && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+    alias grep="grep --color=auto"
+    alias fgrep="fgrep --color=auto"
+    alias egrep="egrep --color=auto"
 fi
 
 # find a file with a pattern in name:
@@ -49,4 +49,4 @@ function fd() { find . -type d -iname '*'$*'*' -ls ; }
 function fe() { find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
 
 function calc() { bc -l <<< "scale=4; $*;" } # quick bc frontend with 4 decimal precision
-alias calc='noglob calc' # allows using '*' in zsh
+alias calc="noglob calc" # allows using '*' in zsh

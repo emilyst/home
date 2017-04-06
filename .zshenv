@@ -26,16 +26,16 @@ skip_global_compinit=1
 # paths
 ########################################################################
 
-[[ -d "/usr/local/sbin" ]]  && export PATH="/usr/local/sbin:${PATH}"
-[[ -d "/usr/local/bin" ]]   && export PATH="/usr/local/bin:${PATH}"
-[[ -d "~/.local/bin" ]]     && export PATH="~/.local/bin:${PATH}"
-[[ -d "~/bin" ]]            && export PATH="~/bin:${PATH}"
-[[ -d "~/.bin" ]]           && export PATH="~/.bin:${PATH}"
+[[ -d "/usr/local/sbin" ]]  && export PATH="/usr/local/sbin:$PATH"
+[[ -d "/usr/local/bin" ]]   && export PATH="/usr/local/bin:$PATH"
+[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
+[[ -d "$HOME/bin" ]]        && export PATH="$HOME/bin:$PATH"
+[[ -d "$HOME/.bin" ]]       && export PATH="$HOME/.bin:$PATH"
 
-cdpath=("." "~/work" "~/scratch" "~/Development")
+cdpath=("." "$HOME/work" "$HOME/scratch" "$HOME/Development")
 
 # add homebrew bc if it's there
-[[ -d "/usr/local/opt/bc/bin" ]] && export PATH="/usr/local/opt/bc/bin:${PATH}"
+[[ -d "/usr/local/opt/bc/bin" ]] && export PATH="/usr/local/opt/bc/bin:$PATH"
 
 
 ########################################################################
@@ -64,7 +64,7 @@ fi
 ########################################################################
 
 export PERL5LIB="$HOME/.local/lib/perl5:$PERL5LIB"
-export PERL_CPANM_OPT="-L ~/.local --self-contained"
+export PERL_CPANM_OPT="-L $HOME/.local --self-contained"
 
 export PERLBREW_ROOT=/opt/perl
 #[[ -e /opt/perl/etc/bashrc ]] && source /opt/perl/etc/bashrc
@@ -94,6 +94,6 @@ export MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=128m"
 # Node-specific
 ########################################################################
 
-[[ -d "/usr/local/share/npm/bin" ]] && export PATH="${PATH}:/usr/local/share/npm/bin"
+[[ -d "/usr/local/share/npm/bin" ]] && export PATH="$PATH:/usr/local/share/npm/bin"
 
 # vim: set ft=zsh tw=100 :

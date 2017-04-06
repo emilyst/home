@@ -176,7 +176,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
 setopt INC_APPEND_HISTORY
-export HISTFILE=~/.history
+export HISTFILE="$HOME/.history"
 export HISTFILESIZE=50000000
 export HISTSIZE=5000000
 export SAVEHIST=$HISTSIZE
@@ -190,7 +190,7 @@ export HISTCONTROL="ignoredups:ignorespace"
 ########################################################################
 
 # aliases
-[[ -f "~/.aliases" ]] && source "~/.aliases"
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
 # misc (if they exist)
 hash "git-helpers.sh" >/dev/null 2>&1 && source "git-helpers.sh"
@@ -203,9 +203,9 @@ hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 ########################################################################
 
 umask 002
-if [[ -d "~/.ssh" ]]; then
-    chmod 700 "~/.ssh" 2> /dev/null
-    chmod 600 "~/.ssh/*" 2> /dev/null
+if [[ -d "$HOME/.ssh" ]]; then
+    chmod 700 "$HOME/.ssh" 2> /dev/null
+    chmod 600 "$HOME/.ssh/*" 2> /dev/null
 fi
 
 # vim: set ft=zsh tw=100 :
