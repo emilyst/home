@@ -34,6 +34,9 @@ skip_global_compinit=1
 
 cdpath=(. ~/work ~/scratch ~/Development)
 
+# add homebrew bc if it's there
+[[ -d "/usr/local/opt/bc/bin" ]] && export PATH="/usr/local/opt/bc/bin:${PATH}"
+
 
 ########################################################################
 # PostgreSQL-specific
