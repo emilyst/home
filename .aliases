@@ -22,6 +22,10 @@ alias gist="gist -p"
     alias vi="vim"
     alias v="vim"
 # fi
+#
+
+alias rg="rg --no-ignore-parent"
+alias rsync="rsync -av --progress"
 
 alias lh="ls -Ad .*"
 alias l="ls -AlFht"
