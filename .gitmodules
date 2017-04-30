@@ -157,3 +157,6 @@
 [submodule ".vim/bundle/xterm-color-table"]
 	path = .vim/bundle/xterm-color-table
 	url = https://github.com/guns/xterm-color-table.vim.git
+[submodule ".vim/bundle/rhubarb"]
+	path = .vim/bundle/rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git
