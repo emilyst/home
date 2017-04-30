@@ -54,7 +54,7 @@ fi
 # Python-specific
 ########################################################################
 
-# export PYTHONDONTWRITEBYTECODE=1
+export PYTHONDONTWRITEBYTECODE=1
 # [[ hash virtualenvwrapper.sh >/dev/null 2>&1 ]] && source virtualenvwrapper.sh
 # [[ -d /usr/local/lib/python2.7/site-packages ]] && export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
@@ -65,7 +65,6 @@ fi
 
 export PERL5LIB="$HOME/.local/lib/perl5:$PERL5LIB"
 export PERL_CPANM_OPT="-L $HOME/.local --self-contained"
-
 export PERLBREW_ROOT=/opt/perl
 #[[ -e /opt/perl/etc/bashrc ]] && source /opt/perl/etc/bashrc
 
