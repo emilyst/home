@@ -46,7 +46,7 @@ set tagbsearch
 " 4 displaying text ======================================================= {{{
 
 set scroll=7
-set scrolloff=10
+set scrolloff=0
 set nowrap
 set fillchars+=stl:\ 
 set fillchars+=stlnc:\ 
