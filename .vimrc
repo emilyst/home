@@ -332,10 +332,15 @@ nnoremap <leader>v V`]
 nnoremap <leader>ev :exec 'edit ' . resolve(expand($MYVIMRC))<CR>
 
 " switch splits more easily
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+
+" nnoremap <c-left>  <c-w>h
+" nnoremap <c-down>  <c-w>j
+" nnoremap <c-up>    <c-w>k
+" nnoremap <c-right> <c-w>l
 
 " move lines with leader-{j,k}, indent with leader-{h,l}
 
