@@ -11,6 +11,7 @@ alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resour
 
 alias got="git"
 alias gut="git"
+alias shit="git"
 
 alias gist="gist -p"
 
