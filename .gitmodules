@@ -163,6 +163,6 @@
 [submodule ".vim/bundle/searchindex"]
 	path = .vim/bundle/searchindex
 	url = https://github.com/google/vim-searchindex.git
-[submodule "/Users/emilyst/.vim/bundle/vimwiki"]
-	path = /Users/emilyst/.vim/bundle/vimwiki
+[submodule ".vim/bundle/vimwiki"]
+	path = .vim/bundle/vimwiki
 	url = https://github.com/vimwiki/vimwiki.git
