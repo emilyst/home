@@ -25,7 +25,7 @@ alias gist="gist -p"
 # fi
 #
 
-alias rg="rg --no-ignore-parent"
+alias rg="rg --no-ignore-parent --smart-case"
 alias rsync="rsync -av --progress"
 
 alias lh="ls -Ad .*"
