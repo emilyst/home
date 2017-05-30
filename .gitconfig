@@ -65,6 +65,7 @@
     default = current
 [status]
     submodulesummary = true
+	showUntrackedFiles = all
 [advice]
     pushNonFastForward = false
     statusHints = false
