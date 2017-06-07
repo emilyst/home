@@ -408,7 +408,7 @@ set updatetime=500
 
 set wildmenu
 set wildmode=list:longest
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*.bak,*.exe,target,tags,.tags
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*.bak,*.exe,target,tags,.tags,*/.git/*
 set wildignore+=*.pyc,*.DS_Store,*.db
 set history=5000
 

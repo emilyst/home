@@ -23,23 +23,12 @@ vnoremap <c-]> :CtrlPtjumpVisual<cr>
 " endfunction
 " let g:ctrlp_match_func = {'match': function('CtrlPMatch')}
 
-if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command =
-    \ 'ag %s -i --nocolor --nogroup --hidden
-    \ --ignore .git
-    \ --ignore target
-    \ --ignore tags
-    \ --ignore .tags
-    \ --ignore .m2
-    \ --ignore .svn
-    \ --ignore .hg
-    \ --ignore .DS_Store
-    \ --ignore "**/*.pyc"
-    \ -g ""'
+if executable('rg')
+  " Use rg
+  let g:ctrlp_user_command = 'rg %s --smart-case --files --color=never --glob ""'
 
-  " ag is fast enough that CtrlP doesn't need to cache
-  " let g:ctrlp_use_caching = 0
+  " rg is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
 endif
 
 noremap <leader>o :CtrlPMixed<CR>
