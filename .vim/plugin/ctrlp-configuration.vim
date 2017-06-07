@@ -1,7 +1,9 @@
-let g:ctrlp_extensions         = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript', 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-let g:ctrlp_cmd                = 'CtrlPMixed'
-let g:ctrlp_match_window       = 'bottom,order:btt,min:1,max:10'
-let g:ctrlp_mruf_relative      = 1
+let g:ctrlp_extensions          = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript', 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+let g:ctrlp_cmd                 = 'CtrlPMixed'
+let g:ctrlp_match_window        = 'bottom,order:btt,min:1,max:10'
+let g:ctrlp_mruf_relative       = 1
+let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_cache_dir           = expand('~/.vim/local/cache')
 
 if filereadable(expand('~/.local/bin/ctags'))
   let g:ctrlp_buftag_ctags_bin = expand('~/.local/bin/ctags')
