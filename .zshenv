@@ -85,7 +85,7 @@ if [[ -x "/usr/libexec/java_home" ]]; then
     export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
     export PATH="$JAVA_HOME/bin:$PATH"
 fi
-export MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=128m"
+export MAVEN_OPTS="-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
 # export _JAVA_OPTIONS=-Djava.awt.headless=true
 
 
