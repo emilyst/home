@@ -1,7 +1,7 @@
 <scalastyle commentFilter="enabled">
  <name>Scalastyle standard configuration</name>
  <check class="org.scalastyle.file.FileTabChecker" level="warning" enabled="true"></check>
- <check class="org.scalastyle.file.FileLengthChecker" level="warning" enabled="true">
+ <check class="org.scalastyle.file.FileLengthChecker" level="warning" enabled="false">
   <parameters>
    <parameter name="maxFileLength"><![CDATA[800]]></parameter>
   </parameters>
@@ -28,7 +28,7 @@
  <check class="org.scalastyle.scalariform.SpacesAfterPlusChecker" level="warning" enabled="true"></check>
  <check class="org.scalastyle.file.WhitespaceEndOfLineChecker" level="warning" enabled="true"></check>
  <check class="org.scalastyle.scalariform.SpacesBeforePlusChecker" level="warning" enabled="true"></check>
- <check class="org.scalastyle.file.FileLineLengthChecker" level="warning" enabled="true">
+ <check class="org.scalastyle.file.FileLineLengthChecker" level="warning" enabled="false">
   <parameters>
    <parameter name="maxLineLength"><![CDATA[160]]></parameter>
    <parameter name="tabSize"><![CDATA[4]]></parameter>
