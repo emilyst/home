@@ -5,7 +5,7 @@ let syntastic_python_flake8_args     = '--ignore=E501'
 let g:syntastic_auto_loc_list        = 1
 let g:syntastic_loc_list_height      = 3
 
-let g:syntastic_scala_checkers       = [ 'fsc', 'scalastyle' ]
+let g:syntastic_scala_checkers       = [ 'scalac', 'scalastyle' ]
 let g:syntastic_mode_map             = { 'mode': 'passive', 'active_filetypes': ['scala', 'java'] }
 " let g:syntastic_debug              = 63
 " let g:syntastic_java_javac_autoload_maven_classpath = 0
@@ -24,7 +24,7 @@ if has('autocmd')
     endtry
   endfunction
 
-  let g:syntastic_scala_fsc_args = [
+  let g:syntastic_scala_scalac_args = [
     \ '-Xfatal-warnings:false',
     \ '-Xfuture',
     \ '-Xlint',
@@ -49,7 +49,14 @@ if has('autocmd')
   augroup syntastic_fsc
     autocmd!
     autocmd FileType scala let b:syntastic_scala_fsc_args =
-      \ get(g:, 'syntastic_scala_fsc_args', []) +
+      \ get(g:, 'syntastic_scala_scalac_args', []) +
+      \ FindClasspath(expand('<afile>:p:h', 1))
+  augroup END
+
+  augroup syntastic_fsc
+    autocmd!
+    autocmd FileType scala let b:syntastic_scala_scalac_args =
+      \ get(g:, 'syntastic_scala_scalac_args', []) +
       \ FindClasspath(expand('<afile>:p:h', 1))
   augroup END
 endif
