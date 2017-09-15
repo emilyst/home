@@ -46,14 +46,14 @@ if has('autocmd')
     \ '-unchecked',
     \ '-d', ($TMPDIR !=# '' ? $TMPDIR : '/tmp') ]
 
-  augroup syntastic_fsc
-    autocmd!
-    autocmd FileType scala let b:syntastic_scala_fsc_args =
-      \ get(g:, 'syntastic_scala_scalac_args', []) +
-      \ FindClasspath(expand('<afile>:p:h', 1))
-  augroup END
+  " augroup syntastic_fsc
+  "   autocmd!
+  "   autocmd FileType scala let b:syntastic_scala_fsc_args =
+  "     \ get(g:, 'syntastic_scala_scalac_args', []) +
+  "     \ FindClasspath(expand('<afile>:p:h', 1))
+  " augroup END
 
-  augroup syntastic_fsc
+  augroup syntastic_scalac
     autocmd!
     autocmd FileType scala let b:syntastic_scala_scalac_args =
       \ get(g:, 'syntastic_scala_scalac_args', []) +
