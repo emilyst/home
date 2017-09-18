@@ -43,7 +43,7 @@ cdpath=("." "$HOME/work" "$HOME/scratch" "$HOME/Development")
 ########################################################################
 
 # for systems using Homebrew
-POSTGRESQLPATH="/usr/local/opt/postgresql@9.5/bin"
+POSTGRESQLPATH="/usr/local/opt/postgresql/bin"
 
 if [[ -d "$POSTGRESQLPATH" ]]; then
   export PATH="$POSTGRESQLPATH:$PATH"
@@ -87,6 +87,14 @@ if [[ -x "/usr/libexec/java_home" ]]; then
 fi
 export MAVEN_OPTS="-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
 # export _JAVA_OPTIONS=-Djava.awt.headless=true
+
+
+########################################################################
+# Scala-specific
+########################################################################
+
+SCALAPATH="/usr/local/opt/scala@2.11/bin"
+[[ -d "$SCALAPATH" ]] && export PATH="$SCALAPATH:$PATH"
 
 
 ########################################################################
