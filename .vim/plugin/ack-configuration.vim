@@ -23,7 +23,7 @@ cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack')
 " a lowercase b (e.g. "bonkers") it will be skipped, and we'll end up
 " with `:Ack! '\bonkers` and find nothing.  It took me a good long time
 " to notice this one.  Computers are total fucking garbage.
-nnoremap <leader>* viw:<C-U>call <SID>AckMotion(visualmode())<CR>
+" nnoremap <leader>* viw:<C-U>call <SID>AckMotion(visualmode())<CR>
 
 function! s:CopyMotionForType(type)
   if a:type ==# 'v'

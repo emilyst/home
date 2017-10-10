@@ -1,13 +1,12 @@
-let g:grepper = {
-      \    'dir': 'repo,cwd',
-      \    'tools': [
+let g:grepper = {}
+let g:grepper.dir = 'repo,cwd'
+let g:grepper.tools = [
       \         'rg',
       \         'ag',
       \         'ack',
       \         'git',
       \         'grep',
       \         'findstr',
-      \         'pt',
-      \         'sift'
       \    ]
-      \}
+
+nnoremap <leader>*  :Grepper -cword -noprompt<cr>
