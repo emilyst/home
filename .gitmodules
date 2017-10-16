@@ -169,3 +169,6 @@
 [submodule ".vim/bundle/autoformat"]
 	path = .vim/bundle/autoformat
 	url = https://github.com/Chiel92/vim-autoformat.git
+[submodule ".vim/bundle/sort-motion"]
+	path = .vim/bundle/sort-motion
+	url = https://github.com/christoomey/vim-sort-motion.git
