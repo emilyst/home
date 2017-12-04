@@ -10,7 +10,7 @@ let g:syntastic_mode_map             = { 'mode': 'passive', 'active_filetypes': 
 " let g:syntastic_debug              = 63
 " let g:syntastic_java_javac_autoload_maven_classpath = 0
 
-let g:syntastic_scala_scalastyle_jar = '/usr/local/Cellar/scalastyle/0.8.0/libexec/scalastyle_2.11-0.8.0-batch.jar'
+let g:syntastic_scala_scalastyle_jar = '/usr/local/Cellar/scalastyle/1.0.0/libexec/scalastyle_2.12-1.0.0-batch.jar'
 let g:syntastic_scala_scalastyle_config_file = '~/.vim/local/etc/scalastyle_config.xml'
 
 if has('autocmd')
