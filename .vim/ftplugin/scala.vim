@@ -2,4 +2,4 @@ if exists(":RainbowParentheses")
   RainbowParentheses
 endif
 
-autocmd BufWritePre *.scala :Autoformat
+" autocmd BufWritePre *.scala :Autoformat
