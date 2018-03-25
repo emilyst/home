@@ -1,5 +1,5 @@
 let g:grepper = {}
-let g:grepper.dir = 'repo,cwd'
+let g:grepper.dir = 'cwd'
 let g:grepper.tools = [
       \         'rg',
       \         'ag',
