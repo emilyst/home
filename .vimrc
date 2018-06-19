@@ -1,11 +1,18 @@
 " 0 preamble ============================================================== {{{
 "
-" My .vimrc contains the core configurations of those settings which
-" come with Vim and are enumerated by the :options command. The .vim
-" directory contains everything else, either as individual Vimscript
-" files or as packages included under 'bundle' or under 'pack'. Anything
+" My .vimrc contains configures those settings which are core to to Vim
+" and are enumerated by the :options command, organized by the same
+" sections given by that command and in the same order (hopefully).
+" A few variable definitions which relate to those options will live
+" near them.
+"
+" The $HOME/.vim directory contains everything else, either as
+" individual Vimscript plugins (under $HOME/.vim/plugin) or as packages
+" (under $HOME/.vim/bundle or under $HOME/.vim/*/pack). Anything
 " pertaining to the behavior of a specific filetype, or the behavior of
-" a specific plugin, will (aspirationally) not be found here.
+" a specific plugin, will also be defined as a plugin or filetype
+" plugin. Mappings will eventually be defined as such as well, until
+" everything lives in separate files.
 "
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
@@ -484,17 +491,6 @@ if has('autocmd')
     au!
     au StdinReadPost * :set buftype=nofile
   augroup END
-endif
-
-" ========================================================================= }}}
-" 27 neovim =============================================================== {{{
-
-if has('nvim')
-  " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-  tnoremap <Esc> <C-\><C-n>
-  " let g:terminal_color_256=1
-  let g:terminal_scrollback_buffer_size=100000
 endif
 
 " ========================================================================= }}}
