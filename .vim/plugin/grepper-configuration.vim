@@ -1,12 +1,18 @@
 let g:grepper = {}
-let g:grepper.dir = 'cwd'
+let g:grepper.highlight = 1
+let g:grepper.prompt = 0
+let g:grepper.dir = 'repo,cwd'
 let g:grepper.tools = [
-      \         'rg',
       \         'ag',
+      \         'rg',
       \         'ack',
       \         'git',
       \         'grep',
       \         'findstr',
       \    ]
+let g:grepper.rg = {
+      \ 'grepprg': 'rg --vimgrep --smart-case --hidden --no-ignore --debug',
+      \ 'escape':  '\^$.*+?()[]{}|'
+      \ }
 
 nnoremap <leader>*  :Grepper -cword -noprompt<cr>

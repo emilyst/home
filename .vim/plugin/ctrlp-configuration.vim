@@ -25,7 +25,7 @@ vnoremap <c-]> :CtrlPtjumpVisual<cr>
 
 if executable('rg')
   " Use rg
-  let g:ctrlp_user_command = 'rg %s --smart-case --files --color=never --glob ""'
+  let g:ctrlp_user_command = 'rg %s --hidden --no-ignore --files --color=never --glob ""'
 
   " rg is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
