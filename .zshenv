@@ -87,7 +87,7 @@ fi
 ########################################################################
 
 if [[ -x "/usr/libexec/java_home" ]]; then
-    export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+    export JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2> /dev/null)"
     export PATH="$JAVA_HOME/bin:$PATH"
 fi
 export MAVEN_OPTS="-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
