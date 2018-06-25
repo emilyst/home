@@ -55,6 +55,7 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
 
     plugins=(                    \
         extract                  \
+        gpg-agent                \
         history-substring-search \
         safe-paste               \
         ssh-agent                \
