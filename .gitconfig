@@ -84,8 +84,8 @@
 [filter "media"]
     clean = git-media-clean %f
     smudge = git-media-smudge %f
-; [remote "backend"]
-;     fetch = +refs/pull/*/head:refs/pull/origin/*
+[remote "origin"]
+    fetch = +refs/pull/*/head:refs/pull/origin/*
 [url "git@github.banksimple.com:"]
     insteadOf = bh:
     pushInsteadOf = https://github.banksimple.com/
