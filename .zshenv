@@ -44,11 +44,20 @@ cdpath=("." "$HOME/work" "$HOME/scratch" "$HOME/Development")
 
 # for systems using Homebrew
 POSTGRESQLPATH="/usr/local/opt/postgresql@9.4/bin"
+POSTGRESQLLDFLAGS="/usr/local/opt/postgresql@9.4/lib"
+POSTGRESQLCPPFLAGS="/usr/local/opt/postgresql@9.4/include"
 
 if [[ -d "$POSTGRESQLPATH" ]]; then
   export PATH="$POSTGRESQLPATH:$PATH"
 fi
 
+if [[ -d "$POSTGRESQLLDFLAGS" ]]; then
+  export LDFLAGS="-L$POSTGRESQLLDFLAGS $LDFLAGS"
+fi
+
+if [[ -d "$POSTGRESQLCPPFLAGS" ]]; then
+  export CPPFLAGS="-I$POSTGRESQLCPPFLAGS $CPPFLAGS"
+fi
 
 ########################################################################
 # Python-specific
