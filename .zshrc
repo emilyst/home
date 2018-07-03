@@ -41,10 +41,6 @@ export CLICOLOR=1
 
 export HOMEBREW_INSTALL_BADGE="🔮 ✨"
 
-# for neovim
-# export NVIM_TUI_ENABLE_TRUE_COLOR=1
-export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
 
 ########################################################################
 # oh-my-zsh
