@@ -29,6 +29,10 @@ fi
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
+# bracketed paste mode (in case nothing else enables, like a plugin)
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+
 export CLICOLOR=1
 
 # color scheme
