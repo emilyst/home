@@ -16,9 +16,6 @@ export GIT_PAGER="$PAGER"
 hash diff-so-fancy > /dev/null 2>&1 && export GIT_PAGER="diff-so-fancy | less"
 export MLR_CSV_DEFAULT_RS="lf"
 
-# useful for work
-export GITHUB_URL="https://github.banksimple.com/"
-
 skip_global_compinit=1
 
 # color scheme
