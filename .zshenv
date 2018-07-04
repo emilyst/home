@@ -85,11 +85,18 @@ export PERLBREW_ROOT=/opt/perl
 # Ruby-specific
 ########################################################################
 
+# local gems
+if [[ -x /usr/bin/ruby && -x /usr/bin/gem ]]; then
+  RUBYGEMSPATH="$(ruby -r rubygems -e 'puts Gem.user_dir')"
+  export PATH="$RUBYGEMSPATH/bin:$PATH"
+fi
+
 CHRUBY_PATH="/usr/local/opt/chruby/share/chruby/chruby.sh"
 CHRUBY_AUTO_PATH="/usr/local/opt/chruby/share/chruby/auto.sh"
 if [[ -e "$CHRUBY_PATH" ]]; then
   source "$CHRUBY_PATH" && source "$CHRUBY_AUTO_PATH"
 fi
+
 #export RBENV_ROOT=/usr/local/var/rbenv
 #[[ -d "${HOME}/.rvm/bin" ]] && export PATH="${HOME}/.rvm/bin":"${PATH}"
 
