@@ -126,5 +126,7 @@ SCALAPATH="/usr/local/opt/scala@2.11/bin"
 ########################################################################
 
 [[ -d "/usr/local/share/npm/bin" ]] && export PATH="$PATH:/usr/local/share/npm/bin"
+[[ -d  "$home/.nvm" ]] && export NVM_DIR="$home/.nvm"
+[[ -e "/usr/local/opt/nvm/nvm.sh" ]] && source "/usr/local/opt/nvm/nvm.sh"
 
 # vim: set ft=zsh tw=100 :
