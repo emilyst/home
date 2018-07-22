@@ -1,0 +1,5 @@
+--no-ignore
+--smart-case
+
+--type-add
+web:*.{html,css,js}*
