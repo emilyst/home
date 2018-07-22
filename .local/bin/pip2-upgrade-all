@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 """
 Script for upgrading all modules using pip command-line tool.
@@ -8,3 +8,4 @@ import pkg_resources
 from pip._internal import main # unsupported shit
 
 main(['install', '--upgrade'] + [ d.project_name for d in pkg_resources.working_set ])
+
