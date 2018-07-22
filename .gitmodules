@@ -160,9 +160,6 @@
 [submodule ".vim/bundle/rhubarb"]
 	path = .vim/bundle/rhubarb
 	url = https://github.com/tpope/vim-rhubarb.git
-[submodule ".vim/bundle/vimwiki"]
-	path = .vim/bundle/vimwiki
-	url = https://github.com/vimwiki/vimwiki.git
 [submodule ".vim/bundle/grepper"]
 	path = .vim/bundle/grepper
 	url = https://github.com/mhinz/vim-grepper.git
