@@ -8,6 +8,8 @@
     preloadindex = true
     excludesfile = ~/.gitignore_global
     trustctime = false
+    pager = diff-so-fancy | less --tabs=4 --pattern='^(added|deleted|modified):'
+    commitGraph = true
 [color]
     ui = auto
 [color "diff"]
@@ -38,8 +40,6 @@
     enabled = true
 [pager]
     color = true
-    diff = diff-so-fancy | less --tabs=4 --pattern='^(added|deleted|modified): '
-    show = diff-so-fancy | less --tabs=4 --pattern='^(added|deleted|modified): '
 [status]
     color = true
     submodulesummary = true
@@ -51,7 +51,6 @@
     lg = "log --pretty=format:'%C(yellow)%h%C(reset) %s %C(cyan)%cI%C(reset) %C(blue)%an%C(reset) %C(green)%d%C(reset)' --graph"
     review = "log --stat=80 --dirstat -p -w --patience --reverse --find-copies-harder --decorate -M -C -C -c"
 
-    d = difftool
     ignored = ls-files --others -i --exclude-standard
     st = status -sb
     standup = "!git log --since yesterday --author `git config user.email` --pretty=short"
@@ -59,19 +58,11 @@
 
     praise = blame
     who = blame
-
-    diff = "!sh -c 'git diff | diff-so-fancy | less --tabs=4 --pattern=^(added|deleted|modified):'"
 [push]
     default = current
 [status]
     submodulesummary = true
-	showUntrackedFiles = all
-[advice]
-    pushNonFastForward = false
-    statusHints = false
-    commitBeforeMerge = false
-    resolveConflict = false
-    implicitIdentity = false
+    showUntrackedFiles = all
 [commit]
     template = ~/.gitcommittemplate
     gpgsign = true
@@ -85,11 +76,17 @@
     clean = git-media-clean %f
     smudge = git-media-smudge %f
 [remote "origin"]
-	fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
+    fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
 [receive]
-	fsckObjects = true
+    fsckObjects = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[tig]
+    show-changes = true
+    tab-size = 2
+    mouse = true
+[tig "color"]
+    title-focus = white blue    bold

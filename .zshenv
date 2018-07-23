@@ -23,8 +23,6 @@ export PAGER="less"
 export LESS="CMifSR --tabs=4"
 export LESSCHARSET="utf-8"
 export EDITOR="vim"
-export GIT_PAGER="$PAGER"
-hash diff-so-fancy > /dev/null 2>&1 && export GIT_PAGER="diff-so-fancy | less"
 export MLR_CSV_DEFAULT_RS="lf"
 
 skip_global_compinit=1
