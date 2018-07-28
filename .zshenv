@@ -41,8 +41,8 @@ export HOMEBREW_INSTALL_BADGE="🔮 ✨"
 [[ -d "/usr/local/sbin" ]]  && export PATH="/usr/local/sbin:$PATH"
 [[ -d "/usr/local/bin" ]]   && export PATH="/usr/local/bin:$PATH"
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
-[[ -d "$HOME/bin" ]]        && export PATH="$HOME/bin:$PATH"
-[[ -d "$HOME/.bin" ]]       && export PATH="$HOME/.bin:$PATH"
+# [[ -d "$HOME/bin" ]]        && export PATH="$HOME/bin:$PATH"
+# [[ -d "$HOME/.bin" ]]       && export PATH="$HOME/.bin:$PATH"
 
 cdpath=("." "$HOME/work" "$HOME/scratch" "$HOME/Development")
 
@@ -70,6 +70,7 @@ fi
 if [[ -d "$POSTGRESQLCPPFLAGS" ]]; then
   export CPPFLAGS="-I$POSTGRESQLCPPFLAGS $CPPFLAGS"
 fi
+
 
 ########################################################################
 # Python-specific
@@ -115,8 +116,11 @@ fi
 ########################################################################
 
 if [[ -x "/usr/libexec/java_home" ]]; then
-    export JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2> /dev/null)"
+  JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2> /dev/null)"
+  if [[ ! -z "$JAVA_HOME" ]]; then
+    export JAVA_HOME
     export PATH="$JAVA_HOME/bin:$PATH"
+  fi
 fi
 export MAVEN_OPTS="-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
 # export _JAVA_OPTIONS=-Djava.awt.headless=true

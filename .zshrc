@@ -191,6 +191,7 @@ export HISTCONTROL="ignoredups:ignorespace"
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
 # misc (if they exist)
+# (using `hash` instead of `test -e` for location agnostic presence testing)
 hash "git-helpers.sh" >/dev/null 2>&1 && source "git-helpers.sh"
 hash "work.sh"        >/dev/null 2>&1 && source "work.sh"
 hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
@@ -207,3 +208,4 @@ if [[ -d "$HOME/.ssh" ]]; then
 fi
 
 # vim: set ft=zsh tw=100 :
+
