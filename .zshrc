@@ -35,6 +35,10 @@ zle -N bracketed-paste bracketed-paste-magic
 
 export CLICOLOR=1
 
+# iTerm2 integration and utilities (e.g., imgcat)
+[[ -e "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
+
+
 
 ########################################################################
 # oh-my-zsh
