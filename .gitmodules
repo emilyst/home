@@ -169,3 +169,6 @@
 [submodule ".vim/bundle/sort-motion"]
 	path = .vim/bundle/sort-motion
 	url = https://github.com/christoomey/vim-sort-motion.git
+[submodule ".vim/bundle/illuminate"]
+	path = .vim/bundle/illuminate
+	url = https://github.com/RRethy/vim-illuminate.git
