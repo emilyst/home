@@ -169,3 +169,6 @@
 [submodule ".vim/bundle/illuminate"]
 	path = .vim/bundle/illuminate
 	url = https://github.com/RRethy/vim-illuminate.git
+[submodule ".vim/bundle/auto-pairs"]
+	path = .vim/bundle/auto-pairs
+	url = https://github.com/jiangmiao/auto-pairs.git
