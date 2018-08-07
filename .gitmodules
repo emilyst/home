@@ -13,9 +13,6 @@
 [submodule ".vim/bundle/surround"]
 	path = .vim/bundle/surround
 	url = https://github.com/tpope/vim-surround
-[submodule ".vim/bundle/markdown"]
-	path = .vim/bundle/markdown
-	url = https://github.com/tpope/vim-markdown
 [submodule ".vim/bundle/gitv"]
 	path = .vim/bundle/gitv
 	url = https://github.com/gregsexton/gitv.git
