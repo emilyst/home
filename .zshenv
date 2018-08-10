@@ -97,8 +97,11 @@ export PERLBREW_ROOT=/opt/perl
 
 # local gems
 if [[ -x /usr/bin/ruby && -x /usr/bin/gem ]]; then
-  RUBYGEMSPATH="$(ruby -r rubygems -e 'puts Gem.user_dir')"
-  export PATH="$RUBYGEMSPATH/bin:$PATH"
+  if [ ! -v RUBYGEMSPATH  ]; then
+    RUBYGEMSPATH="$(ruby -r rubygems -e 'puts Gem.user_dir')"
+    export RUBYGEMSPATH
+    export PATH="$RUBYGEMSPATH/bin:$PATH"
+  fi
 fi
 
 CHRUBY_PATH="/usr/local/opt/chruby/share/chruby/chruby.sh"
@@ -116,8 +119,8 @@ fi
 ########################################################################
 
 if [[ -x "/usr/libexec/java_home" ]]; then
-  JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2> /dev/null)"
-  if [[ ! -z "$JAVA_HOME" ]]; then
+  if [ ! -v JAVA_HOME ]; then
+    JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2> /dev/null)"
     export JAVA_HOME
     export PATH="$JAVA_HOME/bin:$PATH"
   fi
