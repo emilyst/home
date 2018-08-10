@@ -8,7 +8,7 @@
     preloadindex = true
     excludesfile = ~/.gitignore_global
     trustctime = false
-    pager = diff-so-fancy | less --tabs=4 --pattern='^(added|deleted|modified):'
+    pager = diff-so-fancy | less
     commitGraph = true
 [color]
     ui = auto

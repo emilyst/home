@@ -103,6 +103,7 @@ if has('termguicolors') && $COLORTERM ==? 'truecolor'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+let base16colorspace=256
 set background=dark
 colorscheme base16-ocean
 
