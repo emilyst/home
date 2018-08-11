@@ -40,8 +40,6 @@
     enabled = true
 [pager]
     color = true
-    diff = diff-so-fancy | less
-    show = diff-so-fancy | less
 [status]
     color = true
     submodulesummary = true
