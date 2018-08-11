@@ -13,20 +13,28 @@ else
   let s:match_command = '%s///gne'
 endif
 
-function! ShowCount()
+function! <SID>GetCachedMatchCount()
+  let l:pattern = s:count_cache['pattern']
+  if @/ == ''
+    return ''
+  else
+    " try to adapt to window width
+    if winwidth(0) >= 120
+      return s:count_cache['match_count'] . ' matches of /' . l:pattern . '/'
+    elseif winwidth(0) < 120 && winwidth(0) >= 100
+      return s:count_cache['match_count'] . ' matches'
+    else
+      return s:count_cache['match_count']
+    endif
+  endif
+endfunction
+
+function! GetMatchCount()
   " use cached values if nothing has changed since the last check
   if s:count_cache['pattern'] == @/
         \ && s:count_cache['bufnr'] == bufnr('%')
         \ && s:count_cache['changedtick'] == b:changedtick
-    if @/ == ''
-      return ''
-    else
-      if s:count_cache['match_count'] == 1
-        return s:count_cache['match_count'] . ' match for /' . @/ . '/'
-      else
-        return s:count_cache['match_count'] . ' matches for /' . @/ . '/'
-      endif
-    endif
+    return <SID>GetCachedMatchCount()
   endif
 
   " something has changed, so we update the cache
@@ -49,15 +57,11 @@ function! ShowCount()
       endif
       let s:count_cache['match_count'] = l:match_count
 
-      if l:match_count == 1
-        return l:match_count . ' match for /' . @/ . '/'
-      else
-        return l:match_count . ' matches for /' . @/ . '/'
-      endif
+      return <SID>GetCachedMatchCount()
     catch
       " just in case
       let s:count_cache['match_count'] = 0
-      return '0 matches for /' . @/ . '/'
+      return <SID>GetCachedMatchCount()
     endtry
   endif
 endfunction
@@ -67,5 +71,7 @@ endfunction
 " let &statusline='%{ShowCount()} %<%f %h%m%r%=%-14.(%l,%c%V%) %P'
 
 " use for airline
-call airline#parts#define('matches_count', {'function': 'ShowCount'})
-let g:airline_section_b = airline#section#create(['matches_count'])
+call airline#parts#define('match_count', {
+      \  'function': 'GetMatchCount'
+      \})
+let g:airline_section_b = airline#section#create(['match_count'])
