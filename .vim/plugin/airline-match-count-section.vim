@@ -1,79 +1,71 @@
 " default cache with sentinel values
 let s:count_cache = {
-      \   'pattern': '',
+      \   'pattern': -1,
       \   'bufnr': -1,
       \   'changedtick': -1,
       \   'match_count': -1
       \ }
 
+" gdefault option inverts meaning of 'g' flag on patterns
+if &gdefault
+  let s:match_command = '%s///ne'
+else
+  let s:match_command = '%s///gne'
+endif
+
 function! ShowCount()
-  " if neither the buffer nor the pattern have changed, we know the
-  " count of matches has not changed, either, so use cached value
+  " use cached values if nothing has changed since the last check
   if s:count_cache['pattern'] == @/
-        \ && s:count_cache['changedtick'] == b:changedtick
         \ && s:count_cache['bufnr'] == bufnr('%')
+        \ && s:count_cache['changedtick'] == b:changedtick
     if @/ == ''
       return ''
     else
-      let match_count = s:count_cache['match_count']
-      if match_count > 1
-        return match_count . ' matches for /' . @/ . '/'
-      elseif match_count == 1
-        return match_count . ' match for /' . @/ . '/'
+      if s:count_cache['match_count'] == 1
+        return s:count_cache['match_count'] . ' match for /' . @/ . '/'
       else
-        return ''
+        return s:count_cache['match_count'] . ' matches for /' . @/ . '/'
       endif
     endif
   endif
 
-  " either the pattern or the buffer has changed, so cache the new
-  " values
-  let s:count_cache['pattern'] = @/
-  let s:count_cache['changedtick'] = b:changedtick
-  let s:count_cache['bufnr'] = bufnr('%')
+  " something has changed, so we update the cache
+  let s:count_cache['pattern']     = @/
+  let s:count_cache['bufnr']       = bufnr('%') " current buffer number
+  let s:count_cache['changedtick'] = b:changedtick " buffer change count
 
-  " don't count matches that aren't being searched for (if this fails
-  " for some reason, we catch exceptions below and do the same thing)
+  " don't count matches that aren't being searched for
   if @/ == ''
     let s:count_cache['match_count'] = 0
     return ''
+  else
+    try
+      " this trick counts the matches; no output means nothing was found
+      let l:match_output = execute(s:match_command)
+      if len(l:match_output) > 0
+        let l:match_count = split(l:match_output)[0]
+      else
+        let l:match_count = 0
+      endif
+      let s:count_cache['match_count'] = l:match_count
+
+      if l:match_count == 1
+        return l:match_count . ' match for /' . @/ . '/'
+      else
+        return l:match_count . ' matches for /' . @/ . '/'
+      endif
+    catch
+      " just in case
+      let s:count_cache['match_count'] = 0
+      return '0 matches for /' . @/ . '/'
+    endtry
   endif
-
-  " remember the view (how everything looked) so we can restore it
-  let v = winsaveview()
-
-  try
-    " this trick counts the matches and stores whatever in counted
-    redir => counted
-    silent %s///gne
-    redir END
-
-    " trim extraneous
-    let match_count = matchstr(counted, '\d\+')
-
-    " cache new figure
-    let s:count_cache['match_count'] = match_count
-
-    " return new figure for status bar
-    if match_count > 1
-      return match_count . ' matches for /' . @/ . '/'
-    elseif match_count == 1
-      return match_count . ' match for /' . @/ . '/'
-    else
-      return ''
-    endif
-  catch
-    let s:count_cache['match_count'] = 0
-    return ''
-  finally
-    " restore how everything looked
-    call winrestview(v)
-  endtry
 endfunction
 
 " use for a normal statusline
 " set ruler
 " let &statusline='%{ShowCount()} %<%f %h%m%r%=%-14.(%l,%c%V%) %P'
 
+" use for airline
 call airline#parts#define('matches_count', {'function': 'ShowCount'})
 let g:airline_section_b = airline#section#create(['matches_count'])
