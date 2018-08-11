@@ -478,18 +478,5 @@ if exists('&viewdir')
   endif
 endif
 
-if has('autocmd')
-  augroup RedrawOnResize
-    au!
-    au VimResized * silent! redraw!
-  augroup END
-
-  " augroup RememberLastView
-  "   au!
-  "   au BufWinLeave * silent! mkview "make vim save view (state) (folds, cursor, etc)
-  "   au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
-  " augroup END
-endif
-
 " ========================================================================= }}}
 " vim: set fdm=marker fdl=1 tw=72 :
