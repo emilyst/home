@@ -478,8 +478,6 @@ if exists('&viewdir')
   endif
 endif
 
-set viminfo=h,<50,'100,s500,/0
-
 if has('autocmd')
   augroup RedrawOnResize
     au!

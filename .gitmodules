@@ -169,3 +169,6 @@
 [submodule ".vim/bundle/markdown"]
 	path = .vim/bundle/markdown
 	url = https://github.com/plasticboy/vim-markdown.git
+[submodule ".vim/bundle/sensible"]
+	path = .vim/bundle/sensible
+	url = git://github.com/tpope/vim-sensible.git
