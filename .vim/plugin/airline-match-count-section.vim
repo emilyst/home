@@ -16,6 +16,10 @@ endif
 
 " return 1 if cache is stale, 0 if not
 function! <SID>IsCacheStale()
+  if s:count_cache['last_run'] == -1
+    return 1
+  endif
+
   if has('reltime')
     try
       " gets a list, first of which is seconds since epoch, second of
@@ -74,7 +78,7 @@ endfunction
 
 function! GetMatchCount()
   " only update if enough time has passed
-  if (!<SID>IsCacheStale())
+  if !<SID>IsCacheStale()
     return <SID>GetCachedMatchCount()
   endif
 
@@ -116,7 +120,7 @@ endfunction
 
 " use for a normal statusline
 " set ruler
-" let &statusline='%{ShowCount()} %<%f %h%m%r%=%-14.(%l,%c%V%) %P'
+" let &statusline='%{GetMatchCount()} %<%f %h%m%r%=%-14.(%l,%c%V%) %P'
 
 " use for airline
 call airline#parts#define('match_count', {
