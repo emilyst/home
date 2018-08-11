@@ -123,7 +123,5 @@ endfunction
 " let &statusline='%{GetMatchCount()} %<%f %h%m%r%=%-14.(%l,%c%V%) %P'
 
 " use for airline
-call airline#parts#define('match_count', {
-      \  'function': 'GetMatchCount'
-      \})
+call airline#parts#define('match_count', { 'function': 'GetMatchCount' })
 let g:airline_section_b = airline#section#create(['match_count'])
