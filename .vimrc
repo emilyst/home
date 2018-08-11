@@ -467,9 +467,9 @@ set termencoding=utf-8
 " 26 various ============================================================== {{{
 
 set virtualedit+=block,onemore
-set viewoptions-=folds
 
-" set gdefault
+set gdefault
+
 if exists('&viewdir')
   set viewdir=~/.vim/local/view//
   if !isdirectory(expand(&viewdir))
@@ -477,8 +477,7 @@ if exists('&viewdir')
   endif
 endif
 
-set viminfo^=h
-
+set viminfo=h,<50,'100,s500,/0
 
 if has('autocmd')
   augroup RedrawOnResize
@@ -486,16 +485,11 @@ if has('autocmd')
     au VimResized * silent! redraw!
   augroup END
 
-  augroup RememberLastView
-    au!
-    au BufWinLeave * silent! mkview "make vim save view (state) (folds, cursor, etc)
-    au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
-  augroup END
-
-  augroup Stdin
-    au!
-    au StdinReadPost * :set buftype=nofile
-  augroup END
+  " augroup RememberLastView
+  "   au!
+  "   au BufWinLeave * silent! mkview "make vim save view (state) (folds, cursor, etc)
+  "   au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
+  " augroup END
 endif
 
 " ========================================================================= }}}
