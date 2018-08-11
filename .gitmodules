@@ -55,9 +55,6 @@
 [submodule ".vim/bundle/ack"]
 	path = .vim/bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
-[submodule ".vim/bundle/snipmate.vim"]
-	path = .vim/bundle/snipmate.vim
-	url = https://github.com/msanders/snipmate.vim.git
 [submodule ".vim/bundle/commentary"]
 	path = .vim/bundle/commentary
 	url = https://github.com/tpope/vim-commentary.git
@@ -76,9 +73,6 @@
 [submodule ".vim/bundle/jdaddy"]
 	path = .vim/bundle/jdaddy
 	url = https://github.com/tpope/vim-jdaddy.git
-[submodule ".vim/bundle/go"]
-	path = .vim/bundle/go
-	url = https://github.com/jnwhiteh/vim-golang.git
 [submodule ".vim/bundle/perl"]
 	path = .vim/bundle/perl
 	url = https://github.com/vim-perl/vim-perl.git
@@ -130,9 +124,6 @@
 [submodule ".vim/bundle/rainbow_parentheses"]
 	path = .vim/bundle/rainbow_parentheses
 	url = https://github.com/junegunn/rainbow_parentheses.vim.git
-[submodule ".vim/bundle/xterm-color-table"]
-	path = .vim/bundle/xterm-color-table
-	url = https://github.com/guns/xterm-color-table.vim.git
 [submodule ".vim/bundle/rhubarb"]
 	path = .vim/bundle/rhubarb
 	url = https://github.com/tpope/vim-rhubarb.git
