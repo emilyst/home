@@ -13,9 +13,6 @@
 [submodule ".vim/bundle/surround"]
 	path = .vim/bundle/surround
 	url = https://github.com/tpope/vim-surround
-[submodule ".vim/bundle/gitv"]
-	path = .vim/bundle/gitv
-	url = https://github.com/gregsexton/gitv.git
 [submodule ".vim/bundle/repeat"]
 	path = .vim/bundle/repeat
 	url = https://github.com/tpope/vim-repeat
@@ -43,9 +40,6 @@
 [submodule ".vim/bundle/pathogen"]
 	path = .vim/bundle/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
-[submodule ".vim/bundle/git"]
-	path = .vim/bundle/git
-	url = https://github.com/tpope/vim-git.git
 [submodule ".vim/bundle/colors-solarized"]
 	path = .vim/bundle/colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
