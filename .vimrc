@@ -52,6 +52,7 @@ set tagbsearch
 " ========================================================================= }}}
 " 4 displaying text ======================================================= {{{
 
+set display=lastline
 set scroll=7
 set scrolloff=0
 set nowrap
