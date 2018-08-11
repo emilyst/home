@@ -1,9 +1,10 @@
 " default cache with sentinel values
 let s:count_cache = {
-      \   'pattern': -1,
-      \   'bufnr': -1,
+      \   'pattern':     -1,
+      \   'bufnr':       -1,
       \   'changedtick': -1,
-      \   'match_count': -1
+      \   'match_count': -1,
+      \   'last_run':    -1
       \ }
 
 " gdefault option inverts meaning of 'g' flag on patterns
@@ -12,6 +13,48 @@ if &gdefault
 else
   let s:match_command = '%s///gne'
 endif
+
+" return 1 if cache is stale, 0 if not
+function! <SID>IsCacheStale()
+  if has('reltime')
+    try
+      " gets a list, first of which is seconds since epoch, second of
+      " which is micros (not calling reltimefloat for perf reasons)
+      let l:time_elapsed = reltime(s:count_cache['last_run'])
+
+      if type(l:time_elapsed) != 3      " anything besides a list means an error occurred
+        let s:count_cache['last_run'] = reltime()
+        return 1
+      elseif l:time_elapsed[0] > 0      " more than a second has elapsed
+        let s:count_cache['last_run'] = reltime()
+        return 1
+      elseif l:time_elapsed[1] > 250000 " more than a quarter of a second has elapsed
+        let s:count_cache['last_run'] = reltime()
+        return 1
+      else                              " less than a quarter of a second has elapsed
+        return 0
+      endif
+    catch
+      let s:count_cache['last_run'] = reltime()
+      return 1
+    endtry
+  else
+    try
+      " not the ideal fallback -- seconds-wise precision only
+      let l:time_elapsed = s:count_cache['last_run'] - localtime()
+
+      if l:time_elapsed <= 0
+        return 0
+      else
+        let s:count_cache['last_run'] = localtime()
+        return 1
+      endif
+    catch
+      let s:count_cache['last_run'] = localtime()
+      return 1
+    endtry
+  endif
+endfunction
 
 function! <SID>GetCachedMatchCount()
   let l:pattern = s:count_cache['pattern']
@@ -30,6 +73,11 @@ function! <SID>GetCachedMatchCount()
 endfunction
 
 function! GetMatchCount()
+  " only update if enough time has passed
+  if (!<SID>IsCacheStale())
+    return <SID>GetCachedMatchCount()
+  endif
+
   " use cached values if nothing has changed since the last check
   if s:count_cache['pattern'] == @/
         \ && s:count_cache['bufnr'] == bufnr('%')
