@@ -31,7 +31,7 @@ skip_global_compinit=1
 # BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
 # [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
 
-export HOMEBREW_INSTALL_BADGE="🔮 ✨"
+export HOMEBREW_INSTALL_BADGE="🔮✨"
 
 
 ########################################################################
