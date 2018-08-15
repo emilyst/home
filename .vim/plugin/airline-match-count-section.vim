@@ -32,10 +32,10 @@ function! <SID>IsCacheStale()
       elseif l:time_elapsed[0] > 0      " more than a second has elapsed
         let s:count_cache['last_run'] = reltime()
         return 1
-      elseif l:time_elapsed[1] > 250000 " more than a quarter of a second has elapsed
+      elseif l:time_elapsed[1] > 500000 " more than half a second has elapsed
         let s:count_cache['last_run'] = reltime()
         return 1
-      else                              " less than a quarter of a second has elapsed
+      else                              " less than half a second has elapsed
         return 0
       endif
     catch
