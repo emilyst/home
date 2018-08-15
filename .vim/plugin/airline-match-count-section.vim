@@ -97,11 +97,17 @@ function! GetMatchCount()
   " don't count matches that aren't being searched for
   if @/ == ''
     let s:count_cache['match_count'] = 0
-    return ''
+    return <SID>GetCachedMatchCount()
   else
     try
+      " don't let anything change while we do this
+      let l:view = winsaveview()
+
       " this trick counts the matches; no output means nothing was found
-      let l:match_output = execute(s:match_command)
+      redir => l:match_output
+      silent keepjumps execute s:match_command
+      redir END
+
       if len(l:match_output) > 0
         let l:match_count = split(l:match_output)[0]
       else
@@ -111,9 +117,14 @@ function! GetMatchCount()
 
       return <SID>GetCachedMatchCount()
     catch
-      " just in case
+      " if there's an error, let's pretend we don't see anything (but
+      " this performs badly because it will miss the cache)
       let s:count_cache['match_count'] = 0
+      let s:count_cache['pattern'] = ''
       return <SID>GetCachedMatchCount()
+    finally
+      " always restore things how we left them
+      call winrestview(l:view)
     endtry
   endif
 endfunction
