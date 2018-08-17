@@ -12,9 +12,9 @@ let s:count_cache = {
 
 " gdefault option inverts meaning of 'g' flag on patterns
 if &gdefault
-  let s:match_command = '%s///ne'
+  let s:match_command = '%s//&/ne'
 else
-  let s:match_command = '%s///gne'
+  let s:match_command = '%s//&/gne'
 endif
 
 " return 1 if cache is stale, 0 if not
@@ -104,23 +104,27 @@ function! GetMatchCount()
     return s:GetCachedMatchCount()
   else
     try
-      " don't execute autocmds
-      set eventignore=all
-      " don't let anything change while we do this
-      let l:view = winsaveview()
+      let l:view = winsaveview()  " don't let anything change while we do this
+      set eventignore=all  " don't execute autocmds
 
-      " this trick counts the matches; no output means nothing was found
+      " turn off hlsearch if enabled
+      let l:hlsearch = &hlsearch
+      if l:hlsearch
+        set nohlsearch
+      endif
+
+      " this trick counts the matches; 
       redir => l:match_output
       silent execute s:match_command
       redir END
 
-      if len(l:match_output) > 0
-        let l:match_count = split(l:match_output)[0]
-      else
+      if len(l:match_output) < 0 " no output means nothing was found
         let l:match_count = 0
+      else                       " otherwise the first word contains the count
+        let l:match_count = split(l:match_output)[0]
       endif
-      let s:count_cache['match_count'] = l:match_count
 
+      let s:count_cache['match_count'] = l:match_count
       return s:GetCachedMatchCount()
     catch
       " if there's an error, let's pretend we don't see anything (but
@@ -129,10 +133,11 @@ function! GetMatchCount()
       let s:count_cache['pattern'] = ''
       return s:GetCachedMatchCount()
     finally
-      " always restore things how we left them
-      call winrestview(l:view)
-      " restore autocmds
+      if l:hlsearch
+        set hlsearch
+      endif
       set eventignore=
+      call winrestview(l:view)
     endtry
   endif
 endfunction
