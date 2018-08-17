@@ -1,3 +1,6 @@
+" time during which cached values get reused
+let s:cache_timeout_in_seconds = 0.25
+
 " default cache with sentinel values
 let s:count_cache = {
       \   'pattern':     -1,
@@ -16,44 +19,45 @@ endif
 
 " return 1 if cache is stale, 0 if not
 function! <SID>IsCacheStale()
-  if s:count_cache['last_run'] == -1
-    return 1
+  " hit the cache the first time around
+  if type(s:count_cache['last_run']) != 3 && s:count_cache['last_run'] == -1
+    let s:count_cache['last_run'] = reltime()
+    return 0
   endif
+
+  let l:seconds = s:cache_timeout_in_seconds
+  let l:micros = s:cache_timeout_in_seconds * 1000000
 
   if has('reltime')
     try
-      " gets a list, first of which is seconds since epoch, second of
-      " which is micros (not calling reltimefloat for perf reasons)
+      " not calling reltimefloat for perf reasons
       let l:time_elapsed = reltime(s:count_cache['last_run'])
-
-      if type(l:time_elapsed) != 3      " anything besides a list means an error occurred
+      if type(l:time_elapsed) != 3          " error (treat as cache miss)
         let s:count_cache['last_run'] = reltime()
         return 1
-      elseif l:time_elapsed[0] > 0      " more than a second has elapsed
+      elseif l:time_elapsed[0] > l:seconds  " cache miss (more than a second)
         let s:count_cache['last_run'] = reltime()
         return 1
-      elseif l:time_elapsed[1] > 500000 " more than half a second has elapsed
+      elseif l:time_elapsed[1] > l:micros   " cache miss (less than a second)
         let s:count_cache['last_run'] = reltime()
         return 1
-      else                              " less than half a second has elapsed
+      else                                  " cache hit
         return 0
       endif
-    catch
+    catch                                   " error (treat as cache miss)
       let s:count_cache['last_run'] = reltime()
       return 1
     endtry
   else
-    try
-      " not the ideal fallback -- seconds-wise precision only
+    try " not the ideal fallback -- seconds-wise precision only
       let l:time_elapsed = s:count_cache['last_run'] - localtime()
-
-      if l:time_elapsed <= 0
-        return 0
-      else
+      if l:time_elapsed > l:seconds         " cache miss (more than a second)
         let s:count_cache['last_run'] = localtime()
         return 1
+      else                                  " cache hit
+        return 0
       endif
-    catch
+    catch                                   " error (treat as cache miss)
       let s:count_cache['last_run'] = localtime()
       return 1
     endtry
@@ -105,7 +109,7 @@ function! GetMatchCount()
 
       " this trick counts the matches; no output means nothing was found
       redir => l:match_output
-      silent keepjumps execute s:match_command
+      silent execute s:match_command
       redir END
 
       if len(l:match_output) > 0
