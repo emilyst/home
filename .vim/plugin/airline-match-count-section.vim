@@ -104,6 +104,8 @@ function! GetMatchCount()
     return <SID>GetCachedMatchCount()
   else
     try
+      " don't execute autocmds
+      set eventignore=all
       " don't let anything change while we do this
       let l:view = winsaveview()
 
@@ -129,6 +131,8 @@ function! GetMatchCount()
     finally
       " always restore things how we left them
       call winrestview(l:view)
+      " restore autocmds
+      set eventignore=
     endtry
   endif
 endfunction
