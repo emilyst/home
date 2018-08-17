@@ -18,7 +18,7 @@ else
 endif
 
 " return 1 if cache is stale, 0 if not
-function! <SID>IsCacheStale()
+function! s:IsCacheStale()
   " hit the cache the first time around
   if type(s:count_cache['last_run']) != 3 && s:count_cache['last_run'] == -1
     let s:count_cache['last_run'] = reltime()
@@ -64,7 +64,7 @@ function! <SID>IsCacheStale()
   endif
 endfunction
 
-function! <SID>GetCachedMatchCount()
+function! s:GetCachedMatchCount()
   let l:pattern = s:count_cache['pattern']
   if @/ == ''
     return ''
@@ -82,15 +82,15 @@ endfunction
 
 function! GetMatchCount()
   " only update if enough time has passed
-  if !<SID>IsCacheStale()
-    return <SID>GetCachedMatchCount()
+  if !s:IsCacheStale()
+    return s:GetCachedMatchCount()
   endif
 
   " use cached values if nothing has changed since the last check
   if s:count_cache['pattern'] == @/
         \ && s:count_cache['bufnr'] == bufnr('%')
         \ && s:count_cache['changedtick'] == b:changedtick
-    return <SID>GetCachedMatchCount()
+    return s:GetCachedMatchCount()
   endif
 
   " something has changed, so we update the cache
@@ -101,7 +101,7 @@ function! GetMatchCount()
   " don't count matches that aren't being searched for
   if @/ == ''
     let s:count_cache['match_count'] = 0
-    return <SID>GetCachedMatchCount()
+    return s:GetCachedMatchCount()
   else
     try
       " don't execute autocmds
@@ -121,13 +121,13 @@ function! GetMatchCount()
       endif
       let s:count_cache['match_count'] = l:match_count
 
-      return <SID>GetCachedMatchCount()
+      return s:GetCachedMatchCount()
     catch
       " if there's an error, let's pretend we don't see anything (but
       " this performs badly because it will miss the cache)
       let s:count_cache['match_count'] = 0
       let s:count_cache['pattern'] = ''
-      return <SID>GetCachedMatchCount()
+      return s:GetCachedMatchCount()
     finally
       " always restore things how we left them
       call winrestview(l:view)
