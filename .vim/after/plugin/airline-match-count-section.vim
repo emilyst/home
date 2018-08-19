@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " time during which cached values get reused
 let s:cache_timeout_in_seconds = 0.25
 
@@ -142,10 +144,11 @@ function! GetMatchCount()
   endif
 endfunction
 
-" use for a normal statusline
-" set ruler
-" let &statusline='%{GetMatchCount()} %<%f %h%m%r%=%-14.(%l,%c%V%) %P'
-
-" use for airline
-call airline#parts#define('match_count', { 'function': 'GetMatchCount' })
-let g:airline_section_b = airline#section#create(['match_count'])
+if exists('g:loaded_airline') " we can use airline
+  call airline#parts#define('match_count', { 'function': 'GetMatchCount' })
+  let g:airline_section_b = airline#section#create(['match_count'])
+else                          " we have to use a normal statusline
+  set laststatus=2
+  set ruler
+  let &statusline='%{GetMatchCount()} %<%f %h%m%r%=%-14.(%l,%c%V%) %P'
+endif
