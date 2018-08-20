@@ -6,14 +6,16 @@ let s:cache_timeout_in_seconds = 0.25
 " max file size before automatically disabling
 let s:max_file_size_in_bytes = 10 * 1024 * 1024
 
-" default cache with sentinel values
-let s:count_cache = {
+" default sentinel values representing an unused cache
+let s:sentinel_values = {
       \   'pattern':     -1,
       \   'bufnr':       -1,
       \   'changedtick': -1,
       \   'match_count': -1,
       \   'last_run':    -1
       \ }
+
+let s:count_cache = s:sentinel_values
 
 " gdefault option inverts meaning of 'g' flag on patterns
 if &gdefault
@@ -24,12 +26,7 @@ endif
 
 " return 1 if the cache has never been used, 0 otherwise
 function! s:AreSentinelValuesCached()
-  if s:count_cache['pattern']                == -1
-        \ && s:count_cache['bufnr']          == -1
-        \ && s:count_cache['changedtick']    == -1
-        \ && s:count_cache['match_count']    == -1
-        \ && type(s:count_cache['last_run']) != 3
-        \ && s:count_cache['last_run']       == -1
+  if s:count_cache == s:sentinel_values
     return 1
   else
     return 0
@@ -127,6 +124,7 @@ function! ToggleMatchCounting()
   if get(b:, 'match_count_force', 0)
     let b:match_count_force = 0
     let b:match_count_enable = 0
+    " clear cache?
   else
     let b:match_count_force = 1
     let b:match_count_enable = 1
