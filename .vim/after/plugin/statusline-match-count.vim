@@ -233,7 +233,7 @@ if exists('g:loaded_airline') " we can use airline
 else
   set laststatus=2
   set ruler
-  let &statusline='%{GetMatchCount()} %<%f %h%m%r%=%-14.(%l,%c%V%) %P'
+  let &statusline+='%{GetMatchCount()} '
 endif
 
 command! ToggleMatchCounting call ToggleMatchCounting()
