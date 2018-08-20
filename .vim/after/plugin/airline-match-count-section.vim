@@ -3,6 +3,9 @@ scriptencoding utf-8
 " time during which cached values get reused
 let s:cache_timeout_in_seconds = 0.25
 
+" max file size before automatically disabling
+let s:max_file_size_in_bytes = 10 * 1024 * 1024
+
 " default cache with sentinel values
 let s:count_cache = {
       \   'pattern':     -1,
@@ -19,10 +22,38 @@ else
   let s:match_command = '%s//&/gne'
 endif
 
+" return 1 if the cache has never been used, 0 otherwise
+function! s:AreSentinelValuesCached()
+  if s:count_cache['pattern']                == -1
+        \ && s:count_cache['bufnr']          == -1
+        \ && s:count_cache['changedtick']    == -1
+        \ && s:count_cache['match_count']    == -1
+        \ && type(s:count_cache['last_run']) != 3
+        \ && s:count_cache['last_run']       == -1
+    return 1
+  else
+    return 0
+  endif
+endfunction
+
+" return 1 if file is too large to process, 0 if not
+" (if match counting has been toggled on manually, we ignore file size)
+function! s:IsLargeFile()
+  if get(b:, 'match_count_force', 0)
+    return 0
+  else
+    if getfsize(expand(@%)) >= s:max_file_size_in_bytes
+      return 1
+    else
+      return 0
+    endif
+  endif
+endfunction
+
 " return 1 if cache is stale, 0 if not
 function! s:IsCacheStale()
   " hit the cache the first time around
-  if type(s:count_cache['last_run']) != 3 && s:count_cache['last_run'] == -1
+  if s:AreSentinelValuesCached()
     let s:count_cache['last_run'] = reltime()
     return 0
   endif
@@ -66,14 +97,14 @@ function! s:IsCacheStale()
   endif
 endfunction
 
+" use the cache and window width to construct the status string
 function! s:GetCachedMatchCount()
-  let l:pattern = s:count_cache['pattern']
   if @/ == ''
     return ''
   else
     " try to adapt to window width
     if winwidth(0) >= 120
-      return s:count_cache['match_count'] . ' matches of /' . l:pattern . '/'
+      return s:count_cache['match_count'] . ' matches of /' . s:count_cache['pattern'] . '/'
     elseif winwidth(0) < 120 && winwidth(0) >= 100
       return s:count_cache['match_count'] . ' matches'
     else
@@ -82,7 +113,40 @@ function! s:GetCachedMatchCount()
   endif
 endfunction
 
+" allow forcing on or off match-counting for a buffer (also allows
+" overriding the file-size detection, hence the `force` variable)
+function! ToggleMatchCounting()
+  if !has_key(b:, 'match_count_enable')
+    let b:match_count_enable = 1
+  endif
+
+  if !has_key(b:, 'match_count_force')
+    let b:match_count_force = 0
+  endif
+
+  if get(b:, 'match_count_force', 0)
+    let b:match_count_force = 0
+    let b:match_count_enable = 0
+  else
+    let b:match_count_force = 1
+    let b:match_count_enable = 1
+  endif
+
+  redrawstatus!
+endfunction
+
+" calculate the match count
 function! GetMatchCount()
+  " do nothing if disabled in this buffer
+  if !get(b:, 'match_count_enable', 1)
+    return ''
+  endif
+
+  " don't even warm up the cache for large files
+  if s:IsLargeFile()
+    return ''
+  endif
+
   " only update if enough time has passed
   if !s:IsCacheStale()
     return s:GetCachedMatchCount()
@@ -115,7 +179,7 @@ function! GetMatchCount()
         set nohlsearch
       endif
 
-      " this trick counts the matches; 
+      " this trick counts the matches
       redir => l:match_output
       silent execute s:match_command
       redir END
@@ -147,8 +211,10 @@ endfunction
 if exists('g:loaded_airline') " we can use airline
   call airline#parts#define('match_count', { 'function': 'GetMatchCount' })
   let g:airline_section_b = airline#section#create(['match_count'])
-else                          " we have to use a normal statusline
+else
   set laststatus=2
   set ruler
   let &statusline='%{GetMatchCount()} %<%f %h%m%r%=%-14.(%l,%c%V%) %P'
 endif
+
+command! ToggleMatchCounting call ToggleMatchCounting()
