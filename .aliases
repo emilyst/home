@@ -55,3 +55,6 @@ function fe() { find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
 
 function calc() { bc -l <<< "scale=4; $*;" } # quick bc frontend with 4 decimal precision
 alias calc="noglob calc" # allows using '*' in zsh
+
+alias rib='irb'  # because i'm not good at typing
+alias mcrib='irb'  # because i'm not good at restraint
