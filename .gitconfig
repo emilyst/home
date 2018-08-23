@@ -1,94 +1,96 @@
+# vim: set ts=4 sw=4 tw=4 noet
+
 [user]
-    name = Emily St.
-    email = hello@emily.st
-    signingkey = E24D796803FC1BB5
+	name = Emily St.
+	email = hello@emily.st
+	signingkey = E24D796803FC1BB5
 [include]
-    path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
 [core]
-    preloadindex = true
-    excludesfile = ~/.gitignore_global
-    trustctime = false
-    pager = diff-so-fancy | less
-    commitGraph = true
+	preloadindex = true
+	excludesfile = ~/.gitignore_global
+	trustctime = false
+	pager = diff-so-fancy | less
+	commitGraph = true
 [color]
-    ui = auto
+	ui = auto
 [color "diff"]
-    meta = yellow bold
-    commit = green bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
-    whitespace = red reverse
+	meta = yellow bold
+	commit = green bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
 [color "diff-highlight"]
-    oldNormal = red bold
-    oldHighlight = "red bold 52"
-    newNormal = "green bold"
-    newHighlight = "green bold 22"
+	oldNormal = red bold
+	oldHighlight = "red bold 52"
+	newNormal = "green bold"
+	newHighlight = "green bold 22"
 [color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
+	current = yellow reverse
+	local = yellow
+	remote = green
 [color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
+	added = yellow
+	changed = green
+	untracked = cyan
 [diff]
-    indentHeuristic = true
+	indentHeuristic = true
 [log]
-    date = local
+	date = local
 [rerere]
-    enabled = true
+	enabled = true
 [pager]
-    color = true
+	color = true
 [status]
-    color = true
-    submodulesummary = true
+	color = true
+	submodulesummary = true
 [alias]
-    st = status
-    ci = commit -av
-    c = commit -av
-    co = checkout
-    lg = "log --pretty=format:'%C(yellow)%h%C(reset) %s %C(cyan)%cI%C(reset) %C(blue)%an%C(reset) %C(green)%d%C(reset)' --graph"
-    review = "log --stat=80 --dirstat -p -w --patience --reverse --find-copies-harder --decorate -M -C -C -c"
+	st = status
+	ci = commit -av
+	c = commit -av
+	co = checkout
+	lg = "log --pretty=format:'%C(yellow)%h%C(reset) %s %C(cyan)%cI%C(reset) %C(blue)%an%C(reset) %C(green)%d%C(reset)' --graph"
+	review = "log --stat=80 --dirstat -p -w --patience --reverse --find-copies-harder --decorate -M -C -C -c"
 
-    ignored = ls-files --others -i --exclude-standard
-    st = status -sb
-    standup = "!git log --since yesterday --author `git config user.email` --pretty=short"
-    up = pull --ff-only --all -p
-
-    praise = blame
-    who = blame
+	ignored = ls-files --others -i --exclude-standard
+	st = status -sb
+	standup = "!git log --since yesterday --author `git config user.email` --pretty=short"
+	up = pull --ff-only --all -p
+	praise = blame
+	who = blame
+	whose-line-is-it-anyway = blame
 [push]
-    default = current
+	default = current
 [status]
-    submodulesummary = true
-    showUntrackedFiles = all
+	submodulesummary = true
+	showUntrackedFiles = all
 [commit]
-    template = ~/.gitcommittemplate
-    gpgsign = true
+	template = ~/.gitcommittemplate
+	gpgsign = true
 [http]
-    sslVerify = true
+	sslVerify = true
 [branch]
-    autosetuprebase = always
+	autosetuprebase = always
 [help]
-    autocorrect = 1
+	autocorrect = 1
 [filter "media"]
-    clean = git-media-clean %f
-    smudge = git-media-smudge %f
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
 [remote "origin"]
-    fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
+	fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
 [receive]
-    fsckObjects = true
+	fsckObjects = true
 [filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [tig]
-    show-changes = true
-    tab-size = 2
-    mouse = true
+	show-changes = true
+	tab-size = 2
+	mouse = true
 [tig "color"]
-    title-focus = white blue    bold
+	title-focus = white blue	bold
 [init]
-    templatedir = ~/.git-templates
+	templatedir = ~/.git-templates
