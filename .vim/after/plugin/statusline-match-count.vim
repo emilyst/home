@@ -132,21 +132,27 @@ endfunction
 " allow forcing on or off match-counting for a buffer (also allows
 " overriding the file-size detection, hence the `force` variable)
 function! ToggleMatchCounting()
-  if !has_key(b:, 'match_count_enable')
-    let b:match_count_enable = 1
-  endif
+  " define buffer variables if not already defined
+  let b:match_count_force = get(b:, 'match_count_force', 0)
+  let b:match_count_enable = get(b:, 'match_count_enable', 1)
 
-  if !has_key(b:, 'match_count_force')
-    let b:match_count_force = 0
-  endif
-
-  if get(b:, 'match_count_force', 0)
+  if b:match_count_force == 0 && b:match_count_enable == 1
     let b:match_count_force = 0
     let b:match_count_enable = 0
-    " clear cache?
-  else
+    echom 'Match counting disabled for this buffer'
+  elseif b:match_count_force == 0 && b:match_count_enable == 0
     let b:match_count_force = 1
     let b:match_count_enable = 1
+    echom 'Match counting enabled for this buffer'
+  elseif b:match_count_force == 1 && b:match_count_enable == 1
+    let b:match_count_force = 0
+    let b:match_count_enable = 0
+    echom 'Match counting disabled for this buffer'
+  else
+    " this possibility shouldn't arise, but it's here for completeness
+    let b:match_count_force = 1
+    let b:match_count_enable = 1
+    echom 'Match counting enabled for this buffer'
   endif
 
   redrawstatus!
@@ -154,8 +160,12 @@ endfunction
 
 " calculate the match count
 function! GetMatchCount()
+  " define buffer variables if not already defined
+  let b:match_count_force = get(b:, 'match_count_force', 0)
+  let b:match_count_enable = get(b:, 'match_count_enable', 1)
+
   " do nothing if disabled in this buffer
-  if !get(b:, 'match_count_enable', 1)
+  if b:match_count_enable == 0
     return ''
   endif
 
