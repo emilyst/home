@@ -21,11 +21,23 @@
 
 scriptencoding utf-8
 
-" time during which cached values get reused
-let s:cache_timeout_in_seconds = 0.25
+if exists('g:loaded_statusline_match_count') || (v:version < 703)
+  finish
+endif
+let g:loaded_statusline_match_count = 1
+
+" gdefault option inverts meaning of 'g' flag on patterns
+if &gdefault
+  let s:match_command = '%s//&/ne'
+else
+  let s:match_command = '%s//&/gne'
+endif
 
 " max file size before automatically disabling
 let s:max_file_size_in_bytes = 10 * 1024 * 1024
+
+" time during which cached values get reused
+let s:cache_timeout_in_seconds = 0.25
 
 " default sentinel values representing an unused cache
 let s:sentinel_values = {
@@ -36,28 +48,8 @@ let s:sentinel_values = {
       \   'last_run':    -1
       \ }
 
+" prime the script cache
 let s:count_cache = copy(s:sentinel_values)
-
-" gdefault option inverts meaning of 'g' flag on patterns
-if &gdefault
-  let s:match_command = '%s//&/ne'
-else
-  let s:match_command = '%s//&/gne'
-endif
-
-" return 1 if file is too large to process, 0 if not
-" (if match counting has been toggled on manually, we ignore file size)
-function! s:IsLargeFile()
-  if get(b:, 'match_count_force', 0)
-    return 0
-  else
-    if getfsize(expand(@%)) >= s:max_file_size_in_bytes
-      return 1
-    else
-      return 0
-    endif
-  endif
-endfunction
 
 " return 1 if cache is stale, 0 if not
 function! s:IsCacheStale()
@@ -123,6 +115,20 @@ function! s:GetCachedMatchCount()
   endif
 endfunction
 
+" return 1 if file is too large to process, 0 if not
+" (if match counting has been toggled on manually, we ignore file size)
+function! s:IsLargeFile(force)
+  if a:force
+    return 0
+  else
+    if getfsize(expand(@%)) >= s:max_file_size_in_bytes
+      return 1
+    else
+      return 0
+    endif
+  endif
+endfunction
+
 " allow forcing on or off match-counting for a buffer (also allows
 " overriding the file-size detection, hence the `force` variable)
 function! ToggleMatchCounting()
@@ -154,7 +160,7 @@ function! GetMatchCount()
   endif
 
   " don't even warm up the cache for large files
-  if s:IsLargeFile()
+  if s:IsLargeFile(b:match_count_force)
     return ''
   endif
 
