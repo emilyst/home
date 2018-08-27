@@ -36,27 +36,24 @@ endif
 " max file size before automatically disabling
 let s:max_file_size_in_bytes = 10 * 1024 * 1024
 
-" time during which cached values get reused
+" time during which cached values get reused (so we don't drag during,
+" e.g., incsearch)
 let s:cache_timeout_in_seconds = 0.25
 
 " default sentinel values representing an unused cache
 let s:sentinel_values = {
       \   'pattern':     -1,
-      \   'bufnr':       -1,
       \   'changedtick': -1,
       \   'match_count': -1,
       \   'last_run':    -1
       \ }
 
-" prime the script cache
-let s:count_cache = copy(s:sentinel_values)
-
 " return 1 if cache is stale, 0 if not
-function! s:IsCacheStale()
+function! s:IsCacheStale(count_cache)
   " hit the cache the first time around so there's a brief window when
   " first searching for a pattern before we update the statusline
-  if s:count_cache == s:sentinel_values
-    let s:count_cache['last_run'] = reltime()
+  if a:count_cache == s:sentinel_values
+    let a:count_cache['last_run'] = reltime()
     return 0
   endif
 
@@ -66,51 +63,51 @@ function! s:IsCacheStale()
   if has('reltime')
     try
       " not calling reltimefloat for perf reasons
-      let l:time_elapsed = reltime(s:count_cache['last_run'])
+      let l:time_elapsed = reltime(a:count_cache['last_run'])
       if type(l:time_elapsed) != 3          " error (treat as cache miss)
-        let s:count_cache['last_run'] = reltime()
+        let a:count_cache['last_run'] = reltime()
         return 1
       elseif l:time_elapsed[0] > l:seconds  " cache miss (more than a second)
-        let s:count_cache['last_run'] = reltime()
+        let a:count_cache['last_run'] = reltime()
         return 1
       elseif l:time_elapsed[1] > l:micros   " cache miss (less than a second)
-        let s:count_cache['last_run'] = reltime()
+        let a:count_cache['last_run'] = reltime()
         return 1
       else                                  " cache hit
         return 0
       endif
     catch                                   " error (treat as cache miss)
-      let s:count_cache['last_run'] = reltime()
+      let a:count_cache['last_run'] = reltime()
       return 1
     endtry
   else
     try " not the ideal fallback -- seconds-wise precision only
-      let l:time_elapsed = s:count_cache['last_run'] - localtime()
+      let l:time_elapsed = a:count_cache['last_run'] - localtime()
       if l:time_elapsed > l:seconds         " cache miss (more than a second)
-        let s:count_cache['last_run'] = localtime()
+        let a:count_cache['last_run'] = localtime()
         return 1
       else                                  " cache hit
         return 0
       endif
     catch                                   " error (treat as cache miss)
-      let s:count_cache['last_run'] = localtime()
+      let a:count_cache['last_run'] = localtime()
       return 1
     endtry
   endif
 endfunction
 
 " use the cache and window width to construct the status string
-function! s:GetCachedMatchCount()
+function! s:GetCachedMatchCount(count_cache)
   if @/ == ''
     return ''
   else
     " try to adapt to window width
     if winwidth(0) >= 120
-      return s:count_cache['match_count'] . ' matches of /' . s:count_cache['pattern'] . '/'
+      return a:count_cache['match_count'] . ' matches of /' . a:count_cache['pattern'] . '/'
     elseif winwidth(0) < 120 && winwidth(0) >= 100
-      return s:count_cache['match_count'] . ' matches'
+      return a:count_cache['match_count'] . ' matches'
     else
-      return s:count_cache['match_count']
+      return a:count_cache['match_count']
     endif
   endif
 endfunction
@@ -174,25 +171,23 @@ function! GetMatchCount()
     return ''
   endif
 
+  let b:count_cache = get(b:, 'count_cache', copy(s:sentinel_values))
+
   " only update if enough time has passed
-  if !s:IsCacheStale()
-    return s:GetCachedMatchCount()
+  if !s:IsCacheStale(b:count_cache)
+    return s:GetCachedMatchCount(b:count_cache)
   endif
 
   " use cached values if nothing has changed since the last check
-  if s:count_cache['pattern'] == @/
-        \ && s:count_cache['bufnr'] == bufnr('%')
-        \ && s:count_cache['changedtick'] == b:changedtick
-    return s:GetCachedMatchCount()
+  if b:count_cache['pattern'] == @/ && b:count_cache['changedtick'] == b:changedtick
+    return s:GetCachedMatchCount(b:count_cache)
   endif
 
   " don't count matches that aren't being searched for
   if @/ == ''
-    let s:count_cache['match_count'] = 0
-    let s:count_cache['pattern']     = ''
-    let s:count_cache['bufnr']       = bufnr('%') " current buffer number
-    let s:count_cache['changedtick'] = b:changedtick " buffer change count
-    return s:GetCachedMatchCount()
+    let b:count_cache['pattern']     = ''
+    let b:count_cache['match_count'] = 0
+    let b:count_cache['changedtick'] = b:changedtick
   else
     try
       let l:view = winsaveview()  " don't let anything change while we do this
@@ -215,19 +210,13 @@ function! GetMatchCount()
         let l:match_count = split(l:match_output)[0]
       endif
 
-      let s:count_cache['match_count'] = l:match_count
-      let s:count_cache['pattern']     = @/
-      let s:count_cache['bufnr']       = bufnr('%') " current buffer number
-      let s:count_cache['changedtick'] = b:changedtick " buffer change count
-
-      return s:GetCachedMatchCount()
+      let b:count_cache['pattern']     = @/
+      let b:count_cache['match_count'] = l:match_count
+      let b:count_cache['changedtick'] = b:changedtick
     catch
-      " if there's an error, let's pretend we don't see anything (and
-      " I'm leaving bufnr and changedtick alone in hopes that we don't
-      " keep cache-missing in the event of errors)
-      let s:count_cache['match_count'] = 0
-      let s:count_cache['pattern']     = ''
-      return s:GetCachedMatchCount()
+      " if there's an error, let's pretend we don't see anything
+      let b:count_cache['pattern']     = @/
+      let b:count_cache['match_count'] = 0
     finally
       if l:hlsearch
         set hlsearch
@@ -236,6 +225,8 @@ function! GetMatchCount()
       call winrestview(l:view)
     endtry
   endif
+
+  return s:GetCachedMatchCount(b:count_cache)
 endfunction
 
 if exists('g:loaded_airline') " we can use airline
