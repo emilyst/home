@@ -201,7 +201,7 @@ function! GetMatchCount()
 
       " this trick counts the matches
       redir => l:match_output
-      silent execute s:match_command
+      silent! execute s:match_command
       redir END
 
       if len(l:match_output) < 0 " no output means nothing was found
