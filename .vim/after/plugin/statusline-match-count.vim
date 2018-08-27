@@ -36,7 +36,7 @@ let s:sentinel_values = {
       \   'last_run':    -1
       \ }
 
-let s:count_cache = s:sentinel_values
+let s:count_cache = copy(s:sentinel_values)
 
 " gdefault option inverts meaning of 'g' flag on patterns
 if &gdefault
@@ -44,15 +44,6 @@ if &gdefault
 else
   let s:match_command = '%s//&/gne'
 endif
-
-" return 1 if the cache has never been used, 0 otherwise
-function! s:AreSentinelValuesCached()
-  if s:count_cache == s:sentinel_values
-    return 1
-  else
-    return 0
-  endif
-endfunction
 
 " return 1 if file is too large to process, 0 if not
 " (if match counting has been toggled on manually, we ignore file size)
@@ -70,8 +61,9 @@ endfunction
 
 " return 1 if cache is stale, 0 if not
 function! s:IsCacheStale()
-  " hit the cache the first time around
-  if s:AreSentinelValuesCached()
+  " hit the cache the first time around so there's a brief window when
+  " first searching for a pattern before we update the statusline
+  if s:count_cache == s:sentinel_values
     let s:count_cache['last_run'] = reltime()
     return 0
   endif
@@ -178,14 +170,12 @@ function! GetMatchCount()
     return s:GetCachedMatchCount()
   endif
 
-  " something has changed, so we update the cache
-  let s:count_cache['pattern']     = @/
-  let s:count_cache['bufnr']       = bufnr('%') " current buffer number
-  let s:count_cache['changedtick'] = b:changedtick " buffer change count
-
   " don't count matches that aren't being searched for
   if @/ == ''
     let s:count_cache['match_count'] = 0
+    let s:count_cache['pattern']     = ''
+    let s:count_cache['bufnr']       = bufnr('%') " current buffer number
+    let s:count_cache['changedtick'] = b:changedtick " buffer change count
     return s:GetCachedMatchCount()
   else
     try
@@ -210,12 +200,17 @@ function! GetMatchCount()
       endif
 
       let s:count_cache['match_count'] = l:match_count
+      let s:count_cache['pattern']     = @/
+      let s:count_cache['bufnr']       = bufnr('%') " current buffer number
+      let s:count_cache['changedtick'] = b:changedtick " buffer change count
+
       return s:GetCachedMatchCount()
     catch
-      " if there's an error, let's pretend we don't see anything (but
-      " this performs badly because it will miss the cache)
+      " if there's an error, let's pretend we don't see anything (and
+      " I'm leaving bufnr and changedtick alone in hopes that we don't
+      " keep cache-missing in the event of errors)
       let s:count_cache['match_count'] = 0
-      let s:count_cache['pattern'] = ''
+      let s:count_cache['pattern']     = ''
       return s:GetCachedMatchCount()
     finally
       if l:hlsearch
