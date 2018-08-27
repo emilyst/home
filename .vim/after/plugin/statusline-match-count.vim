@@ -41,7 +41,7 @@ let s:max_file_size_in_bytes = 10 * 1024 * 1024
 let s:cache_timeout_in_seconds = 0.25
 
 " default sentinel values representing an unused cache
-let s:sentinel_values = {
+let s:default_values = {
       \   'pattern':     -1,
       \   'changedtick': -1,
       \   'match_count': -1,
@@ -52,7 +52,7 @@ let s:sentinel_values = {
 function! s:IsCacheStale(count_cache)
   " hit the cache the first time around so there's a brief window when
   " first searching for a pattern before we update the statusline
-  if a:count_cache == s:sentinel_values
+  if a:count_cache == s:default_values
     let a:count_cache['last_run'] = reltime()
     return 0
   endif
@@ -171,7 +171,7 @@ function! GetMatchCount()
     return ''
   endif
 
-  let b:count_cache = get(b:, 'count_cache', copy(s:sentinel_values))
+  let b:count_cache = get(b:, 'count_cache', copy(s:default_values))
 
   " only update if enough time has passed
   if !s:IsCacheStale(b:count_cache)
