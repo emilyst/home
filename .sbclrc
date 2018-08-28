@@ -1,0 +1,8 @@
+;;; automatically load quicklisp in sbcl, assuming installation with
+;;; (quicklisp-quickstart:install :path "/usr/local/share/quicklisp")
+;;; and added by ql:add-to-init-file
+#-quicklisp
+(let ((quicklisp-init #P"/usr/local/share/quicklisp/setup.lisp"))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
