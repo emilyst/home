@@ -100,6 +100,8 @@ endfunction
 function! s:GetCachedMatchCount(count_cache)
   if @/ == ''
     return ''
+  elseif a:count_cache['match_count'] == -1
+    return 'working...'
   else
     " try to adapt to window width
     if winwidth(0) >= 120
@@ -166,8 +168,13 @@ function! GetMatchCount()
     return ''
   endif
 
-  " don't even warm up the cache for large files
   if s:IsLargeFile(b:match_count_force)
+    " this allows the force/match variables to match one another for
+    " large files so that you can toggle back on right away instead of
+    " needing to toggle off first
+    if b:match_count_force == 0 && b:match_count_enable == 1
+      let b:match_count_enable = 0
+    endif
     return ''
   endif
 
