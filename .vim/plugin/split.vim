@@ -20,4 +20,4 @@ endfunction
 
 command! -nargs=0 SplitLine call s:SplitLine()
 
-nmap <cr> :SplitLine<cr>
+nmap <LocalLeader><CR> :SplitLine<CR>

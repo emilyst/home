@@ -145,3 +145,6 @@
 [submodule ".vim/bundle/sensible"]
 	path = .vim/bundle/sensible
 	url = git://github.com/tpope/vim-sensible.git
+[submodule ".local/share/vlime"]
+	path = .local/share/vlime
+	url = https://github.com/l04m33/vlime.git
