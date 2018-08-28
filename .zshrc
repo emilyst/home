@@ -33,7 +33,10 @@ zle -N self-insert url-quote-magic
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 
-export CLICOLOR=1
+# edit command line in $EDITOR with m-e (or esc+e)
+autoload -Uz edit-command-line
+zle -N edit-command-line 
+bindkey -M emacs '^[e' edit-command-line
 
 # color scheme
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
@@ -41,7 +44,6 @@ BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
 
 # iTerm2 integration and utilities (e.g., imgcat)
 [[ -e "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
-
 
 
 ########################################################################
