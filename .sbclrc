@@ -1,7 +1,29 @@
 ;;; automatically load quicklisp in sbcl, assuming installation with
 ;;; (quicklisp-quickstart:install :path "~/.local/share/quicklisp/setup.lisp")
 #-quicklisp
-(let ((quicklisp-init #P"~/.local/share/quicklisp/setup.lisp"))
+(let ((quicklisp-init (merge-pathnames ".local/share/quicklisp/setup.lisp"
+                                        (user-homedir-pathname))))
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
+; borrowed from https://bitbucket.org/sjl/dotfiles/src/default/sbclrc
+
+(defvar *last-package* nil)
+(defvar *cached-prompt* nil)
+
+(defun package-prompt (stream)
+  (when (not (eq *last-package* *package*))
+    (setf *cached-prompt*
+          (format nil "~%[SBCL] ~A> "
+                  (or (first (package-nicknames *package*))
+                      (package-name *package*))))
+    (setf *last-package* *package*))
+  (terpri)
+  (princ *cached-prompt* stream))
+
+(setf sb-int:*repl-prompt-fun* #'package-prompt)
+
+; see https://stackoverflow.com/a/41504371 and
+; http://www.sbcl.org/manual/#Sessions_002fDebugging
+(defun :fg ()
+  (sb-thread:release-foreground))
