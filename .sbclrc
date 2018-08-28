@@ -6,6 +6,10 @@
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
+; can be used to update quicklisp
+; '(ql:update-client)' --eval '(ql:update-all-dists)'
+
+
 ; borrowed from https://bitbucket.org/sjl/dotfiles/src/default/sbclrc
 
 (defvar *last-package* nil)
@@ -22,6 +26,7 @@
   (princ *cached-prompt* stream))
 
 (setf sb-int:*repl-prompt-fun* #'package-prompt)
+
 
 ; see https://stackoverflow.com/a/41504371 and
 ; http://www.sbcl.org/manual/#Sessions_002fDebugging
