@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# adapted from https://bitbucket.org/sjl/dotfiles/src/default/bin/rlwrap-lisp
+
+rlwrap -m$ \
+       --multi-line-ext .lisp \
+       -a___ \
+       --only-cook '^\[[a-zA-Z ]+\] [-a-zA-Z0-9._]+>' \
+       -pBLUE \
+       --quote-characters '"' \
+       --histsize 100000 \
+       --history-filename "$HOME/.rl-sbcl-history" \
+       sbcl "$@"
