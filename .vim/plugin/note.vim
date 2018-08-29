@@ -14,5 +14,5 @@ function! s:Note(...)
 
     execute 'saveas ' l:directory . l:filename
 endfunction
-command! -nargs=* Note call s:Note(<f-args>)
 
+command! -nargs=* Note call s:Note(<f-args>)

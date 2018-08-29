@@ -130,7 +130,7 @@ endfunction
 
 " allow forcing on or off match-counting for a buffer (also allows
 " overriding the file-size detection, hence the `force` variable)
-function! ToggleMatchCounting()
+function! s:ToggleMatchCounting()
   " define buffer variables if not already defined
   let b:match_count_force = get(b:, 'match_count_force', 0)
   let b:match_count_enable = get(b:, 'match_count_enable', 1)
@@ -245,4 +245,4 @@ else
   let &statusline='%{GetMatchCount()} ' . &statusline
 endif
 
-command! ToggleMatchCounting call ToggleMatchCounting()
+command! -nargs=0 ToggleMatchCounting call s:ToggleMatchCounting()
