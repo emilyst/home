@@ -94,3 +94,7 @@
 	title-focus = white blue	bold
 [init]
 	templatedir = ~/.git-templates
+[rebase]
+	autoStash = true
+[pull]
+  rebase = true
