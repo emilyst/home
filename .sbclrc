@@ -32,3 +32,6 @@
 ; http://www.sbcl.org/manual/#Sessions_002fDebugging
 (defun :fg ()
   (sb-thread:release-foreground))
+
+; print things in lowercase
+(setf *print-case* :downcase)
