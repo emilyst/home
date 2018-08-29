@@ -245,4 +245,4 @@ else
   let &statusline='%{GetMatchCount()} ' . &statusline
 endif
 
-command! -nargs=0 ToggleMatchCounting call s:ToggleMatchCounting()
+command! -nargs=0 ToggleMatchCounting call <SID>ToggleMatchCounting()
