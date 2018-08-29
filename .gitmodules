@@ -136,9 +136,6 @@
 [submodule ".vim/bundle/illuminate"]
 	path = .vim/bundle/illuminate
 	url = https://github.com/RRethy/vim-illuminate.git
-[submodule ".vim/bundle/auto-pairs"]
-	path = .vim/bundle/auto-pairs
-	url = https://github.com/jiangmiao/auto-pairs.git
 [submodule ".vim/bundle/markdown"]
 	path = .vim/bundle/markdown
 	url = https://github.com/plasticboy/vim-markdown.git
@@ -148,3 +145,6 @@
 [submodule ".local/share/vlime"]
 	path = .local/share/vlime
 	url = https://github.com/l04m33/vlime.git
+[submodule ".vim/bundle/lexima"]
+	path = .vim/bundle/lexima
+	url = https://github.com/cohama/lexima.vim.git
