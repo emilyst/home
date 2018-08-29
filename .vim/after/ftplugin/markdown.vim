@@ -1,3 +1,3 @@
 if exists('g:loaded_neocomplete')
-    NeoCompleteLock
+  NeoCompleteAutoCompletionLength 4
 endif
