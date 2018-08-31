@@ -3,33 +3,43 @@
 " start at https://bitbucket.org/sjl/dotfiles/src/cf4104b3764edac74f8df0e6e158fca38adac1eb/vim/vimrc#vimrc-2532:2631
 
 let g:vlime_cl_use_terminal = v:true
+let g:vlime_contribs = [
+        \ "SWANK-ASDF",
+        \ "SWANK-PACKAGE-FU",
+        \ "SWANK-PRESENTATIONS",
+        \ "SWANK-FANCY-INSPECTOR",
+        \ "SWANK-C-P-C",
+        \ "SWANK-ARGLISTS",
+        \ "SWANK-REPL",
+        \ "SWANK-FUZZY"
+      \ ]
 
 let g:vlime_window_settings = {
         \ "sldb": {
-            \ "pos": "belowright",
-            \ "vertical": v:false
+          \ "pos": "belowright",
+          \ "vertical": v:false
         \ },
         \ "xref": {
-            \ "pos": "belowright",
-            \ "size": 5,
-            \ "vertical": v:false
+          \ "pos": "belowright",
+          \ "size": 5,
+          \ "vertical": v:false
         \ },
         \ "repl": {
-            \ "pos": "belowright",
-            \ "vertical": v:false
+          \ "pos": "belowright",
+          \ "vertical": v:false
         \ },
         \ "inspector": {
-            \ "pos": "belowright",
-            \ "vertical": v:false
+          \ "pos": "belowright",
+          \ "vertical": v:false
         \ },
         \ "arglist": {
-            \ "pos": "topleft",
-            \ "size": 2,
-            \ "vertical": v:false
+          \ "pos": "topleft",
+          \ "size": 2,
+          \ "vertical": v:false
         \ }
     \ }
 
-let g:vlime_compiler_policy = {
+let g:vlime_compiles_policy = {
       \ "DEBUG": 2,
       \ "SAFETY": 3,
       \ "SPEED": 1
@@ -66,6 +76,7 @@ augroup LocalVlime
     autocmd FileType vlime_repl setlocal nowrap winfixheight
 
     " Keys for Lisp files
+    " autocmd FileType lisp setlocal omnifunc=vlime#plugin#CompleteFunc
     autocmd FileType lisp nnoremap <buffer> <localleader>e :call vlime#plugin#Compile(vlime#ui#CurTopExpr(v:true))<cr>
     autocmd FileType lisp nnoremap <buffer> <localleader>f :call vlime#plugin#CompileFile(expand("%:p"))<cr>
     autocmd FileType lisp nnoremap <buffer> <localleader>S :call vlime#plugin#SendToREPL(vlime#ui#CurTopExpr())<cr>

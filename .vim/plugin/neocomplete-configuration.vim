@@ -1,5 +1,18 @@
 let g:neocomplete#enable_at_startup  = 1
 let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_refresh_always = 1
+let g:neocomplete#enable_multibyte_completion = 1
+
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+
+" let g:neocomplete#sources#omni#input_patterns.lisp = '\%(([^)]\+\)\|\*[[:alnum:]_-]\+'
+" let g:neocomplete#sources#omni#input_patterns.lisp = '<\|\s[[:alnum:]-]*'
+
 
 " if !exists('g:loaded_neocomplete')
 "   finish
