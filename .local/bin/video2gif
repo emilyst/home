@@ -68,14 +68,14 @@ def parse(args)
   end
 
   if args.size != 1
-    puts 'ERROR: Specify one video to convert at a time'
+    puts 'ERROR: Specify one video to convert at a time!'
     puts ''
     puts parser.help
     exit
   end
 
   unless File.exists?(args[0])
-    puts "ERROR: Specified video file does not exist: #{args[0]}"
+    puts "ERROR: Specified video file does not exist: #{args[0]}!"
     puts ''
     puts parser.help
     exit
@@ -106,18 +106,18 @@ def build_command(args, options)
   fps_filter        = "fps=#{fps}"
   scale_filter      = "scale=#{width}:-1:flags=lanczos"
   palettegen_filter = "palettegen=max_colors=#{palette_size}"
-  paletteuse_filter = "paletteuse"
+  paletteuse_filter = 'paletteuse'
 
-  command =  "ffmpeg "
+  command =  'ffmpeg '
   command += "-ss #{options[:seek]} " if options[:seek]
   command += "-i #{input_filename} "
-  command += "-filter_complex \""
+  command += '-filter_complex "'
   command += "#{fps_filter},"
   command += "#{scale_filter},"
   command += "#{palettegen_filter}"
-  command += "[palette],"
-  command += "[0:v]"
-  command += "[palette]"
+  command += '[palette],'
+  command += '[0:v]'
+  command += '[palette]'
   command += "#{paletteuse_filter},"
   command += "#{fps_filter},"
   command += "#{scale_filter}\" "
