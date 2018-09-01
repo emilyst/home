@@ -1,0 +1,130 @@
+#!/usr/bin/env ruby
+#
+# Converts any video understood by FFmpeg into a high-quality GIF
+#
+# Usage:
+#
+#  video2gif video.mp4 [options]
+
+require 'optparse'
+
+def is_executable?(command)
+  ENV['PATH'].split(File::PATH_SEPARATOR).map do |path|
+    (ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']).map do |extension|
+      File.executable?(File.join(path, "#{command}#{extension}"))
+    end
+  end.flatten.any?
+end
+
+def parse(args)
+  options = {}
+
+  parser = OptionParser.new do |parser|
+    parser.banner = 'Usage: video2gif <video> [options]'
+    parser.separator ''
+    parser.separator 'Options:'
+
+    parser.on('-oNAME', '--output=NAME', 'Set the name for the resulting GIF') do |n|
+      options[:output] = n
+    end
+
+    parser.on('-sSEEK', '--seek=SEEK', 'Set time to seek to in the input video') do |s|
+      options[:seek] = s
+    end
+
+    parser.on('-tTIME', '--time=TIME', 'Set duration to use from the input video') do |t|
+      options[:time] = t
+    end
+
+    parser.on('-fFRAMES', '--fps=FRAMES', 'Set frames per second for the resulting GIF') do |f|
+      options[:fps] = f
+    end
+
+    parser.on('-wWIDTH', '--width=WIDTH', 'Set the width of the resulting GIF') do |w|
+      options[:width] = w
+    end
+
+    # parser.on('-hHEIGHT', '--height=HEIGHT', 'Set the height of the resulting GIF') do |h|
+    #   options[:height] = h
+    # end
+
+    parser.on('-pPALETTE', '--palette=PALETTE', 'Set the palette size of the resulting GIF') do |p|
+      options[:palette] = p
+    end
+
+    parser.on_tail('-h', '--help', 'Show this message') do
+      puts parser
+      exit
+    end
+
+    parser.parse!(args)
+  end
+
+  parser.parse!
+
+  unless is_executable?('ffmpeg')
+    puts 'ERROR: Requires FFmpeg to be installed!'
+    exit
+  end
+
+  if args.size != 1
+    puts 'ERROR: Specify one video to convert at a time'
+    puts ''
+    puts parser.help
+    exit
+  end
+
+  unless File.exists?(args[0])
+    puts "ERROR: Specified video file does not exist: #{args[0]}"
+    puts ''
+    puts parser.help
+    exit
+  end
+
+  options
+end
+
+def build_command(args, options)
+  command_name      = 'ffmpeg'
+  input_filename    = args[0]
+  output_filename   = if options[:output]
+                        if options[:output].end_with?('.gif')
+                          options[:output]
+                        else
+                          options[:output] + '.gif'
+                        end
+                      else
+                        File.join(
+                          File.dirname(input_filename),
+                          File.basename(input_filename, '.*') + '.gif'
+                        )
+                      end
+  fps               = options[:fps] || 15
+  width             = options[:width] || 500
+  palette_size      = options[:palette] || 256
+
+  fps_filter        = "fps=#{fps}"
+  scale_filter      = "scale=#{width}:-1:flags=lanczos"
+  palettegen_filter = "palettegen=max_colors=#{palette_size}"
+  paletteuse_filter = "paletteuse"
+
+  command =  "ffmpeg "
+  command += "-ss #{options[:seek]} " if options[:seek]
+  command += "-i #{input_filename} "
+  command += "-filter_complex \""
+  command += "#{fps_filter},"
+  command += "#{scale_filter},"
+  command += "#{palettegen_filter}"
+  command += "[palette],"
+  command += "[0:v]"
+  command += "[palette]"
+  command += "#{paletteuse_filter},"
+  command += "#{fps_filter},"
+  command += "#{scale_filter}\" "
+  command += "-t #{options[:time]} " if options[:time]
+  command += "#{output_filename}"
+end
+
+options = parse(ARGV)
+command = build_command(ARGV, options)
+system(command)
