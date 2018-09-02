@@ -8,10 +8,11 @@ scriptencoding utf-8
 "              generic statusline.
 " License:     Public domain
 
-if exists('g:loaded_statusline_match_count') || (v:version < 703)
+" require 7.4.1658 for v:vim_did_enter and friends
+if exists('g:loaded_statusline_match_count') || (v:version <= 704 && !has('patch1658'))
   finish
 endif
-let g:loaded_statusline_match_count = 1
+let g:loaded_statusline_match_count = v:true
 
 " gdefault option inverts meaning of 'g' flag on patterns
 if &gdefault
@@ -35,13 +36,13 @@ let s:unused_cache_values = {
       \   'last_run':    -1
       \ }
 
-" return 1 if cache is stale, 0 if not
+" return v:true if cache is stale, v:false if not
 function! s:IsCacheStale(count_cache)
   " hit the cache the first time around so there's a brief window when
   " first searching for a pattern before we update the statusline
   if a:count_cache == s:unused_cache_values
     let a:count_cache.last_run = reltime()
-    return 0
+    return v:false
   endif
 
   let l:seconds = s:cache_timeout_in_seconds
@@ -53,32 +54,32 @@ function! s:IsCacheStale(count_cache)
       let l:time_elapsed = reltime(a:count_cache.last_run)
       if type(l:time_elapsed) != 3          " error (treat as cache miss)
         let a:count_cache.last_run = reltime()
-        return 1
+        return v:true
       elseif l:time_elapsed[0] > l:seconds  " cache miss (more than a second)
         let a:count_cache.last_run = reltime()
-        return 1
+        return v:true
       elseif l:time_elapsed[1] > l:micros   " cache miss (less than a second)
         let a:count_cache.last_run = reltime()
-        return 1
+        return v:true
       else                                  " cache hit
-        return 0
+        return v:false
       endif
     catch                                   " error (treat as cache miss)
       let a:count_cache.last_run = reltime()
-      return 1
+      return v:true
     endtry
   else
     try " not the ideal fallback -- seconds-wise precision only
       let l:time_elapsed = a:count_cache.last_run - localtime()
       if l:time_elapsed > l:seconds         " cache miss (more than a second)
         let a:count_cache.last_run = localtime()
-        return 1
+        return v:true
       else                                  " cache hit
-        return 0
+        return v:false
       endif
     catch                                   " error (treat as cache miss)
       let a:count_cache.last_run = localtime()
-      return 1
+      return v:true
     endtry
   endif
 endfunction
@@ -101,16 +102,16 @@ function! s:GetCachedMatchCount(count_cache)
   endif
 endfunction
 
-" return 1 if file is too large to process, 0 if not
+" return v:true if file is too large to process, v:false if not
 " (if match counting has been toggled on manually, we ignore file size)
 function! s:IsLargeFile(force)
   if a:force
-    return 0
+    return v:false
   else
     if getfsize(expand(@%)) >= s:max_file_size_in_bytes
-      return 1
+      return v:true
     else
-      return 0
+      return v:false
     endif
   endif
 endfunction
@@ -119,25 +120,25 @@ endfunction
 " overriding the file-size detection, hence the `force` variable)
 function! s:ToggleMatchCounting()
   " define buffer variables if not already defined
-  let b:match_count_force = get(b:, 'match_count_force', 0)
-  let b:match_count_enable = get(b:, 'match_count_enable', 1)
+  let b:match_count_force = get(b:, 'match_count_force', v:false)
+  let b:match_count_enable = get(b:, 'match_count_enable', v:true)
 
-  if b:match_count_force == 0 && b:match_count_enable == 1
-    let b:match_count_force = 0
-    let b:match_count_enable = 0
+  if b:match_count_force == v:false && b:match_count_enable == v:true
+    let b:match_count_force = v:false
+    let b:match_count_enable = v:false
     echom 'Match counting disabled for this buffer'
-  elseif b:match_count_force == 0 && b:match_count_enable == 0
-    let b:match_count_force = 1
-    let b:match_count_enable = 1
+  elseif b:match_count_force == v:false && b:match_count_enable == v:false
+    let b:match_count_force = v:true
+    let b:match_count_enable = v:true
     echom 'Match counting enabled for this buffer'
-  elseif b:match_count_force == 1 && b:match_count_enable == 1
-    let b:match_count_force = 0
-    let b:match_count_enable = 0
+  elseif b:match_count_force == v:true && b:match_count_enable == v:true
+    let b:match_count_force = v:false
+    let b:match_count_enable = v:false
     echom 'Match counting disabled for this buffer'
   else
     " this possibility shouldn't arise, but it's here for completeness
-    let b:match_count_force = 1
-    let b:match_count_enable = 1
+    let b:match_count_force = v:true
+    let b:match_count_enable = v:true
     echom 'Match counting enabled for this buffer'
   endif
 
@@ -146,19 +147,24 @@ endfunction
 
 " calculate the match count
 function! GetMatchCount()
+  " don't bother executing until Vim has fully loaded
+  if v:vim_did_enter == v:false
+    return ''
+  endif
+
   " define buffer variables if not already defined
-  let b:match_count_force = get(b:, 'match_count_force', 0)
-  let b:match_count_enable = get(b:, 'match_count_enable', 1)
+  let b:match_count_force = get(b:, 'match_count_force', v:false)
+  let b:match_count_enable = get(b:, 'match_count_enable', v:true)
 
   " do nothing if disabled in this buffer
-  if b:match_count_enable == 0 | return '' | endif
+  if b:match_count_enable == v:false | return '' | endif
 
   if s:IsLargeFile(b:match_count_force)
     " this allows the force/match variables to match one another for
     " large files so that you can toggle back on right away instead of
     " needing to toggle off first
-    if b:match_count_force == 0 && b:match_count_enable == 1
-      let b:match_count_enable = 0
+    if b:match_count_force == v:false && b:match_count_enable == v:true
+      let b:match_count_enable = v:false
     endif
     return ''
   endif
@@ -182,16 +188,22 @@ function! GetMatchCount()
     let b:count_cache.changedtick = b:changedtick
   else
     try
-      " don't let anything change while we do this
+      " freeze the view in place
       let l:view = winsaveview()
 
       " disable autocmds
-      let l:events_ignored = &eventignore
-      set eventignore =
+      if has('+autocmd')
+        let l:events_ignored = &eventignore
+        set eventignore =
+      endif
 
-      " turn off hlsearch if enabled
-      let l:hlsearch = &hlsearch
-      if l:hlsearch | set nohlsearch | endif
+      " turn off hlsearch
+      if has('+extra_search')
+        let l:hlsearch = v:hlsearch
+        if l:hlsearch
+          let v:hlsearch = v:false
+        endif
+      endif
 
       " this trick counts the matches
       redir => l:match_output
@@ -212,8 +224,17 @@ function! GetMatchCount()
       let b:count_cache.pattern     = @/
       let b:count_cache.match_count = 0
     finally
-      if l:hlsearch | set hlsearch | endif
-      let &eventignore = l:events_ignored
+      if has('+extra_search')
+        let l:hlsearch = v:hlsearch
+        if l:hlsearch
+          let v:hlsearch = 0
+        endif
+      endif
+
+      if has('+autocmd')
+        let &eventignore = l:events_ignored
+      endif
+
       call winrestview(l:view)
     endtry
   endif
