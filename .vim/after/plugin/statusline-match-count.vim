@@ -43,7 +43,12 @@ function! s:IsCacheStale(count_cache)
   " hit the cache the first time around so there's a brief window when
   " first searching for a pattern before we update the statusline
   if a:count_cache == s:unused_cache_values
-    let a:count_cache.last_run = reltime()
+    if has('reltime')
+      let a:count_cache.last_run = reltime()
+    else
+      let a:count_cache.last_run = localtime()
+    endif
+
     return v:false
   endif
 
@@ -194,13 +199,13 @@ function! GetMatchCount()
       let l:view = winsaveview()
 
       " disable autocmds
-      if has('+autocmd')
+      if has('autocmd')
         let l:events_ignored = &eventignore
         set eventignore =
       endif
 
       " turn off hlsearch
-      if has('+extra_search')
+      if has('extra_search')
         let l:hlsearch = v:hlsearch
         if l:hlsearch
           let v:hlsearch = v:false
@@ -227,14 +232,14 @@ function! GetMatchCount()
       let b:count_cache.pattern     = @/
       let b:count_cache.match_count = 0
     finally
-      if has('+extra_search')
+      if has('extra_search')
         let l:hlsearch = v:hlsearch
         if l:hlsearch
           let v:hlsearch = 0
         endif
       endif
 
-      if has('+autocmd')
+      if has('autocmd')
         let &eventignore = l:events_ignored
       endif
 
