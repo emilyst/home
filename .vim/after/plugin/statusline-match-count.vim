@@ -26,7 +26,7 @@ let s:max_file_size_in_bytes = 10 * 1024 * 1024
 
 " time during which cached values get reused (so we don't drag during,
 " e.g., incsearch)
-let s:cache_timeout_in_seconds = 0.25
+let s:cache_timeout_in_seconds = 0.10
 
 " default sentinel values representing an unused cache
 let s:unused_cache_values = {
