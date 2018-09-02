@@ -28,7 +28,7 @@ let s:max_file_size_in_bytes = 10 * 1024 * 1024
 let s:cache_timeout_in_seconds = 0.25
 
 " default sentinel values representing an unused cache
-let s:default_values = {
+let s:unused_cache_values = {
       \   'pattern':     -1,
       \   'changedtick': -1,
       \   'match_count': -1,
@@ -39,8 +39,8 @@ let s:default_values = {
 function! s:IsCacheStale(count_cache)
   " hit the cache the first time around so there's a brief window when
   " first searching for a pattern before we update the statusline
-  if a:count_cache == s:default_values
-    let a:count_cache['last_run'] = reltime()
+  if a:count_cache == s:unused_cache_values
+    let a:count_cache.last_run = reltime()
     return 0
   endif
 
@@ -50,34 +50,34 @@ function! s:IsCacheStale(count_cache)
   if has('reltime')
     try
       " not calling reltimefloat for perf reasons
-      let l:time_elapsed = reltime(a:count_cache['last_run'])
+      let l:time_elapsed = reltime(a:count_cache.last_run)
       if type(l:time_elapsed) != 3          " error (treat as cache miss)
-        let a:count_cache['last_run'] = reltime()
+        let a:count_cache.last_run = reltime()
         return 1
       elseif l:time_elapsed[0] > l:seconds  " cache miss (more than a second)
-        let a:count_cache['last_run'] = reltime()
+        let a:count_cache.last_run = reltime()
         return 1
       elseif l:time_elapsed[1] > l:micros   " cache miss (less than a second)
-        let a:count_cache['last_run'] = reltime()
+        let a:count_cache.last_run = reltime()
         return 1
       else                                  " cache hit
         return 0
       endif
     catch                                   " error (treat as cache miss)
-      let a:count_cache['last_run'] = reltime()
+      let a:count_cache.last_run = reltime()
       return 1
     endtry
   else
     try " not the ideal fallback -- seconds-wise precision only
-      let l:time_elapsed = a:count_cache['last_run'] - localtime()
+      let l:time_elapsed = a:count_cache.last_run - localtime()
       if l:time_elapsed > l:seconds         " cache miss (more than a second)
-        let a:count_cache['last_run'] = localtime()
+        let a:count_cache.last_run = localtime()
         return 1
       else                                  " cache hit
         return 0
       endif
     catch                                   " error (treat as cache miss)
-      let a:count_cache['last_run'] = localtime()
+      let a:count_cache.last_run = localtime()
       return 1
     endtry
   endif
@@ -87,16 +87,16 @@ endfunction
 function! s:GetCachedMatchCount(count_cache)
   if @/ == ''
     return ''
-  elseif a:count_cache['match_count'] == -1
+  elseif a:count_cache.match_count == -1
     return 'working...'
   else
     " try to adapt to window width
     if winwidth(0) >= 120
-      return a:count_cache['match_count'] . ' matches of /' . a:count_cache['pattern'] . '/'
+      return a:count_cache.match_count . ' matches of /' . a:count_cache.pattern . '/'
     elseif winwidth(0) < 120 && winwidth(0) >= 100
-      return a:count_cache['match_count'] . ' matches'
+      return a:count_cache.match_count . ' matches'
     else
-      return a:count_cache['match_count']
+      return a:count_cache.match_count
     endif
   endif
 endfunction
@@ -165,7 +165,7 @@ function! GetMatchCount()
     return ''
   endif
 
-  let b:count_cache = get(b:, 'count_cache', copy(s:default_values))
+  let b:count_cache = get(b:, 'count_cache', copy(s:unused_cache_values))
 
   " only update if enough time has passed
   if !s:IsCacheStale(b:count_cache)
@@ -173,15 +173,15 @@ function! GetMatchCount()
   endif
 
   " use cached values if nothing has changed since the last check
-  if b:count_cache['pattern'] == @/ && b:count_cache['changedtick'] == b:changedtick
+  if b:count_cache.pattern == @/ && b:count_cache.changedtick == b:changedtick
     return s:GetCachedMatchCount(b:count_cache)
   endif
 
   " don't count matches that aren't being searched for
   if @/ == ''
-    let b:count_cache['pattern']     = ''
-    let b:count_cache['match_count'] = 0
-    let b:count_cache['changedtick'] = b:changedtick
+    let b:count_cache.pattern     = ''
+    let b:count_cache.match_count = 0
+    let b:count_cache.changedtick = b:changedtick
   else
     try
       let l:view = winsaveview()  " don't let anything change while we do this
@@ -204,13 +204,13 @@ function! GetMatchCount()
         let l:match_count = split(l:match_output)[0]
       endif
 
-      let b:count_cache['pattern']     = @/
-      let b:count_cache['match_count'] = l:match_count
-      let b:count_cache['changedtick'] = b:changedtick
+      let b:count_cache.pattern     = @/
+      let b:count_cache.match_count = l:match_count
+      let b:count_cache.changedtick = b:changedtick
     catch
       " if there's an error, let's pretend we don't see anything
-      let b:count_cache['pattern']     = @/
-      let b:count_cache['match_count'] = 0
+      let b:count_cache.pattern     = @/
+      let b:count_cache.match_count = 0
     finally
       if l:hlsearch
         set hlsearch
