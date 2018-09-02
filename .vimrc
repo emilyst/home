@@ -23,10 +23,13 @@ if has('autocmd')
   au! BufEnter *
 endif
 
-runtime bundle/pathogen/autoload/pathogen.vim
-if exists("g:loaded_pathogen")
-  execute pathogen#infect()
-  execute pathogen#helptags()
+" package compat via pathogen
+if v:version < 800
+  runtime pack/default/start/pathogen/autoload/pathogen.vim
+  if exists("g:loaded_pathogen")
+    execute pathogen#infect()
+    execute pathogen#helptags()
+  endif
 endif
 
 " ========================================================================= }}}
