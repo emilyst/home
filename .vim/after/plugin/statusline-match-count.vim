@@ -1,12 +1,14 @@
 scriptencoding utf-8
 
-" Author:      Emily St
-" Script:      statusline-match-count
-" Description: Calculates and displays a statusline item which counts
-"              number of times the current search pattern occurs in the
-"              current buffer. Written both for vim-airline and for the
-"              generic statusline.
-" License:     Public domain
+" Author:       Emily St
+" Script:       statusline-match-count
+" Description:  Calculates and displays a statusline item which counts
+"               number of times the current search pattern occurs in the
+"               current buffer. Written both for vim-airline and for the
+"               generic statusline.
+" License:      Public domain
+" Known Issues: Moving cursor while executing a large search results in
+"               no matches found
 
 " require 7.4.1658 for v:vim_did_enter and friends
 if exists('g:loaded_statusline_match_count') || (v:version <= 704 && !has('patch1658'))
@@ -210,7 +212,7 @@ function! GetMatchCount()
       silent! execute s:match_command
       redir END
 
-      if len(l:match_output) < 0 " no output means nothing was found
+      if len(l:match_output) == 0 " no output means nothing was found
         let l:match_count = 0
       else                       " otherwise the first word contains the count
         let l:match_count = split(l:match_output)[0]
@@ -221,6 +223,7 @@ function! GetMatchCount()
       let b:count_cache.changedtick = b:changedtick
     catch
       " if there's an error, let's pretend we don't see anything
+      " echom 'Caught exception "' . v:exception . '" from "' . v:throwpoint . '" with match output: "'. l:match_output . '"'
       let b:count_cache.pattern     = @/
       let b:count_cache.match_count = 0
     finally
