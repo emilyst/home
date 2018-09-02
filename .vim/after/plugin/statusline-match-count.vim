@@ -151,9 +151,7 @@ function! GetMatchCount()
   let b:match_count_enable = get(b:, 'match_count_enable', 1)
 
   " do nothing if disabled in this buffer
-  if b:match_count_enable == 0
-    return ''
-  endif
+  if b:match_count_enable == 0 | return '' | endif
 
   if s:IsLargeFile(b:match_count_force)
     " this allows the force/match variables to match one another for
@@ -189,9 +187,7 @@ function! GetMatchCount()
 
       " turn off hlsearch if enabled
       let l:hlsearch = &hlsearch
-      if l:hlsearch
-        set nohlsearch
-      endif
+      if l:hlsearch | set nohlsearch | endif
 
       " this trick counts the matches
       redir => l:match_output
@@ -212,10 +208,8 @@ function! GetMatchCount()
       let b:count_cache.pattern     = @/
       let b:count_cache.match_count = 0
     finally
-      if l:hlsearch
-        set hlsearch
-      endif
       set eventignore=
+      if l:hlsearch | set hlsearch | endif
       call winrestview(l:view)
     endtry
   endif
