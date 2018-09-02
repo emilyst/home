@@ -205,7 +205,7 @@ function! GetMatchCount()
         endif
       endif
 
-      " this trick counts the matches
+      " this trick counts the matches (see :help count-items)
       redir => l:match_output
       silent! execute s:match_command
       redir END
