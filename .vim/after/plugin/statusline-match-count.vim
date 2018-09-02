@@ -182,8 +182,12 @@ function! GetMatchCount()
     let b:count_cache.changedtick = b:changedtick
   else
     try
-      let l:view = winsaveview()  " don't let anything change while we do this
-      set eventignore=all  " don't execute autocmds
+      " don't let anything change while we do this
+      let l:view = winsaveview()
+
+      " disable autocmds
+      let l:events_ignored = &eventignore
+      set eventignore =
 
       " turn off hlsearch if enabled
       let l:hlsearch = &hlsearch
@@ -208,8 +212,8 @@ function! GetMatchCount()
       let b:count_cache.pattern     = @/
       let b:count_cache.match_count = 0
     finally
-      set eventignore=
       if l:hlsearch | set hlsearch | endif
+      let &eventignore = l:events_ignored
       call winrestview(l:view)
     endtry
   endif
@@ -221,9 +225,9 @@ if exists('g:loaded_airline') " we can use airline
   call airline#parts#define('match_count', { 'function': 'GetMatchCount' })
   let g:airline_section_b = airline#section#create(['match_count'])
 else
-  set laststatus=2
+  set laststatus = 2
   set ruler
-  let &statusline='%{GetMatchCount()} ' . &statusline
+  let &statusline = '%{GetMatchCount()} ' . &statusline
 endif
 
 command! -nargs=0 ToggleMatchCounting call <SID>ToggleMatchCounting()
