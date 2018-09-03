@@ -151,3 +151,6 @@
 [submodule ".vim/pack/default/AnsiEsc"]
 	path = .vim/pack/default/AnsiEsc
 	url = https://github.com/vim-scripts/AnsiEsc.vim.git
+[submodule ".vim/pack/default/match-count-statusline"]
+	path = .vim/pack/default/match-count-statusline
+	url = git@github.com:emilyst/match-count-statusline.git
