@@ -4,39 +4,38 @@
 
 setopt CORRECT AUTOCD BEEP EXTENDEDGLOB NOMATCH NOTIFY AUTO_PUSHD
 
-AUTO_CD=1
-CD_ABLE_VARS=1
-CORRECT=1
-
 # # Show contents of directory after cd-ing into it
 # chpwd() {
 #   ls -lrthG
 # }
 
-zstyle ':completion:*:descriptions' format %B%d%b # bold
-
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-
-autoload -U zmv
+autoload -Uz +X compinit && compinit
+autoload -Uz +X bashcompinit && bashcompinit
 
 fpath=(/usr/local/share/zsh-completions $fpath)
+
+autoload -Uz +X zmv
+
+# quote pasted URLs
+autoload -Uz +X url-quote-magic
+zle -N self-insert url-quote-magic
+
+# bracketed paste mode (in case nothing else enables, like a plugin)
+autoload -Uz +X bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+
+# edit command line in $EDITOR with m-e (or esc+e)
+autoload -Uz +X edit-command-line
+zle -N edit-command-line
+bindkey -M emacs '^[e' edit-command-line
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 if [[ -s "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
     source "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
-# quote pasted URLs
-autoload -U url-quote-magic
-zle -N self-insert url-quote-magic
-
-# bracketed paste mode (in case nothing else enables, like a plugin)
-autoload -Uz bracketed-paste-magic
-zle -N bracketed-paste bracketed-paste-magic
-
-# edit command line in $EDITOR with m-e (or esc+e)
-autoload -Uz edit-command-line
-zle -N edit-command-line 
-bindkey -M emacs '^[e' edit-command-line
+zstyle ':completion:*:descriptions' format %B%d%b # bold
 
 # color scheme
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
@@ -197,7 +196,7 @@ export HISTCONTROL="ignoredups:ignorespace"
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
 # misc (if they exist)
-# (using `hash` instead of `test -e` for location agnostic presence testing)
+# (using `hash` instead of `test -e` for location-agnostic presence testing)
 hash "git-helpers.sh" >/dev/null 2>&1 && source "git-helpers.sh"
 hash "work.sh"        >/dev/null 2>&1 && source "work.sh"
 hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
@@ -207,6 +206,7 @@ hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 # SSH
 ########################################################################
 
+# fix up permissions every time, just in case
 umask 002
 if [[ -d "$HOME/.ssh" ]]; then
     chmod 700 "$HOME/.ssh" 2> /dev/null
