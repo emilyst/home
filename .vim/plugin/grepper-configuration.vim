@@ -11,7 +11,7 @@ let g:grepper.tools = [
       \         'findstr',
       \    ]
 let g:grepper.rg = {
-      \ 'grepprg': 'rg --vimgrep --smart-case --no-ignore',
+      \ 'grepprg': 'rg --vimgrep',
       \ 'escape':  '\^$.*+?()[]{}|'
       \ }
 
