@@ -154,3 +154,6 @@
 [submodule ".vim/pack/default/gutentags"]
 	path = .vim/pack/default/gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags.git
+[submodule ".vim/pack/default/mucomplete"]
+	path = .vim/pack/default/mucomplete
+	url = https://github.com/lifepillar/vim-mucomplete.git

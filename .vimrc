@@ -219,8 +219,8 @@ if has('persistent_undo')
   endif
 endif
 
-" set complete=.,w,b,u,t
-set completeopt+=menuone,longest
+set complete=.,w,b,u,t
+set completeopt+=menuone,noselect
 set backspace=indent,eol,start
 set whichwrap+=<>[]
 set textwidth=72
@@ -288,8 +288,8 @@ nnoremap g; g;zz
 nnoremap g, g,zz
 nnoremap <c-o> <c-o>zz
 
-nnoremap <tab> %
-vnoremap <tab> %
+" nnoremap <tab> %
+" vnoremap <tab> %
 
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
