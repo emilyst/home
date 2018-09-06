@@ -163,3 +163,6 @@
 [submodule ".vim/pack/default/bundler"]
 	path = .vim/pack/default/bundler
 	url = https://github.com/tpope/vim-bundler.git
+[submodule ".vim/pack/default/gitgutter"]
+	path = .vim/pack/default/gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
