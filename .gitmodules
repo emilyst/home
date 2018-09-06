@@ -82,9 +82,6 @@
 [submodule ".vim/pack/default/signature"]
 	path = .vim/pack/default/signature
 	url = https://github.com/kshenoy/vim-signature.git
-[submodule ".vim/pack/default/neocomplete"]
-	path = .vim/pack/default/neocomplete
-	url = https://github.com/Shougo/neocomplete.vim.git
 [submodule ".vim/pack/default/base16"]
 	path = .vim/pack/default/base16
 	url = https://github.com/chriskempson/base16-vim.git
