@@ -154,3 +154,6 @@
 [submodule ".vim/pack/default/match-count-statusline"]
 	path = .vim/pack/default/match-count-statusline
 	url = git@github.com:emilyst/match-count-statusline.git
+[submodule ".vim/pack/default/gutentags"]
+	path = .vim/pack/default/gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags.git
