@@ -166,3 +166,6 @@
 [submodule ".vim/pack/default/gitgutter"]
 	path = .vim/pack/default/gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+[submodule ".vim/pack/default/rbenv"]
+	path = .vim/pack/default/rbenv
+	url = https://github.com/tpope/vim-rbenv.git
