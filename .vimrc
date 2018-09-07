@@ -202,9 +202,6 @@ set shortmess+=I
 
 if has('clipboard')
   set clipboard=unnamed
-  if has('xterm_clipboard')
-    set clipboard+=unnamedplus
-  endif
 endif
 
 "set selectmode+=mouse,key,cmd
