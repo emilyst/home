@@ -1,2 +1,3 @@
-let g:gutentags_cache_dir = $HOME . '/.vim/local/cache/tags/'
-let g:gutentags_file_list_command = 'rg --files --color=never'
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_project_root = [ 'Gemfile', 'Rakefile', 'pom.xml' ]
+let g:gutentags_generate_on_empty_buffer = 1
