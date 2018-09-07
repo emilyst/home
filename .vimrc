@@ -424,6 +424,7 @@ set wildmenu
 set wildmode=list:longest
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*.bak,*.exe,target,tags,.tags,*/.git/*
 set wildignore+=*.pyc,*.DS_Store,*.db
+set wildignore+=versions/*,cache/*
 set history=5000
 
 if has('persistent_undo')
