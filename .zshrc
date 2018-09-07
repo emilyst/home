@@ -57,6 +57,7 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
     unset ZSH_THEME
 
     plugins=(                    \
+        chruby                   \
         extract                  \
         gpg-agent                \
         history-substring-search \
