@@ -90,8 +90,6 @@
 	show-changes = true
 	tab-size = 2
 	mouse = true
-[tig "color"]
-	title-focus = white blue	bold
 [init]
 	templatedir = ~/.git-templates
 [rebase]
