@@ -162,7 +162,7 @@ set showtabline=2
 " 8 terminal ============================================================== {{{
 
 "set ttyscroll=0
-if exists('&ttyfast') | set ttyfast | endif
+" if exists('&ttyfast') | set ttyfast | endif
 set title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 set titlelen=85
