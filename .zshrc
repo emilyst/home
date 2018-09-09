@@ -32,15 +32,15 @@ autoload -Uz bashcompinit
 autoload -Uz +X zmv
 
 # quote pasted URLs
-autoload -Uz +X url-quote-magic
+autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
 # bracketed paste mode (in case nothing else enables, like a plugin)
-autoload -Uz +X bracketed-paste-magic
+autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 
 # edit command line in $EDITOR with m-e (or esc+e)
-autoload -Uz +X edit-command-line
+autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M emacs '^[e' edit-command-line
 
