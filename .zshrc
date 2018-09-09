@@ -2,18 +2,33 @@
 # interactive shell configuration
 ########################################################################
 
-setopt CORRECT AUTOCD BEEP EXTENDEDGLOB NOMATCH NOTIFY AUTO_PUSHD
+setopt ALIASES
+setopt AUTOCD
+setopt AUTO_PUSHD
+setopt BEEP
+setopt CORRECT
+setopt CORRECT_ALL
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt NOMATCH
+setopt NOTIFY
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_TO_HOME
+setopt RM_STAR_SILENT
+# see also history section below
 
 # # Show contents of directory after cd-ing into it
 # chpwd() {
 #   ls -lrthG
 # }
 
-autoload -Uz +X compinit && compinit
-autoload -Uz +X bashcompinit && bashcompinit
-
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+autoload -Uz compinit
+autoload -Uz bashcompinit
+
+# +X means don't execute, only load
 autoload -Uz +X zmv
 
 # quote pasted URLs
@@ -32,7 +47,7 @@ bindkey -M emacs '^[e' edit-command-line
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 if [[ -s "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  source "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
 zstyle ':completion:*:descriptions' format %B%d%b # bold
@@ -176,17 +191,16 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 # history
 ########################################################################
 
-setopt HIST_FIND_NO_DUPS
-setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
-setopt INC_APPEND_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+
 export HISTFILE="$HOME/.history"
 export HISTFILESIZE=50000000
 export HISTSIZE=5000000
 export SAVEHIST=$HISTSIZE
-export HISTIGNORE="l:ls:la:ll:cd:w"
-export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S - "
-export HISTCONTROL="ignoredups:ignorespace"
 
 
 ########################################################################
@@ -215,4 +229,3 @@ if [[ -d "$HOME/.ssh" ]]; then
 fi
 
 # vim: set ft=zsh tw=100 :
-
