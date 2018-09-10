@@ -68,6 +68,7 @@
 [commit]
 	template = ~/.gitcommittemplate
 	gpgsign = true
+	verbose = true
 [http]
 	sslVerify = true
 [branch]
