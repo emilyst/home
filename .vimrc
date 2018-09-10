@@ -328,6 +328,7 @@ nnoremap U <c-r>
 
 " clean trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <leader>ww :%s/\s\+$//<cr>:let @/=''<CR>
 
 " wrap a paragraph
 vnoremap Q gq
@@ -372,7 +373,7 @@ vnoremap <leader>h <gv
 vnoremap <leader>l >gv
 
 " clear old search
-nnoremap <leader>/       :silent let @/ = ''<CR>
+nnoremap <leader>/       :silent let @/ = ''<cr>
 nnoremap <leader><space> :silent let @/ = ''<cr>
 
 " quickly create or toggle folds with the spacebar
