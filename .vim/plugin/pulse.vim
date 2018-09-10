@@ -1,6 +1,6 @@
 " does not work with termguicolors for some reason
 
-function! s:Pulse()
+function! s:Pulse(...)
   silent! execute 'syntax sync minlines=60'
   silent! execute 'redraw'
 
@@ -15,7 +15,11 @@ function! s:Pulse()
   let l:width = 1
   let l:start = width
   let l:end   = steps * width
-  let l:color = 233
+  if a:0 == 0
+    let l:color = 233
+  else
+    let l:color = a:1
+  endif
 
   for i in range(l:start, l:end, l:width)
     execute "highlight CursorLine ctermbg=" . (l:color + i)
@@ -32,6 +36,6 @@ function! s:Pulse()
   silent! execute 'highlight ' . l:cursorline_highlight
 endfunction
 
-command! -nargs=0 Pulse call s:Pulse()
+command! -nargs=* Pulse call s:Pulse(<f-args>)
 
 nnoremap <c-c> :Pulse<cr>
