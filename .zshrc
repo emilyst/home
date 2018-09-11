@@ -71,7 +71,6 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
     unset ZSH_THEME
 
     plugins=(                    \
-        rbenv                    \
         extract                  \
         gpg-agent                \
         history-substring-search \
@@ -215,6 +214,21 @@ hash "git-helpers.sh" >/dev/null 2>&1 && source "git-helpers.sh"
 hash "work.sh"        >/dev/null 2>&1 && source "work.sh"
 hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 
+
+########################################################################
+# Ruby-specific
+########################################################################
+
+# local-only gems (install with gem install --user-install <gem>)
+if hash gem >/dev/null 2>&1; then
+  if [ ! -v RUBYGEMSPATH  ]; then
+    RUBYGEMSPATH="$(ruby -r rubygems -e 'puts Gem.user_dir')"
+    export RUBYGEMSPATH
+    export PATH="$RUBYGEMSPATH/bin:$PATH"
+  fi
+fi
+
+hash rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
 ########################################################################
 # SSH
