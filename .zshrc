@@ -7,7 +7,6 @@ setopt AUTOCD
 setopt AUTO_PUSHD
 setopt BEEP
 setopt CORRECT
-setopt CORRECT_ALL
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
