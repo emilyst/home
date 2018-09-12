@@ -3,8 +3,8 @@ let g:grepper.highlight = 1
 let g:grepper.prompt = 0
 let g:grepper.dir = 'repo,cwd'
 let g:grepper.tools = [
-      \         'ag',
       \         'rg',
+      \         'ag',
       \         'ack',
       \         'git',
       \         'grep',
