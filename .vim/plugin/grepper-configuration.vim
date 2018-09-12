@@ -15,4 +15,5 @@ let g:grepper.rg = {
       \ 'escape':  '\^$.*+?()[]{}|'
       \ }
 
-nnoremap <leader>*  :Grepper -cword -noprompt<cr>
+nmap <leader>*  <plug>(GrepperOperator)iw
+xmap <leader>*  <plug>(GrepperOperator)
