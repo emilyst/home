@@ -391,6 +391,7 @@ noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljz
 set modeline
 set backup
 set writebackup
+set backupcopy=yes  " preserves attributes, including Finder file labels
 set backupdir=~/.vim/local/backup//
 if !isdirectory(expand(&backupdir))
   call mkdir(expand(&backupdir), "p")
