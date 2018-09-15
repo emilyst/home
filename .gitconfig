@@ -36,6 +36,7 @@
 	untracked = cyan
 [diff]
 	indentHeuristic = true
+	algorithm = histogram
 [log]
 	date = local
 [rerere]
