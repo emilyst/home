@@ -96,4 +96,8 @@
 [rebase]
 	autoStash = true
 [pull]
-  rebase = true
+	rebase = true
+[fetch]
+	prune = true
+	pruneTags = true
+	output = full
