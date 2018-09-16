@@ -12,7 +12,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 # git_prompt_status()
 ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%}✚%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[blue]%}✹%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[blue]%}✎%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}✖%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%}➼%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%}═%{$reset_color%} "
