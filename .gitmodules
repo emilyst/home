@@ -169,3 +169,9 @@
 [submodule ".vim/pack/default/rbenv"]
 	path = .vim/pack/default/rbenv
 	url = https://github.com/tpope/vim-rbenv.git
+[submodule ".vim/pack/default/rake"]
+	path = .vim/pack/default/rake
+	url = https://github.com/tpope/vim-rake.git
+[submodule ".vim/pack/default/projectionist"]
+	path = .vim/pack/default/projectionist
+	url = https://github.com/tpope/vim-projectionist.git
