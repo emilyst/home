@@ -181,3 +181,6 @@
 [submodule ".rbenv/plugins/rbenv-default-gems"]
 	path = .rbenv/plugins/rbenv-default-gems
 	url = https://github.com/rbenv/rbenv-default-gems.git
+[submodule ".rbenv/plugins/rbenv-sentience"]
+	path = .rbenv/plugins/rbenv-sentience
+	url = https://github.com/tpope/rbenv-sentience.git
