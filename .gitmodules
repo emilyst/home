@@ -175,3 +175,9 @@
 [submodule ".vim/pack/default/projectionist"]
 	path = .vim/pack/default/projectionist
 	url = https://github.com/tpope/vim-projectionist.git
+[submodule ".rbenv/plugins/rbenv-ctags"]
+	path = .rbenv/plugins/rbenv-ctags
+	url = https://github.com/tpope/rbenv-ctags.git
+[submodule ".rbenv/plugins/rbenv-default-gems"]
+	path = .rbenv/plugins/rbenv-default-gems
+	url = https://github.com/rbenv/rbenv-default-gems.git
