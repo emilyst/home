@@ -27,9 +27,6 @@ vnoremap <c-]> :CtrlPtjumpVisual<cr>
 if executable('rg')
   " Use rg
   let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-
-  " rg is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
 endif
 
 noremap <leader>o :CtrlPMixed<CR>
