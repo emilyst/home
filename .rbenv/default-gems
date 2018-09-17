@@ -2,5 +2,6 @@ gem-ctags
 gem-shut-the-fuck-up
 gem-browse
 bundler
+rake
 rubocop
 lolcat
