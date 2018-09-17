@@ -9,6 +9,7 @@ if filereadable(expand('~/.local/bin/ctags'))
   let g:ctrlp_buftag_ctags_bin = expand('~/.local/bin/ctags')
 endif
 
+let g:ctrlp_tjump_shortener = [ $HOME . '.*/gems/', '.../' ]
 let g:ctrlp_tjump_only_silent = 1
 nnoremap <c-]> :CtrlPtjump<cr>
 vnoremap <c-]> :CtrlPtjumpVisual<cr>
