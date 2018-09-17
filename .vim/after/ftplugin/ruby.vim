@@ -7,10 +7,9 @@ if executable('rbenv')
       \ && exists('*pathogen#legacyjoin')
       \ && exists('*pathogen#uniq')
       \ && exists('*pathogen#split')
-  let l:rbenv_prefix = system('rbenv prefix')
   let &l:tags = pathogen#legacyjoin(
         \   pathogen#uniq(
-        \     pathogen#split(&tags) + [l:rbenv_prefix . '/**/tags']
+        \     pathogen#split(&tags) + [system('rbenv prefix') . '/**/tags']
         \   )
         \)
 endif

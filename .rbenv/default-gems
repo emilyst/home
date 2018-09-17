@@ -3,5 +3,6 @@ gem-shut-the-fuck-up
 gem-browse
 bundler
 rake
+pry
 rubocop
 lolcat
