@@ -1,0 +1,4 @@
+---
+BUNDLE_CLEAN: "true"
+BUNDLE_FULL_INDEX: "true"
+BUNDLE_IGNORE_MESSAGES: "true"
