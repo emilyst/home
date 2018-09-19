@@ -51,9 +51,9 @@ cdpath=("." "$HOME/work" "$HOME/scratch" "$HOME/Development")
 ########################################################################
 
 # for systems using Homebrew
-POSTGRESQLPATH="/usr/local/opt/postgresql@9.4/bin"
-POSTGRESQLLDFLAGS="/usr/local/opt/postgresql@9.4/lib"
-POSTGRESQLCPPFLAGS="/usr/local/opt/postgresql@9.4/include"
+POSTGRESQLPATH="/usr/local/opt/postgresql@9.6/bin"
+POSTGRESQLLDFLAGS="/usr/local/opt/postgresql@9.6/lib"
+POSTGRESQLCPPFLAGS="/usr/local/opt/postgresql@9.6/include"
 
 if [[ -d "$POSTGRESQLPATH" ]]; then
   export PATH="$POSTGRESQLPATH:$PATH"
