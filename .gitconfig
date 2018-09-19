@@ -102,3 +102,8 @@
 	prune = true
 	pruneTags = true
 	output = full
+[merge]
+	tool = vimdiff
+	conflictStyle = diff3
+[mergetool]
+	prompt = false
