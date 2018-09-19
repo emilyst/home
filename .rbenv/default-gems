@@ -4,5 +4,6 @@ gem-browse
 bundler
 rake
 pry
+pry-stack_explorer
 rubocop
 lolcat
