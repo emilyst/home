@@ -63,7 +63,7 @@ set fillchars+=fold:\
 set fillchars+=diff:\ 
 set fillchars+=vert:\ 
 set linebreak
-set nolazyredraw
+set lazyredraw
 
 set list
 set listchars+=tab:›\ "
@@ -94,6 +94,8 @@ set numberwidth=5
 " 5 syntax, highlighting and spelling ===================================== {{{
 
 syntax enable
+set synmaxcol=400
+syntax sync minlines=256
 
 if has('guicolors')
   set guicolors
@@ -161,7 +163,7 @@ set showtabline=2
 " 8 terminal ============================================================== {{{
 
 "set ttyscroll=0
-" if exists('&ttyfast') | set ttyfast | endif
+if exists('&ttyfast') | set ttyfast | endif
 set title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 set titlelen=85
@@ -227,7 +229,7 @@ set showmatch
 " ========================================================================= }}}
 " 15 tabs and indenting =================================================== {{{
 
-filetype indent on
+filetype indent plugin on
 set smartindent
 set smarttab
 set tabstop=2
