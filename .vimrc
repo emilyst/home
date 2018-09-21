@@ -278,13 +278,13 @@ set ttimeout
 set ttimeoutlen=100
 
 " Keep search matches in the middle of the window
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
 
 " Same when jumping around
-nnoremap g; g;zz
-nnoremap g, g,zz
-nnoremap <c-o> <c-o>zz
+" nnoremap g; g;zz
+" nnoremap g, g,zz
+" nnoremap <c-o> <c-o>zz
 
 " nnoremap <tab> %
 " vnoremap <tab> %
