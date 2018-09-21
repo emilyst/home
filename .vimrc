@@ -110,10 +110,8 @@ let base16colorspace=256
 set background=dark
 colorscheme base16-ocean
 
-"set cursorcolumn
-" if exists('+colorcolumn') | set colorcolumn+=73,81 | endif
-if exists('&colorcolumn') | let &colorcolumn=join([73,81] + range(101,9999), ',') | endif
-set cursorline
+if exists('&colorcolumn') | let &colorcolumn=join([73,81] + range(101,999), ',') | endif
+set nocursorline
 
 set spelllang=en_us
 
