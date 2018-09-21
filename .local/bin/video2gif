@@ -127,4 +127,4 @@ end
 
 options = parse(ARGV)
 command = build_command(ARGV, options)
-system(command)
+exec(command)
