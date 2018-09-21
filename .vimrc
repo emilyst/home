@@ -439,7 +439,7 @@ endif
 " ========================================================================= }}}
 " 22 executing external commands ========================================== {{{
 
-set shell=/bin/bash
+" set shell=/bin/bash
 
 if executable('rg')
   set grepprg=rg\ --smart-case\ --vimgrep
