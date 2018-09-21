@@ -22,7 +22,12 @@ setopt RM_STAR_SILENT
 #   ls -lrthG
 # }
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+# rm -f ~/.zcompdump; compinit # if necessary
+fpath=(
+  /usr/local/share/zsh-completions
+  /usr/local/share/zsh/site-functions
+  $fpath
+)
 
 autoload -Uz compinit
 autoload -Uz bashcompinit
