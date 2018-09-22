@@ -89,7 +89,7 @@ I also add a relative symbolic link from the package directory to the
 [`$HOME/.vim/pack/default/start`](.vim/pack/default/start) directory.
 
 Other submodules go where appropriate, usually in a hidden place if
-I can manage. See [submodules](#submodules) below for more information
+I can manage. See [submodules](#submodules-1) below for more information
 on setup.
 
 
