@@ -1,14 +1,14 @@
 Home
 ====
 
-This repository contains configuration meant to be cloned to Linux or
+This repository contains configuration meant for use on my Linux or
 macOS computers.
 
-I have a few processes around how I set up and use this repository,
-which I'll describe here. This is necessary because turning your home
-directory into a giant Git repository is very weird and not recommended
-under most circumstances. The processes I use help mitigate that
-weirdness.
+I have a few custom approaches regarding how I set up, use, and maintain
+this repository, which I'll describe here. This is necessary because
+turning your home directory into a giant Git repository is very weird
+and not recommended under most circumstances. The techniques I describe
+below help mitigate that weirdness.
 
 Note that this repository contains _configuration_, not setup itself.
 Nothing here is meant to take over and make decisions actively. It does
@@ -20,32 +20,34 @@ it exists.
 Setup
 -----
 
-To use this, `git-clone(1)` is not recommended. The home directory
-already exists, so we don't need to create a working tree, and an
-unqualified `git clone` would also set up the default Git directory, in
-either case. I don't want either of those things to happen.
+To set up, `git-clone(1)` is not recommended. The home directory already
+exists, so we don't need to create a new working tree, as `git-clone(1)`
+would do. An unqualified `git clone` would also set up the default Git
+directory. I don't want either of those things to happen.
 
-Instead, I treat my home directory as an existing repository to
-initialize with `git-init(1)` and add a remote to. I also need to use
+Instead, I treat my home directory as an existing working tree to
+initialize with `git-init(1)` and add a remote to. I also use
 a non-default Git directory which won't be found by Git automatically.
-This will prevent most tooling from seeing it unless told where to look.
+This will prevent most tooling from seeing my home directory as
+a repository under most circumstances.
 
 To do this, I explicitly set the Git directory and the Git working tree
-for all commands which manipulate the home repository. I use an alias
-which conveniently sets all these for every command which pertains to
-the home repository, no matter what directory I'm in. I call it `home`,
-simply enough.
+for all Git commands which manipulate the home repository. I use an
+alias which conveniently sets all these. I call it `home`, simply
+enough.
 
     alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
 Note that this sets the Git directory under "`$HOME/.home.git`" instead
 of "`$HOME/.git`." That effectively both hides the Git configuration
 from both its own tooling (unless the `home` alias is used) and from
-normal directory listings.
+normal directory listings. Another very neat thing about this alias is
+that it will refer to the home repository, even if I'm in another Git
+repository at the time.
 
-With this in mind, let's see how a first-time setup works on a recent
+With this in mind, let's see how a first-time setup works using a recent
 version of Git. Assume first that Git is installed and that SSH auth to
-GitHub is established. Then, run the following.
+GitHub is established. Then, I run the following.
 
     alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
     home init
@@ -56,7 +58,8 @@ GitHub is established. Then, run the following.
 
 Afterwards, always use the `home` alias to interact with the home
 repository. (This alias is configured for Zsh by the current
-configuration.)
+configuration.) Local master tracks origin/master automatically during
+this setup, thanks to recent versions of Git.
 
 
 Layout and Editing
@@ -78,6 +81,36 @@ it does know about and tracks, which can be committed normally (e.g.,
 forcefully.
 
 
+### Submodules ###
+
+Today, Vim packages are installed to
+[`$HOME/.vim/pack/default`](.vim/pack/default), and at the same time,
+I also add a relative symbolic link from the package directory to the
+[`$HOME/.vim/pack/default/start`](.vim/pack/default/start) directory.
+
+Other submodules go where appropriate, usually in a hidden place if
+I can manage. See [submodules](#submodules) below for more information
+on setup.
+
+
+### Local Hierarchy ###
+
+There is an entire local Unix-like hierarchy under
+[`$HOME/.local`](.local). It is complete enough that I can install most
+programs to that directory by running `./configure --prefix
+$HOME/.local`, provided the program uses GNU [autoconf].
+
+Most of those directories stay empty and stay in the home repository
+only so that they will exist for this purpose. However, a couple are
+populated with things I want to exist on any computer and which are
+machine-independent. For example, there are some scripts in
+[`$HOME/.local/bin`](.local/bin), and there is a Vim/Common Lisp
+submodule under [`$HOME/.local/share`](.local/share).
+
+For more about the Unix hierarchy, see the `hier(7)` manual page
+(particularly the "`/usr`" section).
+
+
 Updating
 --------
 
@@ -89,7 +122,7 @@ Pulling them down is somewhat more awkward because submodules will need
 updates, and any Vim configuration changes will need to need to take
 effect (and override any persisting configuration in saved views).
 
-I use this command right now.
+I use this command right now. I may script or alias this in the future.
 
     home pull && home submodule update --init && rm -rf ~/.vim/local/view/*
 
@@ -167,3 +200,6 @@ USA.
 
 Note that I cannot relicense any anything which is not my own, original
 work (including but not limited to submodules).
+
+
+[autoconf]: https://www.gnu.org/software/autoconf/
