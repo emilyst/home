@@ -60,11 +60,11 @@ Afterward, use the `home` alias to interact with the home repository.
 Layout and Editing
 ------------------
 
-All files and directories are ignored by default. (See [.gitignore].)
-Any added file needs to be added forcefully: e.g., `home add -f
-<path/to/file>`. Any empty directory needs to contain a `.gitignore`
-file to remain present, and that `.gitignore` file should also ignore
-everything by default.
+All files and directories are ignored by default. (See
+[.gitignore](.gitignore).) Any added file needs to be added forcefully:
+e.g., `home add -f <path/to/file>`. Any empty directory needs to contain
+a `.gitignore` file to remain present, and that `.gitignore` file should
+also ignore everything by default.
 
 Because the repository sits on top of the home directory and ignores
 everything by default, and because it uses a custom Git directory,
