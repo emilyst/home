@@ -20,32 +20,33 @@ it exists.
 Setup
 -----
 
-Obviously, to use this, `git-clone(1)` is not recommended. The home
-directory already exists, and a plain clone will set up the default Git
-directory, in either case.
+To use this, `git-clone(1)` is not recommended. The home directory
+already exists, so we don't need to create a working tree, and an
+unqualified `git clone` would also set up the default Git directory, in
+either case. I don't want either of those things to happen.
 
-If I'm on a new computer and want to use these settings, I need to
-initialize the current home directory directly, and I need to use
-a non-default Git directory which won't be found by Git automatically
-unless told explicitly. (This will prevent most tooling from seeing it.)
+Instead, I treat my home directory as an existing repository to
+initialize with `git-init(1)` and add a remote to. I also need to use
+a non-default Git directory which won't be found by Git automatically.
+This will prevent most tooling from seeing it unless told where to look.
 
-For this reason, I explicitly set the Git directory and the Git working
-tree for all commands which manipulate the repository for these
-settings. I use an alias which conveniently sets all these for every
-command which pertains to the home repository, no matter what directory
-I'm in.
+To do this, I explicitly set the Git directory and the Git working tree
+for all commands which manipulate the home repository. I use an alias
+which conveniently sets all these for every command which pertains to
+the home repository, no matter what directory I'm in. I call it `home`,
+simply enough.
 
     alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
-Note that the Git directory is under "`$HOME/.home.git`" instead of
-"`$HOME/.git`." That effectively both hides the Git configuration from
-both its own tooling (unless the `home` alias is used) and from normal
-directory listings.
+Note that this sets the Git directory under "`$HOME/.home.git`" instead
+of "`$HOME/.git`." That effectively both hides the Git configuration
+from both its own tooling (unless the `home` alias is used) and from
+normal directory listings.
 
-Assume first that a recent version of Git is installed and that SSH auth
-to Git is established. Then, to set up, the following steps may be used.
+With this in mind, let's see how a first-time setup works on a recent
+version of Git. Assume first that Git is installed and that SSH auth to
+GitHub is established. Then, run the following.
 
-    cd $HOME
     alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
     home init
     home remote add origin git@github.com:emilyst/home.git
@@ -53,31 +54,34 @@ to Git is established. Then, to set up, the following steps may be used.
     home reset --hard origin/master
     home submodule update --init
 
-Afterward, use the `home` alias to interact with the home repository.
-(This alias is configured for Zsh.)
+Afterwards, always use the `home` alias to interact with the home
+repository. (This alias is configured for Zsh by the current
+configuration.)
 
 
 Layout and Editing
 ------------------
 
 All files and directories are ignored by default. (See
-[.gitignore](.gitignore).) Any added file needs to be added forcefully:
-e.g., `home add -f <path/to/file>`. Any empty directory needs to contain
-a `.gitignore` file to remain present, and that `.gitignore` file should
-also ignore everything by default.
+[.gitignore](.gitignore).) Any added file or directory needs to be added
+forcefully: e.g., `home add -f <path/to/file>`. Any empty directory
+needs to contain a `.gitignore` file to be added, and that `.gitignore`
+file should also ignore everything by default.
 
-Because the repository sits on top of the home directory and ignores
+Because the repository sits directly in the home directory and ignores
 everything by default, and because it uses a custom Git directory,
-there's no need to use symbolic linking or other setup to use. It can
-overlay whatever else and ignore it safely. The only updates it sees are
-changes to the files which it does know about and tracks, which can be
-committed normally (e.g., `home commit -avp` or similar).
+there's no need to use symbolic linking or copying. It can coexist
+alongside anything else that lives in `$HOME`, and Git ignores the other
+things safely. The only updates it sees are changes to the files which
+it does know about and tracks, which can be committed normally (e.g.,
+`home commit -avp` or similar), or anything added explicitly and
+forcefully.
 
 
 Updating
 --------
 
-Pushing up updates to the GitHub repository is not difficult.
+Pushing up updates to GitHub is not difficult.
 
     home push
 
@@ -98,9 +102,16 @@ functionality from other repositories. Git submodules are crude, but
 I've been using them a long time.
 
 Adding a new submodule also has to be forced, due to the global ignore
-rules.
+rules. I always do this with relative paths.
 
-    home submodule add -f <repository> <path/to/destination>
+    home submodule add -f <repository> <relative/path/to/destination>
+
+If I have added a Vim package, I clone it into
+`$HOME/.vim/pack/default`, and then from
+`$HOME/.vim/pack/default/start`, I symbolically link from the package
+directory to the current directory (relatively). That allows adding and
+removing packages from the current Vim configuration temporarily by
+moving the symbolic links only.
 
 Occasionally (perhaps once or twice a week), I update all the submodules
 to ensure I have the latest versions. When I do this, I also garbage
