@@ -97,8 +97,8 @@ on setup.
 
 There is an entire local Unix-like hierarchy under
 [`$HOME/.local`](.local). It is complete enough that I can install most
-programs to that directory by running `./configure --prefix
-$HOME/.local`, provided the program uses GNU [autoconf].
+programs to that directory by running `./configure
+--prefix="$HOME/.local"`, provided the program uses GNU [autoconf].
 
 Most of those directories stay empty and stay in the home repository
 only so that they will exist for this purpose. However, a couple are
