@@ -126,11 +126,6 @@ set spelllang=en_us
 " hi ColorColumn  ctermbg=234 guibg=#222222
 hi Comment term=italic cterm=italic gui=italic
 
-hi SyntasticErrorSign   term=standout ctermfg=1 ctermbg=10 guifg=#bf616a guibg=#343d46
-hi SyntasticWarningSign term=standout ctermfg=3 ctermbg=10 guifg=#ebcb8b guibg=#343d46
-" hi SyntasticErrorLine   term=standout ctermfg=1 ctermbg=10 guifg=#bf616a guibg=#343d46
-" hi SyntasticWarningLine term=standout ctermfg=3 ctermbg=10 guifg=#ebcb8b guibg=#343d46
-
 hi Keyword term=bold cterm=bold gui=bold
 hi Conditional term=bold cterm=bold gui=bold
 hi Define term=bold cterm=bold gui=bold
@@ -138,7 +133,6 @@ hi Define term=bold cterm=bold gui=bold
 hi htmlItalic term=italic cterm=italic gui=italic
 hi htmlBold term=bold cterm=bold gui=bold
 hi htmlBoldItalic term=italic,bold cterm=italic,bold gui=italic,bold
-
 
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'  " highlight VCS conflict markers
 match ErrorMsg 'd41d8cd9-8f00-3204-a980-0998ecf8427e'  " highlight empty UUID
