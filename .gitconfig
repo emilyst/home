@@ -3,7 +3,7 @@
 [user]
 	name = Emily St.
 	email = hello@emily.st
-  signingkey = E24D796803FC1BB5
+	signingkey = E24D796803FC1BB5
 [core]
 	preloadindex = true
 	excludesfile = ~/.gitignore.global
