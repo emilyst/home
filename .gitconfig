@@ -6,7 +6,7 @@
   signingkey = E24D796803FC1BB5
 [core]
 	preloadindex = true
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.gitignore.global
 	trustctime = false
 	pager = diff-so-fancy | less
 	commitGraph = true
