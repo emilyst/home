@@ -65,20 +65,45 @@ this setup, thanks to recent versions of Git.
 Layout and Editing
 ------------------
 
-All files and directories are ignored by default. (See
-[.gitignore](.gitignore).) Any added file or directory needs to be added
-forcefully: e.g., `home add -f <path/to/file>`. Any empty directory
-needs to contain a `.gitignore` file to be added, and that `.gitignore`
-file should also ignore everything by default.
+All files and directories are ignored by default. This is done via
+a sneaky trick: a special "`.gitignore.home`" file that doesn't get
+included unless the current Git directory is the the one for the home
+repository. To do this, first, I added [a configuration stanza to the
+_bottom_ of my global Git configuration like the following](.gitconfig).
 
-Because the repository sits directly in the home directory and ignores
-everything by default, and because it uses a custom Git directory,
-there's no need to use symbolic linking or copying. It can coexist
-alongside anything else that lives in `$HOME`, and Git ignores the other
-things safely. The only updates it sees are changes to the files which
-it does know about and tracks, which can be committed normally (e.g.,
-`home commit -avp` or similar), or anything added explicitly and
-forcefully.
+    [includeIf "gitdir:~/.home.git"]
+            path = .gitconfig.home
+
+That file [only gets included if the current Git directory
+matches](https://www.git-scm.com/docs/git-config#_conditional_includes).
+Then, [in that file](.gitconfig.home), I can set a new
+`core.excludesFile` setting which overrides the original (which is why
+it has to be at the bottom).
+
+    [core]
+            excludesfile = ~/.gitignore.home
+
+Finally, [.gitignore.home](.gitignore.home) is configured to exclude
+everything by containing a single wildcard.
+
+The reason for all this conditional inclusion rigamarole is for the same
+reason I use a custom Git directory—so that no naive tooling goes
+recursing up the directory tree looking for items to ignore and uses
+that file by mistake.
+
+Because the home repository ignores everything, any added file or
+directory I want to track in my home repository needs to be added
+forcefully: e.g., `home add -f <path/to/file>`. Any empty directory
+needs to contain a `.gitignore` file to be added.
+
+As a result, because the repository sits directly in the home directory
+and ignores everything by default, and because it uses a custom Git
+directory, there's no need to use symbolic linking or copying. It can
+coexist alongside anything else that lives in `$HOME`, and Git ignores
+the other things safely. The only updates it sees are changes to the
+files which it does know about and tracks, which can be committed
+normally (e.g., `home commit -avp` or similar), or anything added
+explicitly and forcefully.
 
 
 ### Submodules ###
