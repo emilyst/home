@@ -10,7 +10,7 @@ setopt CORRECT
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
-setopt NOMATCH
+unsetopt NOMATCH  # allow [,],?,etc.
 setopt NOTIFY
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_TO_HOME
