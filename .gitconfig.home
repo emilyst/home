@@ -1,0 +1,4 @@
+# only use this global ignore for the home repository (allows other
+# tooling not to see it)
+[core]
+	excludesfile = ~/.gitignore.home
