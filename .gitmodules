@@ -184,3 +184,6 @@
 [submodule ".rbenv/plugins/rbenv-sentience"]
 	path = .rbenv/plugins/rbenv-sentience
 	url = https://github.com/tpope/rbenv-sentience.git
+[submodule ".rbenv/plugins/rbenv-vars"]
+	path = .rbenv/plugins/rbenv-vars
+	url = https://github.com/sstephenson/rbenv-vars.git
