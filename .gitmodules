@@ -187,3 +187,6 @@
 [submodule ".rbenv/plugins/rbenv-vars"]
 	path = .rbenv/plugins/rbenv-vars
 	url = https://github.com/sstephenson/rbenv-vars.git
+[submodule ".rbenv/plugins/ruby-build"]
+	path = .rbenv/plugins/ruby-build
+	url = https://github.com/rbenv/ruby-build.git
