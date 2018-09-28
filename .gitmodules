@@ -190,3 +190,6 @@
 [submodule ".rbenv/plugins/ruby-build"]
 	path = .rbenv/plugins/ruby-build
 	url = https://github.com/rbenv/ruby-build.git
+[submodule ".rbenv/plugins/rbenv-each"]
+	path = .rbenv/plugins/rbenv-each
+	url = https://github.com/rbenv/rbenv-each.git
