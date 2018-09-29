@@ -6,4 +6,5 @@ rake
 pry
 pry-stack_explorer
 rubocop
+magic_frozen_string_literal
 lolcat
