@@ -63,7 +63,7 @@ set fillchars+=fold:\
 set fillchars+=diff:\ 
 set fillchars+=vert:\ 
 set linebreak
-set lazyredraw
+set nolazyredraw
 
 set list
 set listchars+=tab:›\ "
