@@ -193,3 +193,6 @@
 [submodule ".rbenv/plugins/rbenv-each"]
 	path = .rbenv/plugins/rbenv-each
 	url = https://github.com/rbenv/rbenv-each.git
+[submodule ".local/share/rbenv"]
+	path = .local/share/rbenv
+	url = https://github.com/sstephenson/rbenv.git
