@@ -33,7 +33,15 @@ alias l="ls -AlFht"
 alias ll="ls -AlF"
 alias la="ls -A"
 
-alias timestamp='gawk "{now=strftime(\"%F %T \"); print now \$0; fflush(); }"'
+function timestamp() {
+  if [[ "$OSTYPE" == "darwin"* ]]; then # try the BSD variant
+    date -r "$1"
+  elif [[ "$OSTYPE" == *"bsd"* ]]; then # try the BSD variant
+    date -r "$1"
+  else                                  # fall back to GNU variant
+    date -d "@$1"
+  fi
+}
 
 # enable color support of ls and also add handy aliases
 if [[ -x "/usr/bin/dircolors" ]]; then
