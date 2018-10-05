@@ -370,9 +370,9 @@ vnoremap <leader>l >gv
 nnoremap <leader>/       :silent let @/ = ''<cr>
 nnoremap <leader><space> :silent let @/ = ''<cr>
 
-" quickly create or toggle folds with the spacebar
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
-vnoremap <Space> zf
+" " quickly create or toggle folds with the spacebar
+" nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
+" vnoremap <Space> zf
 
 cnoreabbrev <expr> git ((getcmdtype() is# ':' && getcmdline() is# 'git')?('Git'):('git'))
 
