@@ -2,6 +2,25 @@ if exists(":RainbowParentheses")
   RainbowParentheses
 endif
 
+if has('autocmd') && !exists('#SetSyntaxFoldMethod')
+  augroup SetSyntaxFoldMethod
+    autocmd!
+    " extensions borrowed from ruby/ftdetect/ruby.vim
+    autocmd BufWinEnter *.rb                          if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter *.erb                         if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter *.rhtml                       if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter *.irbrc                       if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter *.rbw                         if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter *.gemspec                     if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter *.ru                          if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter Gemfile                       if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter *.builder,*.rxml,*.rjs,*.ruby if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter [rR]akefile,*.rake            if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter [rR]akefile*                  if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+    autocmd BufWinEnter [rR]antfile,*.rant            if &foldmethod != 'syntax' | setlocal foldmethod=syntax | endif
+  augroup END
+endif
+
 " attempt to undo whatever Bundler's environment preserver has done
 " (see https://github.com/bundler/bundler/blob/master/lib/bundler/environment_preserver.rb)
 " works in 8.0.1832 and later (silently fails earlier)
