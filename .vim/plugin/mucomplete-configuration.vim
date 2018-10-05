@@ -2,7 +2,7 @@ set shortmess+=c
 set belloff+=ctrlg
 set completeopt=menu,menuone,noinsert
 
-let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#enable_auto_at_startup = 0
 let g:mucomplete#buffer_relative_paths = 1  " ???
 
 " check spelling when at least four letters are typed
@@ -19,12 +19,11 @@ let g:mucomplete#can_complete = {}
 " check omnicompletion in ruby
 let g:mucomplete#can_complete.ruby = { 'omni': { t -> t =~# '\%(\.\|::\)$' }}
 
-
 let g:mucomplete#chains = {}
 let g:mucomplete#chains.default  = ['omni', 'c-p']
 let g:mucomplete#chains.markdown = ['keyn', 'dict', 'uspl']
 
-  inoremap <silent> <plug>(MUcompleteFwdKey) <right>
+inoremap <silent> <plug>(MUcompleteFwdKey) <right>
 imap <right> <plug>(MUcompleteCycFwd)
 inoremap <silent> <plug>(MUcompleteBwdKey) <left>
 imap <left> <plug>(MUcompleteCycBwd)
