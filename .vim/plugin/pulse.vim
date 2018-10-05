@@ -38,4 +38,4 @@ endfunction
 
 command! -nargs=* Pulse call s:Pulse(<f-args>)
 
-nnoremap <c-c> :Pulse<cr>
+" nnoremap <c-c> :Pulse<cr>
