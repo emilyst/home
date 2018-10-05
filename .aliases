@@ -34,13 +34,18 @@ alias ll="ls -AlF"
 alias la="ls -A"
 
 function timestamp() {
-  if [[ "$OSTYPE" == "darwin"* ]]; then # try the BSD variant
-    date -r "$1"
-  elif [[ "$OSTYPE" == *"bsd"* ]]; then # try the BSD variant
-    date -r "$1"
-  else                                  # fall back to GNU variant
-    date -d "@$1"
+  local original_tz=$TZ
+  unset TZ
+
+  if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == *"bsd"* ]]; then
+    echo "$(date -r $1 -u '+%FT%T%z (%Z)')"\
+         "/ $(date -r $1 '+%FT%T%z (%Z)')"
+  else
+    echo "$(date -d @$1 -u '+%FT%T%z (%Z)')"\
+         "/ $(date -d @$1 '+%FT%T%z (%Z)')"
   fi
+
+  export TZ=original_tz
 }
 
 # enable color support of ls and also add handy aliases
