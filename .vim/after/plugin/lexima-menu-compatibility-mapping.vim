@@ -3,4 +3,4 @@
 
 let g:lexima_no_default_rules = 1
 call lexima#set_default_rules()
-inoremap <expr> <CR> pumvisible() ? '<CR>' : lexima#expand('<CR>', 'i')
+inoremap <expr> <CR> pumvisible() ? '<CR>' : lexima#expand('<LT>CR>', 'i')
