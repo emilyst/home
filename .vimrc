@@ -17,7 +17,7 @@
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
 
-set all&
+set all&  " sets all options to their defaults
 set nocompatible
 if has('autocmd')
   au! BufEnter *
