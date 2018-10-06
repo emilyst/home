@@ -27,20 +27,20 @@ endif
 if has('autocmd') && !exists('#UndoBundlerEnvironmentPreserver')
   augroup UndoBundlerEnvironmentPreserver
     autocmd!
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLE_BIN_PATH
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLE_BIN_PATH
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLE_GEMFILE
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLER_ORIG_MANPATH
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLER_VERSION
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_GEM_HOME
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_GEM_PATH
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_MANPATH
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_PATH
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_RB_USER_INSTALL
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_RUBYLIB
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_RUBYOPT
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $GEM_PATH
-    autocmd BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $GEM_HOME
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLE_BIN_PATH
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLE_BIN_PATH
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLE_GEMFILE
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLER_ORIG_MANPATH
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_BUNDLER_VERSION
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_GEM_HOME
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_GEM_PATH
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_MANPATH
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_PATH
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_RB_USER_INSTALL
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_RUBYLIB
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $BUNDLER_ORIG_RUBYOPT
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $GEM_PATH
+    autocmd BufWinEnter,BufEnter,BufLeave,TextChanged,TextChangedI,TextChangedP *.rb unlet $GEM_HOME
   augroup END
 endif
 
