@@ -15,7 +15,7 @@ let g:mucomplete#chains.markdown = ['path', 'keyn', 'keyp', 'dict', 'uspl', 'the
 
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#buffer_relative_paths = 1  " paths are relative to buffer, not pwd
-let g:mucomplete#completion_delay = 1
+let g:mucomplete#completion_delay = 2000
 
 " check spelling when at least four letters are typed
 let s:spl_cond = { t -> &l:spelllang == 'en' && t =~# '\a\{4}$' }
