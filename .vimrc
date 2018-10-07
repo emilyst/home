@@ -122,19 +122,14 @@ set spelllang=en_us
 
 " custom highlights
 
-" hi LineNr       cterm=bold gui=bold " ctermbg=234 guibg=#222222
-" hi SignColumn   cterm=bold gui=bold " ctermbg=234 guibg=#222222
-" hi CursorLineNr cterm=bold gui=bold " ctermbg=234 guibg=#222222
-" hi CursorLine   ctermbg=234 guibg=#222222
-" hi ColorColumn  ctermbg=234 guibg=#222222
-hi Comment term=italic cterm=italic gui=italic
+hi Comment        term=italic      cterm=italic      gui=italic
 
-hi Keyword term=bold cterm=bold gui=bold
-hi Conditional term=bold cterm=bold gui=bold
-hi Define term=bold cterm=bold gui=bold
+hi Keyword        term=bold        cterm=bold        gui=bold
+hi Conditional    term=bold        cterm=bold        gui=bold
+hi Define         term=bold        cterm=bold        gui=bold
 
-hi htmlItalic term=italic cterm=italic gui=italic
-hi htmlBold term=bold cterm=bold gui=bold
+hi htmlItalic     term=italic      cterm=italic      gui=italic
+hi htmlBold       term=bold        cterm=bold        gui=bold
 hi htmlBoldItalic term=italic,bold cterm=italic,bold gui=italic,bold
 
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'  " highlight VCS conflict markers
@@ -161,6 +156,7 @@ set showtabline=2
 
 "set ttyscroll=0
 if exists('&ttyfast') | set ttyfast | endif
+
 set title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 set titlelen=85
