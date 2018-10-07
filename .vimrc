@@ -468,6 +468,7 @@ set virtualedit+=block,onemore
 
 set gdefault
 
+set viewoptions=cursor,folds,slash,unix
 if exists('&viewdir')
   set viewdir=~/.vim/local/view//
   if !isdirectory(expand(&viewdir))

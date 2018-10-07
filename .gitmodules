@@ -196,3 +196,6 @@
 [submodule ".local/share/rbenv"]
 	path = .local/share/rbenv
 	url = https://github.com/sstephenson/rbenv.git
+[submodule ".vim/pack/default/FastFold"]
+	path = .vim/pack/default/FastFold
+	url = https://github.com/Konfekt/FastFold.git
