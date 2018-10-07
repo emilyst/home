@@ -239,8 +239,8 @@ set cinoptions+=(0
 
 set foldenable
 set foldmethod=manual
-set foldlevelstart=99 " Don't autofold anything
-set foldlevel=99    " Don't autofold anything
+set foldlevelstart=999 " Don't autofold anything
+set foldlevel=999      " Don't autofold anything
 
 function! MyFoldText()
   let line = getline(v:foldstart)
