@@ -116,7 +116,7 @@ set background=dark
 colorscheme base16-ocean
 
 if exists('&colorcolumn') | let &colorcolumn=join([73,81] + range(101,999), ',') | endif
-set cursorline
+set nocursorline
 
 set spelllang=en_us
 
