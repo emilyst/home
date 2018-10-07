@@ -116,7 +116,7 @@ set background=dark
 colorscheme base16-ocean
 
 if exists('&colorcolumn') | let &colorcolumn=join([73,81] + range(101,999), ',') | endif
-set nocursorline
+set cursorline
 
 set spelllang=en_us
 
@@ -235,8 +235,8 @@ set cinoptions+=(0
 
 set foldenable
 set foldmethod=manual
-set foldlevelstart=999 " Don't autofold anything
-set foldlevel=999      " Don't autofold anything
+set foldlevelstart=99 " Don't autofold anything
+set foldlevel=99      " Don't autofold anything
 
 function! MyFoldText()
   let line = getline(v:foldstart)
