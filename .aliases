@@ -75,3 +75,7 @@ alias mcrib='irb'  # because i'm not good at restraint
 # "borrowed" from oh-my-zsh/plugins/osx
 function man-preview() { man -t "$@" | open -f -a Preview }
 if whence compdef >/dev/null 2>&1; then compdef _man man-preview; fi
+
+# a briefer, tidier, less safe version of iTerm2's it2setkeylabel
+# see https://www.iterm2.com/documentation-escape-codes.html
+function set_status_label() { echo -n "\033]1337;SetKeyLabel=status=$@\a" }
