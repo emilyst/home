@@ -314,9 +314,6 @@ command! -bang WQ wq<bang>
 " inoremap <Down> <C-o>gj
 " inoremap <Up> <C-o>gk
 
-" I suck at typing.
-vnoremap - =
-
 nnoremap U <c-r>
 
 " clean trailing whitespace
