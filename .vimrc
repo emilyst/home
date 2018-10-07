@@ -94,8 +94,12 @@ set numberwidth=5
 " 5 syntax, highlighting and spelling ===================================== {{{
 
 syntax enable
-set synmaxcol=400
+
+" stop looking backward this many lines for calculating syntax highlight
 syntax sync minlines=256
+
+" stop syntax highlighting this many columns out
+set synmaxcol=200
 
 if has('guicolors')
   set guicolors
