@@ -199,3 +199,6 @@
 [submodule ".vim/pack/default/FastFold"]
 	path = .vim/pack/default/FastFold
 	url = https://github.com/Konfekt/FastFold.git
+[submodule ".vim/pack/default/stay"]
+	path = .vim/pack/default/stay
+	url = https://github.com/zhimsel/vim-stay.git
