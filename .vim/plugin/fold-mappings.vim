@@ -1,6 +1,6 @@
 " toggle folds
 
-" inoremap zz <C-O>za
-nnoremap zz za
-onoremap zz <C-C>za
-vnoremap zz zf
+" inoremap Z <C-O>za
+nnoremap Z za
+onoremap Z <C-C>za
+vnoremap Z zf
