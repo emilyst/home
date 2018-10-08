@@ -4,6 +4,12 @@ Home
 This repository contains configuration meant for use on my Linux or
 macOS computers.
 
+If you're reading this on a file system, you're seeing the only
+non-hidden portion of a source-controlled set of configuration files
+designed for use on Linux and macOS. The canonical version is hosted at
+[GitHub](https://github.com/emilyst/home). (See the [notes](#notes) on
+how to hide this file, too.)
+
 I have a few custom approaches regarding how I set up, use, and maintain
 this repository, which I'll describe here. This is necessary because
 turning your home directory into a giant Git repository is very weird
@@ -216,6 +222,25 @@ When pulling down updates to a computer after deleting a submodule on
 another one, I will do those latter steps because I'm not always
 confident the `git-submodule(1)` update will clear out what needs to be
 cleared.
+
+
+Notes
+-----
+
+Below are a few additional notes on the process.
+
+
+### Hiding the README on macOS ###
+
+The README can be hidden, too, on macOS—from view in Finder, at least.
+To do so, run a command to change its "hidden" flag.
+
+    chflags hidden $HOME/README.md
+
+This will tidy up your view of your home directory in Finder. The file
+still exists, and it's visible in any directory listing (even one that
+doesn't show hidden files, unfortunately), but it will otherwise be out
+of the way.
 
 
 License
