@@ -467,4 +467,4 @@ endif
 
 " ========================================================================= }}}
 
-" vim: set fdm=marker fdls=1 tw=72 :
+" vim: set fen fdm=marker vop-=folds tw=72 :
