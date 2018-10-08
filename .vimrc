@@ -1,23 +1,22 @@
 " 0 preamble ============================================================== {{{
+
+" My ".vimrc" contains configures options which are core to Vim and are
+" enumerated by the `:options` command. It groups the options into the
+" same sections given by that command and in the same order for
+" reference.
 "
-" My .vimrc contains configures those settings which are core to to Vim
-" and are enumerated by the :options command, organized by the same
-" sections given by that command and in the same order (hopefully).
-" A few variable definitions which relate to those options will live
-" near them.
+" Occasionally, each section contains other mappings or variable
+" settings relevant to the options adjacent to them.
 "
-" The $HOME/.vim directory contains everything else, either as
-" individual Vimscript plugins (under $HOME/.vim/plugin) or as packages
-" (under $HOME/.vim/bundle or under $HOME/.vim/*/pack). Anything
-" pertaining to the behavior of a specific filetype, or the behavior of
-" a specific plugin, will also be defined as a plugin or filetype
-" plugin. Mappings will eventually be defined as such as well, until
-" everything lives in separate files.
-"
+" The "$HOME/.vim" directory contains everything else, either as
+" individual plugins (under "$HOME/.vim/[after/]{plugin,ftplugin}/") or
+" as packages (under under "$HOME/.vim/pack/*/").
+
+set all&  " set all options to their defaults
+
 " ========================================================================= }}}
 " 1 important ============================================================= {{{
 
-set all&  " sets all options to their defaults
 set nocompatible
 if has('autocmd')
   au! BufEnter *
@@ -34,36 +33,37 @@ endif
 " 2 moving around, searching and patterns ================================= {{{
 
 set nostartofline
-
+set noautochdir
+set wrapscan
 set magic
 set ignorecase
 set smartcase
 set gdefault
 set incsearch
-" set showmatch
-set hlsearch
 
 " ========================================================================= }}}
 " 3 tags ================================================================== {{{
 
 set showfulltag
 set tags+=./tags,./.tags,tags,.tags
-set tagbsearch
+set tagcase=followscs
 
 " ========================================================================= }}}
 " 4 displaying text ======================================================= {{{
 
-set display=lastline
 set scroll=7
 set scrolloff=0
 set nowrap
+set linebreak
+set display=lastline
+
 set fillchars+=stl:\ 
 set fillchars+=stlnc:\ 
 set fillchars+=fold:\ 
 set fillchars+=diff:\ 
-set fillchars+=vert:\ 
-set linebreak
-set nolazyredraw
+set fillchars+=vert:\
+
+set lazyredraw
 
 set list
 set listchars+=tab:›\ "
@@ -72,34 +72,22 @@ set listchars+=nbsp:␣
 set listchars+=extends:›
 set listchars+=precedes:‹
 set listchars+=eol:\ "
-"set showbreak=→
-" if exists('&relativenumber')
-"   set relativenumber
-" endif
+
 set number
 set numberwidth=5
-
-" if has('autocmd')
-"   augroup AlwaysRelative
-"   au!
-"   au BufReadPost *
-"     \ if &number && exists('&relativenumber') |
-"     \   silent! setl relativenumber           |
-"     \   silent! setl number                   |
-"     \ endif
-"   augroup END
-" endif
 
 " ========================================================================= }}}
 " 5 syntax, highlighting and spelling ===================================== {{{
 
+set background=dark
+let base16colorspace=256
+colorscheme base16-ocean
+
 syntax enable
-
-" stop looking backward this many lines for calculating syntax highlight
 syntax sync minlines=256
+set synmaxcol=200  " stop syntax highlighting this many columns out
 
-" stop syntax highlighting this many columns out
-set synmaxcol=200
+set hlsearch
 
 if has('guicolors')
   set guicolors
@@ -111,14 +99,11 @@ if has('termguicolors') && $COLORTERM ==? 'truecolor'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-let base16colorspace=256
-set background=dark
-colorscheme base16-ocean
-
-if exists('&colorcolumn') | let &colorcolumn=join([73,81] + range(101,999), ',') | endif
 set nocursorline
 
-set spelllang=en_us
+if exists('&colorcolumn')
+  let &colorcolumn=join([73,81] + range(101,999), ',')
+endif
 
 " custom highlights
 
@@ -138,8 +123,7 @@ match ErrorMsg 'd41d8cd9-8f00-3204-a980-0998ecf8427e'  " highlight empty UUID
 " ========================================================================= }}}
 " 6 multiple windows ====================================================== {{{
 
-set winminheight=0
-set winminwidth=0
+set laststatus=2
 set hidden
 set switchbuf=useopen,usetab
 set splitbelow
@@ -157,12 +141,12 @@ set showtabline=2
 "set ttyscroll=0
 if exists('&ttyfast') | set ttyfast | endif
 
-set title
-set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
-set titlelen=85
+set title titlestring=%<%F%=%l/%L-%P titlelen=70
 
 " ========================================================================= }}}
 " 9 using the mouse ======================================================= {{{
+
+" mouse settings are primarily delegated to the terminus plugin
 
 " block select with control-click-and-drag
 noremap <C-LeftMouse> <LeftMouse><Esc><C-V>
@@ -170,6 +154,8 @@ noremap <C-LeftDrag>  <LeftDrag>
 
 " ========================================================================= }}}
 " 10 GUI ================================================================== {{{
+
+" this section only appears in `:options` in a GUI like MacVim or gVim
 
 if has('gui_running')
   set linespace=1
@@ -183,13 +169,13 @@ endif
 " 11 printing ============================================================= {{{
 
 
-
 " ========================================================================= }}}
 " 12 messages and info ==================================================== {{{
 
 set noshowmode
 set showcmd
 set shortmess+=I
+set ruler
 
 " ========================================================================= }}}
 " 13 selecting text ======================================================= {{{
@@ -204,39 +190,49 @@ endif
 " 14 editing text ========================================================= {{{
 
 if has('persistent_undo')
-  set undolevels=1000
+  set undolevels=10000
+
   if exists('&undoreload')
     set undoreload=10000
   endif
+
+  set undofile
+  set undodir=~/.vim/local/undo//
+  if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+  endif
 endif
 
+set backspace=indent,eol,start
 set complete=.,w,b,u,t
 set completeopt+=menuone,noselect
-set backspace=indent,eol,start
 set whichwrap+=<>[]
 set textwidth=72
 set formatoptions=qrn1
 set formatlistpat=^\\s*[0-9*-]\\+[\\]:.)}\\t\ ]\\s*
-set showmatch
+" set showmatch
+set nojoinspaces  " I only space once after a dot right now
 
 " ========================================================================= }}}
 " 15 tabs and indenting =================================================== {{{
 
 filetype indent plugin on
-set smartindent
-set smarttab
+
+" these are merely defaults
 set tabstop=2
 set shiftwidth=2
+set smarttab
 set expandtab
+set smartindent
 set cinoptions+=(0
 
 " ========================================================================= }}}
 " 16 folding ============================================================== {{{
 
 set foldenable
-set foldmethod=manual
-set foldlevelstart=99 " Don't autofold anything
 set foldlevel=99      " Don't autofold anything
+set foldlevelstart=99 " Don't autofold anything
+set foldmethod=manual " allows faster editing by default
 
 function! MyFoldText()
   let line = getline(v:foldstart)
@@ -258,17 +254,20 @@ set foldtext=MyFoldText()
 " ========================================================================= }}}
 " 17 diff mode ============================================================ {{{
 
+set diffopt+=algorithm:histogram,foldcolumn:0
 
 " ========================================================================= }}}
 " 18 mapping ============================================================== {{{
 
+set notimeout
+set ttimeout
+set timeoutlen=100
+set ttimeoutlen=100
+
 let mapleader = ","
 let maplocalleader = "\\"
 
-set notimeout
-set timeoutlen=100
-set ttimeout
-set ttimeoutlen=100
+" someday migrate all the mappings to their own topical plugins
 
 " Keep search matches in the middle of the window
 " nnoremap n nzzzv
@@ -379,22 +378,24 @@ noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljz
 " 19 reading and writing files ============================================ {{{
 
 set modeline
-set backup
 set writebackup
+set backup
 set backupcopy=yes  " preserves attributes, including Finder file labels
+
 set backupdir=~/.vim/local/backup//
 if !isdirectory(expand(&backupdir))
   call mkdir(expand(&backupdir), "p")
 endif
-set backupskip=/tmp/*,/private/tmp/*"
-set fsync
-set autowrite
+
+set backupskip+=/tmp/*,/private/tmp/*
+let &backupskip .= expand('$HOME') . '/.ssh/*'
 set autowriteall
 set autoread
 set writeany
+set fsync
 
-if exists('&cryptmethod')
-  set cryptmethod=blowfish
+if exists('&cryptmethod') && (v:version > 704 || (v:version == 704 && has('patch401')))
+  set cryptmethod=blowfish2
 endif
 
 " ========================================================================= }}}
@@ -404,32 +405,29 @@ set directory=~/.vim/local/swap//
 if !isdirectory(expand(&directory))
   call mkdir(expand(&directory), "p")
 endif
+set swapsync=fsync
 set updatecount=10
 set updatetime=500
 
 " ========================================================================= }}}
 " 21 command line editing ================================================= {{{
 
-set wildmenu
-set wildmode=list:longest
+set history=5000
+set wildmode=list:longest,full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*.bak,*.exe,target,tags,.tags,*/.git/*
 set wildignore+=*.pyc,*.DS_Store,*.db
 set wildignore+=versions/*,cache/*
-set history=5000
-
-if has('persistent_undo')
-  set undofile
-  set undodir=~/.vim/local/undo//
-  if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
-  endif
-  set undolevels=10000
-endif
+set fileignorecase
+set wildignorecase
+set wildmenu
 
 " ========================================================================= }}}
 " 22 executing external commands ========================================== {{{
 
-" set shell=/bin/bash
+"set nowarn
+
+" ========================================================================= }}}
+" 23 running make and jumping to errors =================================== {{{
 
 if executable('rg')
   set grepprg=rg\ --smart-case\ --vimgrep
@@ -441,15 +439,8 @@ elseif executable('ag')
   cnoreabbrev <expr> ag grep
 endif
 
-"set nowarn
-
-" ========================================================================= }}}
-" 23 running make and jumping to errors =================================== {{{
-
 " ========================================================================= }}}
 " 24 language specific ==================================================== {{{
-
-set iskeyword-=:
 
 " ========================================================================= }}}
 " 25 multi-byte characters ================================================ {{{
@@ -466,6 +457,7 @@ set virtualedit+=block,onemore
 set gdefault
 
 set viewoptions=cursor,folds,slash,unix
+
 if exists('&viewdir')
   set viewdir=~/.vim/local/view//
   if !isdirectory(expand(&viewdir))
@@ -474,4 +466,5 @@ if exists('&viewdir')
 endif
 
 " ========================================================================= }}}
-" vim: set fdm=marker fdl=1 tw=72 :
+
+" vim: set fdm=marker fdls=1 tw=72 :
