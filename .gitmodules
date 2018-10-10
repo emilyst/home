@@ -88,9 +88,6 @@
 [submodule ".vim/pack/default/wildfire"]
 	path = .vim/pack/default/wildfire
 	url = https://github.com/gcmt/wildfire.vim.git
-[submodule ".vim/pack/default/haystack"]
-	path = .vim/pack/default/haystack
-	url = https://github.com/tpope/vim-haystack.git
 [submodule ".config/base16-shell"]
 	path = .config/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
