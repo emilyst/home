@@ -49,9 +49,6 @@
 [submodule ".vim/pack/default/css3-syntax"]
 	path = .vim/pack/default/css3-syntax
 	url = https://github.com/hail2u/vim-css3-syntax.git
-[submodule ".vim/pack/default/ack"]
-	path = .vim/pack/default/ack
-	url = https://github.com/mileszs/ack.vim.git
 [submodule ".vim/pack/default/commentary"]
 	path = .vim/pack/default/commentary
 	url = https://github.com/tpope/vim-commentary.git
