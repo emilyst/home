@@ -16,9 +16,6 @@
 [submodule ".vim/pack/default/repeat"]
 	path = .vim/pack/default/repeat
 	url = https://github.com/tpope/vim-repeat
-[submodule ".vim/pack/default/visualstar"]
-	path = .vim/pack/default/visualstar
-	url = https://github.com/thinca/vim-visualstar.git
 [submodule ".vim/pack/default/css-color"]
 	path = .vim/pack/default/css-color
 	url = https://github.com/ap/vim-css-color.git
