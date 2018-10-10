@@ -61,9 +61,6 @@
 [submodule ".vim/pack/default/airline"]
 	path = .vim/pack/default/airline
 	url = https://github.com/bling/vim-airline.git
-[submodule ".vim/pack/default/sneak"]
-	path = .vim/pack/default/sneak
-	url = https://github.com/justinmk/vim-sneak.git
 [submodule ".vim/pack/default/jdaddy"]
 	path = .vim/pack/default/jdaddy
 	url = https://github.com/tpope/vim-jdaddy.git
