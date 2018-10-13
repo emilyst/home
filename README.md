@@ -74,7 +74,7 @@ Layout and Editing
 All files and directories are ignored by default. This is done via
 a sneaky trick: a special "`.gitignore.home`" file which lives in my
 home repository that doesn't get used unless the current Git directory
-is the the one for the home repository. I wanted to avoid having a file
+is the one for the home repository. I wanted to avoid having a file
 named "`.gitignore`" in my home directory which excludes everything
 because Git and certain other tools will look for it.
 
@@ -96,7 +96,7 @@ why it has to be at the bottom).
 Finally, [.gitignore.home](.gitignore.home) is configured to exclude
 everything by containing a single wildcard.
 
-The reason for all this conditional inclusion rigamarole is for the same
+The reason for all this conditional inclusion rigmarole is for the same
 reason I use a custom Git directory—so that no naive tooling goes
 recursing up the directory tree looking for items to ignore and uses
 that file by mistake.
