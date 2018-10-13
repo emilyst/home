@@ -57,21 +57,25 @@ set nowrap
 set linebreak
 set display=lastline
 
-set fillchars+=stl:\ 
-set fillchars+=stlnc:\ 
-set fillchars+=fold:\ 
-set fillchars+=diff:\ 
-set fillchars+=vert:\
+if has('windows') && has('folding')
+  set fillchars=           " clear defaults
+  set fillchars+=stl:\     " set blank space for statusline fill
+  set fillchars+=stlnc:\   " set blank space for statusline fill
+  set fillchars+=vert:\    " set blank space for vertical separator fill
+  set fillchars+=fold:\    " set blank space for foldtext fill
+  set fillchars+=diff:\    " set blank space for diff deleted lines fill
+endif
 
 set lazyredraw
 
-set list
-set listchars+=tab:›\ "
-set listchars+=trail:·
-set listchars+=nbsp:␣
-set listchars+=extends:›
-set listchars+=precedes:‹
-set listchars+=eol:\ "
+set list                   " show non-printing characters sometimes
+set listchars=             " clear defaults
+set listchars+=tab:›\ "    " show a small chevron for a tab
+set listchars+=trail:·     " show a small interpunct for trailing whitespace
+set listchars+=nbsp:␣      " show a small open box for non-breaking spaces
+set listchars+=extends:›   " show a small chevron for text to the right
+set listchars+=precedes:‹  " show a small chevron for text to the left
+set listchars+=eol:\ "     " show nothing at the end of a line
 
 set number
 set numberwidth=5
