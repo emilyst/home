@@ -190,3 +190,6 @@
 [submodule ".vim/pack/default/stay"]
 	path = .vim/pack/default/stay
 	url = https://github.com/zhimsel/vim-stay.git
+[submodule ".vim/pack/default/visual-whitespace"]
+	path = .vim/pack/default/visual-whitespace
+	url = git@github.com:emilyst/visual-whitespace.git
