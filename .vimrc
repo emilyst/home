@@ -89,7 +89,7 @@ colorscheme base16-ocean
 
 syntax enable
 syntax sync minlines=256
-set synmaxcol=200  " stop syntax highlighting this many columns out
+set synmaxcol=300  " stop syntax highlighting this many columns out
 
 set hlsearch
 
@@ -112,7 +112,6 @@ endif
 " custom highlights
 
 hi Comment        term=italic      cterm=italic      gui=italic
-
 hi Keyword        term=bold        cterm=bold        gui=bold
 hi Conditional    term=bold        cterm=bold        gui=bold
 hi Define         term=bold        cterm=bold        gui=bold
