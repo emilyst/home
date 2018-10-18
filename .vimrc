@@ -281,8 +281,9 @@ let maplocalleader = "\\"
 " nnoremap g, g,zz
 " nnoremap <c-o> <c-o>zz
 
-nnoremap <tab> %
-vnoremap <tab> %
+" remappable because of matchit.vim
+nmap <tab> %
+vmap <tab> %
 
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 vnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
