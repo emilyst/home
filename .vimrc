@@ -143,8 +143,8 @@ set showtabline=2
 
 " allow using iterm cursor guide
 if exists('$LC_TERMINAL') && $LC_TERMINAL ==? 'iterm2'
-  let &t_ti = "\<Esc>]1337;HighlightCursorLine=true\x7"
-  let &t_te = "\<Esc>]1337;HighlightCursorLine=false\x7"
+  let &t_ti .= "\<Esc>]1337;HighlightCursorLine=true\x7"
+  let &t_te .= "\<Esc>]1337;HighlightCursorLine=false\x7"
 endif
 
 "set ttyscroll=0
