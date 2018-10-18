@@ -97,7 +97,7 @@ if has('guicolors')
   set guicolors
 endif
 
-if has('termguicolors') && $COLORTERM ==? 'truecolor'
+if has('termguicolors') && exists('$COLORTERM') && $COLORTERM ==? 'truecolor'
   set termguicolors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -140,6 +140,12 @@ set showtabline=2
 
 " ========================================================================= }}}
 " 8 terminal ============================================================== {{{
+
+" allow using iterm cursor guide
+if exists('$LC_TERMINAL') && $LC_TERMINAL ==? 'iterm2'
+  let &t_ti = "\<Esc>]1337;HighlightCursorLine=true\x7"
+  let &t_te = "\<Esc>]1337;HighlightCursorLine=false\x7"
+endif
 
 "set ttyscroll=0
 if exists('&ttyfast') | set ttyfast | endif
