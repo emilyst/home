@@ -29,8 +29,66 @@ fpath=(
   $fpath
 )
 
+
+########################################################################
+# history
+########################################################################
+
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+
+export HISTFILE="$HOME/.history"
+export HISTFILESIZE=50000000
+export HISTSIZE=5000000
+export SAVEHIST=$HISTSIZE
+
+
+########################################################################
+# oh-my-zsh
+########################################################################
+
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    # Path to your oh-my-zsh configuration.
+    export ZSH="$HOME/.oh-my-zsh"
+    export DISABLE_AUTO_UPDATE='true'
+    export COMPLETION_WAITING_DOTS='true'
+    unset ZSH_THEME
+    export ZSH_DISABLE_COMPFIX='true'
+
+    plugins=(                    \
+        extract                  \
+        gpg-agent                \
+        history-substring-search \
+        safe-paste               \
+        ssh-agent                \
+        yum                      \
+        zsh-syntax-highlighting  \
+    )
+
+    source "$ZSH/oh-my-zsh.sh"
+
+    # prompt
+    [[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
+fi
+
+
+########################################################################
+# other setup
+########################################################################
+
 autoload -Uz compinit
 autoload -Uz bashcompinit
+
+# only compinit fully after 24 hours
+# from zsh docs: The -C flag bypasses both the check for
+# rebuilding the dump file and the usual call to compaudit
+for dump in $HOME/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
 # +X means don't execute, only load
 autoload -Uz +X zmv
@@ -62,34 +120,6 @@ BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
 
 # iTerm2 integration and utilities (e.g., imgcat)
 [[ -e "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
-
-
-########################################################################
-# oh-my-zsh
-########################################################################
-
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    # Path to your oh-my-zsh configuration.
-    export ZSH="$HOME/.oh-my-zsh"
-    export DISABLE_AUTO_UPDATE="true"
-    export COMPLETION_WAITING_DOTS="true"
-    unset ZSH_THEME
-
-    plugins=(                    \
-        extract                  \
-        gpg-agent                \
-        history-substring-search \
-        safe-paste               \
-        ssh-agent                \
-        yum                      \
-        zsh-syntax-highlighting  \
-    )
-
-    source "$ZSH/oh-my-zsh.sh"
-
-    # prompt
-    [[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
-fi
 
 
 ########################################################################
@@ -189,21 +219,6 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 # setup_for_home_git
 # chpwd_functions=( $chpwd_functions setup_for_home_git )
 
-
-########################################################################
-# history
-########################################################################
-
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt SHARE_HISTORY
-
-export HISTFILE="$HOME/.history"
-export HISTFILESIZE=50000000
-export HISTSIZE=5000000
-export SAVEHIST=$HISTSIZE
 
 
 ########################################################################
