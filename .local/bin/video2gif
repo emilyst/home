@@ -105,8 +105,8 @@ def build_command(args, options)
 
   fps_filter        = "fps=#{fps}"
   scale_filter      = "scale=#{width}:-1:flags=lanczos"
-  palettegen_filter = "palettegen=max_colors=#{palette_size}"
-  paletteuse_filter = 'paletteuse'
+  palettegen_filter = "palettegen=max_colors=#{palette_size}:stats_mode=diff"
+  paletteuse_filter = 'paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle'
 
   command =  'ffmpeg '
   command += "-ss #{options[:seek]} " if options[:seek]
