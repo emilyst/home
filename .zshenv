@@ -93,29 +93,31 @@ export PERLBREW_ROOT=/opt/perl
 
 # local gems
 # if [[ -x /usr/bin/ruby && -x /usr/bin/gem ]]; then
-#   if [ ! -v RUBYGEMSPATH  ]; then
+#   if [[ ! -v RUBYGEMSPATH  ]]; then
 #     RUBYGEMSPATH="$(ruby -r rubygems -e 'puts Gem.user_dir')"
 #     export RUBYGEMSPATH
 #     export PATH="$RUBYGEMSPATH/bin:$PATH"
 #   fi
 # fi
+export RUBYOPT='-w'
 
 
 ########################################################################
 # Java-specific
 ########################################################################
 
-if [[ ! -v JAVA_HOME && -x "/usr/libexec/java_home" ]]; then
-  JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2> /dev/null)"
-  export JAVA_HOME
-  export PATH="$JAVA_HOME/bin:$PATH"
-fi
+# if (( ! ${+JAVA_HOME} )); then
+#   if [[ -x '/usr/libexec/java_home' ]]; then
+#     export JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2> /dev/null)"
+#     export PATH="$JAVA_HOME/bin:$PATH"
+#   fi
+# fi
 
-if [[ ! -v MAVEN_OPTS ]]; then
-  export MAVEN_OPTS="-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
-fi
+# if (( ! ${+MAVEN_OPTS} )); then
+#   export MAVEN_OPTS="-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
+# fi
 
-# if [[ ! -v _JAVA_OPTIONS ]]; then
+# if (( ! ${+_JAVA_OPTIONS} )); then
 #   export _JAVA_OPTIONS=-Djava.awt.headless=true
 # fi
 
@@ -124,8 +126,8 @@ fi
 # Scala-specific
 ########################################################################
 
-SCALAPATH="/usr/local/opt/scala@2.11/bin"
-[[ -d "$SCALAPATH" ]] && export PATH="$SCALAPATH:$PATH"
+# SCALAPATH="/usr/local/opt/scala@2.11/bin"
+# [[ -d "$SCALAPATH" ]] && export PATH="$SCALAPATH:$PATH"
 
 
 ########################################################################
