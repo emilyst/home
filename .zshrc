@@ -15,6 +15,9 @@ setopt NOTIFY
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_TO_HOME
 setopt RM_STAR_SILENT
+setopt MULTIOS
+setopt PROMPT_SUBST
+setopt TRANSIENT_RPROMPT
 # see also history section below
 
 # # Show contents of directory after cd-ing into it
@@ -105,6 +108,12 @@ zle -N bracketed-paste bracketed-paste-magic
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M emacs '^[e' edit-command-line
+
+# ls colors
+autoload -U colors && colors
+
+# Enable ls colors
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
