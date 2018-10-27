@@ -7,15 +7,15 @@ let s:date_format          = '%Y-%m-%d-%H%M%S'
 
 " Convert list of strings to a single string joined by hyphens, all
 " lowercased, with anything non-alphabetical or non-numeric turned into
-" a hyphen as well
-function! s:Slugify(list_of_words)
+" a hyphen as well.
+function! s:Slugify(list_of_words) abort
   return substitute(tolower(join(a:list_of_words, '-')), '\W\+', '-', 'g')
 endfunction
 
 " Convenience function to start a new file in the writing repository.
 " Filename is a date and time, followed by an optional slug passed to
 " the command. If passed in a filename which exists, uses that instead.
-function! s:Write(method, directory, ...)
+function! s:Write(method, directory, ...) abort
   if !isdirectory(expand(a:directory))
     call mkdir(expand(a:directory), 'p')
   endif
@@ -47,15 +47,22 @@ function! s:Write(method, directory, ...)
   execute l:command l:path
 endfunction
 
+" set up command abbreviation, but only when the line is a command and
+" not a search, and only when the abbreviation occurs at the beginning
+" of the line
+function! AbbreviateCommand(command, abbreviation) abort
+  execute "cnoreabbrev <expr> " . a:abbreviation .
+        \ " (getcmdtype() == ':' && getcmdline() =~ '^" . a:abbreviation . "$')"
+        \ " ? '" . a:command . "' : '" . a:abbreviation . "'"
+endfunction
+
 
 " :Write =========================================================== {{{
 
-" Returns a list of filenames within the writing directory.
+" returns a list of filenames within the writing directory
 function! s:WritingFileComplete(arg_lead, command_line, cursor_position)
-  return map(
-        \   split(globpath(s:writing_directory, a:arg_lead . '*'), '\n'),
-        \   { k, v -> fnamemodify(v, ':t') }
-        \ )
+  return map(globpath(s:writing_directory, '*' . a:arg_lead . '*', 0, 1, 1),
+        \    { k, v -> fnamemodify(v, ':t') })
 endfunction
 
 " Write commands
@@ -68,37 +75,29 @@ command! -complete=customlist,s:WritingFileComplete -nargs=* WriteS
 command! -complete=customlist,s:WritingFileComplete -nargs=* WriteT
       \ call s:Write('t', s:writing_directory, <f-args>)
 
-" shortened Write commands
-command! -complete=customlist,s:WritingFileComplete -nargs=* W
-      \ call s:Write('n', s:writing_directory, <f-args>)
-command! -complete=customlist,s:WritingFileComplete -nargs=* WV
-      \ call s:Write('v', s:writing_directory, <f-args>)
-command! -complete=customlist,s:WritingFileComplete -nargs=* WS
-      \ call s:Write('s', s:writing_directory, <f-args>)
-command! -complete=customlist,s:WritingFileComplete -nargs=* WT
-      \ call s:Write('t', s:writing_directory, <f-args>)
-
 " command abbreviations for mistaken casing or whatever else
-cabbrev write  Write
-cabbrev writev WriteV
-cabbrev writes WriteS
-cabbrev writet WriteT
-cabbrev Wv     WriteV
-cabbrev Ws     WriteS
-cabbrev Wt     WriteT
-cabbrev wv     WriteV
-cabbrev ws     WriteS
-cabbrev wt     WriteT
+call AbbreviateCommand('Write',  'W')
+call AbbreviateCommand('Write',  'write')
+call AbbreviateCommand('WriteS', 'WS')
+call AbbreviateCommand('WriteS', 'Ws')
+call AbbreviateCommand('WriteS', 'writes')
+call AbbreviateCommand('WriteS', 'ws')
+call AbbreviateCommand('WriteT', 'WT')
+call AbbreviateCommand('WriteT', 'Wt')
+call AbbreviateCommand('WriteT', 'writet')
+call AbbreviateCommand('WriteT', 'wt')
+call AbbreviateCommand('WriteV', 'WV')
+call AbbreviateCommand('WriteV', 'Wv')
+call AbbreviateCommand('WriteV', 'writev')
+call AbbreviateCommand('WriteV', 'wv')
 
 " ================================================================== }}}
 " :Note ============================================================ {{{
 
-" Returns a list of filenames within the notes directory.
-function! s:NotesFileComplete(arg_lead, command_line, cursor_position)
-  return map(
-        \   split(globpath(s:notes_directory, a:arg_lead . '*'), '\n'),
-        \   { k, v -> fnamemodify(v, ':t') }
-        \ )
+" returns a list of filenames within the notes directory
+function! s:NotesFileComplete(arg_lead, command_line, cursor_position) abort
+  return map(globpath(s:notes_directory, '*' . a:arg_lead . '*', 0, 1, 1),
+        \    { k, v -> fnamemodify(v, ':t') })
 endfunction
 
 " Note commands
@@ -111,38 +110,29 @@ command! -complete=customlist,s:NotesFileComplete -nargs=* NoteS
 command! -complete=customlist,s:NotesFileComplete -nargs=* NoteT
       \ call s:Write('t', s:notes_directory, <f-args>)
 
-" shortened Note commands
-" cannot make this command, see :help E841
-" command! -complete=customlist,s:NotesFileComplete -nargs=* N
-"       \ call s:Write('n', s:notes_directory, <f-args>)
-command! -complete=customlist,s:NotesFileComplete -nargs=* NV
-      \ call s:Write('v', s:notes_directory, <f-args>)
-command! -complete=customlist,s:NotesFileComplete -nargs=* NS
-      \ call s:Write('s', s:notes_directory, <f-args>)
-command! -complete=customlist,s:NotesFileComplete -nargs=* NT
-      \ call s:Write('t', s:notes_directory, <f-args>)
-
 " command abbreviations for mistaken casing or whatever else
-cabbrev note  Note
-cabbrev notev NoteV
-cabbrev notes NoteS
-cabbrev notet NoteT
-cabbrev Nv    NoteV
-cabbrev Ns    NoteS
-cabbrev Nt    NoteT
-cabbrev nv    NoteV
-cabbrev ns    NoteS
-cabbrev nt    NoteT
+call AbbreviateCommand('Note ', 'N')
+call AbbreviateCommand('Note ', 'note')
+call AbbreviateCommand('NoteS', 'NS')
+call AbbreviateCommand('NoteS', 'Ns')
+call AbbreviateCommand('NoteS', 'notes')
+call AbbreviateCommand('NoteS', 'ns')
+call AbbreviateCommand('NoteT', 'NT')
+call AbbreviateCommand('NoteT', 'Nt')
+call AbbreviateCommand('NoteT', 'notet')
+call AbbreviateCommand('NoteT', 'nt')
+call AbbreviateCommand('NoteV', 'NV')
+call AbbreviateCommand('NoteV', 'Nv')
+call AbbreviateCommand('NoteV', 'notev')
+call AbbreviateCommand('NoteV', 'nv')
 
 " ================================================================== }}}
 " :WorkNote ======================================================== {{{
 
-" Returns a list of filenames within the work notes directory.
-function! s:WorkNotesFileComplete(arg_lead, command_line, cursor_position)
-  return map(
-        \   split(globpath(s:work_notes_directory, a:arg_lead . '*'), '\n'),
-        \   { k, v -> fnamemodify(v, ':t') }
-        \ )
+" returns a list of filenames within the work notes directory
+function! s:WorkNotesFileComplete(arg_lead, command_line, cursor_position) abort
+  return map(globpath(s:work_notes_directory, '*' . a:arg_lead . '*', 0, 1, 1),
+        \    { k, v -> fnamemodify(v, ':t') })
 endfunction
 
 " WorkNote commands
@@ -155,38 +145,35 @@ command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WorkNoteS
 command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WorkNoteT
       \ call s:Write('t', s:work_notes_directory, <f-args>)
 
-" shortened WorkNote commands
-command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WN
-      \ call s:Write('n', s:work_notes_directory, <f-args>)
-command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WNV
-      \ call s:Write('v', s:work_notes_directory, <f-args>)
-command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WNS
-      \ call s:Write('s', s:work_notes_directory, <f-args>)
-command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WNT
-      \ call s:Write('t', s:work_notes_directory, <f-args>)
-
 " command abbreviations for mistaken casing or whatever else
-cabbrev worknote   WorkNote
-cabbrev worknotev  WorkNoteV
-cabbrev worknotes  WorkNoteS
-cabbrev worknotet  WorkNoteT
-cabbrev work       WorkNote
-cabbrev Work       WorkNote
-cabbrev workv      WorkNoteV
-cabbrev works      WorkNoteS
-cabbrev workt      WorkNoteT
-cabbrev wnote      WorkNote
-cabbrev wnotev     WorkNoteV
-cabbrev wnotes     WorkNoteS
-cabbrev wnotet     WorkNoteT
-cabbrev Wn         WorkNote
-cabbrev WNv        WorkNoteV
-cabbrev WNs        WorkNoteS
-cabbrev WNt        WorkNoteT
-cabbrev wn         WorkNote
-cabbrev wnv        WorkNoteV
-cabbrev wns        WorkNoteS
-cabbrev wnt        WorkNoteT
+call AbbreviateCommand('WorkNote',  'WN')
+call AbbreviateCommand('WorkNote',  'Wn')
+call AbbreviateCommand('WorkNote',  'Work')
+call AbbreviateCommand('WorkNote',  'wn')
+call AbbreviateCommand('WorkNote',  'wnote')
+call AbbreviateCommand('WorkNote',  'work')
+call AbbreviateCommand('WorkNote',  'worknote')
+call AbbreviateCommand('WorkNoteS', 'WNs')
+call AbbreviateCommand('WorkNoteS', 'WS')
+call AbbreviateCommand('WorkNoteS', 'Wns')
+call AbbreviateCommand('WorkNoteS', 'wnotes')
+call AbbreviateCommand('WorkNoteS', 'wns')
+call AbbreviateCommand('WorkNoteS', 'worknotes')
+call AbbreviateCommand('WorkNoteS', 'works')
+call AbbreviateCommand('WorkNoteT', 'WNt')
+call AbbreviateCommand('WorkNoteT', 'WT')
+call AbbreviateCommand('WorkNoteT', 'Wnt')
+call AbbreviateCommand('WorkNoteT', 'wnotet')
+call AbbreviateCommand('WorkNoteT', 'wnt')
+call AbbreviateCommand('WorkNoteT', 'worknotet')
+call AbbreviateCommand('WorkNoteT', 'workt')
+call AbbreviateCommand('WorkNoteV', 'WNv')
+call AbbreviateCommand('WorkNoteV', 'WV')
+call AbbreviateCommand('WorkNoteV', 'Wnv')
+call AbbreviateCommand('WorkNoteV', 'wnotev')
+call AbbreviateCommand('WorkNoteV', 'wnv')
+call AbbreviateCommand('WorkNoteV', 'worknotev')
+call AbbreviateCommand('WorkNoteV', 'workv')
 
 " ================================================================== }}}
 
