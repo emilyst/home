@@ -193,3 +193,6 @@
 [submodule ".vim/pack/default/visual-whitespace"]
 	path = .vim/pack/default/vim-xray
 	url = git@github.com:emilyst/visual-whitespace.git
+[submodule ".local/writing"]
+	path = .local/writing
+	url = git@github.com:emilyst/writing.git
