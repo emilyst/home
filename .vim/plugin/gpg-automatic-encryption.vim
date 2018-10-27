@@ -1,11 +1,15 @@
 " adapted from http://vim.wikia.com/wiki/Edit_gpg_encrypted_files
 
+set backupskip+=*.gpg
+set backupskip+=*.asc
+
+if !executable('gpg')
+  finish
+endif
+
 let s:gpg_command         = 'gpg '
 let s:gpg_options         = ' --quiet --default-recipient-self --use-agent --armor '
 let s:gpg_command_postfix = ' 2>/dev/null'
-
-set backupskip+=*.gpg
-set backupskip+=*.asc
 
 " prevent leaking info and set binary on opening the file
 function! s:BeforeReadingEncryptedFile()
