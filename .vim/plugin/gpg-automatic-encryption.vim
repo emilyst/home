@@ -12,7 +12,7 @@ let s:gpg_options         = ' --quiet --default-recipient-self --use-agent --arm
 let s:gpg_command_postfix = ' 2>/dev/null'
 
 " prevent leaking info and set binary on opening the file
-function! s:BeforeReadingEncryptedFile()
+function! s:BeforeReadingEncryptedFile() abort
   if has('undofile')
     setlocal noundofile
   endif
@@ -22,7 +22,7 @@ endfunction
 
 " decrypt the file, unset binary, and run any BufReadPost autocmds
 " matching the file name without the .gpg extension after opening
-function! s:AfterReadingEncryptedFile()
+function! s:AfterReadingEncryptedFile() abort
   silent execute "'[,']!" . s:gpg_command . s:gpg_options . '--decrypt' . s:gpg_command_postfix
   setlocal nobinary
   execute 'doautocmd BufReadPost ' . expand('%:r')
@@ -36,7 +36,7 @@ endfunction
 
 " undo encryption in the buffer, unset binary after writing file, verify
 " the file wrote correctly
-function! s:AfterWritingEncryptedFile()
+function! s:AfterWritingEncryptedFile() abort
   silent undo
   setlocal nobinary
   call system(s:gpg_command . s:gpg_options . '--list-only --list-packets ' . shellescape(expand('%')))
