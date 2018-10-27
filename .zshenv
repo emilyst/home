@@ -99,7 +99,7 @@ export PERLBREW_ROOT=/opt/perl
 #     export PATH="$RUBYGEMSPATH/bin:$PATH"
 #   fi
 # fi
-# export RUBYOPT='-w'
+export RUBYOPT='-w'
 
 
 ########################################################################
