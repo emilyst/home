@@ -38,7 +38,7 @@ endfunction
 " undo encryption in the buffer, unset binary after writing file, verify
 " the file wrote correctly
 function! s:AfterWritingEncryptedFile()
-  system(s:gpg_command . s:gpg_options . '--list-only --list-packets ' . shellescape(expand('%')))
+  call system(s:gpg_command . s:gpg_options . '--list-only --list-packets ' . shellescape(expand('%')))
   if v:shell_error != 0
     echoerr 'Did not encrypt successfully!'
   endif
