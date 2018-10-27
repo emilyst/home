@@ -17,7 +17,6 @@ function! s:BeforeReadingEncryptedFile()
     setlocal noundofile
   endif
   setlocal noswapfile
-
   setlocal binary
 endfunction
 
@@ -40,7 +39,6 @@ endfunction
 function! s:AfterWritingEncryptedFile()
   silent undo
   setlocal nobinary
-
   call system(s:gpg_command . s:gpg_options . '--list-only --list-packets ' . shellescape(expand('%')))
   if v:shell_error != 0
     echoerr 'Did not encrypt file successfully: ' . shellescape(expand('%'))
