@@ -193,3 +193,6 @@
 [submodule ".local/writing"]
 	path = .local/writing
 	url = git@github.com:emilyst/writing.git
+[submodule ".vim/pack/default/dadbod"]
+	path = .vim/pack/default/dadbod
+	url = https://github.com/tpope/vim-dadbod.git
