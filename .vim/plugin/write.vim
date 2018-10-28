@@ -1,3 +1,7 @@
+if !has('patch-8.0.1089')  " needed for <range>
+  finish
+endif
+
 let s:writing_directory    = expand('~/.local/writing/')
 let s:notes_directory      = expand('~/.local/writing/notes/')
 let s:work_notes_directory = expand('~/.local/writing/notes/work/')
@@ -15,7 +19,15 @@ endfunction
 " Convenience function to start a new file in the writing repository.
 " Filename is a date and time, followed by an optional slug passed to
 " the command. If passed in a filename which exists, uses that instead.
-function! s:Write(method, directory, ...) abort
+function! s:Write(method, directory, line1, line2, range, ...) abort
+  " this was used with a visual selection, so grab those lines first
+  if a:range > 0
+    let l:original_z = @z
+    silent execute a:line1 . ',' . a:line2 . 'yank z'
+    let l:contents = substitute(@z, '[\r\n]\+$', '', '')
+    let @z = l:original_z
+  endif
+
   if !isdirectory(expand(a:directory))
     call mkdir(expand(a:directory), 'p')
   endif
@@ -34,17 +46,37 @@ function! s:Write(method, directory, ...) abort
     let l:path        = a:directory . l:filename
   endif
 
-  if a:method ==? 'n'
-    let l:command = 'edit'
-  elseif a:method ==? 's'
-    let l:command = 'split'
-  elseif a:method ==? 'v'
-    let l:command = 'vsplit'
-  elseif a:method ==? 't'
-    let l:command = 'tabedit'
+  if bufname('%') == ''  " turn our unnamed buffer into a new writing
+    if a:method ==? 'n'
+      execute 'saveas' l:path
+    elseif a:method ==? 's'
+      execute 'split'
+      execute 'saveas' l:path
+    elseif a:method ==? 'v'
+      execute 'vsplit'
+      execute 'saveas' l:path
+    elseif a:method ==? 't'
+      execute 'tabedit'
+      execute 'saveas' l:path
+    endif
+  else                   " start from scratch with a new buffer
+    if a:method ==? 'n'
+      execute 'edit' l:path
+    elseif a:method ==? 's'
+      execute 'split' l:path
+    elseif a:method ==? 'v'
+      execute 'vsplit' l:path
+    elseif a:method ==? 't'
+      execute 'tabedit' l:path
+    endif
   endif
 
-  execute l:command l:path
+  " insert selected lines if they exist, delete extra line from the end
+  " without touching the normal register, and put cursor back at the top
+  if exists('l:contents')
+    call append(0, split(l:contents, '[\r\n]'))
+    execute 'normal G"_ddgg0'
+  endif
 endfunction
 
 " set up command abbreviation, but only when the line is a command and
@@ -66,14 +98,14 @@ function! s:WritingFileComplete(arg_lead, command_line, cursor_position)
 endfunction
 
 " Write commands
-command! -complete=customlist,s:WritingFileComplete -nargs=* Write
-      \ call s:Write('n', s:writing_directory, <f-args>)
-command! -complete=customlist,s:WritingFileComplete -nargs=* WriteV
-      \ call s:Write('v', s:writing_directory, <f-args>)
-command! -complete=customlist,s:WritingFileComplete -nargs=* WriteS
-      \ call s:Write('s', s:writing_directory, <f-args>)
-command! -complete=customlist,s:WritingFileComplete -nargs=* WriteT
-      \ call s:Write('t', s:writing_directory, <f-args>)
+command! -complete=customlist,s:WritingFileComplete -nargs=* -range Write
+      \ call s:Write('n', s:writing_directory, <line1>, <line2>, <range>, <f-args>)
+command! -complete=customlist,s:WritingFileComplete -nargs=* -range WriteV
+      \ call s:Write('v', s:writing_directory, <line1>, <line2>, <range>, <f-args>)
+command! -complete=customlist,s:WritingFileComplete -nargs=* -range WriteS
+      \ call s:Write('s', s:writing_directory, <line1>, <line2>, <range>, <f-args>)
+command! -complete=customlist,s:WritingFileComplete -nargs=* -range WriteT
+      \ call s:Write('t', s:writing_directory, <line1>, <line2>, <range>, <f-args>)
 
 " command abbreviations for mistaken casing or whatever else
 call s:AbbreviateCommand('Write',  'W')
@@ -101,14 +133,14 @@ function! s:NotesFileComplete(arg_lead, command_line, cursor_position) abort
 endfunction
 
 " Note commands
-command! -complete=customlist,s:NotesFileComplete -nargs=* Note
-      \ call s:Write('n', s:notes_directory, <f-args>)
-command! -complete=customlist,s:NotesFileComplete -nargs=* NoteV
-      \ call s:Write('v', s:notes_directory, <f-args>)
-command! -complete=customlist,s:NotesFileComplete -nargs=* NoteS
-      \ call s:Write('s', s:notes_directory, <f-args>)
-command! -complete=customlist,s:NotesFileComplete -nargs=* NoteT
-      \ call s:Write('t', s:notes_directory, <f-args>)
+command! -complete=customlist,s:NotesFileComplete -nargs=* -range Note
+      \ call s:Write('n', s:notes_directory, <line1>, <line2>, <range>, <f-args>)
+command! -complete=customlist,s:NotesFileComplete -nargs=* -range NoteV
+      \ call s:Write('v', s:notes_directory, <line1>, <line2>, <range>, <f-args>)
+command! -complete=customlist,s:NotesFileComplete -nargs=* -range NoteS
+      \ call s:Write('s', s:notes_directory, <line1>, <line2>, <range>, <f-args>)
+command! -complete=customlist,s:NotesFileComplete -nargs=* -range NoteT
+      \ call s:Write('t', s:notes_directory, <line1>, <line2>, <range>, <f-args>)
 
 " command abbreviations for mistaken casing or whatever else
 call s:AbbreviateCommand('Note ', 'N')
@@ -136,14 +168,14 @@ function! s:WorkNotesFileComplete(arg_lead, command_line, cursor_position) abort
 endfunction
 
 " WorkNote commands
-command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WorkNote
-      \ call s:Write('n', s:work_notes_directory, <f-args>)
-command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WorkNoteV
-      \ call s:Write('v', s:work_notes_directory, <f-args>)
-command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WorkNoteS
-      \ call s:Write('s', s:work_notes_directory, <f-args>)
-command! -complete=customlist,s:WorkNotesFileComplete -nargs=* WorkNoteT
-      \ call s:Write('t', s:work_notes_directory, <f-args>)
+command! -complete=customlist,s:WorkNotesFileComplete -nargs=* -range WorkNote
+      \ call s:Write('n', s:work_notes_directory, <line1>, <line2>, <range>, <f-args>)
+command! -complete=customlist,s:WorkNotesFileComplete -nargs=* -range WorkNoteV
+      \ call s:Write('v', s:work_notes_directory, <line1>, <line2>, <range>, <f-args>)
+command! -complete=customlist,s:WorkNotesFileComplete -nargs=* -range WorkNoteS
+      \ call s:Write('s', s:work_notes_directory, <line1>, <line2>, <range>, <f-args>)
+command! -complete=customlist,s:WorkNotesFileComplete -nargs=* -range WorkNoteT
+      \ call s:Write('t', s:work_notes_directory, <line1>, <line2>, <range>, <f-args>)
 
 " command abbreviations for mistaken casing or whatever else
 call s:AbbreviateCommand('WorkNote',  'WN')
