@@ -4,15 +4,20 @@
 " built-in :source command, but this one also can take range and execute
 " just a part of the buffer.
 
-function! <SID>SourcePart(line1, line2)
-   let tmp = @z
-   silent exec a:line1.",".a:line2."yank z"
-   let @z = substitute(@z, '\n\s*\\', '', 'g')
-   @z
-   let @z = tmp
+function! s:SourcePart(line1, line2)
+  let l:original_z = @z
+  silent execute a:line1 . ',' . a:line2 . 'yank z'
+  let @z = substitute(@z, '\n\s*\\', '', 'g')
+  @z
+  let @z = l:original_z
 endfunction
 
-command! -nargs=? -bar -range Source if empty("<args>") | call <SID>SourcePart(<line1>, <line2>) | else | exec "so <args>" | endif
+command! -nargs=? -bar -range Source
+      \ if empty('<args>')                        |
+      \   call s:SourcePart(<line1>, <line2>)     |
+      \ else                                      |
+      \   execute 'source <args>'                 |
+      \ endif
 
 cnoreabbr so     Source
 cnoreabbr sou    Source
