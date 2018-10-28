@@ -88,9 +88,6 @@
 [submodule ".vim/pack/default/eunuch"]
 	path = .vim/pack/default/eunuch
 	url = https://github.com/tpope/vim-eunuch.git
-[submodule ".vim/pack/default/dirvish"]
-	path = .vim/pack/default/dirvish
-	url = https://github.com/justinmk/vim-dirvish.git
 [submodule ".vim/pack/default/argumentative"]
 	path = .vim/pack/default/argumentative
 	url = https://github.com/PeterRincker/vim-argumentative.git
