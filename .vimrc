@@ -158,7 +158,7 @@ set title titlestring=%<%F%=%l/%L-%P titlelen=70
 " mouse settings are primarily delegated to the terminus plugin
 
 " block select with control-click-and-drag
-noremap <C-LeftMouse> <LeftMouse><Esc><C-V>
+noremap <C-LeftMouse> <LeftMouse><C-V>
 noremap <C-LeftDrag>  <LeftDrag>
 
 " ========================================================================= }}}
