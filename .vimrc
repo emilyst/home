@@ -465,12 +465,9 @@ set termencoding=utf-8
 " ========================================================================= }}}
 " 26 various ============================================================== {{{
 
-set virtualedit+=block,onemore
-
+set virtualedit=all
 set gdefault
-
 set viewoptions=cursor,folds,slash,unix
-
 if exists('&viewdir')
   set viewdir=~/.vim/local/view//
   if !isdirectory(expand(&viewdir))
