@@ -7,3 +7,11 @@ if has('autocmd') && !exists('#SetSpellCheck')
           \ setlocal thesaurus+=~/.vim/thesaurus/mthesaur.txt
   augroup END
 endif
+
+" see https://github.com/plasticboy/vim-markdown/issues/232
+if has('autocmd') && !exists('#AdjustListFormatting')
+  augroup AdjustListFormatting
+    autocmd FileType markdown
+          \ set formatoptions-=q formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*\[-*+]\\s\\+
+  augroup END
+endif
