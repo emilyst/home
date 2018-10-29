@@ -1,6 +1,8 @@
 ---
-BUNDLE_FULL_INDEX: "true"
-BUNDLE_IGNORE_MESSAGES: "true"
-BUNDLE_GEM__TEST: "rspec"
-BUNDLE_GEM__MIT: "false"
-BUNDLE_GEM__COC: "false"
+BUNDLE_AUTO_INSTALL:    'true'
+BUNDLE_FULL_INDEX:      'true'
+BUNDLE_GEM__COC:        'false'
+BUNDLE_GEM__MIT:        'false'
+BUNDLE_GEM__TEST:       'rspec'
+BUNDLE_IGNORE_MESSAGES: 'true'
+BUNDLE_JOBS:            4
