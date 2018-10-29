@@ -46,7 +46,8 @@ function! s:Write(method, directory, line1, line2, range, ...) abort
     let l:path        = a:directory . l:filename
   endif
 
-  if bufname('%') == ''  " turn our unnamed buffer into a new writing
+  " turn unnamed buffer into the new file if it doesn't already exist
+  if bufname('%') == '' && !filereadable(l:path)
     if a:method ==? 'n'
       execute 'saveas' l:path
     elseif a:method ==? 's'
