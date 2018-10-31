@@ -157,19 +157,19 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
-function detect_home_git
-{
-    if [[ $HOME == $PWD ]]; then
-        export GIT_DIR=$HOME/.home.git
-        export GIT_WORK_TREE=$HOME
-    else
-        unset GIT_DIR
-        unset GIT_WORK_TREE
-    fi
-}
+# function detect_home_git
+# {
+#     if [[ $HOME == $PWD ]]; then
+#         export GIT_DIR=$HOME/.home.git
+#         export GIT_WORK_TREE=$HOME
+#     else
+#         unset GIT_DIR
+#         unset GIT_WORK_TREE
+#     fi
+# }
 
-detect_home_git
-chpwd_functions=(detect_home_git $chpwd_functions)
+# detect_home_git
+# chpwd_functions=(detect_home_git $chpwd_functions)
 
 
 
