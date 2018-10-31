@@ -26,11 +26,6 @@ setopt TRANSIENT_RPROMPT
 # }
 
 # rm -f ~/.zcompdump; compinit # if necessary
-fpath=(
-  /usr/local/share/zsh-completions
-  /usr/local/share/zsh/site-functions
-  $fpath
-)
 
 
 ########################################################################
@@ -50,50 +45,8 @@ export SAVEHIST=$HISTSIZE
 
 
 ########################################################################
-# oh-my-zsh
-########################################################################
-
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    # Path to your oh-my-zsh configuration.
-    export ZSH="$HOME/.oh-my-zsh"
-    export DISABLE_AUTO_UPDATE='true'
-    export COMPLETION_WAITING_DOTS='true'
-    unset ZSH_THEME
-    export ZSH_DISABLE_COMPFIX='true'
-
-    plugins=(                    \
-        colored-man-pages        \
-        extract                  \
-        gpg-agent                \
-        history-substring-search \
-        rails                    \
-        rake                     \
-        safe-paste               \
-        ssh-agent                \
-        zsh-syntax-highlighting  \
-    )
-
-    source "$ZSH/oh-my-zsh.sh"
-
-    # prompt
-    [[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
-fi
-
-
-########################################################################
 # other setup
 ########################################################################
-
-autoload -Uz compinit
-autoload -Uz bashcompinit
-
-# only compinit fully after 24 hours
-# from zsh docs: The -C flag bypasses both the check for
-# rebuilding the dump file and the usual call to compaudit
-for dump in $HOME/.zcompdump(N.mh+24); do
-  compinit
-done
-compinit -C
 
 # +X means don't execute, only load
 autoload -Uz +X zmv
@@ -172,7 +125,6 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 # chpwd_functions=(detect_home_git $chpwd_functions)
 
 
-
 ########################################################################
 # sources
 ########################################################################
@@ -202,6 +154,66 @@ hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 
 hash rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
+
+########################################################################
+# oh-my-zsh
+########################################################################
+
+# We're not going to source the initialization file directly; instead,
+# we're going to handpick some of the initialization so that we can skip
+# parts that are more costly and unnecessary (such as compaudit, which
+# I don't need on every shell invocation; or the theme; or custom
+# initialization, which I don't use (or could just do here)).
+#
+# This is the final part of the shell setup so that all completion gets
+# included.
+
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+  export ZSH="$HOME/.oh-my-zsh"
+  export COMPLETION_WAITING_DOTS='true'
+
+  # from oh-my-zsh.sh
+  fpath=($ZSH/functions $ZSH/completions $fpath)
+
+  fpath=(
+    /usr/local/share/zsh-completions
+    /usr/local/share/zsh/site-functions
+    $fpath
+  )
+
+  plugins=(                  \
+    colored-man-pages        \
+    extract                  \
+    gpg-agent                \
+    history-substring-search \
+    rails                    \
+    rake                     \
+    safe-paste               \
+    ssh-agent                \
+  )
+
+  autoload -Uz compaudit compinit
+  autoload -Uz bashcompinit
+
+  # load core config files from oh-my-zsh
+  for config_file ($ZSH/lib/*.zsh); do source $config_file; done
+
+  # add oh-my-zsh plugins to fpath but doesn't source them yet
+  for plugin ($plugins); do fpath=($ZSH/plugins/$plugin $fpath); done
+
+  # from zsh docs: The -C flag bypasses both the check for
+  # rebuilding the dump file and the usual call to compaudit;
+  for dump in $HOME/.zcompdump(N.mh+24); do compinit; done
+  compinit -C
+
+  # source all plugins so they're available
+  for plugin ($plugins); do source $ZSH/plugins/$plugin/$plugin.plugin.zsh; done
+
+  # create prompt
+  [[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
+fi
+
+
 ########################################################################
 # SSH
 ########################################################################
@@ -213,4 +225,4 @@ if [[ -d "$HOME/.ssh" ]]; then
     chmod 600 "$HOME/.ssh/*" 2> /dev/null
 fi
 
-# vim: set ft=zsh tw=100 :
+# vim: set ft=zsh tw=72 :
