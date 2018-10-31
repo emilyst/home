@@ -62,12 +62,14 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
     export ZSH_DISABLE_COMPFIX='true'
 
     plugins=(                    \
+        colored-man-pages        \
         extract                  \
         gpg-agent                \
         history-substring-search \
+        rails                    \
+        rake                     \
         safe-paste               \
         ssh-agent                \
-        yum                      \
         zsh-syntax-highlighting  \
     )
 
@@ -135,18 +137,10 @@ BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
 # keyboard
 ########################################################################
 
-# bindkey "^[[A" history-beginning-search-backward
-# bindkey "^[[B" history-beginning-search-forward
-
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
-
-# bind UP and DOWN arrow keys (compatibility fallback
-# for Ubuntu 12.04, Fedora 21, and MacOSX 10.9 users)
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
 
 # bind P and N for EMACS mode
 bindkey -M emacs '^P' history-substring-search-up
@@ -158,75 +152,24 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 
 ########################################################################
-# vi-mode (based on oh-my-zsh plugin)
-########################################################################
-
-# function zle-keymap-select zle-line-init
-# {
-#     # change cursor shape in iTerm2
-#     case $KEYMAP in
-#         vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
-#         viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
-#     esac
-
-#     zle reset-prompt
-#     zle -R
-# }
-
-# function zle-line-finish
-# {
-#     print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
-# }
-
-# zle -N zle-line-init
-# zle -N zle-line-finish
-# zle -N zle-keymap-select
-
-# bindkey -v
-
-# # 10ms for key sequences
-# KEYTIMEOUT=1
-
-# # bindings
-
-# # move through history
-# bindkey -a 'gg' beginning-of-buffer-or-history
-# bindkey -a 'g~' vi-oper-swap-case
-# bindkey -a G end-of-buffer-or-history
-
-# # search history ('f'ind)
-# bindkey "^F" history-incremental-search-backward
-
-# # undo/redo
-# bindkey -a u undo
-# bindkey -a '^R' redo
-# bindkey '^?' backward-delete-char
-# bindkey '^H' backward-delete-char
-
-# # get cursor position (like vi)
-# bindkey '^G' what-cursor-position
-
-
-########################################################################
 # home git setup
 #########################################################################
 
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
-# function setup_for_home_git
-# {
-#     if [[ $HOME == $PWD ]]
-#     then
-#         export GIT_DIR=$HOME/.home.git
-#         export GIT_WORK_TREE=$HOME
-#     else
-#         unset GIT_DIR
-#         unset GIT_WORK_TREE
-#     fi
-# }
+function detect_home_git
+{
+    if [[ $HOME == $PWD ]]; then
+        export GIT_DIR=$HOME/.home.git
+        export GIT_WORK_TREE=$HOME
+    else
+        unset GIT_DIR
+        unset GIT_WORK_TREE
+    fi
+}
 
-# setup_for_home_git
-# chpwd_functions=( $chpwd_functions setup_for_home_git )
+detect_home_git
+chpwd_functions=(detect_home_git $chpwd_functions)
 
 
 
