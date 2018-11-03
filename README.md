@@ -60,7 +60,7 @@ GitHub is established. Then, I run the following.
     home remote add origin git@github.com:emilyst/home.git
     home fetch --all
     home reset --hard origin/master
-    home submodule update --init
+    home submodule update --init --remote --rebase --jobs 8
 
 Afterwards, always use the `home` alias to interact with the home
 repository. (This alias is configured for Zsh by the current
@@ -157,9 +157,17 @@ Pulling them down is somewhat more awkward because submodules will need
 updates, and any Vim configuration changes will need to need to take
 effect (and override any persisting configuration in saved views).
 
-I use this command right now. I may script or alias this in the future.
+I use this command right now. It updates each submodule so that each
+stays on the "`master`" branch.
 
-    home pull && home submodule update --init && rm -rf ~/.vim/local/view/*
+    home pull && home submodule update --remote --rebase --init --jobs 8 \
+      && rm -rf ~/.vim/local/view/*
+
+In my [`$HOME/.gitconfig`](.gitconfig), there is an alias that sets
+`supdate` to do that awkward submodule command, so the command actually
+looks like this when I type it.
+
+    home pull && home supdate && rm -rf ~/.vim/local/view/*
 
 
 Submodules
@@ -175,17 +183,18 @@ rules. I always do this with relative paths.
     home submodule add -f <repository> <relative/path/to/destination>
 
 If I have added a Vim package, I clone it into
-`$HOME/.vim/pack/default`, and then from
-`$HOME/.vim/pack/default/start`, I symbolically link from the package
-directory to the current directory (relatively). That allows adding and
-removing packages from the current Vim configuration temporarily by
-moving the symbolic links only.
+[`$HOME/.vim/pack/default`](.vim/pack/default), and then from
+[`$HOME/.vim/pack/default/start`](.vim/pack/default/start),
+I symbolically link from the package directory to the current directory
+(relatively). That allows adding and removing packages from the current
+Vim configuration temporarily by moving the symbolic links only.
 
 Occasionally (perhaps once or twice a week), I update all the submodules
 to ensure I have the latest versions. When I do this, I also garbage
 collect aggressively on them.
 
-    home submodule foreach 'git pull origin master && git gc --prune --aggressive'
+    home submodule foreach \
+      'git fetch && git rebase origin/master && git gc --prune --aggressive'
 
 After doing that, I need to commit whatever submodule pointers have been
 updated.
@@ -204,17 +213,23 @@ recent versions of Git merely to `rm` them.
 
 Then that change can be committed.
 
-    home commit -va
+    home commit -av
 
 However, I also often make sure the actual files have themselves been
-cleared out. This also leaves the Git directory for the submodule
-behind, and it can leave configuration behind as well. Sometimes I'll
-delete these as well. Configuration is in `.home.git/config`.
+cleared out. This may also need to be repeated when the update which
+commit which removes the submodule is applied on another computer.
+
+This command also leaves the Git directory for the submodule behind, and
+it can leave configuration behind as well. Sometimes I'll delete these
+as well. Configuration for a submodule lives in `.home.git/config`,
+_not_ under the submodule directory itself (which normally only contains
+a text file called "`.git`" which contains the path to that
+configuration). That means I use commands like these to clean up.
 
     rm -rf <path/to/submodule>
     rm -rf $HOME/.home.git/modules/<path/to/submodule>
 
-This is just extra cleanup that's usually not needed, but sometimes can
+This is just extra cleanup that's often not needed but sometimes can
 help if you add another submodule with the same name or just want to
 reclaim the space (or peace of mind).
 
