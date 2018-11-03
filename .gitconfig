@@ -61,6 +61,7 @@
 	whose-line-is-it-anyway = blame
 [push]
 	default = current
+	recurseSubmodules = on-demand
 [status]
 	submodulesummary = true
 	showUntrackedFiles = all
