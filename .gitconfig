@@ -59,6 +59,7 @@
 	praise = blame
 	who = blame
 	whose-line-is-it-anyway = blame
+	supdate = submodule update --init --remote --rebase --jobs 8
 [push]
 	default = current
 	recurseSubmodules = on-demand
