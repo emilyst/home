@@ -2,7 +2,10 @@ Home
 ====
 
 This repository contains configuration meant for use on my Linux or
-macOS computers.
+macOS computers. Often, these are called "dot files" in casual use
+because the filenames and directory names begin with a leading dot,
+which hides them from view on those operating systems. That makes them
+convenient for configuration.
 
 If you're reading this on a file system, you're seeing the only
 non-hidden portion of a source-controlled set of configuration files
@@ -17,30 +20,32 @@ and not recommended under most circumstances. The techniques I describe
 below help mitigate that weirdness.
 
 Note that this repository contains _configuration_, not setup itself.
-Nothing here is meant to take over and make decisions actively. It does
-not install things. It does not change global system settings. That is
-left for me, as a user, to do. It merely configures whatever exists, if
-it exists.
+Nothing here is meant to take over and act decisively of its own accord.
+It does not install things. It does not change global system settings.
+That is left for me, as a user, to do. It merely configures relevant
+programs if they exist.
 
 
 Setup
 -----
 
 To set up, `git-clone(1)` is not recommended. The home directory already
-exists, so we don't need to create a new working tree, as `git-clone(1)`
-would do. An unqualified `git clone` would also set up the default Git
-directory. I don't want either of those things to happen.
+exists, so we don't need to create a new working tree, which
+`git-clone(1)` would do. An unqualified `git clone` would also set up
+the default Git directory. I don't want either of those things to
+happen.
 
 Instead, I treat my home directory as an existing working tree to
-initialize with `git-init(1)` and add a remote to. I also use
-a non-default Git directory which won't be found by Git automatically.
-This will prevent most tooling from seeing my home directory as
-a repository under most circumstances.
+initialize with `git-init(1)`. I also use a non-default Git directory
+which won't be found by Git automatically. This will prevent most
+tooling from seeing my home directory as a repository under most
+circumstances.
 
 To do this, I explicitly set the Git directory and the Git working tree
 for all Git commands which manipulate the home repository. I use an
 alias which conveniently sets all these. I call it `home`, simply
-enough.
+enough. The `home` alias can be used in place of the `git` command to
+manage my home directory configuration.
 
     alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
@@ -48,8 +53,8 @@ Note that this sets the Git directory under "`$HOME/.home.git`" instead
 of "`$HOME/.git`." That effectively both hides the Git configuration
 from both its own tooling (unless the `home` alias is used) and from
 normal directory listings. Another very neat thing about this alias is
-that it will refer to the home repository, even if I'm in another Git
-repository at the time.
+that it will refer to the home repository, no matter which directory is
+the current one, even if I'm in another Git repository at the time.
 
 With this in mind, let's see how a first-time setup works using a recent
 version of Git. Assume first that Git is installed and that SSH auth to
@@ -60,23 +65,24 @@ GitHub is established. Then, I run the following.
     home remote add origin git@github.com:emilyst/home.git
     home fetch --all
     home reset --hard origin/master
-    home submodule update --init --remote --rebase --jobs 8
+    home submodule update --init --rebase
 
 Afterwards, always use the `home` alias to interact with the home
-repository. (This alias is configured for Zsh by the current
-configuration.) Local master tracks origin/master automatically during
-this setup, thanks to recent versions of Git.
+repository. (This alias is configured for Zsh by my current
+configuration.) Local "master" tracks "origin/master" automatically
+during this setup, thanks to recent versions of Git.
 
 
 Layout and Editing
 ------------------
 
-All files and directories are ignored by default. This is done via
-a sneaky trick: a special "`.gitignore.home`" file which lives in my
-home repository that doesn't get used unless the current Git directory
-is the one for the home repository. I wanted to avoid having a file
-named "`.gitignore`" in my home directory which excludes everything
-because Git and certain other tools will look for it.
+All files and directories are ignored by default so that I only version
+the few files which matter to me. This is done using a sneaky trick:
+a special "`.gitignore.home`" file which lives in my home repository
+that doesn't get used unless the current Git directory is the one for
+the home repository. I wanted to avoid having a file named
+"`.gitignore`" in my home directory which excludes everything because
+Git and certain other tools will look for it.
 
 To pull this off, first, I added a configuration stanza to the _bottom_
 of [my global Git configuration](.gitconfig) like the following.
@@ -103,8 +109,8 @@ that file by mistake.
 
 Because the home repository ignores _everything_, any added file or
 directory I want to track in my home repository needs to be added
-forcefully: e.g., `home add -f <path/to/file>`. Any empty directory
-needs to contain a `.gitignore` file to be added.
+forcefully: e.g., `home add -f <path/to/file>`. (Any empty directory
+needs to contain a `.gitignore` file to be added, as usual.)
 
 As a result, the repository can live directly in the home directory and
 ignore everything by default. Because it uses a custom Git directory,
@@ -118,10 +124,14 @@ something new, I can add it explicitly as I've described above.
 
 ### Submodules ###
 
-Today, Vim packages are installed to
-[`$HOME/.vim/pack/default`](.vim/pack/default), and at the same time,
-I also add a relative symbolic link from the package directory to the
-[`$HOME/.vim/pack/default/start`](.vim/pack/default/start) directory.
+See [submodules](#submodules-1) for more about submodules in general and
+why I use them.
+
+Most of my submodules are Vim plugins, and currently, I install them as
+packages to [`$HOME/.vim/pack/default`](.vim/pack/default). At the same
+time, I also add a relative symbolic link from the package directory to
+the [`$HOME/.vim/pack/default/start`](.vim/pack/default/start)
+directory.
 
 Other submodules go where appropriate, usually in a hidden place if
 I can manage. See [submodules](#submodules-1) below for more information
@@ -153,29 +163,42 @@ Pushing up updates to GitHub is not difficult.
 
     home push
 
-Pulling them down is somewhat more awkward because submodules will need
-updates, and any Vim configuration changes will need to need to take
-effect (and override any persisting configuration in saved views).
+When I pull them down, I also run a command which pulls down any
+[submodule](#submodules-1) updates I've pushed up previously. The
+command I use will discover which commit I've updated that submodule to,
+and then it will rebase the submodule's current branch onto that commit.
+(This prevents each submodule from being in a "detached HEAD" state at
+all times so that I can work inside that submodule like a normal Git
+repository more easily.)
 
-I use this command right now. It updates each submodule so that each
-stays on the "`master`" branch.
-
-    home pull && home submodule update --remote --rebase --init --jobs 8 \
-      && rm -rf ~/.vim/local/view/*
+    home pull && home submodule update --init --rebase
 
 In my [`$HOME/.gitconfig`](.gitconfig), there is an alias that sets
 `supdate` to do that awkward submodule command, so the command actually
 looks like this when I type it.
 
-    home pull && home supdate && rm -rf ~/.vim/local/view/*
+    home pull && home supdate
 
 
 Submodules
 ----------
 
-Several submodules are used to extend my home repository with
-functionality from other repositories. Git submodules are crude, but
-I've been using them a long time.
+In several cases, my home directory includes the entirety of a project
+from elsewhere. Many of my Vim plugins are included this way since they
+have their own Git repositories on GitHub. Therefore, I add them to the
+home repository as [submodules], allowing me to incorporate those
+repositories into my own, yet keeping them and their histories distinct.
+
+There is a little complexity involved. I have to check the submodules
+for updates and commit those updates to my home repository on a regular
+basis. When updates have been added in one place, I need to pull down
+the updates in another place.
+
+At the same time, though, there are advantages. Updates aren't
+automatic: I opt into them. I know what each update is, and
+I incorporate it intentionally into the home repository. I can _undo_
+any update. Finally, I can track down an update to a submodule which
+affected my configuration deleteriously using `git-bisect(1)`.
 
 Adding a new submodule also has to be forced, due to the global ignore
 rules. I always do this with relative paths.
@@ -190,11 +213,13 @@ I symbolically link from the package directory to the current directory
 Vim configuration temporarily by moving the symbolic links only.
 
 Occasionally (perhaps once or twice a week), I update all the submodules
-to ensure I have the latest versions. When I do this, I also garbage
-collect aggressively on them.
+to ensure I have the latest versions.
 
-    home submodule foreach \
-      'git fetch && git rebase origin/master && git gc --prune --aggressive'
+    home submodule update --init --remote --rebase
+
+I have this sub-command aliased to `supgrade` for easier use.
+
+    home supgrade
 
 After doing that, I need to commit whatever submodule pointers have been
 updated.
@@ -272,3 +297,4 @@ work (including but not limited to submodules).
 
 
 [autoconf]: https://www.gnu.org/software/autoconf/
+[submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
