@@ -186,8 +186,8 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
     extract                  \
     gpg-agent                \
     history-substring-search \
-    rails                    \
-    rake                     \
+    # rails                    \
+    # rake                     \
     safe-paste               \
     ssh-agent                \
   )
