@@ -36,30 +36,30 @@ nnoremap zuw
 " with abbreviations (this inadvertently hides the versions ending in
 " ! which operate on the internal wordlists, but I don't care)
 function! s:Spellgood(count, word) abort
-  call s:RegenerateSpellfiles()
   if a:count
     execute a:count . 'spellgood ' . a:word
   else
     execute 'spellgood ' . a:word
   endif
+  call s:RegenerateSpellfiles()
 endfunction
 
 function! s:Spellwrong(count, word) abort
-  call s:RegenerateSpellfiles()
   if a:count
     execute a:count . 'spellwrong ' . a:word
   else
     execute 'spellwrong ' . a:word
   endif
+  call s:RegenerateSpellfiles()
 endfunction
 
 function! s:Spellundo(count, word) abort
-  call s:RegenerateSpellfiles()
   if a:count
     execute a:count . 'spellundo ' . a:word
   else
     execute 'spellundo ' . a:word
   endif
+  call s:RegenerateSpellfiles()
 endfunction
 
 command! -nargs=1 -count Spellgood call s:Spellgood(<count>, <f-args>)
