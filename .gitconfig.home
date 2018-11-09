@@ -2,3 +2,6 @@
 # tooling not to see it)
 [core]
 	excludesfile = ~/.gitignore.home
+[push]
+	default = current
+	recurseSubmodules = on-demand
