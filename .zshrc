@@ -70,11 +70,20 @@ autoload -U colors && colors
 # Enable ls colors
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
-if [[ -s "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-  source "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [[ -s '/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh' ]]; then
+  source '/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
 fi
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+if [[ -s '/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' ]]; then
+  source '/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+fi
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 zstyle ':completion:*:descriptions' format %B%d%b # bold
 
