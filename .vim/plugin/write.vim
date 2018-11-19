@@ -94,8 +94,8 @@ endfunction
 
 " returns a list of filenames within the writing directory
 function! s:WritingFileComplete(arg_lead, command_line, cursor_position)
-  return map(globpath(s:writing_directory, '*' . a:arg_lead . '*', 0, 1, 1),
-        \    { k, v -> fnamemodify(v, ':t') })
+  return map(globpath(expand(s:writing_directory) . '**', '*' . a:arg_lead . '*', 0, 1, 1),
+        \    { k, v -> fnamemodify(v, ':s?' . expand(s:writing_directory) . '??') })
 endfunction
 
 " Write commands
@@ -128,9 +128,9 @@ call s:AbbreviateCommand('WriteV', 'wv')
 " :Note ============================================================ {{{
 
 " returns a list of filenames within the notes directory
-function! s:NotesFileComplete(arg_lead, command_line, cursor_position) abort
-  return map(globpath(s:notes_directory, '*' . a:arg_lead . '*', 0, 1, 1),
-        \    { k, v -> fnamemodify(v, ':t') })
+function! s:NotesFileComplete(arg_lead, command_line, cursor_position)
+  return map(globpath(expand(s:notes_directory) . '**', '*' . a:arg_lead . '*', 0, 1, 1),
+        \    { k, v -> fnamemodify(v, ':s?' . expand(s:notes_directory) . '??') })
 endfunction
 
 " Note commands
@@ -163,9 +163,9 @@ call s:AbbreviateCommand('NoteV', 'nv')
 " :WorkNote ======================================================== {{{
 
 " returns a list of filenames within the work notes directory
-function! s:WorkNotesFileComplete(arg_lead, command_line, cursor_position) abort
-  return map(globpath(s:work_notes_directory, '*' . a:arg_lead . '*', 0, 1, 1),
-        \    { k, v -> fnamemodify(v, ':t') })
+function! s:WorkNotesFileComplete(arg_lead, command_line, cursor_position)
+  return map(globpath(expand(s:work_notes_directory) . '**', '*' . a:arg_lead . '*', 0, 1, 1),
+        \    { k, v -> fnamemodify(v, ':s?' . expand(s:work_notes_directory) . '??') })
 endfunction
 
 " WorkNote commands
