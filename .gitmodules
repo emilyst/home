@@ -196,3 +196,6 @@
 [submodule ".vim/pack/default/dadbod"]
 	path = .vim/pack/default/dadbod
 	url = https://github.com/tpope/vim-dadbod.git
+[submodule ".local/share/zsh/zsh-history-substring-search"]
+	path = .local/share/zsh/zsh-history-substring-search
+	url = https://github.com/zsh-users/zsh-history-substring-search.git

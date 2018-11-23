@@ -20,13 +20,6 @@ setopt PROMPT_SUBST
 setopt TRANSIENT_RPROMPT
 # see also history section below
 
-# # Show contents of directory after cd-ing into it
-# chpwd() {
-#   ls -lrthG
-# }
-
-# rm -f ~/.zcompdump; compinit # if necessary
-
 
 ########################################################################
 # history
@@ -45,7 +38,7 @@ export SAVEHIST=$HISTSIZE
 
 
 ########################################################################
-# other setup
+# extended functionality
 ########################################################################
 
 # +X means don't execute, only load
@@ -64,12 +57,38 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M emacs '^[e' edit-command-line
 
+
+########################################################################
+# miscellaneous formatting
+########################################################################
+
+zstyle ':completion:*:descriptions' format %B%d%b # bold
+
+# color scheme
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
+[[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
+
 # ls colors
 autoload -U colors && colors
 
 # Enable ls colors
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
+
+########################################################################
+# zsh-syntax-highlighting
+########################################################################
+
+if [[ -s '/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' ]]; then
+  source '/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+fi
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+
+
+########################################################################
+# zsh-autosuggestions
+########################################################################
 
 if [[ -s '/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh' ]]; then
   source '/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
@@ -79,38 +98,33 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-if [[ -s '/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' ]]; then
-  source '/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+
+########################################################################
+# zsh-history-substring-search
+########################################################################
+
+if [[ -s "$HOME/.local/share/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh" ]]; then
+  source "$HOME/.local/share/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 fi
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+# bind Up and Down arrow keys
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
-zstyle ':completion:*:descriptions' format %B%d%b # bold
-
-# color scheme
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
-[[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
-
-# iTerm2 integration and utilities (e.g., imgcat)
-[[ -e "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
-
-
-########################################################################
-# keyboard
-########################################################################
-
-# bind UP and DOWN arrow keys
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-
-# bind P and N for EMACS mode
+# bind P and N for Emacs mode
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 
-# bind k and j for VI mode
+# bind k and j for Vi mode
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
+
+########################################################################
+# iTerm2 shell integration
+########################################################################
+
+[[ -e "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
 
 
 ########################################################################
