@@ -90,8 +90,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # zsh-autosuggestions
 ########################################################################
 
-if [[ -s '/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh' ]]; then
-  source '/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
+if [[ -s "$HOME/.local/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+  source "$HOME/.local/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'

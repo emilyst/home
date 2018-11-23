@@ -199,3 +199,6 @@
 [submodule ".local/share/zsh/zsh-history-substring-search"]
 	path = .local/share/zsh/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule ".local/share/zsh/zsh-autosuggestions"]
+	path = .local/share/zsh/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
