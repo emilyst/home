@@ -223,9 +223,17 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
   # add oh-my-zsh plugins to fpath but doesn't source them yet
   for plugin ($plugins); do fpath=($ZSH/plugins/$plugin $fpath); done
 
-  # from zsh docs: The -C flag bypasses both the check for
-  # rebuilding the dump file and the usual call to compaudit;
-  for dump in $HOME/.zcompdump(N.mh+24); do compinit; done
+  # Only bother with rebuilding, auditing, and compiling the compinit
+  # file once a whole day has passed. The -C flag bypasses both the
+  # check for rebuilding the dump file and the usual call to compaudit.
+  setopt EXTENDEDGLOB
+  for dump in $HOME/.zcompdump(#qN.m1); do
+    compinit
+    if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
+      zcompile "$dump"
+    fi
+  done
+  unsetopt EXTENDEDGLOB
   compinit -C
 
   # source all plugins so they're available
