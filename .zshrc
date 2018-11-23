@@ -59,14 +59,15 @@ bindkey -M emacs '^[e' edit-command-line
 
 
 ########################################################################
-# miscellaneous formatting
+# formatting
 ########################################################################
 
-zstyle ':completion:*:descriptions' format %B%d%b # bold
-
 # color scheme
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
-[[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
+if [[ -s "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh" ]]; then
+  source "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh"
+fi
+
+zstyle ':completion:*:descriptions' format %B%d%b # bold
 
 # ls colors
 autoload -U colors && colors
@@ -209,8 +210,6 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
     extract                  \
     gpg-agent                \
     history-substring-search \
-    # rails                    \
-    # rake                     \
     safe-paste               \
     ssh-agent                \
   )
@@ -238,7 +237,7 @@ fi
 
 
 ########################################################################
-# SSH
+# SSH fixups
 ########################################################################
 
 # fix up permissions every time, just in case
