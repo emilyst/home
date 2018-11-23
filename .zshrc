@@ -79,8 +79,8 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 # zsh-syntax-highlighting
 ########################################################################
 
-if [[ -s '/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' ]]; then
-  source '/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+if [[ -s "$HOME/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "$HOME/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
