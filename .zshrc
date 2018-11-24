@@ -1,114 +1,52 @@
 ########################################################################
-# oh-my-zsh
+# widgets and other extended functionality
 ########################################################################
 
-# We're not going to source the initialization file directly; instead,
-# we're going to handpick some of the initialization so that we can skip
-# parts that are more costly and unnecessary (such as compaudit, which
-# I don't need on every shell invocation; or the theme; or custom
-# initialization, which I don't use (or could just do here)).
-#
-# I'm adding this part first so that I can override any portions of it.
+# scripts copied from oh-my-zsh plugins that I wanted to keep
+libraries=(         \
+  colored-man-pages \
+  extract           \
+  git               \
+  gpg-agent         \
+  safe-paste        \
+  ssh-agent         \
+)
 
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
-  export ZSH="$HOME/.oh-my-zsh"
-  export COMPLETION_WAITING_DOTS='true'
+fpath=(
+  /usr/local/share/zsh-completions
+  /usr/local/share/zsh/site-functions
+  $fpath
+)
 
-  fpath=(
-    /usr/local/share/zsh-completions
-    /usr/local/share/zsh/site-functions
-    $fpath
-  )
+# add libraries to fpath but don't source yet
+for library ($libraries); do
+  if [[ -d "$HOME/.local/lib/zsh/$library" ]]; then
+    fpath=($HOME/.local/lib/zsh/$library $fpath);
+  fi
+done
 
-  # scripts copied from oh-my-zsh plugins that I wanted to keep
-  libraries=(         \
-    colored-man-pages \
-    extract           \
-    gpg-agent         \
-    safe-paste        \
-    ssh-agent         \
-  )
+autoload -Uz compaudit compinit
+autoload -Uz bashcompinit
 
-  autoload -Uz compaudit compinit
-  autoload -Uz bashcompinit
+# Only bother with rebuilding, auditing, and compiling the compinit
+# file once a whole day has passed. The -C flag bypasses both the
+# check for rebuilding the dump file and the usual call to compaudit.
+setopt EXTENDEDGLOB
+for dump in $HOME/.zcompdump(#qN.m1); do
+  compinit
+  if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
+    zcompile "$dump"
+  fi
+done
+unsetopt EXTENDEDGLOB
+compinit -C
 
-  # load core config files from oh-my-zsh
-  for config_file ($ZSH/lib/*.zsh); do source $config_file; done
-
-  # add libraries to fpath but don't source yet
-  for library ($libraries); do
-    if [[ -d "$HOME/.local/lib/zsh/$library" ]]; then
-      fpath=($HOME/.local/lib/zsh/$library $fpath);
-    fi
-  done
-
-  # Only bother with rebuilding, auditing, and compiling the compinit
-  # file once a whole day has passed. The -C flag bypasses both the
-  # check for rebuilding the dump file and the usual call to compaudit.
-  setopt EXTENDEDGLOB
-  for dump in $HOME/.zcompdump(#qN.m1); do
-    compinit
-    if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
-      zcompile "$dump"
-    fi
-  done
-  unsetopt EXTENDEDGLOB
-  compinit -C
-
-  # source all plugins so they're available
-  for library ($libraries); do
-    if [[ -s "$HOME/.local/lib/zsh/$library/$library.zsh" ]]; then
-      source "$HOME/.local/lib/zsh/$library/$library.zsh"
-    fi
-  done
-
-  # create prompt
-  [[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
-fi
-
-
-########################################################################
-# interactive shell configuration
-########################################################################
-
-setopt ALIASES
-setopt AUTOCD
-setopt AUTO_PUSHD
-setopt BEEP
-setopt CORRECT
-setopt EXTENDED_HISTORY
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-unsetopt NOMATCH  # allow [,],?,etc.
-setopt NOTIFY
-setopt PUSHD_IGNORE_DUPS
-setopt PUSHD_TO_HOME
-setopt RM_STAR_SILENT
-setopt MULTIOS
-setopt PROMPT_SUBST
-setopt TRANSIENT_RPROMPT
-# see also history section below
-
-
-########################################################################
-# history
-########################################################################
-
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt SHARE_HISTORY
-
-export HISTFILE="$HOME/.history"
-export HISTFILESIZE=50000000
-export HISTSIZE=5000000
-export SAVEHIST=$HISTSIZE
-
-
-########################################################################
-# extended functionality
-########################################################################
+# source all plugins so they're available
+for library ($libraries); do
+  if [[ -s "$HOME/.local/lib/zsh/$library/$library.zsh" ]]; then
+    source "$HOME/.local/lib/zsh/$library/$library.zsh"
+  fi
+done
 
 # +X means don't execute, only load
 autoload -Uz +X zmv
@@ -125,24 +63,6 @@ zle -N bracketed-paste bracketed-paste-magic
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M emacs '^[e' edit-command-line
-
-
-########################################################################
-# formatting
-########################################################################
-
-# color scheme
-if [[ -s "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh" ]]; then
-  source "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh"
-fi
-
-zstyle ':completion:*:descriptions' format %B%d%b # bold
-
-# ls colors
-autoload -U colors && colors
-
-# Enable ls colors
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 
 ########################################################################
@@ -204,7 +124,71 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 
 ########################################################################
-# home git setup
+# interactive shell configuration
+########################################################################
+
+setopt ALIASES
+setopt AUTOCD
+setopt AUTO_PUSHD
+setopt BEEP
+setopt CORRECT
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+unsetopt NOMATCH  # allow [,],?,etc.
+setopt NOTIFY
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_TO_HOME
+setopt RM_STAR_SILENT
+setopt MULTIOS
+setopt PROMPT_SUBST
+setopt TRANSIENT_RPROMPT
+# see also history section below
+
+
+########################################################################
+# history
+########################################################################
+
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+
+export HISTFILE="$HOME/.history"
+export HISTFILESIZE=50000000
+export HISTSIZE=5000000
+export SAVEHIST=$HISTSIZE
+
+
+########################################################################
+# formatting
+########################################################################
+
+# color scheme
+if [[ -s "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh" ]]; then
+  source "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh"
+fi
+
+zstyle ':completion:*:descriptions' format %B%d%b # bold
+
+# $fg_bold, $reset_color, etc.
+autoload -Uz colors && colors
+
+# Enable ls colors
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+
+
+########################################################################
+# prompt
+########################################################################
+
+[[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
+
+
+########################################################################
+# home setup
 #########################################################################
 
 alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"

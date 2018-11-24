@@ -1,5 +1,5 @@
 ########################################################################
-# git (depends on oh-my-zsh git plugin)
+# git (depends on git script)
 ########################################################################
 
 # git_prompt_info()
@@ -36,7 +36,7 @@ ZSH_THEME_GIT_PROMPT_NOCACHE=1
 
 
 # ########################################################################
-# # vi-mode (depends on vi-mode oh-my-zsh plugin)
+# # vi-mode (depends on vi-mode script)
 # ########################################################################
 
 # # I just change the color of my prompt to indicate the mode
