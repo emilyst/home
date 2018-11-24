@@ -1,4 +1,67 @@
 ########################################################################
+# oh-my-zsh
+########################################################################
+
+# We're not going to source the initialization file directly; instead,
+# we're going to handpick some of the initialization so that we can skip
+# parts that are more costly and unnecessary (such as compaudit, which
+# I don't need on every shell invocation; or the theme; or custom
+# initialization, which I don't use (or could just do here)).
+#
+# I'm adding this part first so that I can override any portions of it.
+
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+  export ZSH="$HOME/.oh-my-zsh"
+  export COMPLETION_WAITING_DOTS='true'
+
+  # from oh-my-zsh.sh
+  fpath=($ZSH/functions $ZSH/completions $fpath)
+
+  fpath=(
+    /usr/local/share/zsh-completions
+    /usr/local/share/zsh/site-functions
+    $fpath
+  )
+
+  plugins=(                  \
+    colored-man-pages        \
+    extract                  \
+    gpg-agent                \
+    safe-paste               \
+    ssh-agent                \
+  )
+
+  autoload -Uz compaudit compinit
+  autoload -Uz bashcompinit
+
+  # load core config files from oh-my-zsh
+  for config_file ($ZSH/lib/*.zsh); do source $config_file; done
+
+  # add oh-my-zsh plugins to fpath but doesn't source them yet
+  for plugin ($plugins); do fpath=($ZSH/plugins/$plugin $fpath); done
+
+  # Only bother with rebuilding, auditing, and compiling the compinit
+  # file once a whole day has passed. The -C flag bypasses both the
+  # check for rebuilding the dump file and the usual call to compaudit.
+  setopt EXTENDEDGLOB
+  for dump in $HOME/.zcompdump(#qN.m1); do
+    compinit
+    if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
+      zcompile "$dump"
+    fi
+  done
+  unsetopt EXTENDEDGLOB
+  compinit -C
+
+  # source all plugins so they're available
+  for plugin ($plugins); do source $ZSH/plugins/$plugin/$plugin.plugin.zsh; done
+
+  # create prompt
+  [[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
+fi
+
+
+########################################################################
 # interactive shell configuration
 ########################################################################
 
@@ -177,71 +240,6 @@ hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 # fi
 
 hash rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
-
-
-########################################################################
-# oh-my-zsh
-########################################################################
-
-# We're not going to source the initialization file directly; instead,
-# we're going to handpick some of the initialization so that we can skip
-# parts that are more costly and unnecessary (such as compaudit, which
-# I don't need on every shell invocation; or the theme; or custom
-# initialization, which I don't use (or could just do here)).
-#
-# This is the final part of the shell setup so that all completion gets
-# included.
-
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
-  export ZSH="$HOME/.oh-my-zsh"
-  export COMPLETION_WAITING_DOTS='true'
-
-  # from oh-my-zsh.sh
-  fpath=($ZSH/functions $ZSH/completions $fpath)
-
-  fpath=(
-    /usr/local/share/zsh-completions
-    /usr/local/share/zsh/site-functions
-    $fpath
-  )
-
-  plugins=(                  \
-    colored-man-pages        \
-    extract                  \
-    gpg-agent                \
-    history-substring-search \
-    safe-paste               \
-    ssh-agent                \
-  )
-
-  autoload -Uz compaudit compinit
-  autoload -Uz bashcompinit
-
-  # load core config files from oh-my-zsh
-  for config_file ($ZSH/lib/*.zsh); do source $config_file; done
-
-  # add oh-my-zsh plugins to fpath but doesn't source them yet
-  for plugin ($plugins); do fpath=($ZSH/plugins/$plugin $fpath); done
-
-  # Only bother with rebuilding, auditing, and compiling the compinit
-  # file once a whole day has passed. The -C flag bypasses both the
-  # check for rebuilding the dump file and the usual call to compaudit.
-  setopt EXTENDEDGLOB
-  for dump in $HOME/.zcompdump(#qN.m1); do
-    compinit
-    if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
-      zcompile "$dump"
-    fi
-  done
-  unsetopt EXTENDEDGLOB
-  compinit -C
-
-  # source all plugins so they're available
-  for plugin ($plugins); do source $ZSH/plugins/$plugin/$plugin.plugin.zsh; done
-
-  # create prompt
-  [[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
-fi
 
 
 ########################################################################
