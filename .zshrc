@@ -14,21 +14,19 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
   export ZSH="$HOME/.oh-my-zsh"
   export COMPLETION_WAITING_DOTS='true'
 
-  # from oh-my-zsh.sh
-  fpath=($ZSH/functions $ZSH/completions $fpath)
-
   fpath=(
     /usr/local/share/zsh-completions
     /usr/local/share/zsh/site-functions
     $fpath
   )
 
-  plugins=(                  \
-    colored-man-pages        \
-    extract                  \
-    gpg-agent                \
-    safe-paste               \
-    ssh-agent                \
+  # scripts copied from oh-my-zsh plugins that I wanted to keep
+  libraries=(         \
+    colored-man-pages \
+    extract           \
+    gpg-agent         \
+    safe-paste        \
+    ssh-agent         \
   )
 
   autoload -Uz compaudit compinit
@@ -37,8 +35,12 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
   # load core config files from oh-my-zsh
   for config_file ($ZSH/lib/*.zsh); do source $config_file; done
 
-  # add oh-my-zsh plugins to fpath but doesn't source them yet
-  for plugin ($plugins); do fpath=($ZSH/plugins/$plugin $fpath); done
+  # add libraries to fpath but don't source yet
+  for library ($libraries); do
+    if [[ -d "$HOME/.local/lib/zsh/$library" ]]; then
+      fpath=($HOME/.local/lib/zsh/$library $fpath);
+    fi
+  done
 
   # Only bother with rebuilding, auditing, and compiling the compinit
   # file once a whole day has passed. The -C flag bypasses both the
@@ -54,7 +56,11 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
   compinit -C
 
   # source all plugins so they're available
-  for plugin ($plugins); do source $ZSH/plugins/$plugin/$plugin.plugin.zsh; done
+  for library ($libraries); do
+    if [[ -s "$HOME/.local/lib/zsh/$library/$library.zsh" ]]; then
+      source "$HOME/.local/lib/zsh/$library/$library.zsh"
+    fi
+  done
 
   # create prompt
   [[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
