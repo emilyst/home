@@ -178,6 +178,12 @@ if [[ -s "$HOME/.local/share/zsh/zsh-history-substring-search/zsh-history-substr
 fi
 
 # bind Up and Down arrow keys
+# zmodload zsh/terminfo
+# bindkey "${terminfo[kcuu1]}" history-substring-search-up
+# bindkey "${terminfo[kcud1]}" history-substring-search-down
+
+# this isn't really portable, but the `terminfo` module doesn't work
+# currently for the Down key
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
