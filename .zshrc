@@ -55,7 +55,7 @@ autoload -Uz +X zmv
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-# bracketed paste mode (in case nothing else enables, like a plugin)
+# bracketed paste mode
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 
@@ -63,6 +63,9 @@ zle -N bracketed-paste bracketed-paste-magic
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M emacs '^[e' edit-command-line
+
+# this has to be set manually in zsh for some reason, who knew?
+bindkey '^R' history-incremental-search-backward
 
 
 ########################################################################
@@ -171,13 +174,16 @@ if [[ -s "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh" ]]; then
   source "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh"
 fi
 
-zstyle ':completion:*:descriptions' format %B%d%b # bold
+export CLICOLOR=1
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+
+zstyle ':completion:*:descriptions' format %B%d%b  # bold
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"  # works on GNU systems
 
 # $fg_bold, $reset_color, etc.
 autoload -Uz colors && colors
 
 # Enable ls colors
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 
 ########################################################################
