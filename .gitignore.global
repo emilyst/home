@@ -15,6 +15,7 @@ tags
 *.exe
 *.o
 *.so
+*.zwc
 
 # Packages
 *.7z
