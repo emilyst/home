@@ -106,9 +106,6 @@
 [submodule ".vim/pack/default/grepper"]
 	path = .vim/pack/default/grepper
 	url = https://github.com/mhinz/vim-grepper.git
-[submodule ".vim/pack/default/autoformat"]
-	path = .vim/pack/default/autoformat
-	url = https://github.com/Chiel92/vim-autoformat.git
 [submodule ".vim/pack/default/sort-motion"]
 	path = .vim/pack/default/sort-motion
 	url = https://github.com/christoomey/vim-sort-motion.git
