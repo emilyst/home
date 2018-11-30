@@ -28,12 +28,15 @@ if has('autocmd') && !exists('#AdjustListPattern')
 endif
 
 function! s:SetFormatOptionsContextually() abort
-  " if we're not in a list, we can do some more formatting
-  if getline(line('.')) =~? &l:formatlistpat
+  let l:line = getline(line('.'))
+
+  " Disable some automatic formatting if we're in a list or if the line
+  " begins with some whitespace.
+  if l:line =~? &l:formatlistpat || l:line =~? '^\\s+'
     setlocal formatoptions-=a  " Do not automatically format paragraphs as I type)
-    setlocal formatoptions-=c  " Do not automatically wrap comments (lists)
-    setlocal formatoptions-=o  " Do not automatically insert comment leader after hitting 'o' (blockquotes)
-    setlocal formatoptions-=q  " Do not automatically format comments (lists) with 'gq' or 'gw'
+    setlocal formatoptions-=c  " Do not automatically wrap comments
+    setlocal formatoptions-=o  " Do not automatically insert comment leader after hitting 'o'
+    setlocal formatoptions-=q  " Do not automatically format comments with 'gq' or 'gw'
   else
     setlocal formatoptions+=a  " Automatically format paragraphs as I type)
     setlocal formatoptions+=c  " Automatically wrap comments (blockquotes)
