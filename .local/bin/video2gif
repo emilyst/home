@@ -22,7 +22,7 @@ def parse(args)
   parser = OptionParser.new do |parser|
     parser.banner = 'Usage: video2gif <video> [options]'
     parser.separator ''
-    parser.separator 'Options:'
+    parser.separator 'General GIF options:'
 
     parser.on('-oNAME', '--output=NAME', 'Set the name for the resulting GIF') do |n|
       options[:output] = n
@@ -52,9 +52,36 @@ def parse(args)
       options[:palette] = p
     end
 
-    parser.on_tail('-h', '--help', 'Show this message') do
+    parser.on('-h', '--help', 'Show this message') do
       puts parser
       exit
+    end
+
+    parser.separator ''
+    parser.separator 'Text overlay options (only used if text is defined):'
+
+    parser.on('-TTEXT', '--text=TEXT', 'Set text to superimpose on the GIF (use "\n" to represent a line break)') do |p|
+      options[:text] = p
+    end
+
+    parser.on('-CTEXTCOLOR', '--text-color=TEXTCOLOR', 'Set the color for that text') do |p|
+      options[:textcolor] = p
+    end
+
+    parser.on('-STEXTSIZE', '--text-size=TEXTSIZE', 'Set the size for that text') do |p|
+      options[:textsize] = p
+    end
+
+    parser.on('-BTEXTBORDER', '--text-border=TEXTBORDER', 'Set the width of the border for that text') do |p|
+      options[:textborder] = p
+    end
+
+    parser.on('-FTEXTFONT', '--text-font=TEXTFONT', 'Set the font name for that text') do |p|
+      options[:textfont] = p
+    end
+
+    parser.on('-VTEXTSTYLE', '--text-variant=TEXTVARIANT', 'Set the font variant for that text (e.g., "Semibold")') do |p|
+      options[:textvariant] = p
     end
 
     parser.parse!(args)
@@ -84,9 +111,69 @@ def parse(args)
   options
 end
 
-def build_command(args, options)
+def build_filter_complex(options)
+  fps          = options[:fps]     || 15
+  width        = options[:width]   || 500
+  palette_size = options[:palette] || 256
+
+  # create filter elements
+  fps_filter        = "fps=#{fps}"
+  scale_filter      = "scale=#{width}:-1:flags=lanczos"
+  palettegen_filter = "palettegen=max_colors=#{palette_size}:stats_mode=diff"
+  paletteuse_filter = 'paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle'
+  drawtext_filter = if options[:text]
+                      # computers will be the end of us all
+                      text   = options[:text].gsub(/\\n/, '')
+                                             .gsub(/([:])/, '\\\\\\\\\\1')
+                                             .gsub(/([,])/, '\\\\\\1')
+                      size   = options[:textsize]    || 36
+                      color  = options[:textcolor]   || 'white'
+                      border = options[:textborder]  || 3
+                      font   = options[:textfont]    || 'Arial'
+                      style  = options[:textvariant] || 'Bold'
+
+                      'drawtext=' + [
+                        'x=(main_w/2-text_w/2)',
+                        'y=(main_h-text_h*1.55)',
+                        "fontsize=#{size}",
+                        "fontcolor=#{color}",
+                        "borderw=#{border}",
+                        "font=#{font}",
+                        "style:#{style}",
+                        "text=#{text}",
+                      ].join(':')
+                    else
+                      ''
+                    end
+
+  filter_complex = ''
+
+  # first, apply the same filters we'll use later in the same order
+  # before applying the palettegen so that we accurately predict the
+  # final palette
+  filter_complex += "#{fps_filter},"
+  filter_complex += "#{scale_filter},"
+  filter_complex += "#{drawtext_filter}," unless drawtext_filter.empty?
+
+  # then generate the palette (and label this filter stream)
+  filter_complex += "#{palettegen_filter}"
+  filter_complex += '[palette],'
+
+  # then refer back to the first video input stream and the filter
+  # complex stream to apply the generated palette to the video stream
+  # along with the other filters (drawing text last so that it isn't
+  # affected by scaling)
+  filter_complex += '[0:v]'
+  filter_complex += '[palette]'
+  filter_complex += "#{paletteuse_filter},"
+  filter_complex += "#{fps_filter},"
+  filter_complex += "#{scale_filter}"
+  filter_complex += ",#{drawtext_filter}" unless drawtext_filter.empty?
+  filter_complex
+end
+
+def build_command_line(args, options)
   command_name      = 'ffmpeg'
-  input_filename    = args[0]
   output_filename   = if options[:output]
                         if options[:output].end_with?('.gif')
                           options[:output]
@@ -94,38 +181,18 @@ def build_command(args, options)
                           options[:output] + '.gif'
                         end
                       else
-                        File.join(
-                          File.dirname(input_filename),
-                          File.basename(input_filename, '.*') + '.gif'
-                        )
+                        File.join(File.dirname(input_filename),
+                                  File.basename(input_filename, '.*') + '.gif')
                       end
-  fps               = options[:fps] || 15
-  width             = options[:width] || 500
-  palette_size      = options[:palette] || 256
 
-  fps_filter        = "fps=#{fps}"
-  scale_filter      = "scale=#{width}:-1:flags=lanczos"
-  palettegen_filter = "palettegen=max_colors=#{palette_size}:stats_mode=diff"
-  paletteuse_filter = 'paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle'
-
-  command =  'ffmpeg '
-  command += "-ss #{options[:seek]} " if options[:seek]
-  command += "-t #{options[:time]} " if options[:time]
-  command += "-i '#{input_filename}' "
-  command += '-filter_complex "'
-  command += "#{fps_filter},"
-  command += "#{scale_filter},"
-  command += "#{palettegen_filter}"
-  command += '[palette],'
-  command += '[0:v]'
-  command += '[palette]'
-  command += "#{paletteuse_filter},"
-  command += "#{fps_filter},"
-  command += "#{scale_filter}\" "
-  command += '-map 0:0 '
-  command += "'#{output_filename}'"
+  command = []
+  command << command_name
+  command << '-ss' << options[:seek] if options[:seek]
+  command << '-t' << options[:time] if options[:time]
+  command << '-i' << args[0]
+  command << '-filter_complex' << "#{build_filter_complex(options)}"
+  command << '-map' << '0:0'
+  command << output_filename
 end
 
-options = parse(ARGV)
-command = build_command(ARGV, options)
-exec(command)
+exec(*build_command_line(ARGV, parse(ARGV)))
