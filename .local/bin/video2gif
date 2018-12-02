@@ -122,6 +122,8 @@ def build_filter_complex(options)
   palettegen_filter = "palettegen=max_colors=#{palette_size}:stats_mode=diff"
   paletteuse_filter = 'paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle'
   drawtext_filter = if options[:text]
+                      count_of_lines = options[:text].scan(/\\n/).count + 1
+
                       # computers will be the end of us all
                       text   = options[:text].gsub(/\\n/, '')
                                              .gsub(/([:])/, '\\\\\\\\\\1')
@@ -133,8 +135,11 @@ def build_filter_complex(options)
                       style  = options[:textvariant] || 'Bold'
 
                       'drawtext=' + [
+                        # centers the text as a whole
                         'x=(main_w/2-text_w/2)',
-                        'y=(main_h-text_h*1.55)',
+                        # bumps text from bottom as a whole based on
+                        # line height (with some margin)
+                        "y=(main_h-line_h*1.33*#{count_of_lines})",
                         "fontsize=#{size}",
                         "fontcolor=#{color}",
                         "borderw=#{border}",
