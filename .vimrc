@@ -266,6 +266,7 @@ set foldtext=MyFoldText()
 set diffopt+=foldcolumn:0
 if has('patch-8.1.0360')
   set diffopt+=algorithm:histogram
+  set diffopt+=indent-heuristic
 endif
 
 " ========================================================================= }}}
