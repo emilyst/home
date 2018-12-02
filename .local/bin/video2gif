@@ -110,6 +110,7 @@ def build_command(args, options)
 
   command =  'ffmpeg '
   command += "-ss #{options[:seek]} " if options[:seek]
+  command += "-t #{options[:time]} " if options[:time]
   command += "-i '#{input_filename}' "
   command += '-filter_complex "'
   command += "#{fps_filter},"
@@ -121,7 +122,7 @@ def build_command(args, options)
   command += "#{paletteuse_filter},"
   command += "#{fps_filter},"
   command += "#{scale_filter}\" "
-  command += "-t #{options[:time]} " if options[:time]
+  command += '-map 0:0 '
   command += "'#{output_filename}'"
 end
 
