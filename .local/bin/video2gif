@@ -179,6 +179,7 @@ end
 
 def build_command_line(args, options)
   command_name      = 'ffmpeg'
+  input_filename    = args[0]
   output_filename   = if options[:output]
                         if options[:output].end_with?('.gif')
                           options[:output]
@@ -194,7 +195,7 @@ def build_command_line(args, options)
   command << command_name
   command << '-ss' << options[:seek] if options[:seek]
   command << '-t' << options[:time] if options[:time]
-  command << '-i' << args[0]
+  command << '-i' << input_filename
   command << '-filter_complex' << "#{build_filter_complex(options)}"
   command << '-map' << '0:0'
   command << output_filename
