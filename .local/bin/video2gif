@@ -52,36 +52,39 @@ def parse(args)
       options[:palette] = p
     end
 
-    parser.on('-h', '--help', 'Show this message') do
-      puts parser
-      exit
-    end
-
     parser.separator ''
     parser.separator 'Text overlay options (only used if text is defined):'
 
-    parser.on('-TTEXT', '--text=TEXT', 'Set text to superimpose on the GIF (use "\n" to represent a line break)') do |p|
+    parser.on('-TTEXT', '--text=TEXT', 'Set text to superimpose on the GIF (use "\n" for line breaks)') do |p|
       options[:text] = p
     end
 
-    parser.on('-CTEXTCOLOR', '--text-color=TEXTCOLOR', 'Set the color for that text') do |p|
+    parser.on('-CTEXTCOLOR', '--text-color=TEXTCOLOR', 'Set the color for text') do |p|
       options[:textcolor] = p
     end
 
-    parser.on('-STEXTSIZE', '--text-size=TEXTSIZE', 'Set the size for that text') do |p|
+    parser.on('-STEXTSIZE', '--text-size=TEXTSIZE', 'Set the size for text') do |p|
       options[:textsize] = p
     end
 
-    parser.on('-BTEXTBORDER', '--text-border=TEXTBORDER', 'Set the width of the border for that text') do |p|
+    parser.on('-BTEXTBORDER', '--text-border=TEXTBORDER', 'Set the width of the border for text') do |p|
       options[:textborder] = p
     end
 
-    parser.on('-FTEXTFONT', '--text-font=TEXTFONT', 'Set the font name for that text') do |p|
+    parser.on('-FTEXTFONT', '--text-font=TEXTFONT', 'Set the font name for text') do |p|
       options[:textfont] = p
     end
 
-    parser.on('-VTEXTSTYLE', '--text-variant=TEXTVARIANT', 'Set the font variant for that text (e.g., "Semibold")') do |p|
+    parser.on('-VTEXTSTYLE', '--text-variant=TEXTVARIANT', 'Set the font variant for text (e.g., "Semibold")') do |p|
       options[:textvariant] = p
+    end
+
+    parser.separator ''
+    parser.separator 'Other options:'
+
+    parser.on_tail('-h', '--help', 'Show this message') do
+      puts parser
+      exit
     end
 
     parser.parse!(args)
