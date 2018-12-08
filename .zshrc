@@ -59,10 +59,11 @@ zle -N self-insert url-quote-magic
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 
-# edit command line in $EDITOR with m-e (or esc+e)
+# edit command line in $EDITOR with 'm-e' (or 'esc+e' or 'v' in vi mode)
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M emacs '^[e' edit-command-line
+bindkey -M vicmd v edit-command-line
 
 # this has to be set manually in zsh for some reason, who knew?
 bindkey '^R' history-incremental-search-backward
@@ -145,7 +146,7 @@ setopt PUSHD_TO_HOME
 setopt RM_STAR_SILENT
 setopt MULTIOS
 setopt PROMPT_SUBST
-setopt TRANSIENT_RPROMPT
+# setopt TRANSIENT_RPROMPT
 # see also history section below
 
 
@@ -174,16 +175,12 @@ if [[ -s "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh" ]]; then
   source "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh"
 fi
 
+# Enable ls colors
 export CLICOLOR=1
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 zstyle ':completion:*:descriptions' format %B%d%b  # bold
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"  # works on GNU systems
-
-# $fg_bold, $reset_color, etc.
-autoload -Uz colors && colors
-
-# Enable ls colors
 
 
 ########################################################################
