@@ -1,5 +1,5 @@
 \pset null '∅'
-\set AUTOCOMMIT off
+-- \set AUTOCOMMIT off  -- uncomment once in Rails: https://github.com/rails/rails/commit/dbc0da42d67262855a2b911631821933ec09da69
 \set ON_ERROR_ROLLBACK on
 \set ON_ERROR_STOP on
 \set HISTFILE ~/.psql_history- :DBNAME
