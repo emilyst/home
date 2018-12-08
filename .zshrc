@@ -50,7 +50,6 @@ fi
 export CLICOLOR=1
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
-zstyle ':completion:*:descriptions' format %B%d%b  # bold
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"  # works on GNU systems
 
 
@@ -65,6 +64,8 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"  # works on GNU systems
 # widgets and other extended functionality
 ########################################################################
 
+# completion
+
 typeset -U cdpath
 
 cdpath=(
@@ -73,10 +74,21 @@ cdpath=(
   $cdpath
 )
 
+# completion for directories is separated into groups
 zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format %d
-zstyle ':completion:*:descriptions' format %B%d%b
-zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
+zstyle ':completion:*:descriptions' format %B%d%b  # bold
+zstyle ':completion:*:(cd|pushd):*' tag-order local-directories named-directories path-directories
+
+# case- and hyphen-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
+
+# complete .. and .
+zstyle ':completion:*' special-dirs true
+
+# zstyle ':completion:*' list-colors ''
+# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+
 
 typeset -U fpath
 
