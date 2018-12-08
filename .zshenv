@@ -40,8 +40,6 @@ export HOMEBREW_INSTALL_BADGE="🔮✨"
 
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 
-cdpath=("." "$HOME/work" "$HOME/scratch" "$HOME/Development")
-
 # add homebrew bc if it's there
 [[ -d "/usr/local/opt/bc/bin" ]] && export PATH="/usr/local/opt/bc/bin:$PATH"
 

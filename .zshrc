@@ -1,21 +1,100 @@
 ########################################################################
+# interactive shell configuration
+########################################################################
+
+setopt ALIASES
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt BEEP
+setopt CORRECT
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+unsetopt NOMATCH  # allow [, ], ?, etc.
+setopt NOTIFY
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_TO_HOME
+setopt RM_STAR_SILENT
+setopt MULTIOS
+setopt PROMPT_SUBST
+# setopt TRANSIENT_RPROMPT
+# see also history section below
+
+
+########################################################################
+# history
+########################################################################
+
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+
+export HISTFILE="$HOME/.history"
+export HISTFILESIZE=50000000
+export HISTSIZE=5000000
+export SAVEHIST=$HISTSIZE
+
+
+########################################################################
+# formatting
+########################################################################
+
+# color scheme
+if [[ -s "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh" ]]; then
+  source "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh"
+fi
+
+# Enable ls colors
+export CLICOLOR=1
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+
+zstyle ':completion:*:descriptions' format %B%d%b  # bold
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"  # works on GNU systems
+
+
+########################################################################
+# prompt
+########################################################################
+
+[[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
+
+
+########################################################################
 # widgets and other extended functionality
 ########################################################################
 
-# scripts copied from oh-my-zsh plugins that I wanted to keep
-libraries=(         \
-  colored-man-pages \
-  extract           \
-  git               \
-  gpg-agent         \
-  safe-paste        \
-  ssh-agent         \
+typeset -U cdpath
+
+cdpath=(
+  $HOME/scratch
+  $HOME/Development
+  $cdpath
 )
+
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format %d
+zstyle ':completion:*:descriptions' format %B%d%b
+zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
+
+typeset -U fpath
 
 fpath=(
   /usr/local/share/zsh-completions
   /usr/local/share/zsh/site-functions
   $fpath
+)
+
+typeset -U libraries
+
+libraries=(
+  colored-man-pages
+  extract
+  git
+  gpg-agent
+  safe-paste
+  ssh-agent
 )
 
 # add libraries to fpath but don't source yet
@@ -77,7 +156,12 @@ if [[ -s "$HOME/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting
   source "$HOME/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(
+  main
+  brackets
+  pattern
+  cursor
+)
 
 
 ########################################################################
@@ -128,69 +212,6 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 
 ########################################################################
-# interactive shell configuration
-########################################################################
-
-setopt ALIASES
-setopt AUTOCD
-setopt AUTO_PUSHD
-setopt BEEP
-setopt CORRECT
-setopt EXTENDED_HISTORY
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-unsetopt NOMATCH  # allow [,],?,etc.
-setopt NOTIFY
-setopt PUSHD_IGNORE_DUPS
-setopt PUSHD_TO_HOME
-setopt RM_STAR_SILENT
-setopt MULTIOS
-setopt PROMPT_SUBST
-# setopt TRANSIENT_RPROMPT
-# see also history section below
-
-
-########################################################################
-# history
-########################################################################
-
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt SHARE_HISTORY
-
-export HISTFILE="$HOME/.history"
-export HISTFILESIZE=50000000
-export HISTSIZE=5000000
-export SAVEHIST=$HISTSIZE
-
-
-########################################################################
-# formatting
-########################################################################
-
-# color scheme
-if [[ -s "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh" ]]; then
-  source "$HOME/.local/share/base16-shell/scripts/base16-ocean.sh"
-fi
-
-# Enable ls colors
-export CLICOLOR=1
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
-
-zstyle ':completion:*:descriptions' format %B%d%b  # bold
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"  # works on GNU systems
-
-
-########################################################################
-# prompt
-########################################################################
-
-[[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
-
-
-########################################################################
 # home setup
 #########################################################################
 
@@ -212,7 +233,7 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 
 
 ########################################################################
-# sources
+# extra sources
 ########################################################################
 
 # aliases
