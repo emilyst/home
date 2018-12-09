@@ -50,11 +50,11 @@ if is-at-least 4.3.11; then
 fi
 
 function git-has-unstaged-files {
-  git status --porcelain | grep '??' &> /dev/null
+  git status --porcelain | grep -m 1 '^??\b' &> /dev/null
 }
 
 function git-has-staged-files {
-  git status --porcelain | grep '^A\b' &> /dev/null
+  git status --porcelain | grep -m 1 '^A\b' &> /dev/null
 }
 
 function +vi-git-branch {
