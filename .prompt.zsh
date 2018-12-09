@@ -27,7 +27,6 @@ vcs_info_precmd () { vcs_info }
 add-zsh-hook precmd vcs_info_precmd
 
 zstyle ':vcs_info:*' enable git  # disable other backends
-zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' use-prompt-escapes true
 
@@ -44,54 +43,40 @@ zstyle ':vcs_info:*' actionformats '%b%i%c%u%a'
 
 type is-at-least > /dev/null 2>&1 || autoload -Uz is-at-least
 if is-at-least 4.3.11; then
+  # order is significant
   zstyle ':vcs_info:git+set-message:*' hooks git-action         \
                                              git-branch         \
                                              git-revision       \
+                                             git-copied-files   \
+                                             git-deleted-files  \
+                                             git-modified-files \
+                                             git-renamed-files  \
                                              git-staged-files   \
                                              git-unstaged-files
 fi
 
-function git-has-unstaged-files {
-  git status --porcelain | grep -m 1 '^\?\?\b' &> /dev/null
+function git-has-copied-files {
+  git status --porcelain --ignore-submodules --no-renames | grep -m 1 '^\s*C\s\+' &> /dev/null
+}
+
+function git-has-deleted-files {
+  git status --porcelain --ignore-submodules --no-renames | grep -m 1 '^\s*D\s\+' &> /dev/null
+}
+
+function git-has-modified-files {
+  git status --porcelain --ignore-submodules --no-renames | grep -m 1 '^\s*M\s\+' &> /dev/null
+}
+
+function git-has-renamed-files {
+  git status --porcelain --ignore-submodules --find-renames | grep -m 1 '^\s*R\s\+' &> /dev/null
 }
 
 function git-has-staged-files {
-  git status --porcelain | grep -m 1 '^A\b' &> /dev/null
+  git status --porcelain --ignore-submodules --no-renames | grep -m 1 '^\s*A\s\+' &> /dev/null
 }
 
-function +vi-git-branch {
-  # provide branch and sigil as black on orange (this is the first item
-  # of vcs_info configured above, so no transition is needed, since that
-  # is done before the vcs_info is included in the prompt)
-  hook_com[branch]="%{%K{1}%F{0}%} ${hook_com[branch_orig]} $powerline_branch %{%f%k%}"
-}
-
-function +vi-git-revision {
-  # transition from dark orange to light orange
-  hook_com[revision]="%{%K{1}%F{16}%}$powerline_hard_right_divider%{%f%k%}"
-
-  # provide truncated revision as black on light orange
-  hook_com[revision]+="%{%K{16}%F{0}%} ${hook_com[revision_orig][0,10]} %{%f%k%}"
-}
-
-function +vi-git-unstaged-files {
-  if [[ -n "${hook_com[unstaged_orig]}" ]] || git-has-unstaged-files; then
-    # provide divider as black on light orange without transition
-    hook_com[unstaged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
-
-    # provide unstaged files sigil as bold black on light orange
-    hook_com[unstaged]+='%{%K{16}%F{0}%B%} %{✸%G%} %{%b%f%k%}'
-  fi
-}
-
-function +vi-git-staged-files {
-  if [[ -n "${hook_com[staged_orig]}" ]] || git-has-staged-files; then
-    # provide divider as black on light orange without transition
-    hook_com[staged]="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
-
-    # provide unstaged files sigil as bold black on light orange
-    hook_com[staged]+='%{%K{16}%F{0}%B%} %{✚%G%} %{%b%f%k%}'
-  fi
+function git-has-unstaged-files {
+  git status --porcelain --ignore-submodules --no-renames | grep -m 1 '^\s*??\s\+' &> /dev/null
 }
 
 function +vi-git-action {
@@ -140,6 +125,87 @@ function +vi-git-action {
 
   # close formatting
   hook_com[action]+=" %{%b%f%k%}"
+}
+
+function +vi-git-branch {
+  # provide branch and sigil as black on orange (this is the first item
+  # of vcs_info configured above, so no transition is needed, since that
+  # is done before the vcs_info is included in the prompt)
+  hook_com[branch]="%{%K{1}%F{0}%} ${hook_com[branch_orig]} $powerline_branch %{%f%k%}"
+}
+
+function +vi-git-revision {
+  # transition from dark orange to light orange
+  hook_com[revision]="%{%K{1}%F{16}%}$powerline_hard_right_divider%{%f%k%}"
+
+  # provide truncated revision as black on light orange
+  hook_com[revision]+="%{%K{16}%F{0}%} ${hook_com[revision_orig][0,10]} %{%f%k%}"
+}
+
+function +vi-git-copied-files {
+  if git-has-copied-files; then
+    # `vcs_info` doesn't provide explicit formats for all the extra info
+    # I want to provide, so the best thing to do is to pack it all
+    # into the `staged` variable. This requires that the first hook
+    # clear `${hook_com[staged]}`, and THIS hook is the first one. All
+    # others MUST append.
+
+    # provide divider as black on light orange without transition
+    hook_com[staged]="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+
+    # provide copied files sigil as bold black on light orange
+    hook_com[staged]+='%{%K{16}%F{0}%B%} %{♊︎%G%} %{%b%f%k%}'
+  fi
+}
+
+function +vi-git-deleted-files {
+  if git-has-deleted-files; then
+    # provide divider as black on light orange without transition
+    hook_com[staged]+="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+
+    # provide deleted files sigil as bold black on light orange
+    hook_com[staged]+='%{%K{16}%F{0}%B%} %{✖%G%} %{%b%f%k%}'
+  fi
+}
+
+function +vi-git-modified-files {
+  if git-has-modified-files; then
+    # provide divider as black on light orange without transition
+    hook_com[staged]+="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+
+    # provide modified files sigil as bold black on light orange
+    hook_com[staged]+='%{%K{16}%F{0}%B%} %{↻%G%} %{%b%f%k%}'
+  fi
+}
+
+function +vi-git-renamed-files {
+  if git-has-renamed-files; then
+    # provide divider as black on light orange without transition
+    hook_com[staged]+="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+
+    # provide renamed files sigil as bold black on light orange
+    hook_com[staged]+='%{%K{16}%F{0}%B%} %{⇥%G%} %{%b%f%k%}'
+  fi
+}
+
+function +vi-git-staged-files {
+  if git-has-staged-files; then
+    # provide divider as black on light orange without transition
+    hook_com[staged]="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+
+    # provide staged files sigil as bold black on light orange
+    hook_com[staged]+='%{%K{16}%F{0}%B%} %{✚%G%} %{%b%f%k%}'
+  fi
+}
+
+function +vi-git-unstaged-files {
+  if git-has-unstaged-files; then
+    # provide divider as black on light orange without transition
+    hook_com[unstaged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
+
+    # provide unstaged files sigil as bold black on light orange
+    hook_com[unstaged]+='%{%K{16}%F{0}%B%} %{✸%G%} %{%b%f%k%}'
+  fi
 }
 
 
