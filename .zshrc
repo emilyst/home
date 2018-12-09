@@ -3,20 +3,23 @@
 ########################################################################
 
 setopt ALIASES
+setopt ALWAYS_TO_END
 setopt AUTO_CD
+setopt AUTO_MENU
 setopt AUTO_PUSHD
 setopt BEEP
+setopt COMPLETE_IN_WORD
 setopt CORRECT
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
+setopt MULTIOS
 unsetopt NOMATCH  # allow [, ], ?, etc.
 setopt NOTIFY
+setopt PROMPT_SUBST
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_TO_HOME
 setopt RM_STAR_SILENT
-setopt MULTIOS
-setopt PROMPT_SUBST
 # setopt TRANSIENT_RPROMPT
 # see also history section below
 
@@ -54,23 +57,19 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"  # works on GNU systems
 
 
 ########################################################################
-# prompt
-########################################################################
-
-[[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
-
-
-########################################################################
 # completion
 ########################################################################
 
 bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
+zmodload -i zsh/complist
+zstyle ':completion:*:*:*:*:*' menu select
+
 # completion for directories is separated into groups
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format %B%d%b  # bold
-zstyle ':completion:*:(cd|pushd):*' tag-order local-directories named-directories path-directories
-zstyle ':completion:*:complete:(cd|pushd):*' tag-order local-directories named-directories path-directories
+zstyle ':completion:*:(cd|pushd):*' tag-order local-directories directory-stack named-directories path-directories
+zstyle ':completion:*:complete:(cd|pushd):*' tag-order local-directories directory-stack named-directories path-directories
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -235,6 +234,13 @@ bindkey -M emacs '^N' history-substring-search-down
 # bind k and j for Vi mode
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
+
+########################################################################
+# prompt
+########################################################################
+
+[[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
 
 
 ########################################################################
