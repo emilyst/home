@@ -106,6 +106,7 @@ zstyle ':completion:*::*:(cd|pushd):*' tag-order \
 typeset -U cdpath
 
 cdpath=(
+  $HOME
   $HOME/scratch
   $HOME/Development
   $cdpath
