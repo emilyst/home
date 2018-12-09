@@ -124,7 +124,6 @@ typeset -U libraries
 libraries=(
   colored-man-pages
   extract
-  git
   gpg-agent
   safe-paste
   ssh-agent
@@ -241,7 +240,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 # prompt
 ########################################################################
 
-[[ -s "$HOME/.prompt" ]] && source "$HOME/.prompt"
+[[ -s "$HOME/.prompt.zsh" ]] && source "$HOME/.prompt.zsh"
 
 
 ########################################################################
