@@ -23,24 +23,22 @@ local powerline_lock='%{%G%}'
 ########################################################################
 
 type vcs_info > /dev/null 2>&1 || autoload -Uz vcs_info
-
-# vcs_info_precmd () { vcs_info }
-# add-zsh-hook precmd vcs_info_precmd
-precmd() { vcs_info }
+vcs_info_precmd () { vcs_info }
+add-zsh-hook precmd vcs_info_precmd
 
 zstyle ':vcs_info:*' enable git  # disable other backends
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' use-prompt-escapes true
 
-# %{%b%} is branch (%%{%b%} is bold)
+# %b is branch
 # %i is revision
 # %u is value of unstagedstr
 # %c is value of stagedstr
 # %a is action in progress (for autoformats)
 
-zstyle ':vcs_info:*' actionformats '%b%i%c%u%a'
 zstyle ':vcs_info:*' formats '%b%i%c%u'
+zstyle ':vcs_info:*' actionformats '%b%i%c%u%a'
 
 type is-at-least > /dev/null 2>&1 || autoload -Uz is-at-least
 if is-at-least 4.3.11; then
