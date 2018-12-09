@@ -95,7 +95,51 @@ function +vi-git-staged-files {
 }
 
 function +vi-git-action {
-  hook_com[action]="${hook_com[action_orig]}"
+  # transition from light orange to light purple
+  hook_com[action]="%{%K{16}%F{5}%}$powerline_hard_right_divider%{%f%k%}"
+
+  # set bold, black on light purple
+  hook_com[action]+="%{%K{5}%F{0}%B%} "
+
+  # provide action sigil
+  case "${hook_com[action_orig]}" in
+    "rebase")
+      hook_com[action]+="⤵"
+      ;;
+    "am/rebase")
+      hook_com[action]+="⤵✉"
+      ;;
+    "rebase-i")
+      hook_com[action]+="⤵"
+      ;;
+    "rebase-m")
+      hook_com[action]+="⤵⇓"
+      ;;
+    "merge")
+      hook_com[action]+="⇓"
+      ;;
+    "am")
+      hook_com[action]+="✉⇓"
+      ;;
+    "bisect")
+      hook_com[action]+="⇅"
+      ;;
+    "cherry")
+      hook_com[action]+="↩"
+      ;;
+    "cherry-seq")
+      hook_com[action]+="↩"
+      ;;
+    "cherry-or-revert")
+      hook_com[action]+="↩"
+      ;;
+    *)
+      hook_com[action]+="${hook_com[action_orig]}"
+      ;;
+  esac
+
+  # close formatting
+  hook_com[action]+=" %{%b%f%k%}"
 }
 
 
