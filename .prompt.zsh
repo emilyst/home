@@ -37,6 +37,8 @@ zstyle ':vcs_info:*' use-prompt-escapes true
 # %c is value of stagedstr
 # %a is action in progress (for autoformats)
 
+# branch is assumed to be first so no powerline divider transition is
+# given below
 zstyle ':vcs_info:*' formats '%b%i%c%u'
 zstyle ':vcs_info:*' actionformats '%b%i%c%u%a'
 
@@ -58,12 +60,10 @@ function git-has-staged-files {
 }
 
 function +vi-git-branch {
-  # set dark orange on dark orange transition in case of rendering
-  # errors
-  hook_com[branch]="%{%K{1}%F{1}%}$powerline_hard_right_divider%{%f%k%}"
-
-  # provide branch and sigil as black on orange
-  hook_com[branch]+="%{%K{1}%F{0}%}${hook_com[branch_orig]} $powerline_branch %{%f%k%}"
+  # provide branch and sigil as black on orange (this is the first item
+  # of vcs_info configured above, so no transition is needed, since that
+  # is done before the vcs_info is included in the prompt)
+  hook_com[branch]="%{%K{1}%F{0}%} ${hook_com[branch_orig]} $powerline_branch %{%f%k%}"
 }
 
 function +vi-git-revision {
