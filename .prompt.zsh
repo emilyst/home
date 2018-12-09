@@ -79,18 +79,18 @@ function +vi-git-unstaged-files {
     # provide divider as black on light orange without transition
     hook_com[unstaged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
-    # provide unstaged files sigil as black on light orange
-    hook_com[unstaged]+='%{%K{16}%F{0}%} %{✸%G%} %{%f%k%}'
+    # provide unstaged files sigil as bold black on light orange
+    hook_com[unstaged]+='%{%K{16}%F{0}%B%} %{✸%G%} %{%b%f%k%}'
   fi
 }
 
 function +vi-git-staged-files {
   if [[ -n "${hook_com[staged_orig]}" ]] || git-has-staged-files; then
     # provide divider as black on light orange without transition
-    hook_com[staged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[staged]="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
 
-    # provide unstaged files sigil as black on light orange
-    hook_com[staged]+='%{%K{16}%F{0}%} %{✚%G%} %{%f%k%}'
+    # provide unstaged files sigil as bold black on light orange
+    hook_com[staged]+='%{%K{16}%F{0}%B%} %{✚%G%} %{%b%f%k%}'
   fi
 }
 
@@ -98,7 +98,7 @@ function +vi-git-action {
   # transition from light orange to light purple
   hook_com[action]="%{%K{16}%F{5}%}$powerline_hard_right_divider%{%f%k%}"
 
-  # set bold, black on light purple
+  # set bold black on light purple
   hook_com[action]+="%{%K{5}%F{0}%B%} "
 
   # provide action sigil
@@ -150,8 +150,9 @@ function +vi-git-action {
 # use single-quoted values to let interpolation happen at prompt-time;
 # use double-quoted ones to let interpolation happen at assignment-time
 
-# begin left prompt with light blue background and provide prompt sigil
-PROMPT='%{%K{4}%F{0}%} %{%{%B%}%(!.#.ϟ)%{%b%}%G%} %{%f%k%}'
+# begin left prompt with light blue background and provide bold prompt
+# sigil
+PROMPT='%{%K{4}%F{0}%B%} %{%(!.#.ϟ)%G%} %{%b%f%k%}'
 
 # transition light blue to darker blue
 PROMPT+="%{%K{19}%F{4}%}$powerline_hard_left_divider%{%f%k%}"
@@ -171,14 +172,14 @@ RPROMPT="%{%F{18}%}$powerline_hard_right_divider%{%f%}"
 RPROMPT+="%{%K{18}%F{19}%}$powerline_hard_right_divider%{%f%k%}"
 
 # provide hostname in bold pale gray against darker blue background
-RPROMPT+='%{%K{19}%F{7}%} %{%B%}%m%{%b%} %{%f%k%}'
+RPROMPT+='%{%K{19}%F{7}%B%} %m %{%b%f%k%}'
 
 # transition from darker blue to lighter blue
 RPROMPT+="%{%K{19}%F{4}%}$powerline_hard_right_divider%{%f%k%}"
 
 # provide bold, black, doubly-truncated path against light blue
 # background
-RPROMPT+='%{%K{4}%F{0}%} %{%B%}%30<…<%(5~|%-1~/…/%3~|%4~)%-0<<%{%b%} %{%f%k%}'
+RPROMPT+='%{%K{4}%F{0}%B%} %30<…<%(5~|%-1~/…/%3~|%4~)%-0<< %{%b%f%k%}'
 
 # transition from lighter blue to light orange
 RPROMPT+="%{%K{4}%F{1}%}$powerline_hard_right_divider%{%f%k%}"
