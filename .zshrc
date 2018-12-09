@@ -61,10 +61,47 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"  # works on GNU systems
 
 
 ########################################################################
-# widgets and other extended functionality
+# completion
 ########################################################################
 
-# completion
+bindkey '^I' complete-word # complete on tab, leave expansion to _expand
+
+# completion for directories is separated into groups
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format %B%d%b  # bold
+zstyle ':completion:*:(cd|pushd):*' tag-order local-directories named-directories path-directories
+zstyle ':completion:*:complete:(cd|pushd):*' tag-order local-directories named-directories path-directories
+zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+# allow one error for every three characters typed in approximate completer
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
+
+# insert all expansions for expand completer
+zstyle ':completion:*:expand:*' tag-order all-expansions
+
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' group-name ''
+
+# case- and hyphen-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
+
+# complete .. and .
+zstyle ':completion:*' special-dirs true
+
+# offer indexes before parameters in subscripts
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+
+########################################################################
+# widgets and other extended functionality
+########################################################################
 
 typeset -U cdpath
 
@@ -73,22 +110,6 @@ cdpath=(
   $HOME/Development
   $cdpath
 )
-
-# completion for directories is separated into groups
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format %B%d%b  # bold
-zstyle ':completion:*:(cd|pushd):*' tag-order local-directories named-directories path-directories
-
-# case- and hyphen-insensitive completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
-
-# complete .. and .
-zstyle ':completion:*' special-dirs true
-
-# zstyle ':completion:*' list-colors ''
-# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-
-
 
 typeset -U fpath
 
