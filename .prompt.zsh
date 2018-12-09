@@ -60,26 +60,26 @@ function git-has-staged-files {
 }
 
 function +vi-git-branch {
-  hook_com[branch]="%F{1}%K{1}$powerline_hard_right_divider%f%k"
-  hook_com[branch]+="%F{0}%K{1}${hook_com[branch_orig]} $powerline_branch %f%k"
+  hook_com[branch]="%{%F{1}%K{1}%}$powerline_hard_right_divider%{%f%k%}"
+  hook_com[branch]+="%{%F{0}%K{1}%}${hook_com[branch_orig]} $powerline_branch %{%f%k%}"
 }
 
 function +vi-git-revision {
-  hook_com[revision]="%F{16}%K{1}$powerline_hard_right_divider%f%k"
-  hook_com[revision]+="%F{0}%K{16} ${hook_com[revision_orig][0,10]} %f%k"
+  hook_com[revision]="%{%F{16}%K{1}%}$powerline_hard_right_divider%{%f%k%}"
+  hook_com[revision]+="%{%F{0}%K{16}%} ${hook_com[revision_orig][0,10]} %{%f%k%}"
 }
 
 function +vi-git-unstaged-files {
-  if git-has-unstaged-files || [[ -n "${hook_com[unstaged_orig]}" ]]; then
-    hook_com[unstaged]="%F{0}%K{16}$powerline_soft_right_divider%f%k"
-    hook_com[unstaged]+='%F{0}%K{16} %{✭%G%} %f%k'
+  if [[ -n "${hook_com[unstaged_orig]}" ]] || git-has-unstaged-files; then
+    hook_com[unstaged]="%{%F{0}%K{16}%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[unstaged]+='%{%F{0}%K{16}%} %{✸%G%} %{%f%k%}'
   fi
 }
 
 function +vi-git-staged-files {
-  if git-has-staged-files || [[ -n "${hook_com[staged_orig]}" ]]; then
-    hook_com[staged]="%F{0}%K{16}$powerline_soft_right_divider%f%k"
-    hook_com[staged]+='%F{0}%K{16} %{✚%G%} %f%k'
+  if [[ -n "${hook_com[staged_orig]}" ]] || git-has-staged-files; then
+    hook_com[staged]="%{%F{0}%K{16}%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[staged]+='%{%F{0}%K{16}%} %{✚%G%} %{%f%k%}'
   fi
 }
 
@@ -92,15 +92,18 @@ function +vi-git-action {
 # prompt
 ########################################################################
 
-PROMPT='%F{0}%K{4} %{%B%(!.#.ϟ)%b%G%} %f%k'
-PROMPT+='%F{4}%K{19}$powerline_hard_left_divider%f%k'
-PROMPT+='%F{19}%K{18}$powerline_hard_left_divider%f%k'
-PROMPT+='%F{18}$powerline_hard_left_divider%f '
+# use single-quoted values to let interpolation happen at prompt-time,
+# use double-quoted ones to let interpolation happen at assignment-time
 
-RPROMPT='%F{18}$powerline_hard_right_divider%f%}'
-RPROMPT+='%F{19}%K{18}$powerline_hard_right_divider%f%k'
-RPROMPT+='%F{7}%K{19} %B%m%b %f%k'
-RPROMPT+='%F{4}%K{19}$powerline_hard_right_divider%f%k'
-RPROMPT+='%F{0}%K{4}%B%30<...<%~%<<%u%b %f%k'
-RPROMPT+='%F{1}%K{4}$powerline_hard_right_divider%f%k'
-RPROMPT+='%F{0}%K{1}${vcs_info_msg_0_}%f%k'  # needs to be single-quoted
+PROMPT='%{%F{0}%K{4}%} %{%{%B%}%(!.#.ϟ)%{%b%}%G%} %{%f%k%}'
+PROMPT+="%{%F{4}%K{19}%}$powerline_hard_left_divider%{%f%k%}"
+PROMPT+="%{%F{19}%K{18}%}$powerline_hard_left_divider%{%f%k%}"
+PROMPT+="%{%F{18}%}$powerline_hard_left_divider%{%f%} "
+
+RPROMPT="%{%F{18}%}$powerline_hard_right_divider%{%f%}"
+RPROMPT+="%{%F{19}%K{18}%}$powerline_hard_right_divider%{%f%k%}"
+RPROMPT+='%{%F{7}%K{19}%} %{%B%}%m%{%b%} %{%f%k%}'
+RPROMPT+="%{%F{4}%K{19}%}$powerline_hard_right_divider%{%f%k%}"
+RPROMPT+='%{%F{0}%K{4}%} %{%B%}%30<…<%(5~|%-1~/…/%3~|%4~)%-0<<%{%b%} %{%f%k%}'
+RPROMPT+="%{%F{1}%K{4}%}$powerline_hard_right_divider%{%f%k%}"
+RPROMPT+='%{%F{0}%K{1}%}${vcs_info_msg_0_}%{%f%k%}'
