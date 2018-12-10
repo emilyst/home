@@ -30,6 +30,7 @@ function git-status-has-unstaged-files { grep -m 1 '^\s*??\s\+' <<< "$1" &> /dev
 if hash git >/dev/null 2>&1; then
   type vcs_info > /dev/null 2>&1 || autoload -Uz vcs_info
   vcs_info_precmd () { vcs_info }
+  type add-zsh-hook > /dev/null 2>&1 || autoload -Uz add-zsh-hook
   add-zsh-hook precmd vcs_info_precmd
 
   zstyle ':vcs_info:*' enable git  # disable other backends
@@ -131,18 +132,19 @@ function +vi-git-revision {
 
 function +vi-git-copied-files {
   if (( ! ${+user_data[git_status]} )); then
-    user_data[git_status]=$(git status --porcelain --ignore-submodules --find-renames)
+    user_data[git_status]="$(git status --porcelain --ignore-submodules --find-renames)"
   fi
 
-  if git-status-has-copied-files ${user_data[git_status]}; then
-    # `vcs_info` doesn't provide explicit formats for all the extra info
-    # I want to provide, so the best thing to do is to pack it all
-    # into the `staged` variable. This requires that the first hook
-    # clear `${hook_com[staged]}`, and THIS hook is the first one. All
-    # others MUST append.
+  # `vcs_info` doesn't provide explicit formats for all the extra info
+  # I want to provide, so the best thing to do is to pack it all
+  # into the `staged` variable. This requires that the first hook
+  # clear `${hook_com[staged]}`, and THIS hook is the first one. All
+  # others MUST append.
+  hook_com[staged]=''
 
+  if git-status-has-copied-files "${user_data[git_status]}"; then
     # provide divider as black on light orange without transition
-    hook_com[staged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide copied files sigil as bold black on light orange
     hook_com[staged]+='%{%K{16}%F{0}%} %{♊︎%G%} %{%f%k%}'
@@ -151,10 +153,10 @@ function +vi-git-copied-files {
 
 function +vi-git-deleted-files {
   if (( ! ${+user_data[git_status]} )); then
-    user_data[git_status]=$(git status --porcelain --ignore-submodules --find-renames)
+    user_data[git_status]="$(git status --porcelain --ignore-submodules --find-renames)"
   fi
 
-  if git-status-has-deleted-files ${user_data[git_status]}; then
+  if git-status-has-deleted-files "${user_data[git_status]}"; then
     # provide divider as black on light orange without transition
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
@@ -165,10 +167,10 @@ function +vi-git-deleted-files {
 
 function +vi-git-modified-files {
   if (( ! ${+user_data[git_status]} )); then
-    user_data[git_status]=$(git status --porcelain --ignore-submodules --find-renames)
+    user_data[git_status]="$(git status --porcelain --ignore-submodules --find-renames)"
   fi
 
-  if git-status-has-modified-files ${user_data[git_status]}; then
+  if git-status-has-modified-files "${user_data[git_status]}"; then
     # provide divider as black on light orange without transition
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
@@ -179,10 +181,10 @@ function +vi-git-modified-files {
 
 function +vi-git-renamed-files {
   if (( ! ${+user_data[git_status]} )); then
-    user_data[git_status]=$(git status --porcelain --ignore-submodules --find-renames)
+    user_data[git_status]="$(git status --porcelain --ignore-submodules --find-renames)"
   fi
 
-  if git-status-has-renamed-files ${user_data[git_status]}; then
+  if git-status-has-renamed-files "${user_data[git_status]}"; then
     # provide divider as black on light orange without transition
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
@@ -193,12 +195,12 @@ function +vi-git-renamed-files {
 
 function +vi-git-staged-files {
   if (( ! ${+user_data[git_status]} )); then
-    user_data[git_status]=$(git status --porcelain --ignore-submodules --find-renames)
+    user_data[git_status]="$(git status --porcelain --ignore-submodules --find-renames)"
   fi
 
-  if git-status-has-staged-files ${user_data[git_status]}; then
+  if git-status-has-staged-files "${user_data[git_status]}"; then
     # provide divider as black on light orange without transition
-    hook_com[staged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide staged files sigil as bold black on light orange
     hook_com[staged]+='%{%K{16}%F{0}%} %{✚%G%} %{%f%k%}'
@@ -207,12 +209,12 @@ function +vi-git-staged-files {
 
 function +vi-git-unstaged-files {
   if (( ! ${+user_data[git_status]} )); then
-    user_data[git_status]=$(git status --porcelain --ignore-submodules --find-renames)
+    user_data[git_status]="$(git status --porcelain --ignore-submodules --find-renames)"
   fi
 
-  if git-status-has-unstaged-files ${user_data[git_status]}; then
+  if git-status-has-unstaged-files "${user_data[git_status]}"; then
     # provide divider as black on light orange without transition
-    hook_com[unstaged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[unstaged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide unstaged files sigil as bold black on light orange
     hook_com[unstaged]+='%{%K{16}%F{0}%} %{✸%G%} %{%f%k%}'

@@ -41,6 +41,13 @@ export SAVEHIST=$HISTSIZE
 
 
 ########################################################################
+# prompt
+########################################################################
+
+[[ -s "$HOME/.prompt.zsh" ]] && source "$HOME/.prompt.zsh"
+
+
+########################################################################
 # colors
 ########################################################################
 
@@ -56,6 +63,7 @@ elif [[ "$OSTYPE" == *'darwin'* ]]; then
   export CLICOLOR=1
   export LSCOLORS='Gxfxcxdxbxegedabagacad'
 fi
+
 
 
 ########################################################################
@@ -235,13 +243,6 @@ bindkey -M emacs '^N' history-substring-search-down
 # bind k and j for Vi mode
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
-
-
-########################################################################
-# prompt
-########################################################################
-
-[[ -s "$HOME/.prompt.zsh" ]] && source "$HOME/.prompt.zsh"
 
 
 ########################################################################
