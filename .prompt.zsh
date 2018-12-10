@@ -159,7 +159,7 @@ function +vi-git-deleted-files {
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide deleted files sigil as bold black on light orange
-    hook_com[staged]+='%{%K{16}%F{0}%} %{✖%G%} %{%f%k%}'
+    hook_com[staged]+='%{%K{16}%F{0}%} %{✘%G%} %{%f%k%}'
   fi
 }
 
@@ -187,7 +187,7 @@ function +vi-git-renamed-files {
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide renamed files sigil as bold black on light orange
-    hook_com[staged]+='%{%K{16}%F{0}%} %{⇥%G%} %{%f%k%}'
+    hook_com[staged]+='%{%K{16}%F{0}%} %{⤨%G%} %{%f%k%}'
   fi
 }
 
@@ -236,7 +236,7 @@ local reset="%{[00m%}"
 
 # begin left prompt with light blue background and provide bold prompt
 # sigil
-PROMPT='%{%K{4}%F{0}%B%} %{%(!.#.ϟ)%G%} %{%b%f%k%}'
+PROMPT='%{%K{4}%F{0}%B%} %{%(!.#.❇)%G%} %{%b%f%k%}'
 
 # transition light blue to darker blue
 PROMPT+="%{%K{19}%F{4}%}$powerline_hard_left_divider%{%f%k%}"
