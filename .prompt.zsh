@@ -1,11 +1,4 @@
 ########################################################################
-# colors
-########################################################################
-
-local reset="%{[00m%}"
-
-
-########################################################################
 # powerline symbols (require powerline font or terminal)
 ########################################################################
 
@@ -19,7 +12,19 @@ local powerline_lock='%{%G%}'
 
 
 ########################################################################
-# vcs info (git)
+# vcs info utilities (git)
+########################################################################
+
+function git-status-has-copied-files   { grep -m 1 '^\s*C\s\+'  <<< "$1" &> /dev/null }
+function git-status-has-deleted-files  { grep -m 1 '^\s*D\s\+'  <<< "$1" &> /dev/null }
+function git-status-has-modified-files { grep -m 1 '^\s*M\s\+'  <<< "$1" &> /dev/null }
+function git-status-has-renamed-files  { grep -m 1 '^\s*R\s\+'  <<< "$1" &> /dev/null }
+function git-status-has-staged-files   { grep -m 1 '^\s*A\s\+'  <<< "$1" &> /dev/null }
+function git-status-has-unstaged-files { grep -m 1 '^\s*??\s\+' <<< "$1" &> /dev/null }
+
+
+########################################################################
+# vcs info configuration (git)
 ########################################################################
 
 type vcs_info > /dev/null 2>&1 || autoload -Uz vcs_info
@@ -55,12 +60,10 @@ if is-at-least 4.3.11; then
                                              git-unstaged-files
 fi
 
-function git-status-has-copied-files   { grep -m 1 '^\s*C\s\+'  <<< "$1" &> /dev/null }
-function git-status-has-deleted-files  { grep -m 1 '^\s*D\s\+'  <<< "$1" &> /dev/null }
-function git-status-has-modified-files { grep -m 1 '^\s*M\s\+'  <<< "$1" &> /dev/null }
-function git-status-has-renamed-files  { grep -m 1 '^\s*R\s\+'  <<< "$1" &> /dev/null }
-function git-status-has-staged-files   { grep -m 1 '^\s*A\s\+'  <<< "$1" &> /dev/null }
-function git-status-has-unstaged-files { grep -m 1 '^\s*??\s\+' <<< "$1" &> /dev/null }
+
+########################################################################
+# vcs info hooks (git)
+########################################################################
 
 function +vi-git-action {
   # transition from light orange to light purple
@@ -211,9 +214,16 @@ function +vi-git-unstaged-files {
     hook_com[unstaged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide unstaged files sigil as bold black on light orange
-    hook_com[unstaged]+='%{%K{16}%F{0}%B%} %{✸%G%} %{%b%f%k%}'
+    hook_com[unstaged]+='%{%K{16}%F{0}%} %{✸%G%} %{%f%k%}'
   fi
 }
+
+
+########################################################################
+# formatting
+########################################################################
+
+local reset="%{[00m%}"
 
 
 ########################################################################
