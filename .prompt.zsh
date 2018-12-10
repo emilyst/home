@@ -27,39 +27,40 @@ function git-status-has-unstaged-files { grep -m 1 '^\s*??\s\+' <<< "$1" &> /dev
 # vcs info configuration (git)
 ########################################################################
 
-type vcs_info > /dev/null 2>&1 || autoload -Uz vcs_info
-vcs_info_precmd () { vcs_info }
-add-zsh-hook precmd vcs_info_precmd
+if hash git >/dev/null 2>&1; then
+  type vcs_info > /dev/null 2>&1 || autoload -Uz vcs_info
+  vcs_info_precmd () { vcs_info }
+  add-zsh-hook precmd vcs_info_precmd
 
-zstyle ':vcs_info:*' enable git  # disable other backends
-zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' use-prompt-escapes true
+  zstyle ':vcs_info:*' enable git  # disable other backends
+  zstyle ':vcs_info:*' get-revision true
+  zstyle ':vcs_info:*' use-prompt-escapes true
 
-# %b is branch
-# %i is revision
-# %u is value of unstagedstr
-# %c is value of stagedstr
-# %a is action in progress (for autoformats)
+  # %b is branch
+  # %i is revision
+  # %u is value of unstagedstr
+  # %c is value of stagedstr
+  # %a is action in progress (for autoformats)
 
-# branch is assumed to be first so no powerline divider transition is
-# given below
-zstyle ':vcs_info:*' formats '%b%i%c%u'
-zstyle ':vcs_info:*' actionformats '%b%i%c%u%a'
+  # branch is assumed to be first so no powerline divider transition is
+  # given below
+  zstyle ':vcs_info:*' formats '%b%i%c%u'
+  zstyle ':vcs_info:*' actionformats '%b%i%c%u%a'
 
-type is-at-least > /dev/null 2>&1 || autoload -Uz is-at-least
-if is-at-least 4.3.11; then
-  # order is significant
-  zstyle ':vcs_info:git+set-message:*' hooks git-action         \
-                                             git-branch         \
-                                             git-revision       \
-                                             git-copied-files   \
-                                             git-deleted-files  \
-                                             git-modified-files \
-                                             git-renamed-files  \
-                                             git-staged-files   \
-                                             git-unstaged-files
+  type is-at-least > /dev/null 2>&1 || autoload -Uz is-at-least
+  if is-at-least 4.3.11; then
+    # order is significant
+    zstyle ':vcs_info:git+set-message:*' hooks git-action         \
+                                               git-branch         \
+                                               git-revision       \
+                                               git-copied-files   \
+                                               git-deleted-files  \
+                                               git-modified-files \
+                                               git-renamed-files  \
+                                               git-staged-files   \
+                                               git-unstaged-files
+  fi
 fi
-
 
 ########################################################################
 # vcs info hooks (git)
@@ -268,4 +269,6 @@ RPROMPT+='%{%K{4}%F{0}%B%} %30<…<%(5~|%-1~/…/%3~|%4~)%-0<< %{%b%f%k%}'
 RPROMPT+="%{%K{4}%F{1}%}$powerline_hard_right_divider%{%f%k%}"
 
 # provide VCS information if any as default black on light orange
-RPROMPT+='%{%K{1}%F{0}%}${vcs_info_msg_0_}%{%f%k%}'
+if hash git >/dev/null 2>&1; then
+  RPROMPT+='%{%K{1}%F{0}%}${vcs_info_msg_0_}%{%f%k%}'
+fi
