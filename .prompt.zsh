@@ -67,7 +67,7 @@ function +vi-git-action {
   hook_com[action]="%{%K{16}%F{5}%}$powerline_hard_right_divider%{%f%k%}"
 
   # set bold black on light purple
-  hook_com[action]+="%{%K{5}%F{0}%B%} "
+  hook_com[action]+="%{%K{5}%F{0}%} "
 
   # provide action sigil
   case "${hook_com[action_orig]}" in
@@ -107,7 +107,7 @@ function +vi-git-action {
   esac
 
   # close formatting
-  hook_com[action]+=" %{%b%f%k%}"
+  hook_com[action]+=" %{%f%k%}"
 }
 
 function +vi-git-branch {
@@ -138,10 +138,10 @@ function +vi-git-copied-files {
     # others MUST append.
 
     # provide divider as black on light orange without transition
-    hook_com[staged]="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[staged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide copied files sigil as bold black on light orange
-    hook_com[staged]+='%{%K{16}%F{0}%B%} %{♊︎%G%} %{%b%f%k%}'
+    hook_com[staged]+='%{%K{16}%F{0}%} %{♊︎%G%} %{%f%k%}'
   fi
 }
 
@@ -152,10 +152,10 @@ function +vi-git-deleted-files {
 
   if git-status-has-deleted-files ${user_data[git_status]}; then
     # provide divider as black on light orange without transition
-    hook_com[staged]+="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide deleted files sigil as bold black on light orange
-    hook_com[staged]+='%{%K{16}%F{0}%B%} %{✖%G%} %{%b%f%k%}'
+    hook_com[staged]+='%{%K{16}%F{0}%} %{✖%G%} %{%f%k%}'
   fi
 }
 
@@ -166,10 +166,10 @@ function +vi-git-modified-files {
 
   if git-status-has-modified-files ${user_data[git_status]}; then
     # provide divider as black on light orange without transition
-    hook_com[staged]+="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide modified files sigil as bold black on light orange
-    hook_com[staged]+='%{%K{16}%F{0}%B%} %{↻%G%} %{%b%f%k%}'
+    hook_com[staged]+='%{%K{16}%F{0}%} %{✄%G%} %{%f%k%}'
   fi
 }
 
@@ -180,10 +180,10 @@ function +vi-git-renamed-files {
 
   if git-status-has-renamed-files ${user_data[git_status]}; then
     # provide divider as black on light orange without transition
-    hook_com[staged]+="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide renamed files sigil as bold black on light orange
-    hook_com[staged]+='%{%K{16}%F{0}%B%} %{⇥%G%} %{%b%f%k%}'
+    hook_com[staged]+='%{%K{16}%F{0}%} %{⇥%G%} %{%f%k%}'
   fi
 }
 
@@ -194,10 +194,10 @@ function +vi-git-staged-files {
 
   if git-status-has-staged-files ${user_data[git_status]}; then
     # provide divider as black on light orange without transition
-    hook_com[staged]="%{%K{16}%F{0}%B%}$powerline_soft_right_divider%{%f%k%}"
+    hook_com[staged]="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide staged files sigil as bold black on light orange
-    hook_com[staged]+='%{%K{16}%F{0}%B%} %{✚%G%} %{%b%f%k%}'
+    hook_com[staged]+='%{%K{16}%F{0}%} %{✚%G%} %{%f%k%}'
   fi
 }
 
