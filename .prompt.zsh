@@ -119,7 +119,7 @@ function +vi-git-branch {
   # provide branch and sigil as black on orange (this is the first item
   # of vcs_info configured above, so no transition is needed, since that
   # is done before the vcs_info is included in the prompt)
-  hook_com[branch]="%{%K{1}%F{0}%} ${hook_com[branch_orig]} $powerline_branch %{%f%k%}"
+  hook_com[branch]="%{%K{1}%F{0}%} %25>…>${hook_com[branch_orig]}%<< $powerline_branch %{%f%k%}"
 }
 
 function +vi-git-revision {
