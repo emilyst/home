@@ -25,6 +25,12 @@ It does not install things. It does not change global system settings.
 That is left for me, as a user, to do. It merely configures relevant
 programs if they exist.
 
+One last thing: I'm describing how I set up and use this not so that you
+can use my home repository as is. It's personal to me, meets my specific
+needs, and comes with no guarantees whatsoever. What's right for me is
+almost certainly not right for anyone else. However, if you want to know
+how my setup works and accomplish a similar setup for yourself, read on.
+
 
 Setup
 -----
