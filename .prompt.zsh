@@ -127,7 +127,7 @@ function +vi-git-revision {
   hook_com[revision]="%{%K{1}%F{16}%}$powerline_hard_right_divider%{%f%k%}"
 
   # provide truncated revision as black on light orange
-  hook_com[revision]+="%{%K{16}%F{0}%} ${hook_com[revision_orig][0,10]} %{%f%k%}"
+  hook_com[revision]+="%{%K{16}%F{0}%} ${hook_com[revision_orig][0,4]} %{%f%k%}"
 }
 
 function +vi-git-copied-files {
