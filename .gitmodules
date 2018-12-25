@@ -199,3 +199,6 @@
 [submodule ".local/share/zsh/zsh-syntax-highlighting"]
 	path = .local/share/zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule ".local/libexec/diff-so-fancy"]
+	path = .local/libexec/diff-so-fancy
+	url = https://github.com/so-fancy/diff-so-fancy.git
