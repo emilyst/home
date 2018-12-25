@@ -1,204 +1,272 @@
 [submodule ".vim/pack/default/fugitive"]
 	path = .vim/pack/default/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+	branch = .
 [submodule ".vim/pack/default/nerdtree"]
 	path = .vim/pack/default/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
+	branch = .
 [submodule ".vim/pack/default/abolish"]
 	path = .vim/pack/default/abolish
 	url = https://github.com/tpope/vim-abolish
+	branch = .
 [submodule ".vim/pack/default/surround"]
 	path = .vim/pack/default/surround
 	url = https://github.com/tpope/vim-surround
+	branch = .
 [submodule ".vim/pack/default/repeat"]
 	path = .vim/pack/default/repeat
 	url = https://github.com/tpope/vim-repeat
+	branch = .
 [submodule ".vim/pack/default/css-color"]
 	path = .vim/pack/default/css-color
 	url = https://github.com/ap/vim-css-color.git
+	branch = .
 [submodule ".vim/pack/default/ruby"]
 	path = .vim/pack/default/ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
+	branch = .
 [submodule ".vim/pack/default/scriptease"]
 	path = .vim/pack/default/scriptease
 	url = https://github.com/tpope/vim-scriptease.git
+	branch = .
 [submodule ".vim/pack/default/ctrlp"]
 	path = .vim/pack/default/ctrlp
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
+	branch = .
 [submodule ".vim/pack/default/tabular"]
 	path = .vim/pack/default/tabular
 	url = https://github.com/godlygeek/tabular.git
+	branch = .
 [submodule ".vim/pack/default/pathogen"]
 	path = .vim/pack/default/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+	branch = .
 [submodule ".vim/pack/default/colors-solarized"]
 	path = .vim/pack/default/colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
+	branch = .
 [submodule ".vim/pack/default/characterize"]
 	path = .vim/pack/default/characterize
 	url = https://github.com/tpope/vim-characterize.git
+	branch = .
 [submodule ".vim/pack/default/less"]
 	path = .vim/pack/default/less
 	url = https://github.com/groenewege/vim-less.git
+	branch = .
 [submodule ".vim/pack/default/css3-syntax"]
 	path = .vim/pack/default/css3-syntax
 	url = https://github.com/hail2u/vim-css3-syntax.git
+	branch = .
 [submodule ".vim/pack/default/commentary"]
 	path = .vim/pack/default/commentary
 	url = https://github.com/tpope/vim-commentary.git
+	branch = .
 [submodule ".vim/pack/default/speeddating"]
 	path = .vim/pack/default/speeddating
 	url = https://github.com/tpope/vim-speeddating.git
+	branch = .
 [submodule ".vim/pack/default/dispatch"]
 	path = .vim/pack/default/dispatch
 	url = https://github.com/tpope/vim-dispatch.git
+	branch = .
 [submodule ".vim/pack/default/airline"]
 	path = .vim/pack/default/airline
 	url = https://github.com/bling/vim-airline.git
+	branch = .
 [submodule ".vim/pack/default/jdaddy"]
 	path = .vim/pack/default/jdaddy
 	url = https://github.com/tpope/vim-jdaddy.git
+	branch = .
 [submodule ".vim/pack/default/perl"]
 	path = .vim/pack/default/perl
 	url = https://github.com/vim-perl/vim-perl.git
+	branch = .
 [submodule ".vim/pack/default/emmet"]
 	path = .vim/pack/default/emmet
 	url = https://github.com/mattn/emmet-vim.git
+	branch = .
 [submodule ".vim/pack/default/scala"]
 	path = .vim/pack/default/scala
 	url = https://github.com/derekwyatt/vim-scala.git
+	branch = .
 [submodule ".vim/pack/default/signature"]
 	path = .vim/pack/default/signature
 	url = https://github.com/kshenoy/vim-signature.git
+	branch = .
 [submodule ".vim/pack/default/base16"]
 	path = .vim/pack/default/base16
 	url = https://github.com/chriskempson/base16-vim.git
+	branch = .
 [submodule ".vim/pack/default/wildfire"]
 	path = .vim/pack/default/wildfire
 	url = https://github.com/gcmt/wildfire.vim.git
+	branch = .
 [submodule ".local/share/base16-shell"]
 	path = .local/share/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
+	branch = .
 [submodule ".vim/pack/default/airline-themes"]
 	path = .vim/pack/default/airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
+	branch = .
 [submodule ".vim/pack/default/eunuch"]
 	path = .vim/pack/default/eunuch
 	url = https://github.com/tpope/vim-eunuch.git
+	branch = .
 [submodule ".vim/pack/default/argumentative"]
 	path = .vim/pack/default/argumentative
 	url = https://github.com/PeterRincker/vim-argumentative.git
+	branch = .
 [submodule ".vim/pack/default/targets"]
 	path = .vim/pack/default/targets
 	url = https://github.com/wellle/targets.vim.git
+	branch = .
 [submodule ".vim/pack/default/terminus"]
 	path = .vim/pack/default/terminus
 	url = https://github.com/wincent/terminus.git
+	branch = .
 [submodule ".vim/pack/default/ctrlp-tjump"]
 	path = .vim/pack/default/ctrlp-tjump
 	url = https://github.com/ivalkeen/vim-ctrlp-tjump.git
+	branch = .
 [submodule ".vim/pack/default/rainbow_parentheses"]
 	path = .vim/pack/default/rainbow_parentheses
 	url = https://github.com/junegunn/rainbow_parentheses.vim.git
+	branch = .
 [submodule ".vim/pack/default/rhubarb"]
 	path = .vim/pack/default/rhubarb
 	url = https://github.com/tpope/vim-rhubarb.git
+	branch = .
 [submodule ".vim/pack/default/grepper"]
 	path = .vim/pack/default/grepper
 	url = https://github.com/mhinz/vim-grepper.git
+	branch = .
 [submodule ".vim/pack/default/sort-motion"]
 	path = .vim/pack/default/sort-motion
 	url = https://github.com/christoomey/vim-sort-motion.git
+	branch = .
 [submodule ".vim/pack/default/illuminate"]
 	path = .vim/pack/default/illuminate
 	url = https://github.com/RRethy/vim-illuminate.git
+	branch = .
 [submodule ".vim/pack/default/markdown"]
 	path = .vim/pack/default/markdown
 	url = https://github.com/plasticboy/vim-markdown.git
+	branch = .
 [submodule ".vim/pack/default/sensible"]
 	path = .vim/pack/default/sensible
 	url = git://github.com/tpope/vim-sensible.git
+	branch = .
 [submodule ".local/share/vlime"]
 	path = .local/share/vlime
 	url = https://github.com/l04m33/vlime.git
+	branch = .
 [submodule ".vim/pack/default/lexima"]
 	path = .vim/pack/default/lexima
 	url = https://github.com/cohama/lexima.vim.git
+	branch = .
 [submodule ".vim/pack/default/AnsiEsc"]
 	path = .vim/pack/default/AnsiEsc
 	url = https://github.com/vim-scripts/AnsiEsc.vim.git
+	branch = .
 [submodule ".vim/pack/default/match-count-statusline"]
 	path = .vim/pack/default/match-count-statusline
 	url = git@github.com:emilyst/match-count-statusline.git
+	branch = .
 [submodule ".vim/pack/default/gutentags"]
 	path = .vim/pack/default/gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags.git
+	branch = .
 [submodule ".vim/pack/default/mucomplete"]
 	path = .vim/pack/default/mucomplete
 	url = https://github.com/lifepillar/vim-mucomplete.git
+	branch = .
 [submodule ".vim/pack/default/rails"]
 	path = .vim/pack/default/rails
 	url = https://github.com/tpope/vim-rails.git
+	branch = .
 [submodule ".vim/pack/default/bundler"]
 	path = .vim/pack/default/bundler
 	url = https://github.com/tpope/vim-bundler.git
+	branch = .
 [submodule ".vim/pack/default/gitgutter"]
 	path = .vim/pack/default/gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+	branch = .
 [submodule ".vim/pack/default/rbenv"]
 	path = .vim/pack/default/rbenv
 	url = https://github.com/tpope/vim-rbenv.git
+	branch = .
 [submodule ".vim/pack/default/rake"]
 	path = .vim/pack/default/rake
 	url = https://github.com/tpope/vim-rake.git
+	branch = .
 [submodule ".vim/pack/default/projectionist"]
 	path = .vim/pack/default/projectionist
 	url = https://github.com/tpope/vim-projectionist.git
+	branch = .
 [submodule ".rbenv/plugins/rbenv-ctags"]
 	path = .rbenv/plugins/rbenv-ctags
 	url = https://github.com/tpope/rbenv-ctags.git
+	branch = .
 [submodule ".rbenv/plugins/rbenv-default-gems"]
 	path = .rbenv/plugins/rbenv-default-gems
 	url = https://github.com/rbenv/rbenv-default-gems.git
+	branch = .
 [submodule ".rbenv/plugins/rbenv-sentience"]
 	path = .rbenv/plugins/rbenv-sentience
 	url = https://github.com/tpope/rbenv-sentience.git
+	branch = .
 [submodule ".rbenv/plugins/rbenv-vars"]
 	path = .rbenv/plugins/rbenv-vars
 	url = https://github.com/sstephenson/rbenv-vars.git
+	branch = .
 [submodule ".rbenv/plugins/ruby-build"]
 	path = .rbenv/plugins/ruby-build
 	url = https://github.com/rbenv/ruby-build.git
+	branch = .
 [submodule ".rbenv/plugins/rbenv-each"]
 	path = .rbenv/plugins/rbenv-each
 	url = https://github.com/rbenv/rbenv-each.git
+	branch = .
 [submodule ".local/share/rbenv"]
 	path = .local/share/rbenv
 	url = https://github.com/sstephenson/rbenv.git
+	branch = .
 [submodule ".vim/pack/default/FastFold"]
 	path = .vim/pack/default/FastFold
 	url = https://github.com/Konfekt/FastFold.git
+	branch = .
 [submodule ".vim/pack/default/stay"]
 	path = .vim/pack/default/stay
 	url = https://github.com/zhimsel/vim-stay.git
+	branch = .
 [submodule ".vim/pack/default/visual-whitespace"]
 	path = .vim/pack/default/vim-xray
 	url = git@github.com:emilyst/visual-whitespace.git
+	branch = .
 [submodule ".local/writing"]
 	path = .local/writing
 	url = git@github.com:emilyst/writing.git
+	branch = .
 [submodule ".vim/pack/default/dadbod"]
 	path = .vim/pack/default/dadbod
 	url = https://github.com/tpope/vim-dadbod.git
+	branch = .
 [submodule ".local/share/zsh/zsh-history-substring-search"]
 	path = .local/share/zsh/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
+	branch = .
 [submodule ".local/share/zsh/zsh-autosuggestions"]
 	path = .local/share/zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+	branch = .
 [submodule ".local/share/zsh/zsh-syntax-highlighting"]
 	path = .local/share/zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+	branch = .
 [submodule ".local/libexec/diff-so-fancy"]
 	path = .local/libexec/diff-so-fancy
 	url = https://github.com/so-fancy/diff-so-fancy.git
+	branch = .

@@ -99,6 +99,7 @@
 	autoStash = true
 [pull]
 	rebase = true
+	recurseSubmodules = on-demand
 [fetch]
 	prune = true
 	pruneTags = true
