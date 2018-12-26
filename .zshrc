@@ -141,7 +141,7 @@ libraries=(
 # add libraries to fpath but don't source yet
 for library ($libraries); do
   if [[ -d "$HOME/.local/lib/zsh/$library" ]]; then
-    fpath=($HOME/.local/lib/zsh/$library $fpath);
+    fpath=($HOME/.local/lib/zsh/$library $fpath)
   fi
 done
 

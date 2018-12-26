@@ -12,6 +12,17 @@ local powerline_lock='%{%G%}'
 
 
 ########################################################################
+# margin
+########################################################################
+
+# allow right prompt to occupy two thirds of the window)
+type add-zsh-hook > /dev/null 2>&1 || autoload -Uz add-zsh-hook
+function set-margin { export MARGIN=$(( $COLUMNS * 2 / 3 )) }
+function unset-margin { unset MARGIN }  # TODO: append hook?
+add-zsh-hook precmd set-margin
+
+
+########################################################################
 # vcs info utilities (git)
 ########################################################################
 
@@ -63,13 +74,37 @@ if hash git >/dev/null 2>&1; then
   fi
 fi
 
+
 ########################################################################
 # vcs info hooks (git)
+#
+# Each hook function embroiders onto the prompt (via appending to the
+# shared hook variables) information about the Git status, along with
+# formatting.
+#
+# However, it's also necessary to make each section optional and only
+# allow it to appear if there is room. The most important information
+# has already been printed (host, directory).
+#
+# Therefore, each section needs to be wrapped in a ternary operator of
+# the form `%n(l.unwanted.wanted)`, where 'n' is the number of
+# characters long that I want the right prompt to be at most, 'wanted'
+# is the actual text of the section, and 'unwanted' should be blank if
+# I do not want the section to appear, or else should just be the
+# transition if I need it. (This is a bit rough, since 'n' actually
+# represents the number of characters already printed, but it works out
+# okay.)
+#
+# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts
+#
 ########################################################################
 
 function +vi-git-action {
+  # begin ternary operator (with transition)
+  hook_com[action]="%$MARGIN(l.%{%K{16}%F{5}%}$powerline_hard_right_divider%{%f%k%}."
+
   # transition from light orange to light purple
-  hook_com[action]="%{%K{16}%F{5}%}$powerline_hard_right_divider%{%f%k%}"
+  hook_com[action]+="%{%K{16}%F{5}%}$powerline_hard_right_divider%{%f%k%}"
 
   # set bold black on light purple
   hook_com[action]+="%{%K{5}%F{0}%} "
@@ -113,21 +148,36 @@ function +vi-git-action {
 
   # close formatting
   hook_com[action]+=" %{%f%k%}"
+
+  # close ternary operator
+  hook_com[action]+=')'
 }
 
 function +vi-git-branch {
+  # begin ternary operator
+  hook_com[branch]="%$MARGIN(l.."
+
   # provide branch and sigil as black on orange (this is the first item
   # of vcs_info configured above, so no transition is needed, since that
   # is done before the vcs_info is included in the prompt)
-  hook_com[branch]="%{%K{1}%F{0}%} %25>…>${hook_com[branch_orig]}%<< $powerline_branch %{%f%k%}"
+  hook_com[branch]+="%{%K{1}%F{0}%} %25>…>${hook_com[branch_orig]}%<< $powerline_branch %{%f%k%}"
+
+  # close ternary operator
+  hook_com[branch]+=')'
 }
 
 function +vi-git-revision {
+  # begin ternary operator (with transition)
+  hook_com[revision]="%$MARGIN(l.%{%K{1}%F{16}%}$powerline_hard_right_divider%{%f%k%}."
+
   # transition from dark orange to light orange
-  hook_com[revision]="%{%K{1}%F{16}%}$powerline_hard_right_divider%{%f%k%}"
+  hook_com[revision]+="%{%K{1}%F{16}%}$powerline_hard_right_divider%{%f%k%}"
 
   # provide truncated revision as black on light orange
   hook_com[revision]+="%{%K{16}%F{0}%} ${hook_com[revision_orig][0,4]} %{%f%k%}"
+
+  # close ternary operator
+  hook_com[revision]+=')'
 }
 
 function +vi-git-copied-files {
@@ -143,11 +193,17 @@ function +vi-git-copied-files {
   hook_com[staged]=''
 
   if git-status-has-copied-files "${user_data[git_status]}"; then
+    # begin ternary operator
+    hook_com[staged]+="%$MARGIN(l.."
+
     # provide divider as black on light orange without transition
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide copied files sigil as bold black on light orange
     hook_com[staged]+='%{%K{16}%F{0}%} %{♊︎%G%} %{%f%k%}'
+
+    # close ternary operator
+    hook_com[staged]+=')'
   fi
 }
 
@@ -157,11 +213,17 @@ function +vi-git-deleted-files {
   fi
 
   if git-status-has-deleted-files "${user_data[git_status]}"; then
+    # begin ternary operator
+    hook_com[staged]+="%$MARGIN(l.."
+
     # provide divider as black on light orange without transition
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide deleted files sigil as bold black on light orange
     hook_com[staged]+='%{%K{16}%F{0}%} %{✘%G%} %{%f%k%}'
+
+    # close ternary operator
+    hook_com[staged]+=')'
   fi
 }
 
@@ -171,11 +233,17 @@ function +vi-git-modified-files {
   fi
 
   if git-status-has-modified-files "${user_data[git_status]}"; then
+    # begin ternary operator
+    hook_com[staged]+="%$MARGIN(l.."
+
     # provide divider as black on light orange without transition
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide modified files sigil as bold black on light orange
     hook_com[staged]+='%{%K{16}%F{0}%} %{✄%G%} %{%f%k%}'
+
+    # close ternary operator
+    hook_com[staged]+=')'
   fi
 }
 
@@ -185,11 +253,17 @@ function +vi-git-renamed-files {
   fi
 
   if git-status-has-renamed-files "${user_data[git_status]}"; then
+    # begin ternary operator
+    hook_com[staged]+="%$MARGIN(l.."
+
     # provide divider as black on light orange without transition
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide renamed files sigil as bold black on light orange
     hook_com[staged]+='%{%K{16}%F{0}%} %{⤨%G%} %{%f%k%}'
+
+    # close ternary operator
+    hook_com[staged]+=')'
   fi
 }
 
@@ -199,11 +273,17 @@ function +vi-git-staged-files {
   fi
 
   if git-status-has-staged-files "${user_data[git_status]}"; then
+    # begin ternary operator
+    hook_com[staged]+="%$MARGIN(l.."
+
     # provide divider as black on light orange without transition
     hook_com[staged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide staged files sigil as bold black on light orange
     hook_com[staged]+='%{%K{16}%F{0}%} %{✚%G%} %{%f%k%}'
+
+    # close ternary operator
+    hook_com[staged]+=')'
   fi
 }
 
@@ -213,11 +293,17 @@ function +vi-git-unstaged-files {
   fi
 
   if git-status-has-unstaged-files "${user_data[git_status]}"; then
+    # begin ternary operator
+    hook_com[staged]+="%$MARGIN(l.."
+
     # provide divider as black on light orange without transition
     hook_com[unstaged]+="%{%K{16}%F{0}%}$powerline_soft_right_divider%{%f%k%}"
 
     # provide unstaged files sigil as bold black on light orange
     hook_com[unstaged]+='%{%K{16}%F{0}%} %{✸%G%} %{%f%k%}'
+
+    # close ternary operator
+    hook_com[staged]+=')'
   fi
 }
 
