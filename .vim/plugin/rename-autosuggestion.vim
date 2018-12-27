@@ -1,9 +1,11 @@
 cnoreabbrev <expr> Rename <SID>FillInRenameFilename()
+cnoreabbrev <expr> rename <SID>FillInRenameFilename()
 
 function! s:FillInRenameFilename() abort
-  if getcmdtype() == ':' && getcmdline() =~ '^[rR]ename$'
+  let l:line = getcmdline()
+  if getcmdtype() == ':' && l:line =~ '^[rR]ename$'
     return 'Rename ' . expand('%:t')
   else
-    return getcmdline()
+    return l:line
   endif
 endfunction
