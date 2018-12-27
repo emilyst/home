@@ -1,64 +1,44 @@
-if has('autocmd') && !exists('#SpellCheck')
-  augroup SpellCheck
-    autocmd!
-    autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
-          \ setlocal spell
-    autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
-          \ setlocal thesaurus+=~/.vim/thesaurus/mthesaur.txt
-  augroup END
-endif
+if has('autocmd')
+  if !exists('#SpellCheck')
+    augroup SpellCheck
+      autocmd!
+      autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
+            \ setlocal spell
+      autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
+            \ setlocal thesaurus+=~/.vim/thesaurus/mthesaur.txt
+    augroup END
+  endif
 
-" see https://github.com/plasticboy/vim-markdown/issues/232
-" and https://github.com/plasticboy/vim-markdown/issues/246
-if has('autocmd') && !exists('#AdjustListFormattingContextually')
-  augroup AdjustListFormattingContextually
-    autocmd!
-    autocmd CursorMovedI,CursorMoved *.{md,mdown,mkd,mkdn,markdown,mdwn}*
-          \ call <SID>SetFormatOptionsContextually()
-  augroup END
-endif
+  if !exists('#CommentString')
+    augroup CommentString
+      autocmd!
+      autocmd FileType markdown
+            \ setlocal commentstring=<!--\ %s\ -->
+      autocmd FileType markdown
+            \ setlocal comments=b:>,b:*,b:+,b:-,s:<!--,m:\ \ \ \ ,e:-->
+    augroup END
+  endif
 
-" " Set up formatlistpat to handle various denotions of indention/hierarchy
-" set formatlistpat=
-" " Leading whitespace
-" set formatlistpat+=^\\s*
-" " Start class
-" set formatlistpat+=[
-" " Optionially match opening punctuation
-" set formatlistpat+=\\[({]\\?
-" " Start group
-" set formatlistpat+=\\(
-" " A number
-" set formatlistpat+=[0-9]\\+
-" " Roman numerals
-" set formatlistpat+=\\\|[iIvVxXlLcCdDmM]\\+
-" " A single letter
-" set formatlistpat+=\\\|[a-zA-Z]
-" " End group
-" set formatlistpat+=\\)
-" " Closing punctuation
-" set formatlistpat+=[\\]:.)}
-" " End class
-" set formatlistpat+=]
-" " One or more spaces
-" set formatlistpat+=\\s\\+
-" " Or ASCII style bullet points
-" set formatlistpat+=\\\|^\\s*[-+o*]\\s\\+
-
-" also format mkdListItem and mkdListItemLine
-
-" see https://github.com/plasticboy/vim-markdown/issues/232
-if has('autocmd') && !exists('#AdjustListPattern')
-  augroup AdjustListPattern
-    autocmd!
-    autocmd FileType markdown
-          \ setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*\[-*+]\\s\\+
-  augroup END
+  if !exists('#FormatProg')
+    augroup FormatProg
+      autocmd!
+      autocmd FileType markdown
+            \ setlocal equalprg=pandoc
+            \          equalprg+=\ -f\ markdown+autolink_bare_uris
+            \          equalprg+=\ -t\ markdown+autolink_bare_uris
+            \          equalprg+=\ --atx-headers
+            \          equalprg+=\ --columns\ 72
+            \          equalprg+=\ --reference-links
+      autocmd FileType markdown let &l:formatprg=&l:equalprg
+    augroup END
+  endif
 endif
 
 " TODO: consider disabling 'a' within the first word of a line, due to
 " lists beginning with numbers or letters which cannot be readily
 " identified as such until a few characters have been typed
+"
+" TODO: enable this again?
 function! s:SetFormatOptionsContextually() abort
   let l:line = getline(line('.'))
 
