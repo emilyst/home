@@ -1,6 +1,6 @@
 function! s:RegenerateSpellfiles() abort
   for l:dir in split(globpath(&rtp, 'spell'), '\n')
-    for l:wordlist in split(globpath(l:dir, '*.add'), '\n')
+    for l:wordlist in split(globpath(l:dir, '*.add'), '\n') + split(&l:spellfile, ',')
       if !filewritable(l:wordlist) | continue | endif
 
       " sort the contents of the wordlist first
@@ -19,18 +19,10 @@ endfunction
 " we can't autocmd on wordlist modifications or otherwise check for
 " them, so we need to intercept the mappings which modify the wordlists
 " directly
-nnoremap zg
-      \ zg<CR>
-      \ :call <SID>RegenerateSpellfiles()<CR>
-nnoremap zw
-      \ zw<CR>
-      \ :call <SID>RegenerateSpellfiles()<CR>
-nnoremap zug
-      \ zug<CR>
-      \ :call <SID>RegenerateSpellfiles()<CR>
-nnoremap zuw
-      \ zuw<CR>
-      \ :call <SID>RegenerateSpellfiles()<CR>
+nnoremap zg  zg<CR>  :call <SID>RegenerateSpellfiles()<CR>
+nnoremap zw  zw<CR>  :call <SID>RegenerateSpellfiles()<CR>
+nnoremap zug zug<CR> :call <SID>RegenerateSpellfiles()<CR>
+nnoremap zuw zuw<CR> :call <SID>RegenerateSpellfiles()<CR>
 
 " define commands to replace the built-in ones, and try to override them
 " with abbreviations (this inadvertently hides the versions ending in
@@ -86,4 +78,3 @@ if has('autocmd') && !exists('#RegenerateSpellfiles')
     autocmd VimEnter,VimLeave * call <SID>RegenerateSpellfiles()
   augroup END
 endif
-
