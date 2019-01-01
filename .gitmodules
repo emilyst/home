@@ -102,8 +102,8 @@
 	path = .vim/pack/default/wildfire
 	url = https://github.com/gcmt/wildfire.vim.git
 	branch = .
-[submodule ".local/share/base16-shell"]
-	path = .local/share/base16-shell
+[submodule ".local/libexec/base16-shell"]
+	path = .local/libexec/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
 	branch = .
 [submodule ".vim/pack/default/airline-themes"]
@@ -158,8 +158,8 @@
 	path = .vim/pack/default/sensible
 	url = git://github.com/tpope/vim-sensible.git
 	branch = .
-[submodule ".local/share/vlime"]
-	path = .local/share/vlime
+[submodule ".local/libexec/vlime"]
+	path = .local/libexec/vlime
 	url = https://github.com/l04m33/vlime.git
 	branch = .
 [submodule ".vim/pack/default/lexima"]
@@ -230,8 +230,8 @@
 	path = .rbenv/plugins/rbenv-each
 	url = https://github.com/rbenv/rbenv-each.git
 	branch = .
-[submodule ".local/share/rbenv"]
-	path = .local/share/rbenv
+[submodule ".local/libexec/rbenv"]
+	path = .local/libexec/rbenv
 	url = https://github.com/sstephenson/rbenv.git
 	branch = .
 [submodule ".vim/pack/default/FastFold"]
@@ -254,16 +254,16 @@
 	path = .vim/pack/default/dadbod
 	url = https://github.com/tpope/vim-dadbod.git
 	branch = .
-[submodule ".local/share/zsh/zsh-history-substring-search"]
-	path = .local/share/zsh/zsh-history-substring-search
+[submodule ".local/libexec/zsh/zsh-history-substring-search"]
+	path = .local/libexec/zsh/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
 	branch = .
-[submodule ".local/share/zsh/zsh-autosuggestions"]
-	path = .local/share/zsh/zsh-autosuggestions
+[submodule ".local/libexec/zsh/zsh-autosuggestions"]
+	path = .local/libexec/zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
 	branch = .
-[submodule ".local/share/zsh/zsh-syntax-highlighting"]
-	path = .local/share/zsh/zsh-syntax-highlighting
+[submodule ".local/libexec/zsh/zsh-syntax-highlighting"]
+	path = .local/libexec/zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 	branch = .
 [submodule ".local/libexec/diff-so-fancy"]
