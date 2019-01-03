@@ -270,3 +270,6 @@
 	path = .local/libexec/diff-so-fancy
 	url = https://github.com/so-fancy/diff-so-fancy.git
 	branch = .
+[submodule ".vim/pack/default/vinegar"]
+	path = .vim/pack/default/vinegar
+	url = https://github.com/tpope/vim-vinegar.git
