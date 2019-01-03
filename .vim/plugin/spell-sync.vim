@@ -1,10 +1,10 @@
 function! s:RegenerateSpellfiles() abort
   for l:dir in split(globpath(&rtp, 'spell'), '\n')
-    for l:wordlist in split(globpath(l:dir, '*.add'), '\n') + split(&l:spellfile, ',')
+    for l:wordlist in uniq(split(globpath(l:dir, '*.add'), '\n') + split(&l:spellfile, ','))
       if !filewritable(l:wordlist) | continue | endif
 
       " sort the contents of the wordlist first
-      call writefile(uniq(sort(readfile(l:wordlist))), l:wordlist)
+      call writefile(uniq(sort(readfile(l:wordlist), 'i')), l:wordlist)
 
       let l:spellfile = l:wordlist . '.spl'
       if !filewritable(l:spellfile) | continue | endif

@@ -4,6 +4,7 @@ tags
 .tags
 .env
 .classpath
+*.add.spl
 
 # sublime dreck
 *sublime*
