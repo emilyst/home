@@ -1,50 +1,45 @@
 if has('autocmd')
-  if !exists('#SpellCheck')
-    augroup SpellCheck
-      autocmd!
-      autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
-            \ setlocal spell
-      autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
-            \ setlocal thesaurus+=~/.vim/thesaurus/mthesaur.txt
-    augroup END
-  endif
+  augroup SpellCheck
+    autocmd!
+    autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
+          \ setlocal spell
+    autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
+          \ setlocal thesaurus+=~/.vim/thesaurus/mthesaur.txt
+  augroup END
 
-  if !exists('#CommentString')
-    augroup CommentString
-      autocmd!
-      autocmd FileType markdown setlocal commentstring=<!--\ %s\ -->
-      autocmd FileType markdown
-            \ setlocal comments=b:>,b:*,b:+,b:-,s:<!--,m:\ \ \ \ ,e:-->
-    augroup END
-  endif
+  augroup CommentString
+    autocmd!
+    autocmd FileType markdown setlocal commentstring=<!--\ %s\ -->
+    autocmd FileType markdown
+          \ setlocal comments=b:>,b:*,b:+,b:-,s:<!--,m:\ \ \ \ ,e:-->
+  augroup END
 
-  if !exists('#FormatListPattern')
-    augroup FormatListPattern
-      autocmd!
-      autocmd FileType markdown
-            \ setlocal formatlistpat=
-            \          formatlistpat+=^\\s*
-            \          formatlistpat+=[
-            \          formatlistpat+=\\[({]\\?
-            \          formatlistpat+=\\(
-            \          formatlistpat+=[0-9]\\+
-            \          formatlistpat+=\\\|[iIvVxXlLcCdDmM]\\+
-            \          formatlistpat+=\\\|[a-zA-Z]
-            \          formatlistpat+=\\)
-            \          formatlistpat+=[\\]:.)}
-            \          formatlistpat+=]
-            \          formatlistpat+=\\s\\+
-            \          formatlistpat+=\\\|^\\s*[-+o*]\\s\\+
-      autocmd FileType markdown setlocal formatoptions-=q
-    augroup END
-  endif
+  augroup FormatListPattern
+    autocmd!
+    " autocmd FileType markdown
+    autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
+          \ setlocal formatlistpat=
+          \          formatlistpat+=^\\s*
+          \          formatlistpat+=[
+          \          formatlistpat+=\\[({]\\?
+          \          formatlistpat+=\\(
+          \          formatlistpat+=[0-9]\\+
+          \          formatlistpat+=\\\|[iIvVxXlLcCdDmM]\\+
+          \          formatlistpat+=\\\|[a-zA-Z]
+          \          formatlistpat+=\\)
+          \          formatlistpat+=[\\]:.)}
+          \          formatlistpat+=]
+          \          formatlistpat+=\\s\\+
+          \          formatlistpat+=\\\|^\\s*[-+o*]\\s\\+
+    autocmd FileType markdown setlocal formatoptions-=q
+  augroup END
 
-  if !exists('#FourSpaceIndent')
-    augroup FourSpaceIndent
-      autocmd!
-      autocmd FileType markdown setlocal shiftwidth=4 tabstop=4 expandtab
-    augroup END
-  endif
+  augroup FourSpaceIndent
+    autocmd!
+    " autocmd FileType markdown setlocal shiftwidth=4 tabstop=4 expandtab
+    autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
+          \ setlocal shiftwidth=4 tabstop=4 expandtab
+  augroup END
 
   " if !exists('#FormatWithPandoc') && executable('pandoc')
   "   augroup FormatWithPandoc
