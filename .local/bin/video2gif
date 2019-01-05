@@ -172,6 +172,7 @@ def build_filter_complex(options)
   filter_complex << fps_filter
   filter_complex << scale_filter if options[:width]
   filter_complex << drawtext_filter if options[:text]
+
   filter_complex.join(',')
 end
 
@@ -194,7 +195,7 @@ def build_command_line(args, options)
   command << '-ss' << options[:seek] if options[:seek]
   command << '-t' << options[:time] if options[:time]
   command << '-i' << input_filename
-  command << '-filter_complex' << "#{build_filter_complex(options)}"
+  command << '-filter_complex' << build_filter_complex(options)
   command << '-map' << '0:0'
   command << output_filename
 end
