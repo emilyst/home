@@ -116,12 +116,12 @@ end
 
 def build_filter_complex(options)
   fps          = options[:fps]     || 15
-  width        = options[:width]   || 500
   palette_size = options[:palette] || 256
+  width        = options[:width]   # default is not to scale at all
 
   # create filter elements
   fps_filter        = "fps=#{fps}"
-  scale_filter      = "scale=#{width}:-1:flags=lanczos"
+  scale_filter      = "scale=#{width}:-1:flags=lanczos" if options[:width]
   palettegen_filter = "palettegen=max_colors=#{palette_size}:stats_mode=diff"
   paletteuse_filter = 'paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle'
   drawtext_filter   = if options[:text]
@@ -150,34 +150,29 @@ def build_filter_complex(options)
                           "style:#{style}",
                           "text=#{text}",
                         ].join(':')
-                      else
-                        ''
                       end
 
-  filter_complex = ''
+  filter_complex = []
 
   # first, apply the same filters we'll use later in the same order
   # before applying the palettegen so that we accurately predict the
   # final palette
-  filter_complex += "#{fps_filter},"
-  filter_complex += "#{scale_filter},"
-  filter_complex += "#{drawtext_filter}," unless drawtext_filter.empty?
+  filter_complex << fps_filter
+  filter_complex << scale_filter if options[:width]
+  filter_complex << drawtext_filter if options[:text]
 
   # then generate the palette (and label this filter stream)
-  filter_complex += "#{palettegen_filter}"
-  filter_complex += '[palette],'
+  filter_complex << palettegen_filter + '[palette]'
 
   # then refer back to the first video input stream and the filter
   # complex stream to apply the generated palette to the video stream
   # along with the other filters (drawing text last so that it isn't
   # affected by scaling)
-  filter_complex += '[0:v]'
-  filter_complex += '[palette]'
-  filter_complex += "#{paletteuse_filter},"
-  filter_complex += "#{fps_filter},"
-  filter_complex += "#{scale_filter}"
-  filter_complex += ",#{drawtext_filter}" unless drawtext_filter.empty?
-  filter_complex
+  filter_complex << '[0:v][palette]' + paletteuse_filter
+  filter_complex << fps_filter
+  filter_complex << scale_filter if options[:width]
+  filter_complex << drawtext_filter if options[:text]
+  filter_complex.join(',')
 end
 
 def build_command_line(args, options)
