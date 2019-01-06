@@ -2,10 +2,6 @@
 	path = .vim/pack/default/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 	branch = .
-[submodule ".vim/pack/default/nerdtree"]
-	path = .vim/pack/default/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-	branch = .
 [submodule ".vim/pack/default/abolish"]
 	path = .vim/pack/default/abolish
 	url = https://github.com/tpope/vim-abolish
