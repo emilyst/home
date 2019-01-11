@@ -65,7 +65,6 @@ elif [[ "$OSTYPE" == *'darwin'* ]]; then
 fi
 
 
-
 ########################################################################
 # completion
 ########################################################################
@@ -74,20 +73,24 @@ bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
 zmodload -i zsh/complist
 zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+zstyle ':completion:*::::' _expand completer _complete _match _approximate
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.cache/zsh
 
 # insert all expansions for expand completer
 zstyle ':completion:*:expand:*' tag-order all-expansions
 
-zstyle ':completion:*' verbose yes
+zstyle ':completion:*' extra-verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name '' # completion in distinct groups
 
-# allow one error for every three characters typed in approximate completer
-zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
+# allow one error for every four characters typed in approximate completer
+zstyle ':completion:*:match:*' original only
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/4 )) numeric )'
 
 # case- and hyphen-insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
@@ -103,8 +106,26 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
 # offer completions for directories from all these groups
-zstyle ':completion:*::*:(cd|pushd):*' tag-order \
-  local-directories directory-stack named-directories path-directories
+zstyle ':completion:*::*:(cd|pushd):*' tag-order path-directories directory-stack
+
+# never offer the parent directory (e.g.: cd ../<TAB>)
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
+# don't complete things which aren't available
+zstyle ':completion:*:*:-command-:*:*' tag-order 'functions:-non-comp *' functions
+zstyle ':completion:*:functions-non-comp' ignored-patterns '_*'
+
+# why doesn't this do anything?
+# zstyle ':completion:*:*:-command-:*:*' tag-order - path-directories directory-stack
+
+# split options into groups
+zstyle ':completion:*' tag-order \
+    'options:-long:long\ options
+     options:-short:short\ options
+     options:-single-letter:single\ letter\ options'
+zstyle ':completion:*:options-long' ignored-patterns '[-+](|-|[^-]*)'
+zstyle ':completion:*:options-short' ignored-patterns '--*' '[-+]?'
+zstyle ':completion:*:options-single-letter' ignored-patterns '???*'
 
 
 ########################################################################
