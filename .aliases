@@ -28,10 +28,14 @@ alias gist="gist -p"
 alias rg="rg --no-ignore-parent --smart-case"
 alias rsync="rsync -av --progress"
 
-alias l="ls -AlFhtO"
-alias lh="ls -Ad .*"
-alias ll="ls -AlF"
-alias la="ls -A"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  alias l='ls -AlFhtO'
+else
+  alias l='ls -AlFht'
+fi
+alias lh='ls -Ad .*'
+alias ll='ls -AlF'
+alias la='ls -A'
 
 function timestamp() {
   local original_tz=$TZ
