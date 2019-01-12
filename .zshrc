@@ -69,8 +69,6 @@ fi
 # completion
 ########################################################################
 
-bindkey '^I' complete-word # complete on tab, leave expansion to _expand
-
 zmodload -i zsh/complist
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*::::' _expand completer _complete _match _approximate
@@ -200,15 +198,6 @@ zle -N self-insert url-quote-magic
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 
-# edit command line in $EDITOR with 'm-e' (or 'esc+e' or 'v' in vi mode)
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey -M emacs '^[e' edit-command-line
-bindkey -M vicmd v edit-command-line
-
-# this has to be set manually in zsh for some reason, who knew?
-bindkey '^R' history-incremental-search-backward
-
 
 ########################################################################
 # zsh-syntax-highlighting
@@ -246,24 +235,6 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 if [[ -s "$HOME/.local/libexec/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh" ]]; then
   source "$HOME/.local/libexec/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 fi
-
-# bind Up and Down arrow keys
-# zmodload zsh/terminfo
-# bindkey "${terminfo[kcuu1]}" history-substring-search-up
-# bindkey "${terminfo[kcud1]}" history-substring-search-down
-
-# this isn't really portable, but the `terminfo` module doesn't work
-# currently for the Down key
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# bind P and N for Emacs mode
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-
-# bind k and j for Vi mode
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
 
 
 ########################################################################
@@ -322,6 +293,72 @@ hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 # fi
 
 hash rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+
+
+########################################################################
+# key bindings
+########################################################################
+
+# load terminfo for portable keybindings
+zmodload zsh/terminfo
+
+# allows using terminfo properly
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+  function zle-line-init()   { echoti smkx }
+  function zle-line-finish() { echoti rmkx }
+  zle -N zle-line-init
+  zle -N zle-line-finish
+fi
+
+# default to emacs-style keybindings
+bindkey -e
+
+# Page-Up and Page-Down cycle through history
+[[ "${terminfo[kpp]}" != "" ]] && bindkey "${terminfo[kpp]}" up-line-or-history
+[[ "${terminfo[knp]}" != "" ]] && bindkey "${terminfo[knp]}" down-line-or-history
+
+# search history for commands which begin with the current string by
+# pressing Up or Down (depends on zsh-history-substring-search)
+[[ "${terminfo[kcuu1]}" != "" ]] && bindkey "${terminfo[kcuu1]}" history-substring-search-up
+[[ "${terminfo[kcud1]}" != "" ]] && bindkey "${terminfo[kcud1]}" history-substring-search-down
+
+# Home and End go to beginning and end of line
+[[ "${terminfo[khome]}" != "" ]] && bindkey "${terminfo[khome]}" beginning-of-line
+[[ "${terminfo[kend]}" != "" ]] && bindkey "${terminfo[kend]}"  end-of-line
+
+# Space does history expansion (e.g., !1<space> becomes the last command
+# input in the history)
+bindkey ' ' magic-space
+
+bindkey '^[[1;5C' forward-word   # move forward wordwise with ctrl-arrow
+bindkey '^[[1;5D' backward-word  # move backward wordwise with ctrl-arrow
+
+# Shift-Tab moves through the completion menu backwards
+[[ "${terminfo[kcbt]}" != "" ]] && bindkey "${terminfo[kcbt]}" reverse-menu-complete
+
+# Backspace
+[[ "${terminfo[kbs]}" != "" ]] && bindkey "${terminfo[kbs]}" backward-delete-char
+
+# Delete
+if [[ "${terminfo[kdch1]}" != "" ]]; then
+  bindkey "${terminfo[kdch1]}" delete-char
+else
+  bindkey "^[[3~" delete-char
+  bindkey "^[3;5~" delete-char
+  bindkey "\e[3~" delete-char
+fi
+
+# complete on Tab, leave expansion to _expand
+[[ "${terminfo[ht]}" != "" ]] && bindkey "${terminfo[ht]}" complete-word
+
+# initiate history search with Ctrl-R
+bindkey '^R' history-incremental-search-backward
+
+# edit command line in $EDITOR with 'm-e' (or 'esc+e' or 'v' in vi mode)
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M emacs '^[e' edit-command-line
+bindkey -M vicmd v edit-command-line
 
 
 ########################################################################
