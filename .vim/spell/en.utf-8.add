@@ -5,6 +5,7 @@ hostnames
 hypervigilance
 hypervigilant
 liminal
+linearizability
 macOS
 metadata
 namespace
@@ -15,6 +16,7 @@ rebases
 recursing
 repo
 scaffolded
+serializability
 submodule
 submodule's
 submodules
