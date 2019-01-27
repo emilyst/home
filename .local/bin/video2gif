@@ -82,6 +82,10 @@ def parse(args)
     parser.separator ''
     parser.separator 'Other options:'
 
+    parser.on_tail('--verbose', 'Show ffmpeg command executed and output') do |p|
+      options[:verbose] = p
+    end
+
     parser.on_tail('-h', '--help', 'Show this message') do
       puts parser
       exit
@@ -192,12 +196,25 @@ def build_command_line(args, options)
 
   command = []
   command << command_name
+  command << '-y'  # always overwrite
   command << '-ss' << options[:seek] if options[:seek]
   command << '-t' << options[:time] if options[:time]
   command << '-i' << input_filename
   command << '-filter_complex' << build_filter_complex(options)
-  command << '-map' << '0:0'
   command << output_filename
+
+  if options[:verbose]
+    puts command.join(' ')
+  end
+
+  command
 end
 
-exec(*build_command_line(ARGV, parse(ARGV)))
+options = parse(ARGV)
+command = build_command_line(ARGV, options)
+
+if options[:verbose]
+  exec(*command)
+else
+  exec(*command, out: '/dev/null', err: '/dev/null')
+end
