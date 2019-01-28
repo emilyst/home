@@ -9,8 +9,11 @@ if has('autocmd')
 
   augroup CommentString
     autocmd!
-    autocmd FileType markdown setlocal commentstring=<!--\ %s\ -->
-    autocmd FileType markdown
+    " autocmd FileType markdown setlocal commentstring=<!--\ %s\ -->
+    autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
+          \ setlocal commentstring=<!--\ %s\ -->
+    " autocmd FileType markdown
+    autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
           \ setlocal comments=b:>,b:*,b:+,b:-,s:<!--,m:\ \ \ \ ,e:-->
   augroup END
 
@@ -31,7 +34,9 @@ if has('autocmd')
           \          formatlistpat+=]
           \          formatlistpat+=\\s\\+
           \          formatlistpat+=\\\|^\\s*[-+o*]\\s\\+
-    autocmd FileType markdown setlocal formatoptions-=q
+    autocmd BufRead,BufNewFile,BufWinEnter,BufEnter *.{md,mdown,mkd,mkdn,markdown,mdwn}*
+          \ setlocal formatoptions-=q
+    " autocmd FileType markdown setlocal formatoptions-=q
   augroup END
 
   augroup FourSpaceIndent
