@@ -7,6 +7,9 @@
 #  video2gif video.mp4 [options]
 
 require 'optparse'
+require 'open3'
+require 'logger'
+
 
 def is_executable?(command)
   ENV['PATH'].split(File::PATH_SEPARATOR).map do |path|
@@ -98,14 +101,19 @@ def parse(args)
 
   unless is_executable?('ffmpeg')
     puts 'ERROR: Requires FFmpeg to be installed!'
-    exit
+    exit 1
+  end
+
+  unless is_executable?('convert')
+    puts 'ERROR: Requires ImageMagick to be installed!'
+    exit 1
   end
 
   if args.size != 1
     puts 'ERROR: Specify one video to convert at a time!'
     puts ''
     puts parser.help
-    exit
+    exit 1
   end
 
   unless File.exists?(args[0])
@@ -141,18 +149,15 @@ def build_filter_complex(options)
                         font   = options[:textfont]    || 'Arial'
                         style  = options[:textvariant] || 'Bold'
 
-                        'drawtext=' + [
-                          # centers the text as a whole
-                          'x=(main_w/2-text_w/2)',
-                          # bumps text from bottom as a whole based on
-                          # line height (with some margin)
-                          "y=(main_h-line_h*1.33*#{count_of_lines})",
-                          "fontsize=#{size}",
-                          "fontcolor=#{color}",
-                          "borderw=#{border}",
-                          "font=#{font}",
-                          "style:#{style}",
-                          "text=#{text}",
+                        'drawtext=' + %W[
+                          x='(main_w/2-text_w/2)'
+                          y='(main_h-line_h*1.33*#{count_of_lines})'
+                          fontsize='#{size}'
+                          fontcolor='#{color}'
+                          borderw='#{border}'
+                          font='#{font}'
+                          style:'#{style}'
+                          text='#{text}'
                         ].join(':')
                       end
 
@@ -180,41 +185,46 @@ def build_filter_complex(options)
   filter_complex.join(',')
 end
 
-def build_command_line(args, options)
-  command_name      = 'ffmpeg'
-  input_filename    = args[0]
-  output_filename   = if options[:output]
-                        if options[:output].end_with?('.gif')
-                          options[:output]
-                        else
-                          options[:output] + '.gif'
-                        end
-                      else
-                        File.join(File.dirname(input_filename),
-                                  File.basename(input_filename, '.*') + '.gif')
-                      end
+def build_ffmpeg_command(args, options, logger)
+  input_filename = args[0]
 
   command = []
-  command << command_name
+  command << 'ffmpeg'
   command << '-y'  # always overwrite
   command << '-ss' << options[:seek] if options[:seek]
   command << '-t' << options[:time] if options[:time]
   command << '-i' << input_filename
   command << '-filter_complex' << build_filter_complex(options)
-  command << output_filename
+  command << '-f' << 'gif'
+  command << '-'
 
-  if options[:verbose]
-    puts command.join(' ')
-  end
+  logger.info(command.join(' ')) if options[:verbose]
 
   command
 end
 
-options = parse(ARGV)
-command = build_command_line(ARGV, options)
+def build_convert_command(args, options, logger)
+  input_filename  = args[0]
+  output_filename = if options[:output]
+                      if options[:output].end_with?('.gif')
+                        options[:output]
+                      else
+                        options[:output] + '.gif'
+                      end
+                    else
+                      File.join(File.dirname(input_filename),
+                                File.basename(input_filename, '.*') + '.gif')
+                    end
 
-if options[:verbose]
-  exec(*command)
-else
-  exec(*command, out: '/dev/null', err: '/dev/null')
+  command = []
+  command << 'convert' << '-' << '-layers' << 'Optimize' << output_filename
+
+  logger.info(command.join(' ')) if options[:verbose]
+
+  command
 end
+
+logger = Logger.new(STDOUT)
+options = parse(ARGV)
+Open3.pipeline(build_ffmpeg_command(ARGV, options, logger),
+               build_convert_command(ARGV, options, logger))
