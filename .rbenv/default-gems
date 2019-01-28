@@ -5,6 +5,7 @@ bundler
 rake
 pry
 pry-stack_explorer
+pry-nav
 rubocop
 magic_frozen_string_literal
 methodsolver
