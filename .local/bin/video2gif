@@ -191,6 +191,7 @@ def build_ffmpeg_command(args, options, logger)
   command = []
   command << 'ffmpeg'
   command << '-y'  # always overwrite
+  command << '-nostdin'
   command << '-ss' << options[:seek] if options[:seek]
   command << '-t' << options[:time] if options[:time]
   command << '-i' << input_filename
@@ -226,5 +227,21 @@ end
 
 logger = Logger.new(STDOUT)
 options = parse(ARGV)
-Open3.pipeline(build_ffmpeg_command(ARGV, options, logger),
-               build_convert_command(ARGV, options, logger))
+
+read_io, write_io = IO.pipe
+Open3.pipeline_start(build_ffmpeg_command(ARGV, options, logger),
+                     build_convert_command(ARGV, options, logger),
+                     out: write_io,
+                     err: write_io) do |threads|
+                       write_io.close
+                       if options[:verbose]
+                         read_io.each(chomp: true) { |line| logger.info(line) }
+                       else
+                         read_io.read(1024) until read_io.eof?
+                       end
+                       read_io.close
+
+                       threads.each do |t|
+                         raise "Process #{t.pid} failed!" unless t.value.success?
+                       end
+                     end
