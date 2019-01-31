@@ -155,8 +155,7 @@ def build_filter_complex(options)
                           fontsize='#{size}'
                           fontcolor='#{color}'
                           borderw='#{border}'
-                          font='#{font}'
-                          style:'#{style}'
+                          fontfile='#{font}'\\\\:style='#{style}'
                           text='#{text}'
                         ].join(':')
                       end
