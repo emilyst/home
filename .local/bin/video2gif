@@ -19,17 +19,13 @@ def is_executable?(command)
   end.flatten.any?
 end
 
-def parse(args)
+def parse(args, logger)
   options = {}
 
   parser = OptionParser.new do |parser|
-    parser.banner = 'Usage: video2gif <video> [options]'
+    parser.banner = 'Usage: video2gif <video> [options] [<output GIF filename>]'
     parser.separator ''
     parser.separator 'General GIF options:'
-
-    parser.on('-oNAME', '--output=NAME', 'Set the name for the resulting GIF') do |n|
-      options[:output] = n
-    end
 
     parser.on('-sSEEK', '--seek=SEEK', 'Set time to seek to in the input video') do |s|
       options[:seek] = s
@@ -53,6 +49,10 @@ def parse(args)
 
     parser.on('-pPALETTE', '--palette=PALETTE', 'Set the palette size of the resulting GIF') do |p|
       options[:palette] = p
+    end
+
+    parser.on('-o', '--[no-]optimize', 'Attempt to optimize GIF size with ImageMagick (default yes if available)') do |p|
+      options[:optimize] = p
     end
 
     parser.separator ''
@@ -85,8 +85,12 @@ def parse(args)
     parser.separator ''
     parser.separator 'Other options:'
 
-    parser.on_tail('--verbose', 'Show ffmpeg command executed and output') do |p|
+    parser.on_tail('-v', '--verbose', 'Show ffmpeg command executed and output') do |p|
       options[:verbose] = p
+    end
+
+    parser.on_tail('-q', '--quiet', 'Suppress all log output (overrides verbose)') do |p|
+      options[:quiet] = p
     end
 
     parser.on_tail('-h', '--help', 'Show this message') do
@@ -104,12 +108,7 @@ def parse(args)
     exit 1
   end
 
-  unless is_executable?('convert')
-    puts 'ERROR: Requires ImageMagick to be installed!'
-    exit 1
-  end
-
-  if args.size != 1
+  if args.size < 1 || args.size > 2
     puts 'ERROR: Specify one video to convert at a time!'
     puts ''
     puts parser.help
@@ -121,6 +120,12 @@ def parse(args)
     puts ''
     puts parser.help
     exit
+  end
+
+  if !is_executable?('convert') && options[:optimize]
+    logger.warn('ImageMagick isn\'t available! Optimization will be'\
+                ' disabled!') unless options[:quiet]
+    options[:optimize] = false
   end
 
   options
@@ -151,7 +156,7 @@ def build_filter_complex(options)
 
                         'drawtext=' + %W[
                           x='(main_w/2-text_w/2)'
-                          y='(main_h-line_h*1.33*#{count_of_lines})'
+                          y='(main_h-line_h*1.5*#{count_of_lines})'
                           fontsize='#{size}'
                           fontcolor='#{color}'
                           borderw='#{border}'
@@ -184,57 +189,56 @@ def build_filter_complex(options)
   filter_complex.join(',')
 end
 
-def build_ffmpeg_command(args, options, logger)
-  input_filename = args[0]
+def build_output_filename(args)
+  if args[1]
+    args[1].end_with?('.gif') ? args[1] : args[1] + '.gif'
+  else
+    File.join(File.dirname(args[0]),
+              File.basename(args[0], '.*') + '.gif')
+  end
+end
 
+def build_ffmpeg_command(args, options, logger)
   command = []
   command << 'ffmpeg'
   command << '-y'  # always overwrite
   command << '-nostdin'
   command << '-ss' << options[:seek] if options[:seek]
   command << '-t' << options[:time] if options[:time]
-  command << '-i' << input_filename
+  command << '-i' << args[0]
   command << '-filter_complex' << build_filter_complex(options)
   command << '-f' << 'gif'
-  command << '-'
 
-  logger.info(command.join(' ')) if options[:verbose]
+  # if we're not optimizing, we won't send to stdout
+  command << (options[:optimize] ? '-' : build_output_filename(args))
+
+  logger.info(command.join(' ')) if options[:verbose] unless options[:quiet]
 
   command
 end
 
 def build_convert_command(args, options, logger)
-  input_filename  = args[0]
-  output_filename = if options[:output]
-                      if options[:output].end_with?('.gif')
-                        options[:output]
-                      else
-                        options[:output] + '.gif'
-                      end
-                    else
-                      File.join(File.dirname(input_filename),
-                                File.basename(input_filename, '.*') + '.gif')
-                    end
-
   command = []
-  command << 'convert' << '-' << '-layers' << 'Optimize' << output_filename
+  command << 'convert' << '-' << '-layers' << 'Optimize' << build_output_filename(args)
 
-  logger.info(command.join(' ')) if options[:verbose]
+  logger.info(command.join(' ')) if options[:verbose] unless options[:quiet]
 
   command
 end
 
 logger = Logger.new(STDOUT)
-options = parse(ARGV)
+options = parse(ARGV, logger)
+
+pipeline_items = [build_ffmpeg_command(ARGV, options, logger)]
+pipeline_items << build_convert_command(ARGV, options, logger) if options[:optimize]
 
 read_io, write_io = IO.pipe
-Open3.pipeline_start(build_ffmpeg_command(ARGV, options, logger),
-                     build_convert_command(ARGV, options, logger),
+Open3.pipeline_start(*pipeline_items,
                      out: write_io,
                      err: write_io) do |threads|
                        write_io.close
                        if options[:verbose]
-                         read_io.each(chomp: true) { |line| logger.info(line) }
+                         read_io.each(chomp: true) { |line| logger.info(line) unless options[:quiet] }
                        else
                          read_io.read(1024) until read_io.eof?
                        end
