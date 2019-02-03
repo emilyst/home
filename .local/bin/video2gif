@@ -82,6 +82,14 @@ def parse(args, logger)
       options[:textvariant] = p
     end
 
+    parser.on('-XTEXTXPOS', '--text-x-position=TEXTXPOS', 'Set the X position for the text, starting from left (default is center)') do |p|
+      options[:xpos] = p
+    end
+
+    parser.on('-YTEXTXPOS', '--text-y-position=TEXTYPOS', 'Set the Y position for the text, starting from top (default is near bottom)') do |p|
+      options[:ypos] = p
+    end
+
     parser.separator ''
     parser.separator 'Other options:'
 
@@ -144,19 +152,24 @@ def build_filter_complex(options)
   drawtext_filter   = if options[:text]
                         count_of_lines = options[:text].scan(/\\n/).count + 1
 
-                        # computers will be the end of us all
-                        text   = options[:text].gsub(/\\n/, '')
-                                               .gsub(/([:])/, '\\\\\\\\\\1')
-                                               .gsub(/([,])/, '\\\\\\1')
-                        size   = options[:textsize]    || 36
+                        x      = options[:xpos]        || '(main_w/2-text_w/2)'
+                        y      = options[:ypos]        || "(main_h-line_h*1.5*#{count_of_lines})"
+                        size   = options[:textsize]    || 32
                         color  = options[:textcolor]   || 'white'
                         border = options[:textborder]  || 3
                         font   = options[:textfont]    || 'Arial'
                         style  = options[:textvariant] || 'Bold'
+                        text   = options[:text]
+                          .gsub(/\\n/,                                                        '')
+                          .gsub(/([:])/,                                                      '\\\\\\\\\\1')
+                          .gsub(/([,])/,                                                      '\\\\\\1')
+                          .gsub(/\b'\b/,                                                      "\u2019")
+                          .gsub(/\B"\b([^"\u201C\u201D\u201E\u201F\u2033\u2036\r\n]+)\b?"\B/, "\u201C\\1\u201D")
+                          .gsub(/\B'\b([^'\u2018\u2019\u201A\u201B\u2032\u2035\r\n]+)\b?'\B/, "\u2018\\1\u2019")
 
                         'drawtext=' + %W[
-                          x='(main_w/2-text_w/2)'
-                          y='(main_h-line_h*1.5*#{count_of_lines})'
+                          x='#{x}'
+                          y='#{y}'
                           fontsize='#{size}'
                           fontcolor='#{color}'
                           borderw='#{border}'
