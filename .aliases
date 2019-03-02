@@ -1,6 +1,7 @@
 # useful aliases
 alias alert="echo -e '\a'"
 alias dt="date +%Y-%m-%d-%H%M%S"
+alias d="date +%Y-%m-%d"
 
 [[ -e "/usr/bin/htop" ]] && alias top="/usr/bin/htop"
 
