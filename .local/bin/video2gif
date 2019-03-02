@@ -146,9 +146,9 @@ def build_filter_complex(options)
 
   # create filter elements
   fps_filter        = "fps=#{fps}"
-  scale_filter      = "scale=#{width}:-1:flags=lanczos" if options[:width]
+  scale_filter      = "scale=#{width}:-1:flags=lanczos:sws_dither=none" if options[:width]
   palettegen_filter = "palettegen=max_colors=#{palette_size}:stats_mode=diff"
-  paletteuse_filter = 'paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle'
+  paletteuse_filter = 'paletteuse=dither=sierra2_4a:diff_mode=rectangle'
   drawtext_filter   = if options[:text]
                         count_of_lines = options[:text].scan(/\\n/).count + 1
 
