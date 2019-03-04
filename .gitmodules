@@ -246,6 +246,7 @@
 	path = .local/writing
 	url = git@github.com:emilyst/writing.git
 	branch = .
+	fetchRecurseSubmodules = true
 [submodule ".vim/pack/default/dadbod"]
 	path = .vim/pack/default/dadbod
 	url = https://github.com/tpope/vim-dadbod.git
