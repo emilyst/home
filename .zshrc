@@ -219,13 +219,16 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(
 # zsh-autosuggestions
 ########################################################################
 
-if [[ -s "$HOME/.local/libexec/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-  source "$HOME/.local/libexec/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-fi
+# this thing forks an entire additional shell to do suggestions async,
+# so i'm disabling for now
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
-ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
-ZSH_AUTOSUGGEST_USE_ASYNC=1
+# if [[ -s "$HOME/.local/libexec/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+#   source "$HOME/.local/libexec/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# fi
+
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+# ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
+# ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 
 ########################################################################
