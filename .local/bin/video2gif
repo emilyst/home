@@ -215,6 +215,7 @@ def build_ffmpeg_command(args, options, logger)
   command = []
   command << 'ffmpeg'
   command << '-y'  # always overwrite
+  command << '-analyzeduration' << '2147483647' << '-probesize' << '2147483647'
   command << '-nostdin'
   command << '-ss' << options[:seek] if options[:seek]
   command << '-t' << options[:time] if options[:time]
