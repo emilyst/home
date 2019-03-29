@@ -198,6 +198,9 @@ zle -N self-insert url-quote-magic
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 
+# for detecting existence of commands, functions, builtins, etc.
+zmodload -i zsh/parameter
+
 
 ########################################################################
 # zsh-syntax-highlighting
@@ -284,7 +287,7 @@ hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 ########################################################################
 
 # # local-only gems (install with gem install --user-install <gem>)
-# if hash gem >/dev/null 2>&1; then
+# if (( ${+commands[gem]} )); then
 #   if [ ! -v RUBYGEMSPATH  ]; then
 #     RUBYGEMSPATH="$(ruby -r rubygems -e 'puts Gem.user_dir')"
 #     export RUBYGEMSPATH
@@ -292,7 +295,7 @@ hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 #   fi
 # fi
 
-hash rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+(( ${+commands[rbenv]} )) && eval "$(rbenv init -)"
 
 
 ########################################################################
