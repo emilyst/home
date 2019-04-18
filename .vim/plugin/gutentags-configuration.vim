@@ -5,3 +5,5 @@ if !isdirectory(expand('~/.vim/local/tags/'))
   call mkdir(expand('~/.vim/local/tags/'), 'p')
 endif
 let g:gutentags_cache_dir = expand('~/.vim/local/tags/')
+let g:gutentags_exclude_filetypes = []
+let g:gutentags_ctags_exclude = ['node_modules', 'public', 'tmp']

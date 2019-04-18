@@ -1,13 +1,22 @@
 --recurse=yes
 --tag-relative=yes
 
+--exclude=*.min.*
+--exclude=*.pyc
+--exclude=*.pyo
+--exclude=.bundle
 --exclude=.cache
 --exclude=.egg-info
 --exclude=.ensime_cache
 --exclude=.git
 --exclude=.m2
 --exclude=.ropeproject
+--exclude=.svn
 --exclude=.tox
 --exclude=.venv
+--exclude=log
+--exclude=node_modules
+--exclude=public
 --exclude=target
+--exclude=tmp
 --exclude=vendor
