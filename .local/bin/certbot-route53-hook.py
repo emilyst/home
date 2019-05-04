@@ -56,7 +56,7 @@ def main():
 
     waiter = client.get_waiter('resource_record_sets_changed')
     response = client.change_resource_record_sets(**kwargs)
-    waiter.wait(Id=response['ChangeInfo']['Id'], WaiterConfig={ 'Delay': 15, 'MaxAttempts': 100 })
+    waiter.wait(Id=response['ChangeInfo']['Id'])
 
 
 if __name__ == '__main__':
