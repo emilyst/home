@@ -1,20 +1,33 @@
-let g:rainbow#pairs = [ ['{', '}'], ['(', ')'], ['[', ']'] ]
+" let g:rainbow#pairs = [
+"       \   ['{', '}'],
+"       \   ['(', ')'],
+"       \   ['[', ']']
+"       \ ]
+let g:rainbow#pairs = [
+      \   ['{',              '}'],
+      \   ['(',              ')'],
+      \   ['[',              ']'],
+      \   ['\<do\>',         '\<end\>'],
+      \   ['^\s*\<def\>',    '\<end\>'],
+      \   ['^\s*\<while\>',  '\<end\>'],
+      \   ['^\s*\<if\>',     '\<end\>'],
+      \   ['^\s*\<unless\>', '\<end\>'],
+      \   ['^\s*\<class\>',  '\<end\>'],
+      \   ['^\s*\<module\>', '\<end\>'],
+      \ ]
+
 let g:rainbow#max_level = 36
 let g:rainbow#colors = {
     \ 'dark': [
-        \ [ 229, '#ffffaf' ],
         \ [ 223, '#ffdfaf' ],
         \ [ 217, '#ffafaf' ],
         \ [ 211, '#ff87af' ],
         \ [ 205, '#ff5faf' ],
-        \ [ 199, '#ff00af' ],
-        \ [ 193, '#dfffaf' ],
         \ [ 187, '#dfdfaf' ],
         \ [ 181, '#dfafaf' ],
         \ [ 175, '#df87af' ],
         \ [ 169, '#df5faf' ],
         \ [ 163, '#df00af' ],
-        \ [ 157, '#afffaf' ],
         \ [ 151, '#afdfaf' ],
         \ [ 145, '#afafaf' ],
         \ [ 139, '#af87af' ],
@@ -26,7 +39,6 @@ let g:rainbow#colors = {
         \ [ 103, '#8787af' ],
         \ [  97, '#875faf' ],
         \ [  91, '#8700af' ],
-        \ [  85, '#5fffaf' ],
         \ [  79, '#5fdfaf' ],
         \ [  73, '#5fafaf' ],
         \ [  67, '#5f87af' ],
@@ -37,10 +49,8 @@ let g:rainbow#colors = {
         \ [  37, '#00afaf' ],
         \ [  31, '#0087af' ],
         \ [  25, '#005faf' ],
-        \ [  19, '#0000af' ]
     \ ],
     \ 'light': [
-        \ [  19, '#0000af' ],
         \ [  25, '#005faf' ],
         \ [  31, '#0087af' ],
         \ [  37, '#00afaf' ],
@@ -51,7 +61,6 @@ let g:rainbow#colors = {
         \ [  67, '#5f87af' ],
         \ [  73, '#5fafaf' ],
         \ [  79, '#5fdfaf' ],
-        \ [  85, '#5fffaf' ],
         \ [  91, '#8700af' ],
         \ [  97, '#875faf' ],
         \ [ 103, '#8787af' ],
@@ -63,18 +72,14 @@ let g:rainbow#colors = {
         \ [ 139, '#af87af' ],
         \ [ 145, '#afafaf' ],
         \ [ 151, '#afdfaf' ],
-        \ [ 157, '#afffaf' ],
         \ [ 163, '#df00af' ],
         \ [ 169, '#df5faf' ],
         \ [ 175, '#df87af' ],
         \ [ 181, '#dfafaf' ],
         \ [ 187, '#dfdfaf' ],
-        \ [ 193, '#dfffaf' ],
-        \ [ 199, '#ff00af' ],
         \ [ 205, '#ff5faf' ],
         \ [ 211, '#ff87af' ],
         \ [ 217, '#ffafaf' ],
         \ [ 223, '#ffdfaf' ],
-        \ [ 229, '#ffffaf' ]
     \ ]
 \ }
