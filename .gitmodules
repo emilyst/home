@@ -270,3 +270,6 @@
 [submodule ".vim/pack/default/vinegar"]
 	path = .vim/pack/default/vinegar
 	url = https://github.com/tpope/vim-vinegar.git
+[submodule ".vim/pack/default/securemodelines"]
+	path = .vim/pack/default/securemodelines
+	url = https://github.com/ciaranm/securemodelines.git
