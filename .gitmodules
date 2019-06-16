@@ -242,11 +242,6 @@
 	path = .vim/pack/default/vim-xray
 	url = git@github.com:emilyst/visual-whitespace.git
 	branch = .
-[submodule ".local/writing"]
-	path = .local/writing
-	url = git@github.com:emilyst/writing.git
-	branch = .
-	fetchRecurseSubmodules = true
 [submodule ".vim/pack/default/dadbod"]
 	path = .vim/pack/default/dadbod
 	url = https://github.com/tpope/vim-dadbod.git
