@@ -104,10 +104,11 @@ if has('termguicolors') && exists('$COLORTERM') && $COLORTERM ==? 'truecolor'
 endif
 
 set nocursorline
+set colorcolumn=
 
-if exists('&colorcolumn')
-  let &colorcolumn=join([73,81] + range(101,999), ',')
-endif
+" if exists('&colorcolumn')
+"   let &colorcolumn=join([73,81] + range(101,999), ',')
+" endif
 
 " custom highlights
 
