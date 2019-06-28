@@ -8,10 +8,11 @@ let g:netrw_keepdir        = 1  " never change directory
 let g:netrw_mousemaps      = 0  " no mouse
 let g:netrw_sort_by        = 'time'
 let g:netrw_sort_direction = 'reverse'
+let g:netrw_fastbrowse     = 0
 
 if has('autocmd')
   augroup DeleteHiddenNetrwTreeViewBuffers
     autocmd!
-    autocmd FileType netrw setlocal bufhidden=delete
+    autocmd FileType netrw setlocal bufhidden=wipe
   augroup END
 endif
