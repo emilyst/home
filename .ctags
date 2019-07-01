@@ -20,3 +20,14 @@
 --exclude=target
 --exclude=tmp
 --exclude=vendor
+
+--langdef=RSpec{base=Ruby}
+--kinddef-RSpec=d,describe,describes
+--kinddef-RSpec=c,context,contexts
+--regex-RSpec=/^[ \t]*RSpec\.describe[ \t]+([^"']+)[ \t]+do/\1/d/
+--regex-RSpec=/^[ \t]*describe[ \t]+"([^"]+)"[ \t]+do/\1/d/
+--regex-RSpec=/^[ \t]*describe[ \t]+'([^']+)'[ \t]+do/\1/d/
+--regex-RSpec=/^[ \t]*describe[ \t]+([^"']+)[ \t]+do/\1/d/
+--regex-RSpec=/^[ \t]*context[ \t]+"([^"]+)"[ \t]+do/\1/c/
+--regex-RSpec=/^[ \t]*context[ \t]+'([^']+)'[ \t]+do/\1/c/
+--regex-RSpec=/^[ \t]*context[ \t]+([^"']+)[ \t]+do/\1/c/
