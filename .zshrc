@@ -20,6 +20,7 @@ setopt PROMPT_SUBST
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_TO_HOME
 setopt RM_STAR_SILENT
+setopt SUNKEYBOARDHACK
 # setopt TRANSIENT_RPROMPT
 # see also history section below
 
