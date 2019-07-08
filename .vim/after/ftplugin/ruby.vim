@@ -6,18 +6,18 @@ if has('autocmd') && !exists('#SetFoldMethod')
   augroup SetFoldMethod
     autocmd!
     " extensions borrowed from ruby/ftdetect/ruby.vim
-    autocmd BufWinEnter *.rb                          if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter *.erb                         if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter *.rhtml                       if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter *.irbrc                       if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter *.rbw                         if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter *.gemspec                     if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter *.ru                          if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter Gemfile                       if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter *.builder,*.rxml,*.rjs,*.ruby if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter [rR]akefile,*.rake            if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter [rR]akefile*                  if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
-    autocmd BufWinEnter [rR]antfile,*.rant            if &foldmethod != 'indent' | setlocal foldmethod=indent | endif
+    autocmd BufWinEnter *.rb                          if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter *.erb                         if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter *.rhtml                       if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter *.irbrc                       if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter *.rbw                         if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter *.gemspec                     if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter *.ru                          if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter Gemfile                       if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter *.builder,*.rxml,*.rjs,*.ruby if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter [rR]akefile,*.rake            if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter [rR]akefile*                  if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
+    autocmd BufWinEnter [rR]antfile,*.rant            if &foldmethod != 'indent' | setlocal foldmethod=manual | endif
   augroup END
 endif
 
