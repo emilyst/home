@@ -1,5 +1,5 @@
+--sort=yes
 --recurse=yes
---tag-relative=yes
 
 --exclude=*.min.*
 --exclude=*.pyc

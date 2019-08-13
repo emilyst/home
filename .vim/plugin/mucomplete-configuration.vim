@@ -1,6 +1,7 @@
 set shortmess+=c
 set belloff+=ctrlg
 set completeopt=menu,menuone,noinsert
+set noshowfulltag
 
 set complete=.
 set complete+=w

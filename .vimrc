@@ -44,7 +44,7 @@ set incsearch
 " ========================================================================= }}}
 " 3 tags ================================================================== {{{
 
-set showfulltag
+set noshowfulltag
 set tags+=./tags,./.tags,tags,.tags
 set tagcase=followscs
 
@@ -214,8 +214,9 @@ if has('persistent_undo')
 endif
 
 set backspace=indent,eol,start
-set complete=.,w,b,u,t
-set completeopt+=menuone,noselect
+" prefer .vim/after/plugin/mucomplete-configuration.vim
+" set complete=.,w,b,u,t
+" set completeopt+=menuone,noselect
 set whichwrap+=<>[]
 set textwidth=72
 set formatoptions=qrn1
