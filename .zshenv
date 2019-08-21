@@ -32,6 +32,8 @@ skip_global_compinit=1
 # [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
 
 export HOMEBREW_INSTALL_BADGE="🔮✨"
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 
 ########################################################################
