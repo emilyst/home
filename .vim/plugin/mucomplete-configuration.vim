@@ -19,18 +19,18 @@ set completeopt+=preview
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#buffer_relative_paths = 1  " paths are relative to buffer, not pwd
 let g:mucomplete#completion_delay = 3000
-let g:mucomplete#popup_direction =
-      \ {
-      \   'path': 1,
-      \   'omni': 1,
-      \   'c-p':  1,
-      \   'c-n':  1,
-      \   'keyp': 1,
-      \   'keyn': 1,
-      \   'tags': 1,
-      \   'dict': 1,
-      \   'uspl': 1,
-      \ }
+" let g:mucomplete#popup_direction =
+"       \ {
+"       \   'path': 1,
+"       \   'omni': 1,
+"       \   'c-p':  1,
+"       \   'c-n':  1,
+"       \   'keyp': 1,
+"       \   'keyn': 1,
+"       \   'tags': 1,
+"       \   'dict': 1,
+"       \   'uspl': 1,
+"       \ }
 
 let g:mucomplete#chains = {}
 let g:mucomplete#chains.default =
