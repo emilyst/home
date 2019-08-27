@@ -268,3 +268,6 @@
 [submodule ".vim/pack/default/securemodelines"]
 	path = .vim/pack/default/securemodelines
 	url = https://github.com/ciaranm/securemodelines.git
+[submodule ".vim/pack/default/splitjoin"]
+	path = .vim/pack/default/splitjoin
+	url = https://github.com/AndrewRadev/splitjoin.vim.git
