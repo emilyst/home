@@ -230,14 +230,6 @@
 	path = .local/libexec/rbenv
 	url = https://github.com/sstephenson/rbenv.git
 	branch = .
-[submodule ".vim/pack/default/FastFold"]
-	path = .vim/pack/default/FastFold
-	url = https://github.com/Konfekt/FastFold.git
-	branch = .
-[submodule ".vim/pack/default/stay"]
-	path = .vim/pack/default/stay
-	url = https://github.com/zhimsel/vim-stay.git
-	branch = .
 [submodule ".vim/pack/default/visual-whitespace"]
 	path = .vim/pack/default/vim-xray
 	url = git@github.com:emilyst/visual-whitespace.git
