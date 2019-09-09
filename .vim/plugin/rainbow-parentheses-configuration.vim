@@ -14,6 +14,7 @@ let g:rainbow#pairs = [
       \   ['^\s*\<unless\>', '\<end\>'],
       \   ['^\s*\<class\>',  '\<end\>'],
       \   ['^\s*\<module\>', '\<end\>'],
+      \   ['^\s*\<case\>',   '\<end\>'],
       \ ]
 
 let g:rainbow#max_level = 36
