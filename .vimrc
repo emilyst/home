@@ -36,6 +36,7 @@ set nostartofline
 set noautochdir
 set wrapscan
 set magic
+set regexpengine=1  " hopefully faster than 2?
 set ignorecase
 set smartcase
 set gdefault
