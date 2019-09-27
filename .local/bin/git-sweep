@@ -16,8 +16,8 @@ else
 fi
 
 for branch in $(git branch | tr -d ' '| grep -v '^*' | grep -v 'master'); do
-  older_commits="$(git reflog show -1 --exclude=master --before='2 weeks ago' $branch)"
-  newer_commits="$(git reflog show -1 --exclude=master --after='2 weeks ago' $branch)"
+  older_commits="$(git reflog show -1 --exclude=master --before='4 weeks ago' $branch)"
+  newer_commits="$(git reflog show -1 --exclude=master --after='4 weeks ago' $branch)"
 
   if [[ -n $older_commits && -z $newer_commits ]]; then
     if [[ -v "$DELETE" ]]; then
