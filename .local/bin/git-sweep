@@ -8,9 +8,7 @@ if ! is-at-least $required_version; then
 fi
 
 getopts 'd' opt && local delete=1
-if [[ -v "$delete" ]]; then
-  echo 'Deleting stale branches'
-else
+if [[ ! -v "$delete" ]]; then
   echo 'Listing stale branches (delete with -d)'
 fi
 
