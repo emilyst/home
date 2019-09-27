@@ -1,0 +1,29 @@
+#!/bin/zsh
+
+REQUIRED_VERSION=5.3
+type is-at-least > /dev/null 2>&1 || autoload -Uz is-at-least
+if ! is-at-least $REQUIRED_VERSION; then
+  echo "Requires Zsh $REQUIRED_VERSION or newer"
+  exit 1
+fi
+
+getopts 'd' opt && DELETE=1
+
+if [[ -v "$DELETE" ]]; then
+  echo 'Deleting stale branches'
+else
+  echo 'Listing stale branches (delete with -d)'
+fi
+
+for branch in $(git branch | tr -d ' '| grep -v '^*' | grep -v 'master'); do
+  older_commits="$(git reflog show -1 --exclude=master --before='2 weeks ago' $branch)"
+  newer_commits="$(git reflog show -1 --exclude=master --after='2 weeks ago' $branch)"
+
+  if [[ -n $older_commits && -z $newer_commits ]]; then
+    if [[ -v "$DELETE" ]]; then
+      git branch -D $branch
+    else
+      echo "Found branch with stale commits: $branch"
+    fi
+  fi
+done
