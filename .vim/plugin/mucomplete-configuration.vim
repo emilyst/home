@@ -13,7 +13,7 @@ set complete+=t
 
 set completeopt=
 set completeopt+=menuone
-set completeopt+=noselect
+set completeopt+=noinsert
 set completeopt+=popup
 
 let g:mucomplete#enable_auto_at_startup = 1
@@ -33,18 +33,18 @@ let g:mucomplete#completion_delay = 3000
 "       \ }
 
 let g:mucomplete#chains = {}
-let g:mucomplete#chains.default =
-      \ [
-      \   "path",
-      \   "omni",
-      \   "c-p",
-      \   "c-n",
-      \   "keyp",
-      \   "keyn",
-      \   "tags",
-      \   "dict",
-      \   "uspl",
-      \ ]
+" let g:mucomplete#chains.default =
+"       \ [
+"       \   "path",
+"       \   "omni",
+"       \   "c-p",
+"       \   "c-n",
+"       \   "keyp",
+"       \   "keyn",
+"       \   "tags",
+"       \   "dict",
+"       \   "uspl",
+"       \ ]
 
 let g:mucomplete#chains.markdown =
       \ [
@@ -54,14 +54,22 @@ let g:mucomplete#chains.markdown =
       \   "uspl",
       \ ]
 
-" check spelling when at least four letters are typed
-let s:spl_cond = { t -> &l:spelllang == 'en' && t =~# '\a\{4}$' }
 
 " check ruby completions after dot or double-colon
+
 let s:ruby_cond = { t -> t =~# '\%(\.\|::\)$' }
+let s:spl_cond  = { t -> &l:spelllang == 'en' && t =~# '\a\{4}$' }
+let s:cpp_cond  = { t -> t =~# '\%(->\|::\)$' }
+
+let g:mucomplete#can_complete         = {}
+let g:mucomplete#can_complete.default = { 'uspl': s:spl_cond }
+let g:mucomplete#can_complete.cpp     = { 'omni': s:cpp_cond }
+let g:mucomplete#can_complete.ruby    = { 'omni': s:ruby_cond, }
+
+
 
 " check omnicompletion in ruby
-" let g:mucomplete#can_complete.ruby = { 'omni': { t -> t =~# '\%(\.\|::\)$' }}
+let g:mucomplete#can_complete.ruby = { 'omni': { t -> t =~# '\%(\.\|::\)$' }}
 
 inoremap <silent> <plug>(MUcompleteFwdKey) <right>
 imap <right> <plug>(MUcompleteCycFwd)
