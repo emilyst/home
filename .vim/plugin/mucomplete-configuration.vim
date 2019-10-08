@@ -14,7 +14,7 @@ set complete+=t
 set completeopt=
 set completeopt+=menuone
 set completeopt+=noselect
-set completeopt+=preview
+set completeopt+=popup
 
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#buffer_relative_paths = 1  " paths are relative to buffer, not pwd
