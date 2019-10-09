@@ -324,7 +324,7 @@ local reset="%{[00m%}"
 
 # begin left prompt with light blue background and provide bold prompt
 # sigil
-PROMPT='%{%K{4}%F{0}%B%} %{%(!.#.✿)%G%} %{%b%f%k%}'
+PROMPT='%{%K{4}%F{0}%B%} %{%(!.#.⌘)%G%} %{%b%f%k%}'
 
 # transition light blue to darker blue
 PROMPT+="%{%K{19}%F{4}%}$powerline_hard_left_divider%{%f%k%}"
