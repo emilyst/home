@@ -68,6 +68,12 @@ command! -nargs=0 UndoBundler call <SID>UndoBundlerEnvironment()
 command! -nargs=0 Unbundle call <SID>UndoBundlerEnvironment()
 command! -nargs=0 Unbun call <SID>UndoBundlerEnvironment()
 
+if exists('g:autoloaded_rails')
+  nnoremap <silent> <leader>r :execute ':' . line('.') . 'Rails'<CR>
+  nnoremap <silent> <leader>R :execute ':Rails'<CR>
+endif
+
+
 " " wacky shit: read in tags from Ruby system and gems
 " if executable('gem')
 "       \ && exists('*pathogen#legacyjoin')
