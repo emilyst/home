@@ -17,3 +17,5 @@ let g:grepper.rg = {
 
 nmap <leader>*  <plug>(GrepperOperator)iw
 xmap <leader>*  <plug>(GrepperOperator)
+
+cnoreabbrev <expr> rg ((getcmdtype() is# ':' && getcmdline() is# 'rg')?('GrepperRg'):('GrepperRg'))
