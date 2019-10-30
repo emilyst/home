@@ -33,18 +33,18 @@ let g:mucomplete#completion_delay = 3000
 "       \ }
 
 let g:mucomplete#chains = {}
-" let g:mucomplete#chains.default =
-"       \ [
-"       \   "path",
-"       \   "omni",
-"       \   "c-p",
-"       \   "c-n",
-"       \   "keyp",
-"       \   "keyn",
-"       \   "tags",
-"       \   "dict",
-"       \   "uspl",
-"       \ ]
+let g:mucomplete#chains.default =
+      \ [
+      \   "path",
+      \   "omni",
+      \   "keyp",
+      \   "keyn",
+      \   "tags",
+      \   "c-p",
+      \   "c-n",
+      \   "dict",
+      \   "uspl",
+      \ ]
 
 let g:mucomplete#chains.markdown =
       \ [
