@@ -38,6 +38,7 @@ noremap <leader>m :CtrlPMRUFiles<CR>
 noremap <leader>p :CtrlP<CR>
 noremap <leader>t :CtrlPBufTag<CR>
 noremap <leader>u :CtrlPUndo<CR>
+noremap <leader>q :CtrlPQuickfix<CR>
 
 " let g:ctrlp_buftag_types = {
 "       \   'ruby': ''
