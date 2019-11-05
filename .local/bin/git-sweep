@@ -1,16 +1,5 @@
 #!/bin/zsh
 
-local required_version=5.3
-type is-at-least > /dev/null 2>&1 || autoload -Uz is-at-least
-if ! is-at-least $required_version; then
-  echo "Requires Zsh $required_version or newer"
-  exit 1
-fi
-
-getopts 'd' opt && local delete=1
-if [[ ! -v "$delete" ]]; then
-  echo 'Listing stale branches (delete with -d)'
-fi
 
 local expiration_date='4 weeks ago'
 for branch in $(git branch | tr -d ' ' | grep -v '^*' | grep -v 'master'); do
@@ -18,10 +7,6 @@ for branch in $(git branch | tr -d ' ' | grep -v '^*' | grep -v 'master'); do
   local newer_commits="$(git reflog show -1 --format=oneline --since=$expiration_date $branch)"
 
   if [[ -n "$older_commits" && -z "$newer_commits" ]]; then
-    if [[ -v "$delete" ]]; then
-      git branch -D $branch
-    else
-      echo "Found branch with stale commits: $branch"
-    fi
+    git branch -D $branch
   fi
 done
