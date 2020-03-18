@@ -1,8 +1,11 @@
 ---
-BUNDLE_AUTO_INSTALL:    'true'
-BUNDLE_FULL_INDEX:      'true'
-BUNDLE_GEM__COC:        'false'
-BUNDLE_GEM__MIT:        'false'
-BUNDLE_GEM__TEST:       'rspec'
-BUNDLE_IGNORE_MESSAGES: 'true'
-BUNDLE_JOBS:            4
+BUNDLE_AUTO_INSTALL: " 'true'"
+BUNDLE_FULL_INDEX: " 'true'"
+BUNDLE_GEM__COC: " 'false'"
+BUNDLE_GEM__MIT: " 'false'"
+BUNDLE_GEM__TEST: " 'rspec'"
+BUNDLE_IGNORE_MESSAGES: "true"
+BUNDLE_JOBS: " 4"
+BUNDLE_GIT__ALLOW_INSECURE: "true"
+BUNDLE_FORCE_RUBY_PLATFORM: "true"
+BUNDLE_DISABLE_PLATFORM_WARNINGS: "true"

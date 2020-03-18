@@ -4,12 +4,12 @@ gem-browse
 bundler
 rake
 pry
-pry-stack_explorer
-pry-nav
 rubocop
 magic_frozen_string_literal
-methodsolver
 bundler-audit
 lolcat
 jekyll
 video2gif
+solargraph
+debase
+ruby-debug-ide
