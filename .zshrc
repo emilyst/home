@@ -296,21 +296,6 @@ hash "work.sh"        >/dev/null 2>&1 && source "work.sh"
 hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
 
 
-########################################################################
-# Ruby-specific
-########################################################################
-
-# # local-only gems (install with gem install --user-install <gem>)
-# if (( ${+commands[gem]} )); then
-#   if [ ! -v RUBYGEMSPATH  ]; then
-#     RUBYGEMSPATH="$(ruby -r rubygems -e 'puts Gem.user_dir')"
-#     export RUBYGEMSPATH
-#     export PATH="$RUBYGEMSPATH/bin:$PATH"
-#   fi
-# fi
-
-(( ${+commands[rbenv]} )) && eval "$(rbenv init -)"
-
 
 ########################################################################
 # key bindings
