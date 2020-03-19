@@ -5,13 +5,14 @@ bundler
 rake
 pry
 rubocop
+rubocop-rspec
 magic_frozen_string_literal
 bundler-audit
 lolcat
 jekyll
 video2gif
 solargraph
+yard
 debase
 ruby-debug-ide
-yard
 readapt

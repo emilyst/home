@@ -6,7 +6,6 @@ AllCops:
     - 'script/**/*'
     - 'bin/{rails,rake}'
     - 'generated/**/*.rb'
-    - !ruby/regexp /old_and_unused\.rb$/
     - 'node_modules/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
@@ -26,3 +25,6 @@ Style/TrailingCommaInArguments: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInHashLiteral: { EnforcedStyleForMultiline: comma }
 Style/IfUnlessModifier: { Enabled: false }
+
+require: rubocop-rspec
+RSpec/FilePath: { Enabled: false }
