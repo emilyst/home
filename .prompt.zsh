@@ -2,13 +2,23 @@
 # powerline symbols (require powerline font or terminal)
 ########################################################################
 
-local powerline_hard_left_divider='%{%G%}'
-local powerline_soft_left_divider='%{%G%}'
-local powerline_hard_right_divider='%{%G%}'
-local powerline_soft_right_divider='%{%G%}'
-local powerline_branch='%{%G%}'
-local powerline_line_number='%{%G%}'
-local powerline_lock='%{%G%}'
+if [[ $LC_TERMINAL == 'iTerm2' ]]; then
+  local  powerline_hard_left_divider='%{%G%}'
+  local  powerline_soft_left_divider='%{%G%}'
+  local powerline_hard_right_divider='%{%G%}'
+  local powerline_soft_right_divider='%{%G%}'
+  local             powerline_branch='%{%G%}'
+  local        powerline_line_number='%{%G%}'
+  local               powerline_lock='%{%G%}'
+else
+  local  powerline_hard_left_divider='%{ %G%}'
+  local  powerline_soft_left_divider='%{ %G%}'
+  local powerline_hard_right_divider='%{ %G%}'
+  local powerline_soft_right_divider='%{ %G%}'
+  local             powerline_branch='%{ %G%}'
+  local        powerline_line_number='%{ %G%}'
+  local               powerline_lock='%{ %G%}'
+fi
 
 
 ########################################################################
