@@ -1,6 +1,10 @@
 " Airline settings
 let g:airline_theme           = 'base16'
-let g:airline_powerline_fonts = 1
+if !has('gui_running') && $LC_TERMINAL == 'iTerm2'
+  let g:airline_powerline_fonts = 1
+else
+  let g:airline_powerline_fonts = 0
+end
 " let g:airline_left_sep      = ''
 " let g:airline_left_sep      = ''
 " let g:airline_right_sep     = ''

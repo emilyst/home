@@ -169,7 +169,7 @@ noremap <C-LeftDrag>  <LeftDrag>
 " this section only appears in `:options` in a GUI like MacVim or gVim
 
 if has('gui_running')
-  set linespace=1
+  set linespace=2
   set columnspace=1
   set guifont=SF\ Mono:h13
   if has('transparency')
