@@ -2,7 +2,7 @@
 # powerline symbols (require powerline font or terminal)
 ########################################################################
 
-if [[ $LC_TERMINAL == 'iTerm2' ]]; then
+if [[ $TERM_PROGRAM == 'iTerm.app' ]]; then
   local  powerline_hard_left_divider='%{%G%}'
   local  powerline_soft_left_divider='%{%G%}'
   local powerline_hard_right_divider='%{%G%}'

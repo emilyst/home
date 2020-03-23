@@ -1,6 +1,6 @@
 " Airline settings
 let g:airline_theme           = 'base16'
-if !has('gui_running') && $LC_TERMINAL == 'iTerm2'
+if !has('gui_running') && $TERM_PROGRAM == 'iTerm.app'
   let g:airline_powerline_fonts = 1
 else
   let g:airline_powerline_fonts = 0
