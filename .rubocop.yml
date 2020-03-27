@@ -18,14 +18,19 @@ AllCops:
     - '.git/**/*'
 
 Layout/EmptyLines: { Enabled: false }
-Layout/HashAlignment: { EnforcedHashRocketStyle: table, EnforcedColonStyle: table }
+Layout/HashAlignment: { EnforcedHashRocketStyle: key, EnforcedColonStyle: key }
 Layout/LineLength: { Enabled: false }
+Layout/MultilineMethodCallIndentation: { Enabled: true, EnforcedStyle: indented_relative_to_receiver }
+Layout/ParameterAlignment: { Enabled: true, EnforcedStyle: with_first_parameter }
+Layout/SpaceInsideHashLiteralBraces: { Enabled: true, EnforcedStyle: compact }
 Layout/TrailingEmptyLines: { Enabled: true }
 Metrics: { Enabled: false }
+RSpec/ExampleLength: { Enabled: false }
 RSpec/FilePath: { Enabled: false }
 Style/ClassAndModuleChildren: { Enabled: false }
 Style/Documentation: { Enabled: false }
 Style/DocumentationMethod: { Enabled: false }
+Style/GlobalVars: { AllowedVariables: $stats }
 Style/HashEachMethods: { Enabled: true }
 Style/HashTransformKeys: { Enabled: true }
 Style/HashTransformValues: { Enabled: true }
@@ -34,4 +39,3 @@ Style/StringLiterals: { Enabled: false }
 Style/TrailingCommaInArguments: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInHashLiteral: { EnforcedStyleForMultiline: comma }
-Style/GlobalVars: { AllowedVariables: $stats }
