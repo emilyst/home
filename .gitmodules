@@ -263,3 +263,6 @@
 [submodule ".vim/pack/default/splitjoin"]
 	path = .vim/pack/default/splitjoin
 	url = https://github.com/AndrewRadev/splitjoin.vim.git
+[submodule ".pyenv"]
+	path = .pyenv
+	url = https://github.com/pyenv/pyenv.git
