@@ -68,7 +68,7 @@
 	submodulesummary = true
 	showUntrackedFiles = all
 [commit]
-	template = ~/.gitcommittemplate
+	# template = ~/.gitcommittemplate
 	gpgsign = true
 	verbose = true
 [http]
