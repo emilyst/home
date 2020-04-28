@@ -27,6 +27,7 @@ Layout/TrailingEmptyLines: { Enabled: true }
 Metrics: { Enabled: false }
 RSpec/ExampleLength: { Enabled: false }
 RSpec/FilePath: { Enabled: false }
+RSpec/NestedGroups: { Enabled: false }
 Style/ClassAndModuleChildren: { Enabled: false }
 Style/Documentation: { Enabled: false }
 Style/DocumentationMethod: { Enabled: false }
