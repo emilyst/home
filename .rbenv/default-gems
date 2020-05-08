@@ -3,12 +3,10 @@ bundler
 bundler-audit
 debase
 gem-browse
-gem-ctags
 gem-shut-the-fuck-up
 jekyll
 lolcat
 magic_frozen_string_literal
-prettier
 pry
 rake
 readapt
