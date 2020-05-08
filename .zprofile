@@ -37,9 +37,7 @@ fi
 export PYTHONDONTWRITEBYTECODE=1
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+(( ${+commands[pyenv]} )) && eval "$(pyenv init -)"
 
 
 ########################################################################
@@ -66,7 +64,9 @@ export PERLBREW_ROOT=/opt/perl
 # fi
 
 (( ${+commands[rbenv]} )) && eval "$(rbenv init -)"
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+if (( ! ${+RUBY_CONFIGURE_OPTS} )); then
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
+fi
 
 
 ########################################################################
@@ -117,8 +117,6 @@ if [[ -e "/usr/share/zoneinfo/UTC" ]]; then
 else
   export TZ="UTC"
 fi
-
-skip_global_compinit=1
 
 
 # vim: set ft=zsh tw=100 :
