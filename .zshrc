@@ -165,15 +165,17 @@ for library ($libraries); do
   fi
 done
 
-autoload -Uz compaudit compinit
-autoload -Uz bashcompinit
+autoload -Uz +X compaudit compinit
+autoload -Uz +X bashcompinit
 
 # Only bother with rebuilding, auditing, and compiling the compinit
 # file once a whole day has passed. The -C flag bypasses both the
 # check for rebuilding the dump file and the usual call to compaudit.
 setopt EXTENDEDGLOB
-for dump in $HOME/.zcompdump(#qN.m1); do
+for dump in $HOME/.zcompdump(N.mh+24); do
+  echo 'Re-initializing ZSH completions'
   compinit
+  bashcompinit
   if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
     zcompile "$dump"
   fi
