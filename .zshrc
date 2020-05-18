@@ -174,6 +174,7 @@ autoload -Uz +X bashcompinit
 setopt EXTENDEDGLOB
 for dump in $HOME/.zcompdump(N.mh+24); do
   echo 'Re-initializing ZSH completions'
+  touch $dump
   compinit
   bashcompinit
   if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
