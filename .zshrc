@@ -214,7 +214,7 @@ if [[ -s "$HOME/.local/libexec/zsh/zsh-syntax-highlighting/zsh-syntax-highlighti
   source "$HOME/.local/libexec/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
-ZSH_HIGHLIGHT_MAXLENGTH=100
+ZSH_HIGHLIGHT_MAXLENGTH=300
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(
   main
