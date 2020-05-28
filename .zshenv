@@ -22,6 +22,10 @@ export LESSCHARSET="utf-8"
 export EDITOR="vim"
 export MLR_CSV_DEFAULT_RS="lf"
 
+if [[ "$TERM_PROGRAM" == 'vscode' ]]; then
+  export EDITOR='code --wait'
+fi
+
 # color scheme
 # BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
 # [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
