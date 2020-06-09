@@ -1,10 +1,10 @@
 \pset null '∅'
-\set AUTOCOMMIT off
+-- \set AUTOCOMMIT off
 \set ON_ERROR_ROLLBACK on
 \set ON_ERROR_STOP on
 \set HISTFILE ~/.psql_history- :DBNAME
 \set HISTSIZE 500000
-\timing
+-- \timing
 \encoding unicode
 \pset linestyle unicode
 -- \set ECHO_HIDDEN 1
