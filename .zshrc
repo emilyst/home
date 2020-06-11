@@ -368,15 +368,4 @@ bindkey -M emacs '^[e' edit-command-line
 bindkey -M vicmd v edit-command-line
 
 
-########################################################################
-# SSH fixups
-########################################################################
-
-# fix up permissions every time, just in case
-umask 002
-if [[ -d "$HOME/.ssh" ]]; then
-    chmod 700 "$HOME/.ssh" 2> /dev/null
-    chmod 600 "$HOME/.ssh/*" 2> /dev/null
-fi
-
 # vim: set ft=zsh tw=72 :
