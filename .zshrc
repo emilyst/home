@@ -294,11 +294,8 @@ alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
 # aliases
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
-# misc (if they exist)
-# (using `hash` instead of `test -e` for location-agnostic presence testing)
-hash "git-helpers.sh" >/dev/null 2>&1 && source "git-helpers.sh"
-hash "work.sh"        >/dev/null 2>&1 && source "work.sh"
-hash "local.sh"       >/dev/null 2>&1 && source "local.sh"
+# misc
+source "git-helpers.sh"
 
 
 
