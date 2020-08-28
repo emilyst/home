@@ -154,10 +154,6 @@
 	path = .vim/pack/default/sensible
 	url = git://github.com/tpope/vim-sensible.git
 	branch = .
-[submodule ".local/libexec/vlime"]
-	path = .local/libexec/vlime
-	url = https://github.com/l04m33/vlime.git
-	branch = .
 [submodule ".vim/pack/default/lexima"]
 	path = .vim/pack/default/lexima
 	url = https://github.com/cohama/lexima.vim.git
