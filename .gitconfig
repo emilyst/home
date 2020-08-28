@@ -1,7 +1,7 @@
 # vim: set ts=4 sw=4 tw=4 noet
 
 [user]
-	name = Emily St.
+	name = Emily Strickland
 	email = hello@emily.st
 	signingkey = E24D796803FC1BB5
 [core]
