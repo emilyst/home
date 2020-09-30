@@ -61,6 +61,11 @@ if (( ! ${+RUBY_CONFIGURE_OPTS} )); then
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
 fi
 
+export DISABLE_BOOTSNAP='true',
+export DISABLE_SPRING='true',
+export WEB_CONCURRENCY=0,
+export MAX_THREADS=1,
+
 
 ########################################################################
 # Java-specific
