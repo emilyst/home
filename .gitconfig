@@ -61,9 +61,11 @@
 	whose-line-is-it-anyway = blame
 	supdate = submodule update --init --rebase
 	supgrade = submodule update --init --remote --rebase
+	push = push --atomic
 [push]
 	default = current
 	recurseSubmodules = on-demand
+	followTags = true
 [status]
 	submodulesummary = true
 	showUntrackedFiles = all
@@ -82,6 +84,7 @@
 	smudge = git-media-smudge %f
 [remote "origin"]
 	fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
+	fetch = +refs/tags/*:refs/tags/*
 [receive]
 	fsckObjects = true
 [filter "lfs"]
