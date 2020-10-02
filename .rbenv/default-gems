@@ -2,11 +2,13 @@ awesome_print
 bundler
 bundler-audit
 debase
+derailed_benchmarks
 gem-browse
 gem-shut-the-fuck-up
 jekyll
 lolcat
 magic_frozen_string_literal
+memory_profiler
 pry
 rake
 readapt
