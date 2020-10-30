@@ -113,14 +113,14 @@ set colorcolumn=
 
 " custom highlights
 
-hi Comment        term=italic      cterm=italic      gui=italic
+" hi Comment        term=italic      cterm=italic      gui=italic
 hi Keyword        term=bold        cterm=bold        gui=bold
 hi Conditional    term=bold        cterm=bold        gui=bold
 hi Define         term=bold        cterm=bold        gui=bold
 
-hi htmlItalic     term=italic      cterm=italic      gui=italic
+" hi htmlItalic     term=italic      cterm=italic      gui=italic
 hi htmlBold       term=bold        cterm=bold        gui=bold
-hi htmlBoldItalic term=italic,bold cterm=italic,bold gui=italic,bold
+hi htmlBoldItalic term=bold        cterm=bold        gui=bold
 
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'  " highlight VCS conflict markers
 match ErrorMsg 'd41d8cd9-8f00-3204-a980-0998ecf8427e'  " highlight empty UUID
