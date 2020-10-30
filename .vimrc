@@ -267,8 +267,8 @@ set foldtext=MyFoldText()
 " ========================================================================= }}}
 " 17 diff mode ============================================================ {{{
 
-set diffopt+=foldcolumn:0
-if has('patch-8.1.0360')
+if v:version > 801
+  set diffopt+=foldcolumn:0
   set diffopt+=algorithm:histogram
   set diffopt+=indent-heuristic
 endif
