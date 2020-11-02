@@ -44,3 +44,6 @@ Thumbs.db
 
 # VS Code
 .vscode
+
+# Rails/work stuff
+spec/fixtures/vcr_cassettes
