@@ -29,6 +29,7 @@ RSpec/ContextWording: { Enabled: true, Prefixes: ['with', 'without', 'when', 'an
 RSpec/DescribeClass: { Enabled: true, Exclude: ['lib/**/*', 'spec/tasks/**/*'] }
 RSpec/ExampleLength: { Enabled: false }
 RSpec/FilePath: { Enabled: false }
+RSpec/MultipleMemoizedHelpers: { Enabled: false }
 RSpec/NamedSubject: { Enabled: false }
 RSpec/NestedGroups: { Enabled: false }
 Style/ClassAndModuleChildren: { Enabled: false }
