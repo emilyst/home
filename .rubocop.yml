@@ -24,6 +24,7 @@ Layout/MultilineMethodCallIndentation: { Enabled: true, EnforcedStyle: indented 
 Layout/ParameterAlignment: { Enabled: true, EnforcedStyle: with_first_parameter }
 Layout/SpaceInsideHashLiteralBraces: { Enabled: true, EnforcedStyle: compact }
 Layout/TrailingEmptyLines: { Enabled: true }
+Lint/UselessAssignment: { Enabled: false }
 Metrics: { Enabled: false }
 RSpec/ContextWording: { Enabled: true, Prefixes: ['with', 'without', 'when', 'and', 'for', 'unless', 'if'] }
 RSpec/DescribeClass: { Enabled: true, Exclude: ['lib/**/*', 'spec/tasks/**/*'] }
