@@ -36,6 +36,8 @@ RSpec/NestedGroups: { Enabled: false }
 Style/ClassAndModuleChildren: { Enabled: false }
 Style/Documentation: { Enabled: false }
 Style/DocumentationMethod: { Enabled: false }
+Style/EmptyMethod: { Enabled: true, EnforcedStyle: expanded }
+Style/FrozenStringLiteralComment: { Enabled: true, EnforcedStyle: always_true }
 Style/GlobalVars: { AllowedVariables: '$stats' }
 Style/HashEachMethods: { Enabled: true }
 Style/HashTransformKeys: { Enabled: true }
