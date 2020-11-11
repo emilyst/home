@@ -23,7 +23,7 @@ export EDITOR="vim"
 export MLR_CSV_DEFAULT_RS="lf"
 
 if [[ "$TERM_PROGRAM" == 'vscode' ]]; then
-  export EDITOR='code --wait'
+  export EDITOR='code --wait -n'
 fi
 
 # color scheme

@@ -26,6 +26,8 @@ alias gist="gist -p"
 # fi
 #
 
+alias code='code -n'
+
 alias rg="rg --no-ignore-parent --smart-case"
 alias rsync="rsync -av --progress"
 
