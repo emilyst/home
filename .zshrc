@@ -136,6 +136,7 @@ typeset -U cdpath
 cdpath=(
   $HOME
   $HOME/scratch
+  $HOME/Developer
   $HOME/Development
   $cdpath
 )
