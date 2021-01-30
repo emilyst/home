@@ -3,6 +3,7 @@
 ########################################################################
 
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
+[[ -d "$HOME/.local/sbin" ]] && export PATH="$HOME/.local/sbin:$PATH"
 
 # add homebrew bc if it's there
 [[ -d "/usr/local/opt/bc/bin" ]] && export PATH="/usr/local/opt/bc/bin:$PATH"
