@@ -268,9 +268,9 @@ set foldtext=MyFoldText()
 " 17 diff mode ============================================================ {{{
 
 if v:version > 801
-  set diffopt+=foldcolumn:0
-  set diffopt+=algorithm:histogram
-  set diffopt+=indent-heuristic
+  " set diffopt+=foldcolumn:0
+  " set diffopt+=algorithm:histogram
+  " set diffopt+=indent-heuristic
 endif
 
 " ========================================================================= }}}
