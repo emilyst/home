@@ -40,7 +40,7 @@ export PIP_NO_CACHE_DIR=1
 export PYTHONDONTWRITEBYTECODE=1
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-(( ${+commands[pyenv]} )) && eval "$(pyenv init -)"
+(( ${+commands[pyenv]} )) && eval "$(pyenv init --path)"
 
 
 ########################################################################
