@@ -7,15 +7,15 @@ require:
 AllCops:
   ExtraDetails: true
   Exclude:
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'script/**/*'
-    - 'bin/{rails,rake}'
-    - 'generated/**/*.rb'
-    - 'node_modules/**/*'
-    - 'tmp/**/*'
-    - 'vendor/**/*'
-    - '.git/**/*'
+    - "db/**/*"
+    - "config/**/*"
+    - "script/**/*"
+    - "bin/{rails,rake}"
+    - "generated/**/*.rb"
+    - "node_modules/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - ".git/**/*"
 
 Layout/EmptyLines: { Enabled: false }
 Layout/HashAlignment: { EnforcedHashRocketStyle: key, EnforcedColonStyle: key }
@@ -27,8 +27,8 @@ Layout/TrailingEmptyLines: { Enabled: true }
 Lint/UnusedMethodArgument: { Enabled: true, AutoCorrect: false }
 Lint/UselessAssignment: { Enabled: false }
 Metrics: { Enabled: false }
-RSpec/ContextWording: { Enabled: true, Prefixes: ['with', 'without', 'when', 'and', 'for', 'unless', 'if'] }
-RSpec/DescribeClass: { Enabled: true, Exclude: ['lib/**/*', 'spec/tasks/**/*'] }
+RSpec/ContextWording: { Enabled: true, Prefixes: ["with", "without", "when", "and", "for", "unless", "if"] }
+RSpec/DescribeClass: { Enabled: true, Exclude: ["lib/**/*", "spec/tasks/**/*"] }
 RSpec/ExampleLength: { Enabled: false }
 RSpec/FilePath: { Enabled: false }
 RSpec/MultipleMemoizedHelpers: { Enabled: false }
@@ -39,13 +39,13 @@ Style/Documentation: { Enabled: false }
 Style/DocumentationMethod: { Enabled: false }
 Style/EmptyMethod: { Enabled: true, EnforcedStyle: expanded }
 Style/FrozenStringLiteralComment: { Enabled: true, EnforcedStyle: always_true, AutoCorrect: true }
-Style/GlobalVars: { AllowedVariables: '$stats' }
+Style/GlobalVars: { AllowedVariables: "$stats" }
 Style/HashEachMethods: { Enabled: true }
 Style/HashTransformKeys: { Enabled: true }
 Style/HashTransformValues: { Enabled: true }
 Style/IfUnlessModifier: { Enabled: false }
 Style/RescueModifier: { Enabled: false }
-Style/StringLiterals: { Enabled: false }
+Style/StringLiterals: { Enabled: true, EnforcedStyle: double_quotes }
 Style/TrailingCommaInArguments: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInHashLiteral: { EnforcedStyleForMultiline: comma }
