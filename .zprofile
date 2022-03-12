@@ -117,7 +117,6 @@ export PATH="$GOBIN:$PATH"
 # general settings
 ########################################################################
 
-export LC_ALL="en_US.UTF-8"
 if [[ -e "/usr/share/zoneinfo/UTC" ]]; then
   export TZ=":/usr/share/zoneinfo/UTC"
 else
