@@ -38,4 +38,6 @@ export HOMEBREW_NO_ANALYTICS=1
 
 export QT_BEARER_POLL_TIMEOUT=-1
 
+export NATIVEFIER_APPS_DIR="$HOME/Applications/"
+
 # vim: set ft=zsh tw=100 :
