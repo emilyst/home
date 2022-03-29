@@ -85,8 +85,8 @@ set numberwidth=5
 " 5 syntax, highlighting and spelling ===================================== {{{
 
 set background=dark
-let base16colorspace=256
-colorscheme base16-ocean
+let g:spring_night_cterm_italic = 1
+colorscheme spring-night
 
 syntax enable
 syntax sync minlines=256
@@ -113,12 +113,12 @@ set colorcolumn=
 
 " custom highlights
 
-" hi Comment        term=italic      cterm=italic      gui=italic
+hi Comment        term=italic      cterm=italic      gui=italic
 hi Keyword        term=bold        cterm=bold        gui=bold
 hi Conditional    term=bold        cterm=bold        gui=bold
 hi Define         term=bold        cterm=bold        gui=bold
 
-" hi htmlItalic     term=italic      cterm=italic      gui=italic
+hi htmlItalic     term=italic      cterm=italic      gui=italic
 hi htmlBold       term=bold        cterm=bold        gui=bold
 hi htmlBoldItalic term=bold        cterm=bold        gui=bold
 
