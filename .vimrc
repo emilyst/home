@@ -85,8 +85,7 @@ set numberwidth=5
 " 5 syntax, highlighting and spelling ===================================== {{{
 
 set background=dark
-let g:spring_night_cterm_italic = 1
-colorscheme spring-night
+colorscheme nord
 
 syntax enable
 syntax sync minlines=256
