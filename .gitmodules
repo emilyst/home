@@ -151,3 +151,6 @@
 [submodule ".pyenv"]
 	path = .pyenv
 	url = https://github.com/pyenv/pyenv.git
+[submodule ".vim/pack/default/color-spring-night"]
+	path = .vim/pack/default/color-spring-night
+	url = https://github.com/rhysd/vim-color-spring-night.git
