@@ -157,3 +157,6 @@
 [submodule ".vim/pack/default/nord-vim"]
 	path = .vim/pack/default/nord-vim
 	url = https://github.com/arcticicestudio/nord-vim.git
+[submodule ".vim/pack/default/linux-coding-style"]
+	path = .vim/pack/default/linux-coding-style
+	url = https://github.com/vivien/vim-linux-coding-style.git
