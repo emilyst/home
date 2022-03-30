@@ -8,34 +8,33 @@
 	preloadindex = true
 	excludesfile = ~/.gitignore.global
 	trustctime = false
-	pager = diff-so-fancy | less
+	pager = delta
 	commitGraph = true
-[color]
-	ui = auto
-[color "diff"]
-	meta = yellow bold
-	commit = green bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-[color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
-[color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true  # use n and N to move between diff sections
+	line-numbers = true
+	features = decorations
+	syntax-theme = Nord
+[delta "interactive"]
+	keep-plus-minus-markers = false
+[delta "decorations"]
+	; commit-decoration-style = blue ol
+	; commit-style = raw
+	; file-decoration-style = ol ul
+	file-style = omit
+	hunk-header-decoration-style = ul
+	hunk-header-file-style = blue italic
+	hunk-header-line-number-style = green bold italic
+	hunk-header-style = file line-number syntax ul
+[merge]
+	conflictstyle = diff3
 [diff]
 	indentHeuristic = true
 	algorithm = histogram
 	tool = vimdiff
+	colorMoved = default
 [log]
 	date = local
 [rerere]
@@ -93,7 +92,7 @@
 	required = true
 [tig]
 	show-changes = true
-	tab-size = 2
+	tab-size = 8
 	mouse = true
 [init]
 	templatedir = ~/.git-templates
@@ -106,11 +105,30 @@
 	prune = true
 	pruneTags = true
 	output = full
-[merge]
-	tool = vimdiff
-	conflictStyle = diff3
 [mergetool]
 	prompt = false
+[color]
+	ui = auto
+[color "diff"]
+	meta = yellow bold
+	commit = green bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
 
 # allow uncommitted configuration to override above (needs to be
 # second-to-last)
