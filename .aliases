@@ -30,8 +30,15 @@ function timestamp() {
   export TZ=original_tz
 }
 
+# set colors for /bin/ls on GNU systems
 if [[ -x "/usr/bin/dircolors" ]] && [[ -r "$HOME/.dir_colors" ]]; then;
   eval $(/usr/bin/dircolors "$HOME/.dir_colors")
+fi
+
+# set colors for /bin/ls on macOS systems
+if [[ "$OSTYPE" == *'darwin'* ]]; then
+   export CLICOLOR=1
+   export LSCOLORS='Gxfxcxdxbxegedabagacad'
 fi
 
 alias grep="/usr/bin/grep --color=auto"
