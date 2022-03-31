@@ -490,6 +490,11 @@ if exists('&viewdir')
   endif
 endif
 
+if !empty($SUDO_USER) && $USER !=# $SUDO_USER
+  setglobal viminfo=
+endif
+
+
 " ========================================================================= }}}
 
-" vim: set fen fdm=marker vop-=folds tw=72 :
+" vim: fen fdm=marker vop-=folds tw=72
