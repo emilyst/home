@@ -71,12 +71,14 @@ set lazyredraw
 
 set list                   " show non-printing characters sometimes
 set listchars=             " clear defaults
-set listchars+=tab:›\ "    " show a small chevron for a tab
-set listchars+=trail:·     " show a small interpunct for trailing whitespace
+set listchars+=tab:→\ "    " show a small arrow for a tab
+set listchars+=space:·     " show non-trailing spaces as a small dot
+set listchars+=lead:·      " show leading whitespace as a small dot
+set listchars+=trail:•     " show a small interpunct for trailing whitespace
 set listchars+=nbsp:␣      " show a small open box for non-breaking spaces
-set listchars+=extends:›   " show a small chevron for text to the right
-set listchars+=precedes:‹  " show a small chevron for text to the left
-set listchars+=eol:\ "     " show nothing at the end of a line
+set listchars+=precedes:«  " show a small double-chevron for text to the left
+set listchars+=extends:»   " show a small double-chevron for text to the right
+" set listchars+=eol:␤       " show newline symbol at the end of a line
 
 set number
 set numberwidth=5
