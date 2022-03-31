@@ -335,12 +335,12 @@ command! -bang Wq wq<bang>
 command! -bang WQ wq<bang>
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
-" noremap <Up> gk
-" noremap <Down> gj
-" noremap k gk
-" noremap j gj
-" inoremap <Down> <C-o>gj
-" inoremap <Up> <C-o>gk
+noremap <Up> gk
+noremap <Down> gj
+noremap k gk
+noremap j gj
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
 
 nnoremap U <c-r>
 
