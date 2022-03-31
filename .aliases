@@ -4,6 +4,7 @@ alias d="/usr/bin/date +%Y-%m-%d"
 
 [[ -x "/usr/bin/htop" ]] && alias top="/usr/bin/htop"
 
+alias sudo='/usr/bin/sudo --preserve-env'
 alias override='/usr/bin/sudo --preserve-env $SHELL -c "$(fc -ln -1)"'
 
 alias lockscreen='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
