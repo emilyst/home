@@ -70,7 +70,7 @@ endif
 set lazyredraw
 
 " see also custom highlights below
-set list                   " show non-printing characters sometimes
+set nolist                 " hide non-printing characters
 set listchars=             " clear defaults
 set listchars+=tab:→\ "    " show a small arrow for a tab
 set listchars+=space:·     " show non-trailing spaces as a small dot
@@ -115,13 +115,13 @@ set colorcolumn=
 
 " custom highlights
 
-" show special/nontext chars only on selection (see :help 'listchars')
-" note that this messes up any non-selected background when it's not the
-" same as the Normal background (e.g., diffs)
-highlight clear SpecialKey
-highlight clear NonText
-highlight SpecialKey guifg=bg
-highlight NonText    guifg=bg
+" " show special/nontext chars only on selection (see :help 'listchars')
+" " note that this messes up any non-selected background when it's not the
+" " same as the Normal background (e.g., diffs)
+" highlight clear SpecialKey
+" highlight clear NonText
+" highlight SpecialKey guifg=bg
+" highlight NonText    guifg=bg
 
 highlight Comment        term=italic      cterm=italic      gui=italic
 highlight Keyword        term=bold        cterm=bold        gui=bold
