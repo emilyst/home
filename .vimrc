@@ -69,6 +69,7 @@ endif
 
 set lazyredraw
 
+" see also custom highlights below
 set list                   " show non-printing characters sometimes
 set listchars=             " clear defaults
 set listchars+=tab:→\ "    " show a small arrow for a tab
@@ -78,7 +79,7 @@ set listchars+=trail:•     " show a small interpunct for trailing whitespace
 set listchars+=nbsp:␣      " show a small open box for non-breaking spaces
 set listchars+=precedes:«  " show a small double-chevron for text to the left
 set listchars+=extends:»   " show a small double-chevron for text to the right
-" set listchars+=eol:␤       " show newline symbol at the end of a line
+set listchars+=eol:␤       " show newline symbol at the end of a line
 
 set number
 set numberwidth=5
@@ -114,14 +115,22 @@ set colorcolumn=
 
 " custom highlights
 
-hi Comment        term=italic      cterm=italic      gui=italic
-hi Keyword        term=bold        cterm=bold        gui=bold
-hi Conditional    term=bold        cterm=bold        gui=bold
-hi Define         term=bold        cterm=bold        gui=bold
+" show special/nontext chars only on selection (see :help 'listchars')
+" note that this messes up any non-selected background when it's not the
+" same as the Normal background (e.g., diffs)
+highlight clear SpecialKey
+highlight clear NonText
+highlight SpecialKey guifg=bg
+highlight NonText    guifg=bg
 
-hi htmlItalic     term=italic      cterm=italic      gui=italic
-hi htmlBold       term=bold        cterm=bold        gui=bold
-hi htmlBoldItalic term=bold        cterm=bold        gui=bold
+highlight Comment        term=italic      cterm=italic      gui=italic
+highlight Keyword        term=bold        cterm=bold        gui=bold
+highlight Conditional    term=bold        cterm=bold        gui=bold
+highlight Define         term=bold        cterm=bold        gui=bold
+
+highlight htmlItalic     term=italic      cterm=italic      gui=italic
+highlight htmlBold       term=bold        cterm=bold        gui=bold
+highlight htmlBoldItalic term=bold        cterm=bold        gui=bold
 
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'  " highlight VCS conflict markers
 match ErrorMsg 'd41d8cd9-8f00-3204-a980-0998ecf8427e'  " highlight empty UUID
