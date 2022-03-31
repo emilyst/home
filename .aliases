@@ -1,62 +1,57 @@
 alias alert="echo -e '\a'"
-alias dt="date +%Y-%m-%d-%H%M%S"
-alias d="date +%Y-%m-%d"
+alias dt="/usr/bin/date +%Y-%m-%d-%H%M%S"
+alias d="/usr/bin/date +%Y-%m-%d"
 
-[[ -e "/usr/bin/htop" ]] && alias top="/usr/bin/htop"
+[[ -x "/usr/bin/htop" ]] && alias top="/usr/bin/htop"
 
-alias override='sudo --preserve-env $SHELL -c "$(fc -ln -1)"'
+alias override='/usr/bin/sudo --preserve-env $SHELL -c "$(fc -ln -1)"'
 
 alias lockscreen='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
-
-alias got="git"
-alias gut="git"
-alias shit="git"
-
-alias gist="gist -p"
 
 alias vi="vim"
 alias v="vim"
 
 alias rg="rg --no-ignore-parent --smart-case"
-alias rsync="rsync -av --progress"
+alias rsync="/usr/bin/rsync -av --progress"
 
 function timestamp() {
   local original_tz=$TZ
   unset TZ
 
   if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == *"bsd"* ]]; then
-    echo "$(date -r $1 -u '+%FT%T%z (%Z)')"\
-         "/ $(date -r $1 '+%FT%T%z (%Z)')"
+    echo "$(/usr/bin/date -r $1 -u '+%FT%T%z (%Z)')"\
+         "/ $(/usr/bin/date -r $1 '+%FT%T%z (%Z)')"
   else
-    echo "$(date -d @$1 -u '+%FT%T%z (%Z)')"\
-         "/ $(date -d @$1 '+%FT%T%z (%Z)')"
+    echo "$(/usr/bin/date -d @$1 -u '+%FT%T%z (%Z)')"\
+         "/ $(/usr/bin/date -d @$1 '+%FT%T%z (%Z)')"
   fi
 
   export TZ=original_tz
 }
 
-alias grep="grep --color=auto"
-alias fgrep="fgrep --color=auto"
-alias egrep="egrep --color=auto"
-alias ls="ls --color=auto"
+if [[ -x "/usr/bin/dircolors" ]] && [[ -r "$HOME/.dir_colors" ]]; then;
+  eval $(/usr/bin/dircolors "$HOME/.dir_colors")
+fi
+
+alias grep="/usr/bin/grep --color=auto"
+alias fgrep="/usr/bin/fgrep --color=auto"
+alias egrep="/usr/bin/egrep --color=auto"
+alias ls="/bin/ls --color=auto"
 
 [[ "$OSTYPE" == "linux-gnu" ]] && alias l="ls -alFht"
 [[ "$OSTYPE" == "darwin"* ]] && alias l="ls -alFhtO";
 
 # find a file with a pattern in name:
-function ff() { find . -type f -iname '*'$*'*' -ls ; }
+function ff() { /usr/bin/find . -type f -iname '*'$*'*' -ls ; }
 
 # find a directory with a pattern in name:
-function fd() { find . -type d -iname '*'$*'*' -ls ; }
+function fd() { /usr/bin/find . -type d -iname '*'$*'*' -ls ; }
 
 # find a file with pattern $1 in name and Execute $2 on it:
-function fe() { find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
+function fe() { /usr/bin/find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
 
-noglob function calc() { bc -l <<< "scale=4; $*;" } # quick bc frontend with 4 decimal precision
-
-alias rib='irb'  # because i'm not good at typing
-alias mcrib='irb'  # because i'm not good at restraint
+noglob function calc() { /usr/bin/bc -l <<< "scale=4; $*;" } # quick bc frontend with 4 decimal precision
 
 # a briefer, tidier, less safe version of iTerm2's it2setkeylabel
 # see https://www.iterm2.com/documentation-escape-codes.html
