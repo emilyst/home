@@ -204,7 +204,8 @@ set ruler
 " 13 selecting text ======================================================= {{{
 
 if has('clipboard')
-  set clipboard=unnamed
+  set clipboard^=unnamed
+  set clipboard^=unnamedplus
 endif
 
 "set selectmode+=mouse,key,cmd
