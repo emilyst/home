@@ -1,5 +1,5 @@
 " Airline settings
-let g:airline_theme           = 'nord_minimal'
+let g:airline_theme           = 'nord'
 if !has('gui_running') && $TERM_PROGRAM == 'iTerm.app'
   let g:airline_powerline_fonts = 1
 else
