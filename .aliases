@@ -1,4 +1,3 @@
-# useful aliases
 alias alert="echo -e '\a'"
 alias dt="date +%Y-%m-%d-%H%M%S"
 alias d="date +%Y-%m-%d"
@@ -16,27 +15,11 @@ alias shit="git"
 
 alias gist="gist -p"
 
-# if hash nvim >/dev/null 2>&1; then
-#     alias vim="nvim"
-#     alias vi="nvim"
-#     alias v="nvim"
-# else
-    alias vi="vim"
-    alias v="vim"
-# fi
-#
+alias vi="vim"
+alias v="vim"
 
 alias rg="rg --no-ignore-parent --smart-case"
 alias rsync="rsync -av --progress"
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  alias l='ls -AlFhtO'
-else
-  alias l='ls -AlFht'
-fi
-alias lh='ls -Ad .*'
-alias ll='ls -AlF'
-alias la='ls -A'
 
 function timestamp() {
   local original_tz=$TZ
@@ -53,14 +36,13 @@ function timestamp() {
   export TZ=original_tz
 }
 
-# enable color support of ls and also add handy aliases
-if [[ -x "/usr/bin/dircolors" ]]; then
-    test -r "$HOME/.dircolors" && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+alias ls="ls --color=auto"
 
-    alias grep="grep --color=auto"
-    alias fgrep="fgrep --color=auto"
-    alias egrep="egrep --color=auto"
-fi
+[[ "$OSTYPE" == "linux-gnu" ]] && alias l="ls -alFht"
+[[ "$OSTYPE" == "darwin"* ]] && alias l="ls -alFhtO";
 
 # find a file with a pattern in name:
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
@@ -71,16 +53,13 @@ function fd() { find . -type d -iname '*'$*'*' -ls ; }
 # find a file with pattern $1 in name and Execute $2 on it:
 function fe() { find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
 
-function calc() { bc -l <<< "scale=4; $*;" } # quick bc frontend with 4 decimal precision
-alias calc="noglob calc" # allows using '*' in zsh
+noglob function calc() { bc -l <<< "scale=4; $*;" } # quick bc frontend with 4 decimal precision
 
 alias rib='irb'  # because i'm not good at typing
 alias mcrib='irb'  # because i'm not good at restraint
 
-# "borrowed" from oh-my-zsh/plugins/osx
-function man-preview() { man -t "$@" | open -f -a Preview }
-if whence compdef >/dev/null 2>&1; then compdef _man man-preview; fi
-
 # a briefer, tidier, less safe version of iTerm2's it2setkeylabel
 # see https://www.iterm2.com/documentation-escape-codes.html
 function set_status_label() { echo -n "\033]1337;SetKeyLabel=status=$@\a" }
+
+# vim: ft=zsh
