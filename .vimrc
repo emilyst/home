@@ -106,7 +106,8 @@ if has('termguicolors') && exists('$COLORTERM') && $COLORTERM ==? 'truecolor'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-set nocursorline
+set cursorline
+set cursorlineopt=screenline,number
 set colorcolumn=
 
 " if exists('&colorcolumn')
