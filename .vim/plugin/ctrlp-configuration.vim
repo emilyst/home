@@ -35,6 +35,7 @@ endif
 noremap <leader>T :CtrlPTag<CR>
 noremap <leader>b :CtrlPBuffer<CR>
 noremap <leader>m :CtrlPMRUFiles<CR>
+noremap <leader>r :CtrlPMRUFiles<CR>
 noremap <leader>p :CtrlP<CR>
 noremap <leader>t :CtrlPBufTag<CR>
 noremap <leader>u :CtrlPUndo<CR>
