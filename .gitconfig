@@ -96,6 +96,7 @@
 	mouse = true
 [init]
 	templatedir = ~/.git-templates
+	defaultBranch = main
 [rebase]
 	autoStash = true
 [pull]
