@@ -1,1 +1,1 @@
-let g:linuxsty_patterns = [ "/usr/src/", "/linux", "dkms" ]
+" let g:linuxsty_patterns = [ "/usr/src/", "/linux", "dkms" ]
