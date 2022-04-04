@@ -45,7 +45,7 @@ export SAVEHIST=$HISTSIZE
 # prompt
 ########################################################################
 
-[[ -s "$HOME/.prompt.zsh" ]] && source "$HOME/.prompt.zsh"
+[[ -r "$HOME/.prompt.zsh" ]] && source "$HOME/.prompt.zsh"
 
 
 
@@ -170,7 +170,7 @@ compinit -C
 
 # source all plugins so they're available
 for library ($libraries); do
-  if [[ -s "$HOME/.local/lib/zsh/$library/$library.zsh" ]]; then
+  if [[ -r "$HOME/.local/lib/zsh/$library/$library.zsh" ]]; then
     source "$HOME/.local/lib/zsh/$library/$library.zsh"
   fi
 done
@@ -194,7 +194,7 @@ zmodload -i zsh/parameter
 # zsh-syntax-highlighting
 ########################################################################
 
-if [[ -s "$HOME/.local/libexec/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+if [[ -r "$HOME/.local/libexec/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
   source "$HOME/.local/libexec/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
@@ -212,7 +212,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(
 # zsh-autosuggestions
 ########################################################################
 
-if [[ -s "$HOME/.local/libexec/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+if [[ -r "$HOME/.local/libexec/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
   source "$HOME/.local/libexec/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
 
@@ -238,7 +238,7 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 # zsh-history-substring-search
 ########################################################################
 
-if [[ -s "$HOME/.local/libexec/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh" ]]; then
+if [[ -r "$HOME/.local/libexec/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh" ]]; then
   source "$HOME/.local/libexec/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 fi
 
@@ -247,7 +247,16 @@ fi
 # iTerm2 shell integration
 ########################################################################
 
-[[ -e "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
+[[ -r "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
+
+
+########################################################################
+# pkgfile suggestions on Arch Linux
+########################################################################
+
+if [[ -r "/usr/share/doc/pkgfile/command-not-found.zsh" ]]; then
+  source "/usr/share/doc/pkgfile/command-not-found.zsh"
+fi
 
 
 ########################################################################
