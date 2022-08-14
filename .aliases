@@ -21,8 +21,7 @@ function timestamp() {
   unset TZ
 
   if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == *"bsd"* ]]; then
-    echo "$(/usr/bin/date -r $1 -u '+%FT%T%z (%Z)')"\
-         "/ $(/usr/bin/date -r $1 '+%FT%T%z (%Z)')"
+    echo "$(/bin/date -r $1 -u '+%FT%T%z (%Z)')"
   else
     echo "$(/usr/bin/date -d @$1 -u '+%FT%T%z (%Z)')"\
          "/ $(/usr/bin/date -d @$1 '+%FT%T%z (%Z)')"
