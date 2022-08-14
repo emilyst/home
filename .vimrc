@@ -10,7 +10,7 @@
 "
 " The "$HOME/.vim" directory contains everything else, either as
 " individual plugins (under "$HOME/.vim/[after/]{plugin,ftplugin}/") or
-" as packages (under under "$HOME/.vim/pack/*/").
+" as packages (under "$HOME/.vim/pack/*/").
 
 set all&  " set all options to their defaults
 
