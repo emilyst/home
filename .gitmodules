@@ -96,7 +96,7 @@
 	branch = .
 [submodule ".vim/pack/default/sensible"]
 	path = .vim/pack/default/sensible
-	url = git://github.com/tpope/vim-sensible.git
+	url = https://github.com/tpope/vim-sensible.git
 	branch = .
 [submodule ".vim/pack/default/match-count-statusline"]
 	path = .vim/pack/default/match-count-statusline
