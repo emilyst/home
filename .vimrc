@@ -124,12 +124,12 @@ set colorcolumn=
 " highlight SpecialKey guifg=bg
 " highlight NonText    guifg=bg
 
-highlight Comment        term=italic      cterm=italic      gui=italic
+" highlight Comment        term=italic      cterm=italic      gui=italic
 highlight Keyword        term=bold        cterm=bold        gui=bold
 highlight Conditional    term=bold        cterm=bold        gui=bold
 highlight Define         term=bold        cterm=bold        gui=bold
 
-highlight htmlItalic     term=italic      cterm=italic      gui=italic
+" highlight htmlItalic     term=italic      cterm=italic      gui=italic
 highlight htmlBold       term=bold        cterm=bold        gui=bold
 highlight htmlBoldItalic term=bold        cterm=bold        gui=bold
 
