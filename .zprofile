@@ -117,11 +117,11 @@ export PATH="$GOBIN:$PATH"
 # general settings
 ########################################################################
 
-if [[ -e "/usr/share/zoneinfo/UTC" ]]; then
-  export TZ=":/usr/share/zoneinfo/UTC"
-else
-  export TZ="UTC"
-fi
+# if [[ -e "/usr/share/zoneinfo/UTC" ]]; then
+#   export TZ=":/usr/share/zoneinfo/UTC"
+# else
+#   export TZ="UTC"
+# fi
 
 
 # vim: set ft=zsh tw=100 :
