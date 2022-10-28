@@ -1,6 +1,8 @@
 alias alert="echo -e '\a'"
-alias dt="/usr/bin/date +%Y-%m-%d-%H%M%S"
-alias d="/usr/bin/date +%Y-%m-%d"
+alias dt="/bin/date +%Y-%m-%d-%H%M%S"
+alias d="/bin/date +%F"
+alias yyyy-mm-dd='/bin/date -Idate'
+alias yyyy-mm-dd-hh-mm-ss='/bin/date -Iseconds'
 
 [[ -x "/usr/bin/htop" ]] && alias top="/usr/bin/htop"
 
