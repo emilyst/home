@@ -122,10 +122,6 @@
 	path = .rbenv/plugins/rbenv-each
 	url = https://github.com/rbenv/rbenv-each.git
 	branch = .
-[submodule ".local/libexec/rbenv"]
-	path = .local/libexec/rbenv
-	url = https://github.com/sstephenson/rbenv.git
-	branch = .
 [submodule ".local/libexec/zsh/zsh-history-substring-search"]
 	path = .local/libexec/zsh/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
