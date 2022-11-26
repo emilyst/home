@@ -102,21 +102,9 @@
 	path = .vim/pack/default/match-count-statusline
 	url = git@github.com:emilyst/match-count-statusline.git
 	branch = .
-[submodule ".rbenv/plugins/rbenv-default-gems"]
-	path = .rbenv/plugins/rbenv-default-gems
-	url = https://github.com/rbenv/rbenv-default-gems.git
-	branch = .
 [submodule ".rbenv/plugins/rbenv-sentience"]
 	path = .rbenv/plugins/rbenv-sentience
 	url = https://github.com/tpope/rbenv-sentience.git
-	branch = .
-[submodule ".rbenv/plugins/rbenv-vars"]
-	path = .rbenv/plugins/rbenv-vars
-	url = https://github.com/sstephenson/rbenv-vars.git
-	branch = .
-[submodule ".rbenv/plugins/ruby-build"]
-	path = .rbenv/plugins/ruby-build
-	url = https://github.com/rbenv/ruby-build.git
 	branch = .
 [submodule ".rbenv/plugins/rbenv-each"]
 	path = .rbenv/plugins/rbenv-each
