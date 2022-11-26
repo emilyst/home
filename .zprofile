@@ -40,7 +40,7 @@ export PIP_NO_CACHE_DIR=1
 export PYTHONDONTWRITEBYTECODE=1
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-# (( ${+commands[pyenv]} )) && eval "$(pyenv init --path)"
+(( $+commands[pyenv] )) && eval "$(pyenv init --path)"
 
 
 ########################################################################
@@ -57,7 +57,8 @@ export PERLBREW_ROOT=/opt/perl
 # Ruby-specific
 ########################################################################
 
-# (( ${+commands[rbenv]} )) && eval "$(rbenv init -)"
+(( $+commands[rbenv] )) && eval "$(rbenv init - zsh)"
+
 if (( ! ${+RUBY_CONFIGURE_OPTS} )); then
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
 fi
