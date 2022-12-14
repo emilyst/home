@@ -191,24 +191,6 @@ zmodload -i zsh/parameter
 
 
 ########################################################################
-# zsh-syntax-highlighting
-########################################################################
-
-if [[ -r "$HOME/.local/libexec/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-  source "$HOME/.local/libexec/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-fi
-
-ZSH_HIGHLIGHT_MAXLENGTH=300
-
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(
-  main
-  brackets
-  pattern
-  cursor
-)
-
-
-########################################################################
 # zsh-autosuggestions
 ########################################################################
 
@@ -356,6 +338,25 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M emacs '^[e' edit-command-line
 bindkey -M vicmd v edit-command-line
+
+
+########################################################################
+# zsh-syntax-highlighting
+########################################################################
+
+ZSH_HIGHLIGHT_MAXLENGTH=300
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(
+  main
+  brackets
+  pattern
+  cursor
+)
+
+# https://github.com/zsh-users/zsh-syntax-highlighting#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
+if [[ -r "$HOME/.local/libexec/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "$HOME/.local/libexec/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 
 
 # vim: set ft=zsh tw=72 :
