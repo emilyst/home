@@ -58,10 +58,6 @@
 	path = .vim/pack/default/wildfire
 	url = https://github.com/gcmt/wildfire.vim.git
 	branch = .
-[submodule ".local/libexec/base16-shell"]
-	path = .local/libexec/base16-shell
-	url = https://github.com/chriskempson/base16-shell.git
-	branch = .
 [submodule ".vim/pack/default/airline-themes"]
 	path = .vim/pack/default/airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
@@ -98,10 +94,6 @@
 	path = .vim/pack/default/sensible
 	url = https://github.com/tpope/vim-sensible.git
 	branch = .
-[submodule ".vim/pack/default/match-count-statusline"]
-	path = .vim/pack/default/match-count-statusline
-	url = git@github.com:emilyst/match-count-statusline.git
-	branch = .
 [submodule ".rbenv/plugins/rbenv-sentience"]
 	path = .rbenv/plugins/rbenv-sentience
 	url = https://github.com/tpope/rbenv-sentience.git
@@ -109,22 +101,6 @@
 [submodule ".rbenv/plugins/rbenv-each"]
 	path = .rbenv/plugins/rbenv-each
 	url = https://github.com/rbenv/rbenv-each.git
-	branch = .
-[submodule ".local/libexec/zsh/zsh-history-substring-search"]
-	path = .local/libexec/zsh/zsh-history-substring-search
-	url = https://github.com/zsh-users/zsh-history-substring-search.git
-	branch = .
-[submodule ".local/libexec/zsh/zsh-autosuggestions"]
-	path = .local/libexec/zsh/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
-	branch = .
-[submodule ".local/libexec/zsh/zsh-syntax-highlighting"]
-	path = .local/libexec/zsh/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-	branch = .
-[submodule ".local/libexec/diff-so-fancy"]
-	path = .local/libexec/diff-so-fancy
-	url = https://github.com/so-fancy/diff-so-fancy.git
 	branch = .
 [submodule ".vim/pack/default/vinegar"]
 	path = .vim/pack/default/vinegar
