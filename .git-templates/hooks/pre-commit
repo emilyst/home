@@ -6,3 +6,8 @@ if [[ "$branch" = "master" ]]; then
   echo "Avoid creating commits directly on the master branch, or force with --no-verify"
   exit 1
 fi
+
+if [[ "$branch" = "main" ]]; then
+  echo "Avoid creating commits directly on the main branch, or force with --no-verify"
+  exit 1
+fi
