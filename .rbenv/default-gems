@@ -10,7 +10,6 @@ magic_frozen_string_literal
 memory_profiler
 pry
 rake
-readapt
 rubocop
 rubocop-performance
 rubocop-rails
