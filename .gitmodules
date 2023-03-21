@@ -1,107 +1,107 @@
 [submodule ".vim/pack/default/fugitive"]
 	path = .vim/pack/default/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/abolish"]
 	path = .vim/pack/default/abolish
 	url = https://github.com/tpope/vim-abolish
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/surround"]
 	path = .vim/pack/default/surround
 	url = https://github.com/tpope/vim-surround
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/repeat"]
 	path = .vim/pack/default/repeat
 	url = https://github.com/tpope/vim-repeat
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/scriptease"]
 	path = .vim/pack/default/scriptease
 	url = https://github.com/tpope/vim-scriptease.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/ctrlp"]
 	path = .vim/pack/default/ctrlp
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/tabular"]
 	path = .vim/pack/default/tabular
 	url = https://github.com/godlygeek/tabular.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/pathogen"]
 	path = .vim/pack/default/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/characterize"]
 	path = .vim/pack/default/characterize
 	url = https://github.com/tpope/vim-characterize.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/commentary"]
 	path = .vim/pack/default/commentary
 	url = https://github.com/tpope/vim-commentary.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/dispatch"]
 	path = .vim/pack/default/dispatch
 	url = https://github.com/tpope/vim-dispatch.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/airline"]
 	path = .vim/pack/default/airline
 	url = https://github.com/bling/vim-airline.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/jdaddy"]
 	path = .vim/pack/default/jdaddy
 	url = https://github.com/tpope/vim-jdaddy.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/base16"]
 	path = .vim/pack/default/base16
 	url = https://github.com/chriskempson/base16-vim.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/wildfire"]
 	path = .vim/pack/default/wildfire
 	url = https://github.com/gcmt/wildfire.vim.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/airline-themes"]
 	path = .vim/pack/default/airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/eunuch"]
 	path = .vim/pack/default/eunuch
 	url = https://github.com/tpope/vim-eunuch.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/argumentative"]
 	path = .vim/pack/default/argumentative
 	url = https://github.com/PeterRincker/vim-argumentative.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/terminus"]
 	path = .vim/pack/default/terminus
 	url = https://github.com/wincent/terminus.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/ctrlp-tjump"]
 	path = .vim/pack/default/ctrlp-tjump
 	url = https://github.com/ivalkeen/vim-ctrlp-tjump.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/rainbow_parentheses"]
 	path = .vim/pack/default/rainbow_parentheses
 	url = https://github.com/junegunn/rainbow_parentheses.vim.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/rhubarb"]
 	path = .vim/pack/default/rhubarb
 	url = https://github.com/tpope/vim-rhubarb.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/sort-motion"]
 	path = .vim/pack/default/sort-motion
 	url = https://github.com/christoomey/vim-sort-motion.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/sensible"]
 	path = .vim/pack/default/sensible
 	url = https://github.com/tpope/vim-sensible.git
-	branch = .
+	branch = master
 [submodule ".rbenv/plugins/rbenv-sentience"]
 	path = .rbenv/plugins/rbenv-sentience
 	url = https://github.com/tpope/rbenv-sentience.git
-	branch = .
+	branch = master
 [submodule ".rbenv/plugins/rbenv-each"]
 	path = .rbenv/plugins/rbenv-each
 	url = https://github.com/rbenv/rbenv-each.git
-	branch = .
+	branch = master
 [submodule ".vim/pack/default/vinegar"]
 	path = .vim/pack/default/vinegar
 	url = https://github.com/tpope/vim-vinegar.git
