@@ -5,30 +5,17 @@
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 [[ -d "$HOME/.local/sbin" ]] && export PATH="$HOME/.local/sbin:$PATH"
 
-# add homebrew bc if it's there
-[[ -d "/usr/local/opt/bc/bin" ]] && export PATH="/usr/local/opt/bc/bin:$PATH"
-
 
 ########################################################################
-# PostgreSQL-specific
+# Homebrew
 ########################################################################
 
-# for systems using Homebrew
-POSTGRESQLPATH="/usr/local/opt/postgresql@9.6/bin"
-POSTGRESQLLDFLAGS="/usr/local/opt/postgresql@9.6/lib"
-POSTGRESQLCPPFLAGS="/usr/local/opt/postgresql@9.6/include"
-
-if [[ -d "$POSTGRESQLPATH" ]]; then
-  export PATH="$POSTGRESQLPATH:$PATH"
-fi
-
-if [[ -d "$POSTGRESQLLDFLAGS" ]]; then
-  export LDFLAGS="-L$POSTGRESQLLDFLAGS $LDFLAGS"
-fi
-
-if [[ -d "$POSTGRESQLCPPFLAGS" ]]; then
-  export CPPFLAGS="-I$POSTGRESQLCPPFLAGS $CPPFLAGS"
-fi
+export HOMEBREW_INSTALL_BADGE=""
+export HOMEBREW_NO_EMOJI=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ANALYTICS=1
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 
 ########################################################################
@@ -57,43 +44,9 @@ export PERLBREW_ROOT=/opt/perl
 # Ruby-specific
 ########################################################################
 
-(( $+commands[rbenv] )) && eval "$(rbenv init - zsh)"
-
-if (( ! ${+RUBY_CONFIGURE_OPTS} )); then
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@1.1"
-fi
 export DISABLE_SPRING='true'
 export WEB_CONCURRENCY=0
-
-
-
-########################################################################
-# Java-specific
-########################################################################
-
-# if (( ! ${+JAVA_HOME} )); then
-#   if [[ -x '/usr/libexec/java_home' ]]; then
-#     export JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2> /dev/null)"
-#     export PATH="$JAVA_HOME/bin:$PATH"
-#   fi
-# fi
-
-# if (( ! ${+MAVEN_OPTS} )); then
-#   export MAVEN_OPTS="-Xmx2048m -Xss2M -XX:ReservedCodeCacheSize=128m"
-# fi
-
-# if (( ! ${+_JAVA_OPTIONS} )); then
-#   export _JAVA_OPTIONS=-Djava.awt.headless=true
-# fi
-
-
-########################################################################
-# Scala-specific
-########################################################################
-
-# SCALAPATH="/usr/local/opt/scala@2.11/bin"
-# [[ -d "$SCALAPATH" ]] && export PATH="$SCALAPATH:$PATH"
-
+(( $+commands[rbenv] )) && eval "$(rbenv init - zsh)"
 
 
 ########################################################################
@@ -112,17 +65,6 @@ fi
 export GOPATH="$HOME/Developer/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
-
-
-########################################################################
-# general settings
-########################################################################
-
-# if [[ -e "/usr/share/zoneinfo/UTC" ]]; then
-#   export TZ=":/usr/share/zoneinfo/UTC"
-# else
-#   export TZ="UTC"
-# fi
 
 
 # vim: set ft=zsh tw=100 :

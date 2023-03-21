@@ -68,7 +68,7 @@ GitHub is established. Then, I run the following.
 
     alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
     home init
-    home remote add origin git@github.com:emilyst/home.git
+    home remote add origin https://github.com/emilyst/home.git
     home fetch --all
     home reset --hard origin/master
     home submodule update --init --rebase
