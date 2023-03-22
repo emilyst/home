@@ -3,19 +3,25 @@ require:
   - rubocop-rails
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-thread_safety
 
 AllCops:
   ExtraDetails: true
+  TargetRubyVersion: 3.2
+  NewCops: enable
   Exclude:
+    - ".git/**/*"
+    - "app/views/**/*"
+    - "bin/**/*"
+    - "config/environments/*"
     - "db/**/*"
-    - "config/**/*"
-    - "script/**/*"
-    - "bin/{rails,rake}"
     - "generated/**/*.rb"
+    - "log/**/*"
     - "node_modules/**/*"
+    - "script/**/*"
+    - "spec/fixtures/**/*"
     - "tmp/**/*"
     - "vendor/**/*"
-    - ".git/**/*"
 
 Layout/EmptyLines: { Enabled: false }
 Layout/HashAlignment: { EnforcedHashRocketStyle: key, EnforcedColonStyle: key }
@@ -49,3 +55,123 @@ Style/StringLiterals: { Enabled: true, EnforcedStyle: double_quotes }
 Style/TrailingCommaInArguments: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInArrayLiteral: { EnforcedStyleForMultiline: comma }
 Style/TrailingCommaInHashLiteral: { EnforcedStyleForMultiline: comma }
+
+
+# Metrics Cops
+
+Metrics/ClassLength:
+  Description: 'Avoid classes longer than 100 lines of code.'
+  Max: 100
+  Enabled: false
+
+Metrics/ModuleLength:
+  Description: 'Avoid modules longer than 100 lines of code.'
+  Max: 100
+  Enabled: false
+
+Metrics/ParameterLists:
+  Description: 'Pass no more than four parameters into a method.'
+  Max: 4
+  Enabled: false
+
+Metrics/MethodLength:
+  Description: 'Avoid methods longer than 5 lines of code.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
+  Max: 5
+  Enabled: false
+
+Metrics/BlockLength:
+  CountComments: false
+  Max: 5
+  IgnoredMethods:
+    - context
+    - describe
+    - it
+    - shared_examples
+    - shared_examples_for
+    - namespace
+    - draw
+    - configure
+    - group
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+# Style Cops
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*'
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/CollectionMethods:
+  Enabled: true
+  PreferredMethods:
+    find: detect
+    inject: reduce
+    collect: map
+    find_all: select
+
+Style/InlineComment:
+  Description: 'Avoid inline comments.'
+  Enabled: false
+
+Style/LineEndConcatenation:
+  Description: >-
+    Use \ instead of + or << to concatenate two string literals at
+    line end.
+  Enabled: true
+
+Style/NumericLiterals:
+  Exclude:
+    - 'spec/**/*'
+
+# Layout Cops
+
+Layout/ArgumentAlignment:
+  Exclude:
+    - 'config/initializers/*'
+
+Layout/FirstArgumentIndentation:
+  Enabled: false
+
+Layout/DotPosition:
+  Description: 'Checks the position of the dot in multi-line method calls.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains'
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  Description: >-
+    Checks indentation of binary operations that span more than
+    one line.
+  Enabled: true
+  EnforcedStyle: indented
+
+# Rails Cops
+
+Rails/Delegate:
+  Description: 'Prefer delegate method for delegations.'
+  Enabled: false
+
+# Bundler Cops
+
+Bundler/OrderedGems:
+  Enabled: false
+
+# Performance Cops
+
+Performance/OpenStructUse:
+    Enabled: false
+
+
+# Disable some RSpec cops (reconsider later)
+
+RSpec/SubjectStub:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+

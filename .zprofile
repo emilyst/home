@@ -15,7 +15,17 @@ export HOMEBREW_NO_EMOJI=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_ANALYTICS=1
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+
+########################################################################
+# PostgreSQL
+########################################################################
+
+if [[ -d "$(brew --prefix)/opt/postgresql@13/bin" ]]; then
+  export PATH="$(brew --prefix)/opt/postgresql@13/bin:$PATH"
+fi
 
 
 ########################################################################

@@ -82,7 +82,11 @@
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
 [remote "origin"]
-	fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
+	fetch = +refs/pull/head/*:refs/remotes/origin/pull/*
+	fetch = +refs/tags/*:refs/tags/*
+	fetch = +refs/archive/*:refs/archive/*
+	push  = +refs/archive/*:refs/archive/*
+	tagopt = --tags
 [receive]
 	fsckObjects = true
 [filter "lfs"]
