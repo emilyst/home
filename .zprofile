@@ -37,6 +37,7 @@ export PIP_NO_CACHE_DIR=1
 export PYTHONDONTWRITEBYTECODE=1
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+
 (( $+commands[pyenv] )) && eval "$(pyenv init --path)"
 
 
@@ -56,6 +57,7 @@ export PERLBREW_ROOT=/opt/perl
 
 export DISABLE_SPRING='true'
 export WEB_CONCURRENCY=0
+
 (( $+commands[rbenv] )) && eval "$(rbenv init - zsh)"
 
 
