@@ -126,7 +126,10 @@ if [[ (( $+commands[brew] )) && -r "$(brew --prefix)/share/zsh-autocomplete/zsh-
   # menu-select:   Same as `menu-complete`, but updates selection in menu.
   # ⚠️ NOTE: This setting can NOT be changed at runtime.
 
-  source "$(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+  zstyle ':completion:*' group-name ''
+  zstyle ':completion:*' list-prompt ''
+
+  source "$HOME/Developer/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 
   # Up arrow:
   bindkey '\e[A' up-line-or-search
