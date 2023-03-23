@@ -3,12 +3,12 @@
 ########################################################################
 
 setopt ALIASES
-#unsetopt ALWAYS_TO_END
+unsetopt ALWAYS_TO_END
 setopt AUTO_CD
-#unsetopt AUTO_MENU
+unsetopt AUTO_MENU
 setopt AUTO_PUSHD
 setopt BEEP
-#unsetopt COMPLETE_IN_WORD
+unsetopt COMPLETE_IN_WORD
 setopt CORRECT
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_DUPS
@@ -21,7 +21,7 @@ setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_TO_HOME
 setopt RM_STAR_SILENT
 setopt SUNKEYBOARDHACK
-# setopt TRANSIENT_RPROMPT
+ setopt TRANSIENT_RPROMPT
 # see also history section below
 
 
@@ -88,14 +88,14 @@ if [[ (( $+commands[brew] )) && -r "$(brew --prefix)/share/zsh-autocomplete/zsh-
   # '..##': Don't show completions for the current word, if it consists of two
   #         or more dots.
 
-  zstyle ':autocomplete:*' list-lines 10  # int
+  zstyle ':autocomplete:*' list-lines 16  # int
   # If there are fewer than this many lines below the prompt, move the prompt up
   # to make room for showing this many lines of completions (approximately).
 
-  zstyle ':autocomplete:history-search:*' list-lines 10  # int
+  zstyle ':autocomplete:history-search:*' list-lines 16  # int
   # Show this many history lines when pressing ↑.
 
-  zstyle ':autocomplete:history-incremental-search-*:*' list-lines 10  # int
+  zstyle ':autocomplete:history-incremental-search-*:*' list-lines 16  # int
   # Show this many history lines when pressing ⌃R or ⌃S.
 
   zstyle ':autocomplete:*' insert-unambiguous no
