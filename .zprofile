@@ -20,6 +20,14 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 
 ########################################################################
+# Jetbrains IDEs
+########################################################################
+
+if [[ -d "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" ]]; then
+  export PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
+fi
+
+########################################################################
 # PostgreSQL
 ########################################################################
 
