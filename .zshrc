@@ -142,7 +142,9 @@ bindkey "^S" history-incremental-pattern-search-forward
 # prompt
 ########################################################################
 
-[[ -r "${HOME}/.prompt.zsh" ]] && source "${HOME}/.prompt.zsh"
+autoload -Uz promptinit && promptinit
+
+prompt redhat
 
 
 ########################################################################
