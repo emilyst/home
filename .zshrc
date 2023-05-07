@@ -3,25 +3,26 @@
 ########################################################################
 
 setopt ALIASES
-unsetopt ALWAYS_TO_END
 setopt AUTO_CD
-unsetopt AUTO_MENU
 setopt AUTO_PUSHD
 setopt BEEP
-unsetopt COMPLETE_IN_WORD
 setopt CORRECT
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt MULTIOS
-unsetopt NOMATCH  # allow [, ], ?, etc.
 setopt NOTIFY
 setopt PROMPT_SUBST
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_TO_HOME
 setopt RM_STAR_SILENT
 setopt SUNKEYBOARDHACK
- setopt TRANSIENT_RPROMPT
+setopt TRANSIENT_RPROMPT
+
+unsetopt ALWAYS_TO_END
+unsetopt AUTO_MENU
+unsetopt COMPLETE_IN_WORD
+unsetopt NOMATCH  # allow [, ], ?, etc.
 # see also history section below
 
 
@@ -35,153 +36,124 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 
-export HISTFILE="$HOME/.history"
+export HISTFILE="${HOME}/.history"
 export HISTFILESIZE=50000000
 export HISTSIZE=5000000
 export SAVEHIST=$HISTSIZE
 
 
 ########################################################################
-# zsh modules
+# completions
 ########################################################################
 
-if (( $+commands[brew] )); then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+if [[ -d "${HOMEBREW_PREFIX}/share/zsh-completions" ]]; then
+  FPATH="${HOMEBREW_PREFIX}/share/zsh-completions:${FPATH}"
 fi
 
-# +X means don't execute, only load
-autoload -Uz +X zmv
+if [[ -d "${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}" ]]; then
+  FPATH="${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}"
+fi
 
-# quote pasted URLs
+zstyle ":completion:*" completer _expand _complete _ignored _approximate
+zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
+zstyle ":completion:*" menu select=2
+zstyle ":completion:*" rehash true
+zstyle ":completion:*" select-prompt "%SScrolling active: current selection at %p%s"
+zstyle ":completion:*:*:cdr:*:*" menu selection
+zstyle ":completion:*:descriptions" format "%U%B%F{cyan}%d%f%b%u"
+zstyle ":completion::complete:*" use-cache 1
+
+if [[ -n "${ZSH_VERSION-}" ]]; then
+  autoload -U +X compinit && if [[ "${ZSH_DISABLE_COMPFIX-}" = true ]]; then
+    compinit -u
+  else
+    compinit
+  fi
+  autoload -U +X bashcompinit && bashcompinit
+fi
+
+
+########################################################################
+# zsh functions
+########################################################################
+
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
+autoload -Uz +X zmv
+autoload -Uz +X zargs
+
+
+#######################################################################
+# zle widgets
+#######################################################################
+
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-# bracketed paste mode
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 
-# for detecting existence of commands, functions, builtins, etc.
-zmodload -i zsh/parameter
-
 
 ########################################################################
-# completion
+# bindings
 ########################################################################
 
-# initiate history search with Ctrl-R
-bindkey '^R' history-incremental-search-backward
+zmodload -i zsh/terminfo
 
-if [[ (( $+commands[brew] )) && -r "$(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]]; then
-  zstyle ':autocomplete:*' default-context ''
-  # '': Start each new command line with normal autocompletion.
-  # history-incremental-search-backward: Start in live history search mode.
+if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+  autoload -Uz add-zle-hook-widget
 
-  zstyle ':autocomplete:*' min-delay 0.1  # seconds (float)
-  # Wait this many seconds for typing to stop, before showing completions.
+  function zle-application-mode-start { echoti smkx }
+  function zle-application-mode-stop { echoti rmkx }
 
-#   # zstyle ':autocomplete:*' min-input 1  # characters (int)
-#   # Wait until this many characters have been typed, before showing completions.
+  add-zle-hook-widget -Uz zle-line-init zle-application-mode-start
+  add-zle-hook-widget -Uz zle-line-finish zle-application-mode-stop
+fi
 
-  zstyle ':autocomplete:*' ignored-input '' # extended glob pattern
-  # '':     Always show completions.
-  # '..##': Don't show completions for the current word, if it consists of two
-  #         or more dots.
+autoload -Uz up-line-or-beginning-search
+zle -N up-line-or-beginning-search
 
-  zstyle ':autocomplete:*' list-lines 16  # int
-  # If there are fewer than this many lines below the prompt, move the prompt up
-  # to make room for showing this many lines of completions (approximately).
+autoload -Uz down-line-or-beginning-search
+zle -N down-line-or-beginning-search
 
-  zstyle ':autocomplete:history-search:*' list-lines 16  # int
-  # Show this many history lines when pressing ↑.
+[[ -n "${terminfo[khome]}" ]] && bindkey -- "${terminfo[khome]}" beginning-of-line
+[[ -n "${terminfo[kend]}"  ]] && bindkey -- "${terminfo[kend]}"  end-of-line
+[[ -n "${terminfo[kich1]}" ]] && bindkey -- "${terminfo[kich1]}" overwrite-mode
+[[ -n "${terminfo[kbs]}"   ]] && bindkey -- "${terminfo[kbs]}"   backward-delete-char
+[[ -n "${terminfo[kdch1]}" ]] && bindkey -- "${terminfo[kdch1]}" delete-char
+[[ -n "${terminfo[kcuu1]}" ]] && bindkey -- "${terminfo[kcuu1]}" up-line-or-beginning-search
+[[ -n "${terminfo[kcud1]}" ]] && bindkey -- "${terminfo[kcud1]}" down-line-or-beginning-search
+[[ -n "${terminfo[kcub1]}" ]] && bindkey -- "${terminfo[kcub1]}" backward-char
+[[ -n "${terminfo[kcuf1]}" ]] && bindkey -- "${terminfo[kcuf1]}" forward-char
+[[ -n "${terminfo[kpp]}"   ]] && bindkey -- "${terminfo[kpp]}"   beginning-of-buffer-or-history
+[[ -n "${terminfo[knp]}"   ]] && bindkey -- "${terminfo[knp]}"   end-of-buffer-or-history
+[[ -n "${terminfo[kcbt]}"  ]] && bindkey -- "${terminfo[kcbt]}"  reverse-menu-complete
+[[ -n "${terminfo[kLFT3]}" ]] && bindkey -- "${terminfo[kLFT3]}" backward-word # alt-left
+[[ -n "${terminfo[kRIT3]}" ]] && bindkey -- "${terminfo[kRIT3]}" forward-word # alt-right
+[[ -n "${terminfo[kLFT9]}" ]] && bindkey -- "${terminfo[kLFT9]}" backward-word # meta-left
+[[ -n "${terminfo[kRIT9]}" ]] && bindkey -- "${terminfo[kRIT9]}" forward-word # meta-right
 
-  zstyle ':autocomplete:history-incremental-search-*:*' list-lines 16  # int
-  # Show this many history lines when pressing ⌃R or ⌃S.
-
-  zstyle ':autocomplete:*' insert-unambiguous no
-  # no:  Tab inserts the top completion.
-  # yes: Tab first inserts a substring common to all listed completions, if any.
-
-  zstyle ':autocomplete:*' fzf-completion no
-  # no:  Tab uses Zsh's completion system only.
-  # yes: Tab first tries Fzf's completion, then falls back to Zsh's.
-  # ⚠️ NOTE: This setting can NOT be changed at runtime and requires that you
-  # have installed Fzf's shell extensions.
-
-  # Add a space after these completions:
-  zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
-
-  # Autocomplete automatically selects a backend for its recent dirs completions.
-  # So, normally you won't need to change this.
-  # However, you can set it if you find that the wrong backend is being used.
-  zstyle ':autocomplete:recent-dirs' backend cdr
-  # cdr:  Use Zsh's `cdr` function to show recent directories as completions.
-  # no:   Don't show recent directories.
-  # zsh-z|zoxide|z.lua|z.sh|autojump|fasd: Use this instead (if installed).
-  # ⚠️ NOTE: This setting can NOT be changed at runtime.
-
-#   zstyle ':autocomplete:*' widget-style menu-select
-#   # complete-word: (Shift-)Tab inserts the top (bottom) completion.
-#   # menu-complete: Press again to cycle to next (previous) completion.
-#   # menu-select:   Same as `menu-complete`, but updates selection in menu.
-#   # ⚠️ NOTE: This setting can NOT be changed at runtime.
-
-#   zstyle ':completion:*' group-name ''
-#   zstyle ':completion:*' list-prompt ''
-
-  source "$HOME/Developer/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
-
-#   # Up arrow:
-#   bindkey '\e[A' up-line-or-search
-#   bindkey '\eOA' up-line-or-search
-#   # up-line-or-search:  Open history menu.
-#   # up-line-or-history: Cycle to previous history line.
-
-#   # Down arrow:
-#   bindkey '\e[B' down-line-or-select
-#   bindkey '\eOB' down-line-or-select
-#   # down-line-or-select:  Open completion menu.
-#   # down-line-or-history: Cycle to next history line.
-
-#   # Control-Space:
-#   bindkey '\0' list-expand
-#   # list-expand:      Reveal hidden completions.
-#   # set-mark-command: Activate text selection.
-
-#   # Uncomment the following lines to disable live history search:
-#   # zle -A {.,}history-incremental-search-forward
-#   # zle -A {.,}history-incremental-search-backward
-
-#   # Return key in completion menu & history menu:
-#   bindkey -M menuselect '\r' .accept-line
-#   # .accept-line: Accept command line.
-#   # accept-line:  Accept selection and exit menu.
-# fi
+bindkey "^R" history-incremental-pattern-search-backward
+bindkey "^S" history-incremental-pattern-search-forward
 
 
 ########################################################################
 # prompt
 ########################################################################
 
-[[ -r "$HOME/.prompt.zsh" ]] && source "$HOME/.prompt.zsh"
+[[ -r "${HOME}/.prompt.zsh" ]] && source "${HOME}/.prompt.zsh"
 
 
 ########################################################################
-# extra sources
-########################################################################
-
 # aliases
-[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
+########################################################################
 
-# misc
+[[ -f "${HOME}/.aliases" ]] && source "${HOME}/.aliases"
+
 source "git-helpers.sh"
 
-
-########################################################################
-# home setup
-#########################################################################
-
-alias home="git --work-tree=$HOME --git-dir=$HOME/.home.git"
+alias home="git --work-tree=${HOME} --git-dir=${HOME}/.home.git"
 
 
 # vim: set ft=zsh tw=72 :

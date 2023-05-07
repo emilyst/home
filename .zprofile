@@ -2,8 +2,8 @@
 # paths
 ########################################################################
 
-[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
-[[ -d "$HOME/.local/sbin" ]] && export PATH="$HOME/.local/sbin:$PATH"
+[[ -d "${HOME}/.local/bin" ]] && export PATH="${HOME}/.local/bin:${PATH}"
+[[ -d "${HOME}/.local/sbin" ]] && export PATH="${HOME}/.local/sbin:${PATH}"
 
 
 ########################################################################
@@ -31,9 +31,12 @@ fi
 # PostgreSQL
 ########################################################################
 
-if [[ -d "$(brew --prefix)/opt/postgresql@13/bin" ]]; then
-  export PATH="$(brew --prefix)/opt/postgresql@13/bin:$PATH"
-fi
+# prefer newest PostgreSQL version available
+for i in {1..20}; do
+  if [[ -d "${HOMEBREW_PREFIX}/opt/postgresql@${i}/bin" ]]; then
+    export PATH="${HOMEBREW_PREFIX}/opt/postgresql@${i}/bin:${PATH}"
+  fi
+done
 
 
 ########################################################################
@@ -43,19 +46,19 @@ fi
 export PIP_DISABLE_PIP_VERSION_CHECK=1
 export PIP_NO_CACHE_DIR=1
 export PYTHONDONTWRITEBYTECODE=1
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH="${PYENV_ROOT}/bin:${PATH}"
 
-(( $+commands[pyenv] )) && eval "$(pyenv init --path)"
+type pyenv &> /dev/null && eval "$(pyenv init --path)"
 
 
 ########################################################################
 # Perl-specific
 ########################################################################
 
-export PERL5LIB="$HOME/.local/lib/perl5:$PERL5LIB"
-export PERL_CPANM_OPT="-L $HOME/.local --self-contained"
-export PERLBREW_ROOT=/opt/perl
+export PERL5LIB="${HOME}/.local/lib/perl5:${PERL5LIB}"
+export PERL_CPANM_OPT="-L ${HOME}/.local --self-contained"
+export PERLBREW_ROOT="/opt/perl"
 #[[ -e /opt/perl/etc/bashrc ]] && source /opt/perl/etc/bashrc
 
 
@@ -63,18 +66,18 @@ export PERLBREW_ROOT=/opt/perl
 # Ruby-specific
 ########################################################################
 
-export DISABLE_SPRING='true'
+export DISABLE_SPRING="true"
 export WEB_CONCURRENCY=0
 
-(( $+commands[rbenv] )) && eval "$(rbenv init - zsh)"
+type rbenv &> /dev/null && eval "$(rbenv init - zsh)"
 
 
 ########################################################################
 # Rust
 ########################################################################
 
-if [[ -d "$HOME/.cargo/bin" ]]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
+if [[ -d "${HOME}/.cargo/bin" ]]; then
+  export PATH="${HOME}/.cargo/bin:${PATH}"
 fi
 
 
@@ -82,9 +85,9 @@ fi
 # Go
 ########################################################################
 
-export GOPATH="$HOME/Developer/go"
-export GOBIN="$GOPATH/bin"
-export PATH="$GOBIN:$PATH"
+export GOPATH="${HOME}/Developer/go"
+export GOBIN="${GOPATH}/bin"
+export PATH="${GOBIN}:${PATH}"
 
 
 # vim: set ft=zsh tw=100 :
