@@ -8,8 +8,6 @@ setopt AUTO_PUSHD
 setopt BEEP
 setopt CORRECT
 setopt EXTENDED_HISTORY
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
 setopt MULTIOS
 setopt NOTIFY
 setopt PROMPT_SUBST
@@ -54,15 +52,6 @@ if [[ -d "${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}" ]]; then
   FPATH="${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}"
 fi
 
-zstyle ":completion:*" completer _expand _complete _ignored _approximate
-zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
-zstyle ":completion:*" menu select=2
-zstyle ":completion:*" rehash true
-zstyle ":completion:*" select-prompt "%SScrolling active: current selection at %p%s"
-zstyle ":completion:*:*:cdr:*:*" menu selection
-zstyle ":completion:*:descriptions" format "%U%B%F{cyan}%d%f%b%u"
-zstyle ":completion::complete:*" use-cache 1
-
 if [[ -n "${ZSH_VERSION-}" ]]; then
   autoload -U +X compinit && if [[ "${ZSH_DISABLE_COMPFIX-}" = true ]]; then
     compinit -u
@@ -71,6 +60,19 @@ if [[ -n "${ZSH_VERSION-}" ]]; then
   fi
   autoload -U +X bashcompinit && bashcompinit
 fi
+
+if [[ -r "${HOMEBREW_PREFIX}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]]; then
+  source "${HOMEBREW_PREFIX}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+fi
+
+zstyle ":completion:*" completer _expand _complete _ignored _approximate
+zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
+zstyle ":completion:*" menu select=2
+zstyle ":completion:*" rehash true
+zstyle ":completion:*" select-prompt "%SScrolling active: current selection at %p%s"
+zstyle ":completion:*:*:cdr:*:*" menu selection
+zstyle ":completion:*:descriptions" format "%U%B%F{magenta}%d%f%b%u"
+zstyle ":completion::complete:*" use-cache 1
 
 
 ########################################################################
