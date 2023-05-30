@@ -61,16 +61,12 @@ if [[ -n "${ZSH_VERSION-}" ]]; then
   autoload -U +X bashcompinit && bashcompinit
 fi
 
-if [[ -r "${HOMEBREW_PREFIX}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]]; then
-  source "${HOMEBREW_PREFIX}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
-fi
-
 zstyle ":completion:*" completer _expand _complete _ignored _approximate
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
 zstyle ":completion:*" menu select=2
-# zstyle ":completion:*" rehash true
-# zstyle ":completion:*" select-prompt "%SScrolling active: current selection at %p%s"
-# zstyle ":completion:*:*:cdr:*:*" menu selection
+zstyle ":completion:*" rehash true
+zstyle ":completion:*" select-prompt "%SScrolling active: current selection at %p%s"
+zstyle ":completion:*:*:cdr:*:*" menu selection
 zstyle ":completion:*:descriptions" format "%U%B%F{magenta}%d%f%b%u"
 zstyle ":completion::complete:*" use-cache 1
 
@@ -124,8 +120,8 @@ zmodload -i zsh/terminfo
 [[ -n "${terminfo[kich1]}" ]] && bindkey -- "${terminfo[kich1]}" overwrite-mode
 [[ -n "${terminfo[kbs]}"   ]] && bindkey -- "${terminfo[kbs]}"   backward-delete-char
 [[ -n "${terminfo[kdch1]}" ]] && bindkey -- "${terminfo[kdch1]}" delete-char
-# [[ -n "${terminfo[kcuu1]}" ]] && bindkey -- "${terminfo[kcuu1]}" up-line-or-beginning-search
-# [[ -n "${terminfo[kcud1]}" ]] && bindkey -- "${terminfo[kcud1]}" down-line-or-beginning-search
+[[ -n "${terminfo[kcuu1]}" ]] && bindkey -- "${terminfo[kcuu1]}" up-line-or-beginning-search
+[[ -n "${terminfo[kcud1]}" ]] && bindkey -- "${terminfo[kcud1]}" down-line-or-beginning-search
 [[ -n "${terminfo[kcub1]}" ]] && bindkey -- "${terminfo[kcub1]}" backward-char
 [[ -n "${terminfo[kcuf1]}" ]] && bindkey -- "${terminfo[kcuf1]}" forward-char
 [[ -n "${terminfo[kpp]}"   ]] && bindkey -- "${terminfo[kpp]}"   beginning-of-buffer-or-history
@@ -136,8 +132,8 @@ zmodload -i zsh/terminfo
 [[ -n "${terminfo[kLFT9]}" ]] && bindkey -- "${terminfo[kLFT9]}" backward-word # meta-left
 [[ -n "${terminfo[kRIT9]}" ]] && bindkey -- "${terminfo[kRIT9]}" forward-word # meta-right
 
-# bindkey "^R" history-incremental-pattern-search-backward
-# bindkey "^S" history-incremental-pattern-search-forward
+bindkey "^R" history-incremental-pattern-search-backward
+bindkey "^S" history-incremental-pattern-search-forward
 
 
 ########################################################################
