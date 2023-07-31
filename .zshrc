@@ -142,7 +142,7 @@ bindkey "^S" history-incremental-pattern-search-forward
 
 autoload -Uz promptinit && promptinit
 
-prompt redhat
+prompt restore
 
 
 ########################################################################
