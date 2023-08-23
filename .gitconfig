@@ -97,6 +97,7 @@
 	defaultBranch = main
 [rebase]
 	autoStash = true
+	autosquash = true
 [pull]
 	rebase = true
 	recurseSubmodules = on-demand
