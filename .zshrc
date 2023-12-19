@@ -48,7 +48,7 @@ if [[ -d "${HOMEBREW_PREFIX}/share/zsh-completions" ]]; then
   FPATH="${HOMEBREW_PREFIX}/share/zsh-completions:${FPATH}"
 fi
 
-if [[ -d "${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}" ]]; then
+if [[ -d "${HOMEBREW_PREFIX}/share/zsh/site-functions" ]]; then
   FPATH="${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}"
 fi
 
@@ -134,6 +134,19 @@ zmodload -i zsh/terminfo
 
 bindkey "^R" history-incremental-pattern-search-backward
 bindkey "^S" history-incremental-pattern-search-forward
+
+
+########################################################################
+# syntax highlighting
+########################################################################
+
+if [[ -r "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+
+if [[ -d "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/highlighters" ]]; then
+  export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/highlighters"
+fi
 
 
 ########################################################################
