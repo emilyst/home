@@ -88,7 +88,13 @@ set numberwidth=5
 " 5 syntax, highlighting and spelling ===================================== {{{
 
 set background=dark
-colorscheme nord
+
+if exists('$BASE16_THEME')  && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+  let base16colorspace=256
+  colorscheme base16-$BASE16_THEME
+else
+  colorscheme nord
+endif
 
 syntax enable
 syntax sync minlines=256
@@ -128,6 +134,7 @@ set colorcolumn=
 highlight Keyword        term=bold        cterm=bold        gui=bold
 highlight Conditional    term=bold        cterm=bold        gui=bold
 highlight Define         term=bold        cterm=bold        gui=bold
+highlight CursorLineNr   term=bold        cterm=bold        gui=bold
 
 " highlight htmlItalic     term=italic      cterm=italic      gui=italic
 highlight htmlBold       term=bold        cterm=bold        gui=bold

@@ -1,6 +1,6 @@
-let g:airline_theme                            = 'nord'
+let g:airline_theme                            = 'base16_onedark'
 let g:airline_highlighting_cache               = 1
-let g:airline_powerline_fonts                  = 1
+let g:airline_powerline_fonts                  = 0
 
 if !exists('g:airline_symbols')
   let g:airline_symbols                        = {}
