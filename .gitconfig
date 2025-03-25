@@ -10,6 +10,7 @@
 	trustctime = false
 	pager = delta
 	commitGraph = true
+	autocrlf = input
 [interactive]
 	diffFilter = delta --color-only
 [delta]
@@ -104,6 +105,7 @@
 	prune = true
 	pruneTags = true
 	output = full
+	all = true
 [mergetool]
 	prompt = false
 [color]
@@ -138,3 +140,5 @@
 # to be last) (requires >= v2.13)
 [includeIf "gitdir:~/.home.git"]
 	path = .gitconfig.home
+[column]
+	ui = auto
