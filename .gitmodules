@@ -117,3 +117,6 @@
 [submodule ".vim/pack/default/linux-coding-style"]
 	path = .vim/pack/default/linux-coding-style
 	url = https://github.com/vivien/vim-linux-coding-style.git
+[submodule ".vim/pack/default/catpuccin"]
+	path = .vim/pack/default/catpuccin
+	url = https://github.com/catppuccin/vim.git

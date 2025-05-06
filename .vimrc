@@ -89,12 +89,14 @@ set numberwidth=5
 
 set background=dark
 
-if exists('$BASE16_THEME')  && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
-  let base16colorspace=256
-  colorscheme base16-$BASE16_THEME
-else
-  colorscheme nord
-endif
+" if exists('$BASE16_THEME')  && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+"   let base16colorspace=256
+"   colorscheme base16-$BASE16_THEME
+" else
+"   colorscheme nord
+" endif
+
+colorscheme catppuccin_macchiato 
 
 syntax enable
 syntax sync minlines=256
