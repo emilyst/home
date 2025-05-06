@@ -66,4 +66,6 @@ noglob function calc() { /usr/bin/bc -l <<< "scale=4; $*;" } # quick bc frontend
 # see https://www.iterm2.com/documentation-escape-codes.html
 function set_status_label() { echo -n "\033]1337;SetKeyLabel=status=$@\a" }
 
+function hgrep() { fc -Dlim "*$@*" 1 }
+
 # vim: ft=zsh
