@@ -1,0 +1,7 @@
+font-family = SF Mono
+font-size = 11
+font-thicken = true
+window-height = 30
+window-padding-balance = true
+window-width = 100
+theme = catppuccin-macchiato.conf
