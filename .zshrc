@@ -140,12 +140,12 @@ bindkey "^S" history-incremental-pattern-search-forward
 # Base16 shell
 ########################################################################
 
-BASE16_SHELL="$HOME/.local/libexec/base16-shell/"
-if [[ -r "$BASE16_SHELL/profile_helper.sh" ]]; then
-  source "$BASE16_SHELL/profile_helper.sh"
-fi
+# BASE16_SHELL="$HOME/.local/libexec/base16-shell/"
+# if [[ -r "$BASE16_SHELL/profile_helper.sh" ]]; then
+#   source "$BASE16_SHELL/profile_helper.sh"
+# fi
 
-type base16_nord &> /dev/null && base16_nord
+# type base16_nord &> /dev/null && base16_nord
 
 
 ########################################################################
