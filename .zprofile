@@ -7,6 +7,23 @@
 
 
 ########################################################################
+# Rust
+########################################################################
+
+if [[ -d "/opt/homebrew/opt/rustup/bin" ]]; then
+  export PATH="/opt/homebrew/opt/rustup/bin:${PATH}"
+fi
+
+if [[ -d "${HOME}/.cargo/bin" ]]; then
+  export PATH="${HOME}/.cargo/bin:${PATH}"
+fi
+
+if [[ -r "$HOME/.cargo/env" ]]; then
+  source "$HOME/.cargo/env"
+fi
+
+
+########################################################################
 # Homebrew
 ########################################################################
 
@@ -16,7 +33,9 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_ANALYTICS=1
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ -d "/opt/homebrew/" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 
 ########################################################################
@@ -26,6 +45,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 if [[ -d "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" ]]; then
   export PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
 fi
+
 
 ########################################################################
 # PostgreSQL
@@ -70,15 +90,6 @@ export DISABLE_SPRING="true"
 export WEB_CONCURRENCY=0
 
 type rbenv &> /dev/null && eval "$(rbenv init - zsh)"
-
-
-########################################################################
-# Rust
-########################################################################
-
-if [[ -d "${HOME}/.cargo/bin" ]]; then
-  export PATH="${HOME}/.cargo/bin:${PATH}"
-fi
 
 
 ########################################################################
