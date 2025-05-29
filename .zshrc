@@ -44,12 +44,16 @@ export SAVEHIST=$HISTSIZE
 # completions
 ########################################################################
 
+if [[ -d "${HOME}/.local/share/zsh/site-functions" ]]; then
+  fpath+=( "${HOME}/.local/share/zsh/site-functions" )
+fi
+
 if [[ -d "${HOMEBREW_PREFIX}/share/zsh-completions" ]]; then
-  FPATH="${HOMEBREW_PREFIX}/share/zsh-completions:${FPATH}"
+  fpath+=( "${HOMEBREW_PREFIX}/share/zsh-completions" )
 fi
 
 if [[ -d "${HOMEBREW_PREFIX}/share/zsh/site-functions" ]]; then
-  FPATH="${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}"
+  fpath+=( "${HOMEBREW_PREFIX}/share/zsh/site-functions" )
 fi
 
 if [[ -n "${ZSH_VERSION-}" ]]; then
@@ -58,6 +62,7 @@ if [[ -n "${ZSH_VERSION-}" ]]; then
   else
     compinit
   fi
+
   autoload -U +X bashcompinit && bashcompinit
 fi
 
