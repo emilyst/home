@@ -1,7 +1,33 @@
-font-family = SF Mono
-font-size = 11
+bold-is-bright = true
+
+font-family = Berkeley Mono Variable
+font-size = 12
 font-thicken = true
+
+font-style = Light
+font-style-bold = ExtraBold
+font-style-italic = Light Italic
+font-style-bold-italic = ExtraBold Italic
+
+font-variation = slnt=0
+font-variation = wdth=100
+font-variation = wght=300
+
+font-variation-bold = slnt=0
+font-variation-bold = wdth=100
+font-variation-bold = wght=800
+
+font-variation-bold-italic = slnt=-5
+font-variation-bold-italic = wdth=100
+font-variation-bold-italic = wght=800
+
+font-variation-italic = slnt=-5
+font-variation-italic = wdth=100
+font-variation-italic = wght=300
+
+theme = ChallengerDeep
+theme = catppuccin-macchiato.conf
+
 window-height = 30
 window-padding-balance = true
 window-width = 100
-theme = catppuccin-macchiato.conf
