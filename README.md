@@ -1,3 +1,10 @@
+> [!WARNING]
+> **I no longer use this repository**.
+>
+> My work environments have become divergent enough that I no longer
+> get as much value from these configuration files as I once did, and
+> it's no longer worth the effort to reconcile all these environments.
+
 Home
 ====
 
